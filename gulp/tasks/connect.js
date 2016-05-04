@@ -3,7 +3,7 @@ var connectLiveReload = require('connect-livereload');
 var serveStatic = require('serve-static');
 var server = require('../../server/server')();
 
-gulp.task('connect', ['styles', 'fonts'], function() {
+gulp.task('connect', [ 'fonts'], function() {
     server.set('views', './app');
 
     server.use(connectLiveReload())

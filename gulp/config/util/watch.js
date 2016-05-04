@@ -7,11 +7,10 @@ gulp.task('watch', ['connect'], function () {
   // watch for changes
   gulp.watch([
     'app/**/*.html',
+    'app/**/*.tag',
     '.tmp/styles/**/*.css',
     'app/js/**/*.js',
     'app/images/**/*'
   ]).on('change', $.livereload.changed);
 
-  gulp.watch('app/styles/**/*.scss', ['styles']);
-  gulp.watch('bower.json', ['wiredep']);
 });
