@@ -4,13 +4,7 @@
 	</div>
 	<div if={ postsVisible }>
 		<div each={ post in posts }>
-		<a href="/post/{ post.id }">
-			<div class="card card-block">
-				<!-- <h4 class="card-title">{getAuthorName(post)}</h4> -->
-				<p class="card-text">{post.get('content')}</p>
-			</div>
-			
-		</a>
+			<postitem post={post}></postitem>
 		</div>
 	</div>
 	
@@ -33,6 +27,14 @@
                 self.update()
             })
 
+        getAnswerForPost(post){
+        	API.getanswersforpost(post).then(function(answers){
+        		post.postAnswer = answers[0].content
+        		self.update()
+
+        	})
+        }
+
 		getAuthorName(post) {
 			if (post.get('anonymous'))
 				return 'anonymous'
@@ -42,18 +44,25 @@
 	</script>
 
 	<style scoped>
+	:scope{
+		    font-family: Source Sans Pro,sans-serif;
+    font-weight: 300;
+    font-size: 24px;
+    line-height: 1.2;
+	}
 		a {
 			display: block;
-			background: #f7f7f7;
 			text-decoration: none;
 			width: 100%;
 			height: 100%;
 			/*line-height: 150px;*/
 			color: inherit;
+
 		}
 		a:hover {
 			background: #eee;
 			color: #000;
+			text-decoration: none;
 		}
 
 		ul {
@@ -64,6 +73,7 @@
 			display: block;
 			margin: 5px;
 		}
+
 
 		@media (min-width: 480px) {
 			:scope {

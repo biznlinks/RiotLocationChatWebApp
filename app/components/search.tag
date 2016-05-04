@@ -127,6 +127,10 @@ function sort(a,b){
 </script>
 
 <style scoped>
+	#searchField{
+		text-align: center;
+		height: 60px;
+	}
     .awesomplete {
       width: 100%
     }

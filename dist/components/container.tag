@@ -3,12 +3,8 @@
      <!-- Page Content -->
     <div class="container">
     <!-- <h1>{ title }</h1> -->
-    
-        <div class="row">
-            <div class="col-lg-6 col-md-offset-3  text-center">
-                <search></search>
-            </div>
-        </div>
+
+        
     
 
         <div class="row">
@@ -89,6 +85,21 @@
 
          // Current user (logged in or anonymous)
         API = {
+          getanswersforpost: function(post, fn){
+            loader.trigger('start');
+            var promise = new Parse.Promise();
+
+            var query = new Parse.Query("Answer");
+            query.equalTo("post", post);
+            query.include('author');
+            query.find().then(function(answers) {
+              loader.trigger('done');
+              promise.resolve(answers);
+            }, function(err) {
+              console.error("failed to query answers: " + JSON.stringify(err));
+            });
+            return promise;
+          },
           getallposts: function(fn){
                 loader.trigger('start');
                 var promise = new Parse.Promise();
@@ -100,7 +111,8 @@
                     loader.trigger('done');
                     promise.resolve(results);
                 },
-                function() {
+                function(err) {
+                  console.error("failed to query answers: " + JSON.stringify(err));
                 });
                 return promise;
             },

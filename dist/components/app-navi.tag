@@ -7,7 +7,7 @@
     &#9776;
   </button> -->
   <div class="navbar-toggleable-xs" id="exCollapsingNavbar2">
-      <a class="navbar-brand" href="/"> <img id="logo" alt="Logo" src="/images/app_icon.png" > CHI'16 </a>
+      <a class="navbar-brand" href="/"> <img id="logo" alt="Logo" src="/images/app_icon.png" > SOPHUS </a>
 
       <ul class="nav navbar-nav pull-xs-right">
         <li class={ nav-item: true, active: parent.selectedId === url } each= {links}>
