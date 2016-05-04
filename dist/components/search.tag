@@ -1,4 +1,10 @@
-<search> <div id=ajax-example> <div> <input id=searchField type=text class="search-query form-control" placeholder="Ask CHI'16"> </div> <script>
+<search>
+	<div id="ajax-example">
+		<div class="">
+			<input id="searchField" type="text" class="search-query form-control" placeholder="Ask CHI'16" />
+		</div>
+
+		<script>
 
 			String.prototype.hashCode = function() {
 				var hash = 0, i, chr, len;
@@ -118,7 +124,9 @@ function sort(a,b){
   riot.route(to)
 }, false);
 
-</script> <style scoped>
+</script>
+
+<style scoped>
     .awesomplete {
       width: 100%
     }
@@ -133,4 +141,6 @@ function sort(a,b){
         margin-bottom: 0;
       }
     }
-  </style> </div></search> 
+  </style>
+</search>
+

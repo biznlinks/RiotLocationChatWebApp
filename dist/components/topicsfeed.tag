@@ -1,4 +1,9 @@
- <topicsfeed> <posts name=topicsFeedPosts></posts> <script>
+
+<topicsfeed>
+	<posts name="topicsFeedPosts"></posts>
+
+
+	<script>
 		var self = this
 		topicsfeedtag = this
 		self.postsTag = this.tags.topicsFeedPosts
@@ -16,6 +21,9 @@
 			}
 		})
 
-	</script> <style scoped>
+	</script>
 
-	</style> </topicsfeed>
+	<style scoped>
+
+	</style>
+</topicsfeed>

@@ -1,4 +1,36 @@
-<app-navi> <div class=container> <div class=row> <div class="col-lg-6 col-md-offset-3 text-center"> <nav class="navbar navbar-light bg-faded navbar-fixed-top">  <div class=navbar-toggleable-xs id=exCollapsingNavbar2> <a class=navbar-brand href="/"> <img id=logo alt=Logo src=/images/app_icon.png>CHI'16</a> <ul class="nav navbar-nav pull-xs-right"> <li class={ nav-item: true, active: parent.selectedid="==" url } each={links}> <a class=nav-link href="/{ url }">{name}</a> </li> </ul>  </div> </nav>  </div> </div> <script>
+<app-navi>
+<div class="container">
+ <div class="row">
+            <div class="col-lg-6 col-md-offset-3  text-center">
+                <nav class="navbar navbar-light bg-faded navbar-fixed-top">
+  <!-- <button class="navbar-toggler pull-xs-right hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
+    &#9776;
+  </button> -->
+  <div class="navbar-toggleable-xs" id="exCollapsingNavbar2">
+      <a class="navbar-brand" href="/"> <img id="logo" alt="Logo" src="/images/app_icon.png" >CHI'16</a>
+
+      <ul class="nav navbar-nav pull-xs-right">
+        <li class={ nav-item: true, active: parent.selectedId === url } each= {links}>
+          <a class="nav-link" href="/{ url }" >{name}</a>
+      </li>
+    </ul>
+
+    
+
+    <!-- <form class="form-inline pull-xs-right">
+      <input class="form-control" type="text" placeholder="Search">
+      <button class="btn btn-success-outline" type="submit">Search</button>
+    </form> -->
+  </div>
+</nav> <!-- /navbar -->
+            </div>
+</div>
+
+
+
+
+
+<script>
   var self = this
 
   this.links = [
@@ -15,7 +47,9 @@
       self.selectedId = id
       self.update()
     }
-  </script> <style scoped>
+  </script>
+
+ <style scoped>
     :scope {
       display: block;
       font-family: sans-serif;
@@ -39,4 +73,6 @@
         margin-bottom: 0;
       }
     }
-  </style> </div></app-navi>
+  </style>
+
+</app-navi>

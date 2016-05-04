@@ -1,4 +1,21 @@
-<posts> <div if="{this.posts.length==0" || !postsvisible}> <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading... </div> <div if={ postsvisible }> <div each={ post in posts }> <a href="/post/{ post.id }"> <div class="card card-block">  <p class=card-text>{post.get('content')}</p> </div> </a> </div> </div> <script>
+<posts>
+	<div if={this.posts.length==0 || !postsVisible}>
+		<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...
+	</div>
+	<div if={ postsVisible }>
+		<div each={ post in posts }>
+		<a href="/post/{ post.id }">
+			<div class="card card-block">
+				<!-- <h4 class="card-title">{getAuthorName(post)}</h4> -->
+				<p class="card-text">{post.get('content')}</p>
+			</div>
+			
+		</a>
+		</div>
+	</div>
+	
+
+	<script>
 		var self = this
 		postsTag = this
 		this.posts = opts.posts
@@ -22,7 +39,9 @@
 			else 
 				return post.get('author').get('firstName') + ' ' + post.get('author').get('lastName')
 		}
-	</script> <style scoped>
+	</script>
+
+	<style scoped>
 		a {
 			display: block;
 			background: #f7f7f7;
@@ -52,4 +71,5 @@
 				margin-bottom: 0;
 			}
 		}
-	</style> </posts>
+	</style>
+</posts>

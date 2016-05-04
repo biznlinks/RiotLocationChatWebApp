@@ -1,4 +1,30 @@
-<container> <app-navi></app-navi>  <div class=container>  <div class=row> <div class="col-lg-6 col-md-offset-3 text-center"> <search></search> </div> </div> <div class=row> <div class="col-lg-6 col-md-offset-3 text-center"> <feed if={ route='="posts"' }></feed> <topics if={ route='="topics"' }></topics> <postdetail if={ route='="postDetail"' }></postdetail> <topicsfeed if={ route='="topicsfeed"' }></topicsfeed> </div> </div>  </div>  <script>
+<container>
+    <app-navi></app-navi>
+     <!-- Page Content -->
+    <div class="container">
+    <!-- <h1>{ title }</h1> -->
+    
+        <div class="row">
+            <div class="col-lg-6 col-md-offset-3  text-center">
+                <search></search>
+            </div>
+        </div>
+    
+
+        <div class="row">
+            <div class="col-lg-6 col-md-offset-3  text-center">
+                <feed if={ route=="posts" }></feed>
+                <topics if={ route=="topics" }></topics>
+                <postDetail if={ route=="postDetail" }></postDetail>
+                <topicsfeed if={ route=="topicsfeed" }></topicsfeed>
+            </div>
+        </div>
+        
+        <!-- /.row -->
+    </div>
+    <!-- /.container -->
+
+  <script>
     var self = this
     containerTag = this
     self.title = 'Now loading...'
@@ -89,7 +115,9 @@
             }
 
         };
-  </script> <style scoped>
+  </script>
+
+  <style scoped>
     :scope {
       display: block;
       font-family: sans-serif;
@@ -109,4 +137,7 @@
         margin-bottom: 0;
       }
     }
-  </style> </container> 
+  </style>
+
+</container>
+

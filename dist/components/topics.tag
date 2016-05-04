@@ -1,4 +1,15 @@
-<topics> <ul class="list-group list-group-flush"> <div class=card each={topics}> <a href="/topics/{ topic }"> <li class=list-group-item><span>{topic}</span> <span class=score>{count}</span></li> </a> </div> </ul> <script>
+<topics>
+	<ul class="list-group list-group-flush">
+	<div class="card" each={topics}>
+	<a  href="/topics/{ topic }">
+		<li class="list-group-item"><span class="">{topic}</span> <span class="score">{count}</span></li>
+	</a>
+	</div>
+	</ul>
+		    
+	
+
+	<script>
 		var self = this
 		topicstag = this
 		this.topics = []
@@ -14,7 +25,9 @@
 			})
 		}
 
-	</script> <style scoped>
+	</script>
+
+	<style scoped>
 		.score {
 			float: right;
 		}
@@ -50,4 +63,5 @@
 				margin-bottom: 0;
 			}
 		}
-	</style> </topics>
+	</style>
+</topics>

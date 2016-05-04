@@ -1,4 +1,7 @@
- <feed> <posts name=homeFeedPosts></posts> <script>
+
+<feed>
+	<posts name="homeFeedPosts"></posts>
+	<script>
 	var self = this
 	self.postsTag = this.tags.homeFeedPosts
 
@@ -10,4 +13,5 @@
 
 		
 
-	</script> </feed>
+	</script>
+</feed>

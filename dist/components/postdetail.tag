@@ -1,4 +1,10 @@
-<postdetail> <div class=well> {post.get('content')} </div> <script>
+<postDetail>
+
+<div class="well">
+{post.get('content')}
+</div>
+
+<script>
 var self = this
 postDetailTag = this
 
@@ -19,6 +25,9 @@ getPostContent() {
  
 }
 
-</script> <style scoped>
+</script>
 
-</style> </postdetail>
+<style scoped>
+
+</style>
+</postDetail>
