@@ -12,6 +12,9 @@ module.exports = function(server) {
     server.get('/topics', function(req, res) {
         res.render('index.html');
     });
+    server.get('/topics/*', function(req, res) {
+        res.render('index.html');
+    });
     server.get('/login', function(req, res) {
         res.render('index.html');
     });

@@ -1,92 +1,77 @@
 <app-navi>
+<div class="container">
+ <div class="row">
+            <div class="col-lg-6 col-md-offset-3  text-center">
+                <nav class="navbar navbar-light bg-faded navbar-fixed-top">
+  <!-- <button class="navbar-toggler pull-xs-right hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
+    &#9776;
+  </button> -->
+  <div class="navbar-toggleable-xs" id="exCollapsingNavbar2">
+      <a class="navbar-brand" href="/"> <img id="logo" alt="Logo" src="/images/app_icon.png" >CHI'16</a>
 
-  
-   <!-- Navigation -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="/">Sophus</a>
-                </div>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                    <li each= { links }>
-                       <a  href="/{ url }" class={ selected: parent.selectedId === url }>
-                        { name }
-                      </a>
-                    </li>
-                    </ul>
-                </div>
-                <!-- /.navbar-collapse -->
+      <ul class="nav navbar-nav pull-xs-right">
+        <li class={ nav-item: true, active: parent.selectedId === url } each= {links}>
+          <a class="nav-link" href="/{ url }" >{name}</a>
+      </li>
+    </ul>
+
+    
+
+    <!-- <form class="form-inline pull-xs-right">
+      <input class="form-control" type="text" placeholder="Search">
+      <button class="btn btn-success-outline" type="submit">Search</button>
+    </form> -->
+  </div>
+</nav> <!-- /navbar -->
             </div>
-            <!-- /.container -->
-        </nav>
+</div>
 
-  
-  
-  <script>
-    var self = this
 
-    this.links = [
-      { name: "Posts", url: "post" },
-      { name: "Topics", url: "topics" },
-      { name: "SignUp", url: "login" }
-    ]
 
-    var r = riot.route.create()
+
+
+<script>
+  var self = this
+
+  this.links = [
+  { name: "Posts", url: "post" },
+  { name: "Topics", url: "topics" },
+  { name: "SignUp", url: "login" }
+  ]
+
+  var r = riot.route.create()
     r(highlightCurrent)
 
-    var plunkrRandomUrl = location.pathname.replace(new RegExp('/', 'g'), '')
 
     function highlightCurrent(id) {
-      // Plunker confuses routing initially
-      if ( plunkrRandomUrl == id ) { id = '' }
-      
       self.selectedId = id
       self.update()
     }
   </script>
 
-  <style scoped>
+ <style scoped>
     :scope {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 50px;
-      box-sizing: border-box;
-      font-family: sans-serif;
-      text-align: center;
-      color: #666;
-      background: #333;
-      width: 0px;
-      transition: height .2s;
-    }
-    :scope:hover {
-      height: 60px;
-    }
-    a {
       display: block;
-      box-sizing: border-box;
-      /*width: 100%;*/
-      height: 50px;
-      line-height: 50px;
-      padding: 0 .8em;
-      color: white;
-      text-decoration: none;
-      background: #444;
+      font-family: sans-serif;
+      /*margin-right: 0;*/
+      margin-bottom: 30px;
+      /*margin-left: 50px;*/
+      /*padding: 1em;*/
+      /*text-align: center;*/
+      color: #666;
+
     }
-    a:hover {
-      background: #666;
+
+    #logo {
+      height: 50px
     }
-    a.selected {
-      background: teal;
+    
+   
+    @media (min-width: 480px) {
+      :scope {
+        /*margin-right: 200px;*/
+        margin-bottom: 0;
+      }
     }
   </style>
 

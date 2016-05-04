@@ -1,29 +1,22 @@
 <container>
+    <app-navi></app-navi>
      <!-- Page Content -->
     <div class="container">
-    <h1>{ title }</h1>
-    <p>{ body }</p>
-    <p>{ route }</p>
+    <!-- <h1>{ title }</h1> -->
+    
+        <div class="row">
+            <div class="col-lg-6 col-md-offset-3  text-center">
+                <search></search>
+            </div>
+        </div>
     
 
-
-    <div if={this.posts.length==0}>
-          <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...
-    </div>
-
         <div class="row">
-            <div class="col-lg-12 text-center">
-                <posts if={ route=="posts" }></posts>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 text-center">
+            <div class="col-lg-6 col-md-offset-3  text-center">
+                <feed if={ route=="posts" }></feed>
                 <topics if={ route=="topics" }></topics>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 text-center">
                 <postDetail if={ route=="postDetail" }></postDetail>
+                <topicsfeed if={ route=="topicsfeed" }></topicsfeed>
             </div>
         </div>
         
@@ -31,77 +24,116 @@
     </div>
     <!-- /.container -->
 
-
-
-
-
   <script>
     var self = this
+    containerTag = this
     self.title = 'Now loading...'
     self.body = ''
     
-
-
     self.route = "home"
 
-    state = {
-      selected: null
-    }
-
+    
     var r = riot.route.create()
     r('#',       home       )
     r('post',   post      )
     r('post/*', postDetail)
     r('topics',  topics     )
+    r('topics/*', topicsfeed)
     r(           home       ) // `notfound` would be nicer!
 
     function home() {
       self.update({
         title:  "Welcome to Sophus!",
         body:  "This is the feed!",
-        route: "posts"
+        route: "posts",
+        selectedId: null,
       })
     }
     function post() {
       self.update({
-        title: "These are the posts",
+        title: "Recent Posts",
         body: "Lists of posts",
-        route: "posts"
+        route: "posts",
+        selectedId: null,
       })
     }
     function postDetail(id) {
-      state.selected = id
       self.update({
-        title: selected.content,
-        body: selected.title,
+        title: "",
+        body: "",
+        selectedId: id,
         route: "postDetail"
       })
     }
     function topics() {
+      
       self.update({
-        title: "Second feature of your app",
-        body: "It could be a config page for example.",
+        title: "Trending Topics",
+        body: "",
+        selectedId: null,
         route: "topics"
       })
     }
+    function topicsfeed(id) {
+      
+      self.update({
+        title: "",
+        body: "",
+        selectedId: null,
+        selectedTopicId: id,
+        route: "topicsfeed"
+      })
+    }
+
+            loader = riot.observable();
+
+         // Current user (logged in or anonymous)
+        API = {
+          getallposts: function(fn){
+                loader.trigger('start');
+                var promise = new Parse.Promise();
+                var query = new Parse.Query(Post);
+                query.descending('createdAt');
+                query.include('author');
+                query.limit(20);
+                query.find().then(function(results) {
+                    loader.trigger('done');
+                    promise.resolve(results);
+                },
+                function() {
+                });
+                return promise;
+            },
+            constructQuestionsForTopics: function(topic, fn){
+              loader.trigger('start')
+              var promise = new Parse.Promise()
+              Parse.Cloud.run("constructQuestionsForTopics", {postContent: topic}).then(function(results){
+                loader.trigger('done');
+                promise.resolve(results);
+              })
+              return promise
+            }
+
+        };
   </script>
 
   <style scoped>
     :scope {
       display: block;
       font-family: sans-serif;
-      margin-right: 0;
+      /*margin-right: 0;*/
       margin-bottom: 130px;
-      margin-left: 50px;
+      /*margin-left: 50px;*/
       padding: 1em;
-      text-align: center;
+      /*text-align: center;*/
       color: #666;
+
     }
     
    
     @media (min-width: 480px) {
       :scope {
-        margin-right: 200px;
+        /*margin-right: 200px;*/
         margin-bottom: 0;
       }
     }

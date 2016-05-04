@@ -1,66 +1,75 @@
 <posts>
-
-	<div each={posts} class="well">
-		<a href="/post/{ id }">
-			{content}
-		</a>
+	<div if={this.posts.length==0 || !postsVisible}>
+		<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...
 	</div>
+	<div if={ postsVisible }>
+		<div each={ post in posts }>
+		<a href="/post/{ post.id }">
+			<div class="card card-block">
+				<!-- <h4 class="card-title">{getAuthorName(post)}</h4> -->
+				<p class="card-text">{post.get('content')}</p>
+			</div>
+			
+		</a>
+		</div>
+	</div>
+	
 
 	<script>
 		var self = this
-		this.posts = []
+		postsTag = this
+		this.posts = opts.posts
+		this.postsVisible = true
 
-		this.on('mount', function() {
-			this.getposts()
-		})
+		loader.on('start', function() {
+                console.log('starting to load')
+                self.postsVisible = false
+                self.update()
 
-		getposts() {
-			var promise = new Parse.Promise();
-			var query = new Parse.Query(Post);
-			query.descending('createdAt');
-			query.limit(20);
-			query.find().then(function(results) {
-				self.posts=  _.map(results, function(res){
-					res.content = res.get('content')
-					return res
-				} )
-				self.update()
-			},
-			function() {
-			});
+            })
+              loader.on('done', function() {
+                console.log('done loading posts')
+                self.postsVisible = true
+                self.update()
+            })
+
+		getAuthorName(post) {
+			if (post.get('anonymous'))
+				return 'anonymous'
+			else 
+				return post.get('author').get('firstName') + ' ' + post.get('author').get('lastName')
 		}
-
 	</script>
 
 	<style scoped>
-    a {
-      display: block;
-      background: #f7f7f7;
-      text-decoration: none;
-      width: 100%;
-      height: 100%;
-      /*line-height: 150px;*/
-      color: inherit;
-    }
-    a:hover {
-      background: #eee;
-      color: #000;
-    }
+		a {
+			display: block;
+			background: #f7f7f7;
+			text-decoration: none;
+			width: 100%;
+			height: 100%;
+			/*line-height: 150px;*/
+			color: inherit;
+		}
+		a:hover {
+			background: #eee;
+			color: #000;
+		}
 
-    ul {
-      padding: 10px;
-      list-style: none;
-    }
-    li {
-      display: block;
-      margin: 5px;
-    }
-   
-    @media (min-width: 480px) {
-      :scope {
-        margin-right: 200px;
-        margin-bottom: 0;
-      }
-    }
-  </style>
+		ul {
+			padding: 10px;
+			list-style: none;
+		}
+		li {
+			display: block;
+			margin: 5px;
+		}
+
+		@media (min-width: 480px) {
+			:scope {
+				/*margin-right: 200px;*/
+				margin-bottom: 0;
+			}
+		}
+	</style>
 </posts>
