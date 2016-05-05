@@ -12,7 +12,7 @@
 	self.postsTag = this.tags.homeFeedPosts
 
 		this.on('mount', function() {
-			API.getallposts().then(function(results){
+			API.constructFeed().then(function(results){
 				self.postsTag.update({posts:results})
 			})
 		})

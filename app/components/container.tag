@@ -28,6 +28,11 @@
     
     self.route = "home"
 
+    this.on("mount", function(){
+      $.getJSON("/data/papers_with_youtube_id.json", function(json) {
+        allTopics = json
+      });
+    })
     
     var r = riot.route.create()
     r('#',       home       )
@@ -83,8 +88,19 @@
 
             loader = riot.observable();
 
+
+    
          // Current user (logged in or anonymous)
         API = {
+
+          getObjectForTopic: function(topicTitle){
+            return _.filter(allTopics, function(topic){
+              if (topic.title === topicTitle){
+                return topic
+              }
+            })
+          },
+
           getanswersforpost: function(post, fn){
             loader.trigger('start');
             var promise = new Parse.Promise();
@@ -100,7 +116,18 @@
             });
             return promise;
           },
-          getallposts: function(fn){
+          constructFeed: function(fn){
+                loader.trigger('start')
+              var promise = new Parse.Promise()
+              Parse.Cloud.run("constructFeed").then(function(results){
+                loader.trigger('done');
+                promise.resolve(results);
+              }, function(err) {
+                  console.error("failed to query posts: " + JSON.stringify(err));
+                })
+              return promise
+            },
+            getallposts: function(fn){
                 loader.trigger('start');
                 var promise = new Parse.Promise();
                 var query = new Parse.Query(Post);
@@ -116,13 +143,16 @@
                 });
                 return promise;
             },
+            
             constructQuestionsForTopics: function(topic, fn){
               loader.trigger('start')
               var promise = new Parse.Promise()
               Parse.Cloud.run("constructQuestionsForTopics", {postContent: topic}).then(function(results){
                 loader.trigger('done');
                 promise.resolve(results);
-              })
+              }, function(err) {
+                  console.error("failed to query posts: " + JSON.stringify(err));
+                })
               return promise
             }
 

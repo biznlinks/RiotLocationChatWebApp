@@ -18,5 +18,6 @@ module.exports = function(server) {
     server.get('/login', function(req, res) {
         res.render('index.html');
     });
+    
 
 };

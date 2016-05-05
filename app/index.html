@@ -37,9 +37,10 @@
        
     
         <container></container>
-
+        
         <!-- jQuery Version 1.11.1 -->
         <script src="/js/jquery.js"></script>
+
 
         <!-- Bootstrap Core JavaScript -->
         <script src="/js/bootstrap.min.js"></script>
@@ -68,6 +69,8 @@
         
 
         <script>
+       
+
          // init
          Parse.initialize("NV3PXWz0D6qx90BI1aiWKY1gR8IJ2aBS07jeN566", "QHfiiv5CQkTVNH9Bpj3iMntZJ2ze3L8veDlj912R");
          var Post = Parse.Object.extend('Post');
@@ -80,6 +83,7 @@
 
          // Current user (logged in or anonymous)
         function User(app, data, backend) {
+            var riot = require('riot')
 
           var self = riot.observable(this);
 
