@@ -8,7 +8,7 @@
     
 
     <div class="row">
-      <div class="col-md-10 col-md-offset-1  text-center">
+      <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2  text-center">
         <feed if={ route=="posts" }></feed>
         <topics if={ route=="topics" }></topics>
         <postdetail if={ route=="postdetail" }></postdetail>
@@ -101,6 +101,7 @@
     padding: 1em;
     /*text-align: center;*/
     color: #666;
+
 
   }
 

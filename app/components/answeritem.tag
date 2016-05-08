@@ -3,7 +3,7 @@
 		<div class="col-xs-1">
 			<img src = "{this.getProfilePic()}" class = "profile img-circle"></img>
 		</div>
-		<div class="col-xs-11" >
+		<div class="col-xs-9 content" >
 			<span class="author">{answer.get('author').get('firstName')} {answer.get('author').get('lastName')}</span> 
 			<span>
 				{answer.get('answer')}
@@ -55,6 +55,9 @@
 			width: 30px;
 			height: 30px;
 			margin-right: 10px;
+		}
+		.content {
+			margin-left: 10px;
 		}
 
 
