@@ -4,10 +4,16 @@
 			<img src = "{this.getProfilePic()}" class = "profile img-circle"></img>
 		</div>
 		<div class="col-xs-9 content" >
+		<div class="row">
 			<span class="author">{answer.get('author').get('firstName')} {answer.get('author').get('lastName')}</span> 
 			<span>
 				{answer.get('answer')}
 			</span>
+			</div>
+			<div class="row">
+				<div class='helpful text-muted'> Helpful |    <i class="fa fa-thumbs-up" aria-hidden="true"/> {answer.get('likes')}</div>
+			</div>
+			
 		</div>
 	</div>
 
@@ -46,6 +52,7 @@
 		}
 		.row{
 			margin-bottom: 10px;
+		    margin-left: 1px;
 		}
 		.author{
 			font-weight: bold;
@@ -57,6 +64,10 @@
 		}
 		.content {
 			margin-left: 10px;
+		}
+		.helpful {
+			display: inline-block;
+			font
 		}
 
 

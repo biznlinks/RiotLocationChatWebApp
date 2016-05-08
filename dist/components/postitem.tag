@@ -1,6 +1,6 @@
 <postitem>
-	<div class="card card-block">
-		<div class="">
+	<div class="card ">
+		<div class="card-block">
 
 			<div class="">
 
@@ -15,10 +15,18 @@
 
 
 			</div>
-			<div class="">
-				<div class='answercount text-muted pull-xs-right' if={post.get('answerCount') > 0} 
-					href="/post/{ post.id }" class="answerCount">{post.get('answerCount')} answer<span if={post.get('answerCount')>1}>s</span>
+			<div class="text-muted pull-xs-left">
+			
+				
+				<div class='answercount' if={post.get('answerCount') >= 0} >{post.get('answerCount')} answer<span if={post.get('answerCount')>1}>s</span>
 				</div>
+			</div>
+			
+			<div class="text-muted pull-xs-right">
+				<div class='wannaknow text-muted'> <i class="fa fa-thumbs-up" aria-hidden="true"/> 3</div>
+				
+				
+			</div>
 			</div>
 			<div class="row">
 				<div class="col-xs-12" >
@@ -34,12 +42,18 @@
 
 				</div>
 			</div>
+			
 
+<ul class="list-group list-group-flush">
+		    <li class="list-group-item"><input class="comment-input" type="text" placeholder="Answer" /></li>
+		</ul>
 
 		</div>
+		
 
 		
 	</div>
+	
 	
 
 	<script>
@@ -100,8 +114,20 @@
 			margin-right: 10px;
 		}
 
-		.answercount{
+		.wannaknow{
+			display: inline-block;
 			font-size: small;
+
+		}
+		
+
+		.answercount{
+			display: inline-block;
+			font-size: small;
+		}
+
+		.comment-input {
+			width: 100%
 		}
 
 		@media (min-width: 480px) {
