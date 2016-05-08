@@ -18,7 +18,6 @@
 
 
 		this.on('update', function() {
-			console.log(this.answer);
 			answer = this.answer
 		})
 
