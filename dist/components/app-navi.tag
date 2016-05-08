@@ -36,7 +36,7 @@
   this.links = [
   { name: "Posts", url: "post" },
   { name: "Topics", url: "topics" },
-  { name: "SignUp", url: "login" }
+  // { name: "SignUp", url: "login" }
   ]
 
   var r = riot.route.create()

@@ -8,7 +8,7 @@
     
 
     <div class="row">
-      <div class="col-lg-6 col-md-offset-3  text-center">
+      <div class="col-md-10 col-md-offset-1  text-center">
         <feed if={ route=="posts" }></feed>
         <topics if={ route=="topics" }></topics>
         <postDetail if={ route=="postDetail" }></postDetail>

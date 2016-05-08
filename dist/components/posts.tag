@@ -2,11 +2,11 @@
 	<div if={loading}>
 		<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...
 	</div>
-		<div if={this.posts.length==0 }>
-		 No one has asked yet. 
+	<div if={this.posts.length==0 }>
+		No one has asked yet. 
 	</div>
 	<div if={ !loading }>
-		<div each={ post in posts }>
+		<div class="postitem" each={ post in posts }>
 			<postitem post={post}></postitem>
 		</div>
 	</div>
@@ -20,14 +20,14 @@
 		this.loading = false
 
 
-        getAnswerForPost(post){
-        	API.getanswersforpost(post).then(function(answers){
-        		post.postAnswer = answers[0].content
-        		self.update({loading:false})
+		getAnswerForPost(post){
+			API.getanswersforpost(post).then(function(answers){
+				post.postAnswer = answers[0].content
+				self.update({loading:false})
 
-        	})
+			})
 
-        }
+		}
 
 		getAuthorName(post) {
 			if (post.get('anonymous'))
@@ -38,12 +38,15 @@
 	</script>
 
 	<style scoped>
-	:scope{
-		    font-family: Source Sans Pro,sans-serif;
-    font-weight: 300;
-    font-size: 24px;
-    line-height: 1.2;
-	}
+		:scope{
+			/*font-family: Source Sans Pro,sans-serif;*/
+			/*font-weight: 300;*/
+			/*font-size: 24px;*/
+			line-height: 1.2;
+			
+		}
+
+
 		a {
 			display: block;
 			text-decoration: none;
@@ -66,6 +69,10 @@
 		li {
 			display: block;
 			margin: 5px;
+		}
+		.postitem{
+			padding-top: 3px;
+			padding-bottom: 3px;
 		}
 
 
