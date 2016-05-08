@@ -11,7 +11,7 @@
       <div class="col-md-10 col-md-offset-1  text-center">
         <feed if={ route=="posts" }></feed>
         <topics if={ route=="topics" }></topics>
-        <postDetail if={ route=="postDetail" }></postDetail>
+        <postdetail if={ route=="postdetail" }></postdetail>
         <topicsfeed if={ route=="topicsfeed" }></topicsfeed>
       </div>
     </div>
@@ -37,7 +37,7 @@
     var r = riot.route.create()
     r('#',       home       )
     r('post',   post      )
-    r('post/*', postDetail)
+    r('post/*', postdetail)
     r('topics',  topics     )
     r('topics/*', topicsfeed)
     r(           home       ) // `notfound` would be nicer!
@@ -58,13 +58,15 @@
         selectedId: null,
       })
     }
-    function postDetail(id) {
+    function postdetail(id) {
+      self.tags.postdetail.unmount()
       self.update({
         title: "",
         body: "",
         selectedId: id,
-        route: "postDetail"
+        route: "postdetail"
       })
+      riot.mount('postdetail', {postid: id})
     }
     function topics() {
 
