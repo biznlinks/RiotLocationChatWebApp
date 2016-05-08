@@ -16,7 +16,7 @@
 
 			</div>
 			<div class="">
-				<div class='answercount pull-xs-right' if={post.get('answerCount') > 0} 
+				<div class='answercount text-muted pull-xs-right' if={post.get('answerCount') > 0} 
 					href="/post/{ post.id }" class="answerCount">{post.get('answerCount')} answer<span if={post.get('answerCount')>1}>s</span>
 				</div>
 			</div>

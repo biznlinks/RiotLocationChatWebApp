@@ -1,12 +1,12 @@
-<posts>
+<answers>
 	<div if={loading}>
 		<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...
 	</div>
-		<div if={this.posts.length==0 }>
-		 No one has asked yet. 
+		<div if={this.answers.length==0 }>
+		 No one has answered yet. 
 	</div>
 	<div if={ !loading }>
-		<div each={ post in posts }>
+		<div each={ post in answers }>
 			<postitem post={post}></postitem>
 		</div>
 	</div>
@@ -14,19 +14,11 @@
 
 	<script>
 		var self = this
-		postsTag = this
-		this.posts = opts.posts
-		this.postsVisible = true
+		answersTag = this
+		this.answers = opts.answers
+		this.answersVisible = true
 		this.loading = false
 
-
-        getAnswerForPost(post){
-        	API.getanswersforpost(post).then(function(answers){
-        		post.postAnswer = answers[0].content
-        		self.update({loading:false})
-        	})
-
-        }
 
 		getAuthorName(post) {
 			if (post.get('anonymous'))
@@ -41,7 +33,7 @@
 		    font-family: Source Sans Pro,sans-serif;
     font-weight: 300;
     font-size: 24px;
-    line-height: 1.2;
+
 	}
 		a {
 			display: block;
@@ -75,4 +67,4 @@
 			}
 		}
 	</style>
-</posts>
+</answers>

@@ -29,7 +29,7 @@
 			/*font-family: Source Sans Pro,sans-serif;*/
 			/*font-weight: 300;*/
 			/*font-size: 24px;*/
-			line-height: 1.2;
+
 			
 		}
 
