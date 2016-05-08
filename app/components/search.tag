@@ -26,7 +26,7 @@ this.on('mount', function(){
   
   (function() {
 
-    $.getJSON( "http://sophuschi.parseapp.com/get/all",
+    $.getJSON( "https://sophuschi.parseapp.com/get/all",
      function( data ) {
       initData = data;
       var list = data.map(function(i) {
