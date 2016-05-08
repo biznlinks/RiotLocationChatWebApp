@@ -1,8 +1,11 @@
 <posts>
-	<div if={this.posts.length==0 || !postsVisible}>
+	<div if={loading}>
 		<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...
 	</div>
-	<div if={ postsVisible }>
+		<div if={this.posts.length==0 }>
+		 No one has asked yet. 
+	</div>
+	<div if={ !loading }>
 		<div each={ post in posts }>
 			<postitem post={post}></postitem>
 		</div>
@@ -14,25 +17,16 @@
 		postsTag = this
 		this.posts = opts.posts
 		this.postsVisible = true
+		this.loading = false
 
-		loader.on('start', function() {
-                console.log('starting to load')
-                self.postsVisible = false
-                self.update()
-
-            })
-              loader.on('done', function() {
-                console.log('done loading posts')
-                self.postsVisible = true
-                self.update()
-            })
 
         getAnswerForPost(post){
         	API.getanswersforpost(post).then(function(answers){
         		post.postAnswer = answers[0].content
-        		self.update()
+        		self.update({loading:false})
 
         	})
+
         }
 
 		getAuthorName(post) {

@@ -1,6 +1,8 @@
 <postDetail>
 
 <div class="well">
+{post.get('author').get('firstName')}
+{post.get('author').get('lastName')}
 {post.get('content')}
 </div>
 
@@ -10,20 +12,19 @@ postDetailTag = this
 
 this.post = {}
 
-this.on('update', function() {
+this.on('mount', function() {
  this.getPostContent()
  })
 
-getPostContent() {
-  if (self.parent.selectedId){
-   var post = Post.createWithoutData(self.parent.selectedId);
-   post.fetch().then(function(post) {
-    self.update({post: post})
-    })
- }
+ getPostContent(){
+ 	console.log('getting post content');
+	API.getDetailsForPost(self.parent.selectedId).then(function(content){
+		self.post = content.post
+		self.update()
+		})
+	}
  
  
-}
 
 </script>
 

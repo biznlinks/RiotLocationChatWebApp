@@ -1,7 +1,9 @@
 <postDetail>
 
 <div class="well">
-{this.post.get('content')}
+{post.get('author').get('firstName')}
+{post.get('author').get('lastName')}
+{post.get('content')}
 </div>
 
 <script>
@@ -16,10 +18,10 @@ this.on('mount', function() {
 
  getPostContent(){
  	console.log('getting post content');
-	// API.getDetailsForPost(self.parent.selectedId).then(function(content){
-	// 	this.postAnswer = content.post
-	// 	self.update()
-	// 	})
+	API.getDetailsForPost(self.parent.selectedId).then(function(content){
+		self.post = content.post
+		self.update()
+		})
 	}
  
  
