@@ -16,7 +16,6 @@
 		self.post = opts.post
 
 		this.on('mount', function() {
-			console.log(this.post.get('answerCount'));
 			if (this.post.get('answerCount')>0)
 				API.getanswersforpost(this.post).then(function(answers){
 	        		self.post.postAnswer = answers[0].get('answer')

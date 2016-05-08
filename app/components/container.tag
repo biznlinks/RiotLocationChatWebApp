@@ -1,24 +1,24 @@
 <container>
-    <app-navi></app-navi>
-     <!-- Page Content -->
-    <div class="container">
+  <app-navi></app-navi>
+  <!-- Page Content -->
+  <div class="container">
     <!-- <h1>{ title }</h1> -->
 
-        
+
     
 
-        <div class="row">
-            <div class="col-lg-6 col-md-offset-3  text-center">
-                <feed if={ route=="posts" }></feed>
-                <topics if={ route=="topics" }></topics>
-                <postDetail if={ route=="postDetail" }></postDetail>
-                <topicsfeed if={ route=="topicsfeed" }></topicsfeed>
-            </div>
-        </div>
-        
-        <!-- /.row -->
+    <div class="row">
+      <div class="col-lg-6 col-md-offset-3  text-center">
+        <feed if={ route=="posts" }></feed>
+        <topics if={ route=="topics" }></topics>
+        <postDetail if={ route=="postDetail" }></postDetail>
+        <topicsfeed if={ route=="topicsfeed" }></topicsfeed>
+      </div>
     </div>
-    <!-- /.container -->
+
+    <!-- /.row -->
+  </div>
+  <!-- /.container -->
 
   <script>
     var self = this
@@ -67,7 +67,7 @@
       })
     }
     function topics() {
-      
+
       self.update({
         title: "Trending Topics",
         body: "",
@@ -76,7 +76,7 @@
       })
     }
     function topicsfeed(id) {
-      
+
       self.update({
         title: "",
         body: "",
@@ -86,100 +86,163 @@
       })
     }
 
-            loader = riot.observable();
+    loader = riot.observable();
 
 
-    
-         // Current user (logged in or anonymous)
-        API = {
 
-          getObjectForTopic: function(topicTitle){
-            return _.filter(allTopics, function(topic){
-              if (topic.title === topicTitle){
-                return topic
-              }
-            })
-          },
+// Show a given post based on specified id.
 
-          getanswersforpost: function(post, fn){
-            loader.trigger('start');
-            var promise = new Parse.Promise();
 
-            var query = new Parse.Query("Answer");
-            query.equalTo("post", post);
-            query.include('author');
-            query.find().then(function(answers) {
-              loader.trigger('done');
-              promise.resolve(answers);
-            }, function(err) {
-              console.error("failed to query answers: " + JSON.stringify(err));
-            });
-            return promise;
-          },
-          constructFeed: function(fn){
-                loader.trigger('start')
-              var promise = new Parse.Promise()
-              Parse.Cloud.run("constructFeed").then(function(results){
-                loader.trigger('done');
-                promise.resolve(results);
-              }, function(err) {
-                  console.error("failed to query posts: " + JSON.stringify(err));
-                })
-              return promise
-            },
-            getallposts: function(fn){
-                loader.trigger('start');
-                var promise = new Parse.Promise();
-                var query = new Parse.Query(Post);
-                query.descending('createdAt');
-                query.include('author');
-                query.limit(20);
-                query.find().then(function(results) {
-                    loader.trigger('done');
-                    promise.resolve(results);
-                },
-                function(err) {
-                  console.error("failed to query answers: " + JSON.stringify(err));
-                });
-                return promise;
-            },
-            
-            constructQuestionsForTopics: function(topic, fn){
-              loader.trigger('start')
-              var promise = new Parse.Promise()
-              Parse.Cloud.run("constructQuestionsForTopics", {postContent: topic}).then(function(results){
-                loader.trigger('done');
-                promise.resolve(results);
-              }, function(err) {
-                  console.error("failed to query posts: " + JSON.stringify(err));
-                })
-              return promise
-            }
 
-        };
-  </script>
 
-  <style scoped>
-    :scope {
-      display: block;
-      font-family: sans-serif;
-      /*margin-right: 0;*/
-      margin-bottom: 130px;
-      /*margin-left: 50px;*/
-      padding: 1em;
-      /*text-align: center;*/
-      color: #666;
 
-    }
-    
-   
-    @media (min-width: 480px) {
-      :scope {
-        /*margin-right: 200px;*/
-        margin-bottom: 0;
+// Current user (logged in or anonymous)
+API = {
+
+  getObjectForTopic: function(topicTitle){
+    return _.filter(allTopics, function(topic){
+      if (topic.title === topicTitle){
+        return topic
       }
+    })
+  },
+  getDetailsForPost: function(post_id, fn){
+
+    loader.trigger('start');
+    var promise = new Parse.Promise();
+
+    var postQuery = new Parse.Query(Post);
+    var foundPost;
+    var foundTopicImageForPost;
+
+    postQuery.include('author');
+    postQuery.get(post_id).then(function(post) {
+      if (post) {
+
+      //find image for topic if exists
+      foundPost = post;
+
+      
+      var commentQuery = new Parse.Query("Answer");
+      commentQuery.equalTo('post', post);
+      commentQuery.ascending('createdAt');
+      commentQuery.include('author');
+      return commentQuery.find();
+
+
+    } else {
+      return [];
     }
-  </style>
+  }).then(function(answers) {
+    var topics = foundPost.get('topics');
+    var topicQuery = new Parse.Query(Topic);
+    topicQuery.containedIn('name', topics); 
+    topicQuery.find().then(function(topics){
+      if (topics){
+        foundTopicImageForPost = _.chain(topics)
+        .filter(function(topic){return (typeof topic.get('image') != 'undefined')})
+        .map(function(topic){return topic.get('image').url()})
+        .value();
+        foundTopicImageForPost.push('/images/header.jpg');
+      }
+      promise.resolve( {
+        post: foundPost,
+        topicImage: foundTopicImageForPost[0],
+        answers: answers
+      });
+
+    })
+    
+
+    
+  },
+  function(err) {
+    console.error("failed to query answers: " + JSON.stringify(err));
+  });
+
+
+  return promise;
+},
+
+getanswersforpost: function(post, fn){
+  loader.trigger('start');
+  var promise = new Parse.Promise();
+
+  var query = new Parse.Query("Answer");
+  query.equalTo("post", post);
+  query.include('author');
+  query.find().then(function(answers) {
+    loader.trigger('done');
+    promise.resolve(answers);
+  }, function(err) {
+    console.error("failed to query answers: " + JSON.stringify(err));
+  });
+  return promise;
+},
+constructFeed: function(fn){
+  loader.trigger('start')
+  var promise = new Parse.Promise()
+  Parse.Cloud.run("constructFeed").then(function(results){
+    loader.trigger('done');
+    promise.resolve(results);
+  }, function(err) {
+    console.error("failed to query posts: " + JSON.stringify(err));
+  })
+  return promise
+},
+getallposts: function(fn){
+  loader.trigger('start');
+  var promise = new Parse.Promise();
+  var query = new Parse.Query(Post);
+  query.descending('createdAt');
+  query.include('author');
+  query.limit(20);
+  query.find().then(function(results) {
+    loader.trigger('done');
+    promise.resolve(results);
+  },
+  function(err) {
+    console.error("failed to query answers: " + JSON.stringify(err));
+  });
+  return promise;
+},
+
+constructQuestionsForTopics: function(topic, fn){
+  loader.trigger('start')
+  var promise = new Parse.Promise()
+  Parse.Cloud.run("constructQuestionsForTopics", {postContent: topic}).then(function(results){
+    loader.trigger('done');
+    promise.resolve(results);
+  }, function(err) {
+    console.error("failed to query posts: " + JSON.stringify(err));
+  })
+  return promise
+}
+
+};
+</script>
+
+<style scoped>
+  :scope {
+    display: block;
+    font-family: sans-serif;
+    /*margin-right: 0;*/
+    margin-bottom: 130px;
+    /*margin-left: 50px;*/
+    padding: 1em;
+    /*text-align: center;*/
+    color: #666;
+
+  }
+
+
+  @media (min-width: 480px) {
+    :scope {
+      /*margin-right: 200px;*/
+      margin-bottom: 0;
+    }
+  }
+</style>
 
 </container>
 
