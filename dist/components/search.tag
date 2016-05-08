@@ -1,7 +1,7 @@
 <search>
 	<div id="ajax-example">
 		<div class="">
-			<input id="searchField" type="text" class="search-query form-control" placeholder="Ask CHI'16" />
+			<input id="searchField" type="text" class="search-query form-control" placeholder="Search Questions in CHI'16" />
 		</div>
 
 		<script>
@@ -22,6 +22,16 @@ var objectDict = {};
 var autoObj = false; 
 var initData = [];
 
+(function($) {
+    $.fn.goTo = function() {
+        $('html, body').animate({
+            scrollTop: (this.offset().top - this.height()) + 'px'
+        }, 'fast');
+        return this; // for chaining...
+    }
+})(jQuery);
+
+
 this.on('mount', function(){
   
   (function() {
@@ -35,6 +45,7 @@ this.on('mount', function(){
       });
       autoObj = new Awesomplete(document.querySelector("#ajax-example input"),{list:list, filter: filterFunction, sort: sort});
       $( "#searchField" ).on('change keydown paste input', function() {
+        $( "#ajax-example" ).goTo();
         var elem = $(this);
         var searchTerm = elem.val();
         if (searchTerm!= last_search){

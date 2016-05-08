@@ -1,6 +1,6 @@
 
 <feed>
-	<div class="container">
+	<div class="">
 		<div class="row welcome">
 			<div class="text-xs-center">
 			<h4 class="card-title">Welcome to the Sophus CHI'16 community!</h4>

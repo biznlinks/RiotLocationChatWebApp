@@ -20,21 +20,8 @@
 		this.loading = false
 
 
-		getAnswerForPost(post){
-			API.getanswersforpost(post).then(function(answers){
-				post.postAnswer = answers[0].content
-				self.update({loading:false})
-
-			})
-
-		}
-
-		getAuthorName(post) {
-			if (post.get('anonymous'))
-				return 'anonymous'
-			else 
-				return post.get('author').get('firstName') + ' ' + post.get('author').get('lastName')
-		}
+		
+		
 	</script>
 
 	<style scoped>
@@ -69,10 +56,6 @@
 		li {
 			display: block;
 			margin: 5px;
-		}
-		.postitem{
-			padding-top: 3px;
-			padding-bottom: 3px;
 		}
 
 
