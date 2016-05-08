@@ -1,12 +1,12 @@
 <postitem>
-	<div class="container">
-		<div class="col-xs-12 ">
+	<div class="card card-block">
+		<div class="">
 
-			<div class="row">
+			<div class="">
 
 				<div class='postauthor'>
 					<img src = "{this.getProfilePic()}" class = "profile img-circle">
-					<span >{post.get('author').get('firstName')} {post.get('author').get('lastName')}</span> 
+					<span >{this.getAuthorName()}</span> 
 					<!-- <h4 class="card-title">{getAuthorName(post)}</h4> -->
 				</div>
 
@@ -15,7 +15,7 @@
 
 
 			</div>
-			<div class="row">
+			<div class="">
 				<div class='answercount pull-xs-right' if={post.get('answerCount') > 0} 
 					href="/post/{ post.id }" class="answerCount">{post.get('answerCount')} answer<span if={post.get('answerCount')>1}>s</span>
 				</div>
@@ -47,6 +47,13 @@
 		self.post = opts.post
 		self.answers = []
 
+		getAuthorName() {
+			if (this.post.get('anonymous'))
+				return 'Anonymous'
+			else 
+				return this.post.get('author').get('firstName') + ' ' + this.post.get('author').get('lastName')
+		}
+
 		this.on('mount', function() {
 			if (this.post.get('answerCount')>0)
 				API.getanswersforpost(this.post).then(function(answers){
@@ -57,13 +64,14 @@
 
 		getProfilePic(){
 			var author= self.post.get('author')
-			if (author.get('profilePic')){
+			if (!author.get('profilePic') || this.post.get('anonymous')){
+				return 'https://files.parsetfss.com/135e5227-e041-4147-8248-a5eafaf852ef/tfss-6f1e964e-d7fc-4750-8ffb-43d5a76b136e-kangdo@umich.edu.png'
+				
+			}else {
 				profilePic = author.get('profilePic').url()
 				if (profilePic){
 					return profilePic
 				}
-			}else {
-				return 'https://files.parsetfss.com/135e5227-e041-4147-8248-a5eafaf852ef/tfss-6f1e964e-d7fc-4750-8ffb-43d5a76b136e-kangdo@umich.edu.png'
 			}
 		}
 	</script>
@@ -81,9 +89,7 @@
 
 		}
 		.postauthor{
-			font-size: small;
-			padding-bottom: 10px;
-			padding-top: 10px;
+			    margin-bottom: 20px;
 		}
 		.profile {
 			width: 40px;
