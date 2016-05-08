@@ -10,7 +10,7 @@
 					<!-- <h4 class="card-title">{getAuthorName(post)}</h4> -->
 				</div>
 
-				<p class="">{post.get('content')}</p>
+				<p class="post-content">{post.get('content')}</p>
 
 
 
@@ -87,6 +87,9 @@
 			color: black;
 			font-weight: normal;
 
+		}
+		.post-content{
+			font-size: large;
 		}
 		.postauthor{
 			    margin-bottom: 20px;

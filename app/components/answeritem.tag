@@ -40,7 +40,7 @@
 	<style scoped>
 		:scope {
 			font-family: helvetica, arial, sans-serif;
-			font-size: 14px;
+			font-size: small;
 			color: black;
 			font-weight: normal
 
@@ -57,9 +57,6 @@
 			margin-right: 10px;
 		}
 
-		.answercount{
-			font-size: small;
-		}
 
 		@media (min-width: 480px) {
 			:scope {

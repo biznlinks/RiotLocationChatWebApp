@@ -5,7 +5,7 @@
 		<div class="card-block">
 			<h4 class="card-title">{topicName}</h4>
 			<p class="card-text">description</p>
-			<p class="card-text"><small class="text-muted">3 questions for this topic</small></p>
+			<p class="card-text"><small class="text-muted">{self.postTag.posts.length()} questions for this topic</small></p>
 		</div>
 	</div>
 	<posts name="topicsFeedPosts"></posts>

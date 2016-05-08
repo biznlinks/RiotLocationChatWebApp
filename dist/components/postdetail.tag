@@ -48,9 +48,6 @@ getPostContent(){
 	.card-img-top{
 		width: 100%;
 	}
-	.author{
-		font-size: medium;
-	}
 	.profile {
 		width: 40px;
 		height: 40px;
