@@ -33,25 +33,32 @@
 		})
 
 		getTopicImage(){
-			// if (self.topic.get('image')){
-			// 	return self.topic.get('image').url()
-			// }
-			// else
+			if (!self.topic || !self.topic.get('image')){
 				return 'http://files.parsetfss.com/57d0a677-36de-4c63-b991-c2bb1ac2dbb5/tfss-9c330043-dcf6-4139-9091-d8ea601ad14b-chi.jpeg'
+				
+			}
+			return self.topic.get('image').url()
+			// else
+
 		}
 
 		// load information about the topic like picture/ video/ description/ etc
 		fetchTopicDetails() {
-			API.getObjectForTopic(self.topicName.toLowerCase()).then(function(topic){
-				self.update({topic:topic})
-			})
+			if (self.topicName){
+				self.topicName = decodeURI(self.topicName)
+				API.getObjectForTopic(self.topicName.toLowerCase()).then(function(topic){
+					self.topic = topic
+					self.update()
+				})
+			}
+			
 		}
 
 	</script>
 
 	<style scoped>
-	.card-img-top{
-		width: 100%;
-	}
+		.card-img-top{
+			width: 100%;
+		}
 	</style>
 </topicsfeed>
