@@ -16,14 +16,14 @@
 
 			</div>
 			<div class="text-muted pull-xs-left">
-				
+
 				
 				<div class='answercount' if={post.get('answerCount') >= 0} >{post.get('answerCount')} answer<span if={post.get('answerCount')!=1}>s</span>
 				</div>
 			</div>
 			
 			<div class="text-muted pull-xs-right">
-				<div class='wannaknow text-muted'> <img width="23px" src="/images/wannaknow_gray@2x.png"> 3</div>
+				<div class='wannaknow text-muted'> <img width="23px" src="/images/wannaknow_gray@2x.png"> {post.get('wannaknowCount')}</div>
 				
 				
 			</div>
@@ -42,16 +42,16 @@
 
 			</div>
 		</div>
-		
+
 
 		<!-- <ul class="list-group list-group-flush">
 			<li class="list-group-item"><input class="comment-input" type="text" placeholder="Answer" /></li>
 		</ul>
  -->
 	</div>
-	
 
-	
+
+
 </div>
 
 
@@ -80,7 +80,7 @@
 		var author= self.post.get('author')
 		if (!author.get('profilePic') || this.post.get('anonymous')){
 			return 'https://files.parsetfss.com/135e5227-e041-4147-8248-a5eafaf852ef/tfss-6f1e964e-d7fc-4750-8ffb-43d5a76b136e-kangdo@umich.edu.png'
-			
+
 		}else {
 			profilePic = author.get('profilePic').url()
 			if (profilePic){
@@ -119,7 +119,7 @@
 		font-size: small;
 
 	}
-	
+
 
 	.answercount{
 		display: inline-block;
