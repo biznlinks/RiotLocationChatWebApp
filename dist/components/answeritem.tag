@@ -11,7 +11,7 @@
 			</span>
 			</div>
 			<div class="row">
-				<div class='helpful text-muted'> Helpful |    <i class="fa fa-thumbs-up" aria-hidden="true"/> {answer.get('likes')}</div>
+				<div class='helpful text-muted'> Helpful   •   <i class="fa fa-thumbs-up" aria-hidden="true"/> {answer.get('likes')}</div>
 			</div>
 			
 		</div>
@@ -67,7 +67,7 @@
 		}
 		.helpful {
 			display: inline-block;
-			font
+			font-size: smaller;
 		}
 
 
