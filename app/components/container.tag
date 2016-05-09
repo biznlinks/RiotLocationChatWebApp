@@ -36,27 +36,21 @@
     
     var r = riot.route.create()
     r('#',       home       )
-    r('post',   post      )
+    r('post',   home      )
     r('post/*', postdetail)
     r('topics',  topics     )
     r('topics/*', topicsfeed)
     r(           home       ) // `notfound` would be nicer!
 
     function home() {
+      self.tags.feed.unmount()
       self.update({
         title:  "Welcome to Sophus!",
         body:  "This is the feed!",
         route: "posts",
         selectedId: null,
       })
-    }
-    function post() {
-      self.update({
-        title: "Recent Posts",
-        body: "Lists of posts",
-        route: "posts",
-        selectedId: null,
-      })
+      riot.mount('feed')
     }
     function postdetail(id) {
       self.tags.postdetail.unmount()
