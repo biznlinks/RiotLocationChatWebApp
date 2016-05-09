@@ -34,7 +34,7 @@
   var self = this
 
   this.links = [
-  { name: "Posts", url: "post" },
+  { name: "Home", url: "post" },
   { name: "Topics", url: "topics" },
   // { name: "SignUp", url: "login" }
   ]
