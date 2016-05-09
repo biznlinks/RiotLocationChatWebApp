@@ -40,8 +40,8 @@
 
     <body>
 
-       
-    
+
+
         <container></container>
         
         <!-- jQuery Version 1.11.1 -->
@@ -58,35 +58,38 @@
 
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.0.0/awesomplete.min.js"></script>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.0.0/awesomplete.min.css" />
- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-
- <!-- Smart banners -->
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery.smartbanner/1.0.0/jquery.smartbanner.min.css" type="text/css" media="screen">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.smartbanner/1.0.0/jquery.smartbanner.min.js"></script>
-    <script type="text/javascript">
-      $(function() { $.smartbanner() } )
-    </script>
-
-        <script src = "/js/api.js"></script>
-        <script src="/components/app-navi.tag" type="riot/tag"></script>
-        <script src="/components/container.tag" type="riot/tag"></script>
-        <script src="/components/homefeed.tag" type="riot/tag"></script>
-        <script src="/components/posts.tag" type="riot/tag"></script>
-        <script src="/components/topics.tag" type="riot/tag"></script>
-        <script src="/components/topicsfeed.tag" type="riot/tag"></script>
-        <script src="/components/postdetail.tag" type="riot/tag"></script>
-        <script src="/components/search.tag" type="riot/tag"></script>
-        <script src="/components/postitem.tag" type="riot/tag"></script>
-        <script src="/components/answeritem.tag" type="riot/tag"></script>
-        <script src="/components/signup_modal.tag" type="riot/tag"></script>
-
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/awesomplete/1.0.0/awesomplete.min.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
         
+        <!-- <script src="https://cdn.jsdelivr.net/riotgear/latest/rg.min.js"></script> -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/6.0.1/markdown-it.min.js"></script>
 
-        <script>
-       
+        <!-- Smart banners -->
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery.smartbanner/1.0.0/jquery.smartbanner.min.css" type="text/css" media="screen">
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.smartbanner/1.0.0/jquery.smartbanner.min.js"></script>
+        <script type="text/javascript">
+          $(function() { $.smartbanner() } )
+      </script>
+
+      <script src = "/js/api.js"></script>
+      <script src="/components/app-navi.tag" type="riot/tag"></script>
+      <script src="/components/container.tag" type="riot/tag"></script>
+      <script src="/components/homefeed.tag" type="riot/tag"></script>
+      <script src="/components/posts.tag" type="riot/tag"></script>
+      <script src="/components/topics.tag" type="riot/tag"></script>
+      <script src="/components/topicsfeed.tag" type="riot/tag"></script>
+      <script src="/components/postdetail.tag" type="riot/tag"></script>
+      <script src="/components/search.tag" type="riot/tag"></script>
+      <script src="/components/postitem.tag" type="riot/tag"></script>
+      <script src="/components/answeritem.tag" type="riot/tag"></script>
+      <script src="/components/signup_modal.tag" type="riot/tag"></script>
+
+
+
+
+      <script>
+
 
          // init
          Parse.initialize("NV3PXWz0D6qx90BI1aiWKY1gR8IJ2aBS07jeN566", "QHfiiv5CQkTVNH9Bpj3iMntZJ2ze3L8veDlj912R");
@@ -100,39 +103,39 @@
         })
 
          // Current user (logged in or anonymous)
-        function User(app, data, backend) {
+         function User(app, data, backend) {
             var riot = require('riot')
 
-          var self = riot.observable(this);
+            var self = riot.observable(this);
 
-          $.extend(self, data);
+            $.extend(self, data);
 
-          self.login = function(params, fn) {
+            self.login = function(params, fn) {
 
-            self.one("login", fn);
+                self.one("login", fn);
 
-            return backend.call("login", params, function(data) {
-              self.trigger("login", data);
-            });
+                return backend.call("login", params, function(data) {
+                  self.trigger("login", data);
+              });
 
-          };
+            };
 
-          self.logout = function(fn) {
+            self.logout = function(fn) {
 
-            self.one("logout", fn);
+                self.one("logout", fn);
 
-            return backend.call("logout", {}, function(data) {
-              self.trigger("logout");
-            });
+                return backend.call("logout", {}, function(data) {
+                  self.trigger("logout");
+              });
 
-          };
+            };
 
         }
 
-       
 
-     </script>
 
- </body>
+    </script>
 
- </html>
+</body>
+
+</html>

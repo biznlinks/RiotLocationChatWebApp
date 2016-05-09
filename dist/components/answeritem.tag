@@ -6,7 +6,7 @@
 		<div class="col-xs-9 content" >
 		<div class="row">
 			<span class="author">{answer.get('author').get('firstName')} {answer.get('author').get('lastName')}</span> 
-			<span>
+			<span class="content-text">
 				{answer.get('answer')}
 			</span>
 			</div>
@@ -64,6 +64,10 @@
 		}
 		.content {
 			margin-left: 10px;
+			   
+		}
+		.content-text{
+			 white-space: pre-wrap;
 		}
 		.helpful {
 			display: inline-block;

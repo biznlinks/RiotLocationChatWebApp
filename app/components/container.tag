@@ -29,9 +29,9 @@
     self.route = "home"
 
     this.on("mount", function(){
-      // $.getJSON("/data/papers_with_youtube_id.json", function(json) {
-      //   allTopics = json
-      // });
+      $.getJSON("/data/papers.json", function(json) {
+        allTopics = json
+      });
     })
     
     var r = riot.route.create()
