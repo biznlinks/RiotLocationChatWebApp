@@ -10,7 +10,7 @@
 				{answer.get('answer')}
 			</span>
 			</div>
-			<div class="row">
+			<div class="row" onclick={parent.showSignup}>
 				<div class='helpful text-muted'> Helpful   •   <i class="fa fa-thumbs-up" aria-hidden="true"/> {answer.get('likes')}</div>
 			</div>
 			

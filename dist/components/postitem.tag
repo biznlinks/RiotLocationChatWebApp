@@ -15,18 +15,21 @@
 
 
 			</div>
-			<div class="text-muted pull-xs-left">
-
-				
-				<div class='answercount' if={post.get('answerCount') >= 0} >{post.get('answerCount')} answer<span if={post.get('answerCount')!=1}>s</span>
+			<a onclick={this.showSignup}>
+				<div class="text-muted pull-xs-left">
+					<div class='answercount' if={post.get('answerCount') >= 0} >{post.get('answerCount')} answer<span if={post.get('answerCount')!=1}>s</span>
+					</div>
 				</div>
-			</div>
-			
-			<div class="text-muted pull-xs-right">
-				<div class='wannaknow text-muted'> <img width="23px" src="/images/wannaknow_gray@2x.png"> {post.get('wannaknowCount')}</div>
-				
-				
-			</div>
+
+				<div class="text-muted pull-xs-right">
+
+
+					<div class='wannaknow text-muted' >
+						<img width="23px" src="/images/wannaknow_gray@2x.png"> 
+						{post.get('wannaknowCount')}
+					</div> 
+				</div>
+			</a>
 		</div>
 		<div class="row">
 			<div class="col-xs-12" >
@@ -47,8 +50,8 @@
 		<!-- <ul class="list-group list-group-flush">
 			<li class="list-group-item"><input class="comment-input" type="text" placeholder="Answer" /></li>
 		</ul>
- -->
-	</div>
+	-->
+</div>
 
 
 
@@ -87,6 +90,11 @@
 				return profilePic
 			}
 		}
+	}
+
+	showSignup(){
+		console.log('test');
+		$('#signupModal').modal('show')
 	}
 </script>
 
