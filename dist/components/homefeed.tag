@@ -10,6 +10,7 @@
 			 <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#askModal">Ask a new Question</button> -->
 			 <search></search>
 
+
 		</div>
 		
     
@@ -29,7 +30,9 @@
 			})
 		})
 
-		
+	onsearchclick(){
+		$('#askModal').modal('show')
+	}
 
 	</script>
 	<style scoped>

@@ -1,44 +1,54 @@
 <search>
 	<div id="ajax-example">
 		<div class="">
-      <textarea name="searchField" id="searchField" oninput={onkeyup} placeholder="Ask Questions in CHI'16" class="searchbox"></textarea>
+      <textarea name="searchField" id="searchField" oninput={onkeyup} placeholder="Search" class="searchbox"></textarea>
     </div>
     <div>
       <div show={ filtered.length } class="card ">
         <div class="card-block text-xs-center" each={post,i in filtered} onclick="{ parent.selected }">
+
+          <span class={ active: parent.active==i}>{this.getHighlightedContent(post.content)}</span>
           
-              <span class={ active: parent.active==i}>{this.getHighlightedContent(post.content)}</span>
-          
-          </div>
         </div>
-
       </div>
+
     </div>
-    <script>
-      searchtag = this
+  </div>
+  <script>
+    searchtag = this
 
-      this.min = opts.min || 0
-      this.filtered  = []
-      this.active = -1
-      var self = this
+    this.min = opts.min || 0
+    this.filtered  = []
+    this.active = -1
+    var self = this
 
-      this.lastWord = ""
+    this.lastWord = ""
 
-      this.choices = ['test','mark','chi','ictd in europe']
+    this.choices = ['test','mark','chi','ictd in europe']
 
-      this.on("mount", function(){
-        API.getallposts().then(function(posts){
-          self.initChoices = posts
-          self.choices = posts
-          _.each(self.choices, function(post){
-            post.content = post.get('content')
-          })
+    this.on("mount", function(){
+      
+      API.getallposts().then(function(posts){
+        self.initChoices = posts
+        self.choices = posts
+        _.each(self.choices, function(post){
+          post.content = post.get('content')
         })
-
       })
 
-      getHighlightedContent(content){
-        var res = content.split(" ");
+
+      
+    })
+    this.on("updated", function(){
+      
+      
+
+    })
+
+    
+
+    getHighlightedContent(content){
+      var res = content.split(" ");
         // res = _.map(res, function(word){
         //   if (self.searchField.value.toLowerCase().includes(word.toLowerCase())){
         //     console.log('wrd ' + word);
@@ -79,7 +89,6 @@
             }
           }
 
-          var last_search = "";
 
           function getLastWord(text){
             last_word = text.split(" ").splice(-1)[0];
@@ -100,6 +109,11 @@
 re(e) {
   return RegExp(self.lastWord,'i')
 }
+
+
+this.on('before-unmount', function() {
+    // before the tag is removed
+  })
 
 selected(s) {
   $('#askModal').modal('hide')
@@ -124,18 +138,16 @@ getMongoResults(input) {
   $.getJSON(url, function (data) {
     if (data.length === 0){
       self.choices = self.initChoices
-   } else {
+    } else {
       _.each(data, function(d){d.id = d._id;})
-       self.choices = data ;
-       self.filtered = data;
-     }
-     self.update()
+      self.choices = data ;
+      self.filtered = data;
+    }
+    self.update()
 
 
-   });
- }
-
- var last_search = "";
+  });
+}
 
 
 </script>

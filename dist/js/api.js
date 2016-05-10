@@ -100,7 +100,9 @@ constructFeed: function(fn){
   })
   return promise
 },
-getallposts: function(fn, limit=20){
+
+getallposts: function(fn, limit){
+  limit = limit || 20;
   loader.trigger('start');
   var promise = new Parse.Promise();
   var query = new Parse.Query(Post);

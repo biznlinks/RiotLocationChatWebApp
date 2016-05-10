@@ -12,7 +12,7 @@
       </div>
       <div class="modal-body">
         <div class="info-btns">
-        <search></search>
+        <search ></search>
       </div>
       </div>
       <div class="modal-footer text-xs-center">
@@ -25,8 +25,12 @@
 
 <script>
   this.on('mount', function(){
-    
+    this.tags.search.searchField.focus()
   })
+
+  createQuestion(){
+    this.tags.search.searchField.focus()
+  }
 </script>
 
 <style scoped>
