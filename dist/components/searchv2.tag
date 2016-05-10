@@ -27,7 +27,7 @@
     this.choices = ['test','mark','chi','ictd in europe']
 
     this.on("mount", function(){
-      
+
       API.getallposts().then(function(posts){
         self.initChoices = posts
         self.choices = posts
@@ -37,13 +37,23 @@
       })
 
 
+
+
+
+
       
     })
     this.on("updated", function(){
-      
-      
+
+
 
     })
+
+    scrollToTop(){
+      $('html, body').animate({
+        scrollTop: (this.searchField.offsetTop ) + 'px'
+      }, 'fast');
+    }
 
     
 
@@ -61,9 +71,10 @@
 
       onkeyup(e){
         var searchText = this.searchField.value
-
+        this.scrollToTop()
+        
         var lastWord = getLastWord(searchText)
-        if (this.lastWord === "")
+        if (lastWord === "")
           this.getMongoResults()
         else 
           this.lastWord = lastWord
@@ -100,78 +111,75 @@
          }
 
          function filterFunction(text, input) {
-          var lastWord = getLastWord(input);
-  // console.log(lastWord);
-  return ContainsFilter(text, lastWord);
+          var lastWord = getLastWord(input)
+          return ContainsFilter(text, lastWord)
+        }
 
-};
-
-re(e) {
-  return RegExp(self.lastWord,'i')
-}
+        re(e) {
+          return RegExp(self.lastWord,'i')
+        }
 
 
-this.on('before-unmount', function() {
-    // before the tag is removed
-  })
 
-selected(s) {
-  $('#askModal').modal('hide')
-  console.log(s.item.post);
-  var to = "/post/"+s.item.post.id;
-  riot.route(to)
-  // this.selection(s.item.post)
-}
+        selected(s) {
+          $('#askModal').modal('hide')
+          console.log(s.item.post);
+          var to = "/post/"+s.item.post.id;
+          riot.route(to)
 
-selection(txt) {
-  this.searchField.value=''
-  this.active = -1
-  this.filtered = []
-  this.trigger('selected', txt)
-}
+        }
 
-getMongoResults(input) {
-  console.log("making request");
+        selection(txt) {
+          this.searchField.value=''
+          this.active = -1
+          this.filtered = []
+          this.trigger('selected', txt)
+        }
 
-  var url = 'https://api.mongolab.com/api/1/databases/sophus/collections/Post/?q={"$text":{"$search":"'+ self.searchField.value +'"}}&f={"score":{"$meta":"textScore"}}&apiKey=zhmz80yjEQ7dgo_VK90d88fZ3vmEeIWE';
+        getMongoResults(input) {
+          console.log("making request");
 
-  $.getJSON(url, function (data) {
-    if (data.length === 0){
-      self.choices = self.initChoices
-    } else {
-      _.each(data, function(d){d.id = d._id;})
-      self.choices = data ;
-      self.filtered = data;
+          var url = 'https://api.mongolab.com/api/1/databases/sophus/collections/Post/?q={"$text":{"$search":"'+ self.searchField.value +'"}}&f={"score":{"$meta":"textScore"}}&apiKey=zhmz80yjEQ7dgo_VK90d88fZ3vmEeIWE';
+
+          $.getJSON(url, function (data) {
+            if (data.length === 0){
+              self.choices = self.initChoices
+            } else {
+              _.each(data, function(d){d.id = d._id;})
+              self.choices = data ;
+              self.filtered = data;
+            }
+            self.update()
+
+
+          });
+        }
+
+
+
+
+      </script>
+
+      <style scoped>
+       #searchField{
+        text-align: center;
+        min-height: 45px!important;
+        margin-bottom: 0;
+        width: 100%;
+
+      }
+
+      ul {
+       margin-top: 2em !important
+     }
+
+
+     @media (min-width: 480px) {
+      :scope {
+        /*margin-right: 200px;*/
+        margin-bottom: 0;
+      }
     }
-    self.update()
-
-
-  });
-}
-
-
-</script>
-
-<style scoped>
- #searchField{
-  text-align: center;
-  min-height: 45px!important;
-  margin-bottom: 0;
-  width: 100%;
-
-}
-
-ul {
- margin-top: 2em !important
-}
-
-
-@media (min-width: 480px) {
-  :scope {
-    /*margin-right: 200px;*/
-    margin-bottom: 0;
-  }
-}
-</style>
+  </style>
 </search>
 
