@@ -100,13 +100,13 @@ constructFeed: function(fn){
   })
   return promise
 },
-getallposts: function(fn){
+getallposts: function(fn, limit=20){
   loader.trigger('start');
   var promise = new Parse.Promise();
   var query = new Parse.Query(Post);
   query.descending('createdAt');
   query.include('author');
-  query.limit(20);
+  query.limit(limit);
   query.find().then(function(results) {
     loader.trigger('done');
     promise.resolve(results);

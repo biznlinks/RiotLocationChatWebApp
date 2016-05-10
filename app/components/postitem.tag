@@ -6,7 +6,10 @@
 
 				<div class='postauthor'>
 					<img src = "{this.getProfilePic()}" class = "profile img-circle">
-					<span >{this.getAuthorName()}</span> 
+					<span><span >{this.getAuthorName()}</span> <br/>
+					<!-- <span class='author-about text-muted'>{post.get('author').get('about')}</span></span> -->
+					
+
 					<!-- <h4 class="card-title">{getAuthorName(post)}</h4> -->
 				</div>
 
@@ -115,6 +118,9 @@
 	}
 	.postauthor{
 		margin-bottom: 20px;
+	}
+	.author-about{
+		font-size: smaller;
 	}
 	.profile {
 		width: 40px;
