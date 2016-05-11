@@ -44,6 +44,7 @@
 
     function home() {
       self.tags.feed.unmount()
+      self.track('home')
       self.update({
         title:  "Welcome to Sophus!",
         body:  "This is the feed!",
@@ -54,6 +55,7 @@
     }
     function postdetail(id) {
       self.tags.postdetail.unmount()
+      self.track('postdetail')
       self.update({
         title: "",
         body: "",
@@ -63,7 +65,7 @@
       riot.mount('postdetail', {postid: id})
     }
     function topics() {
-
+      self.track('topics')
       self.update({
         title: "Trending Topics",
         body: "",
@@ -73,6 +75,7 @@
     }
     function topicsfeed(id) {
       self.tags.topicsfeed.unmount()
+      self.track('topicsfeed')
       self.update({
         title: "",
         body: "",

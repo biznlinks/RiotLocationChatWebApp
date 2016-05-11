@@ -7,7 +7,7 @@ gulp.task('riot', [ 'fonts'], function () {
 
   return gulp.src(['app/**/*.tag'])
     
-    .pipe($.if('*.js', $.uglify()))
+    // .pipe($.if('*.js', $.uglify()))
     .pipe($.useref())
     .pipe(gulp.dest('dist'));
 });

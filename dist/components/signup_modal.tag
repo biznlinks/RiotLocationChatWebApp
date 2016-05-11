@@ -14,8 +14,8 @@
       <div class="modal-body">
         <div class="info-btns">
         <ul>
-          <li><a href="https://itunes.apple.com/us/app/sophus/id958351164?mt=8&uo=4" target="itunes_store"> </a></li>
-          <li><a href="https://play.google.com/store/apps/details?id=com.sophusapp.sophus&hl=en" target="google_play_store"> </a></li>
+          <li><a name="ios" onclick={clicked} href="https://itunes.apple.com/us/app/sophus/id958351164?mt=8&uo=4" target="itunes_store"> </a></li>
+          <li><a name="android" onclick={clicked} href="https://play.google.com/store/apps/details?id=com.sophusapp.sophus&hl=en" target="google_play_store"> </a></li>
         </ul>
       </div>
       </div>
@@ -26,6 +26,18 @@
 
   </div>
 </div>
+
+<script>
+self=this
+  $('#signupModal').on('shown', function() {
+        self.track()
+    })
+
+  clicked(e){
+   self.track(e.target.name)
+   window.open(e.target.href, e.target.target);
+  }
+</script>
 
 <style scoped>
 :scope{
