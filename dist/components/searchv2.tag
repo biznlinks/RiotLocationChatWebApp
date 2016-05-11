@@ -5,7 +5,7 @@
     </div>
     <div>
       <div show={ filtered.length } class="card ">
-        <div class="card-block text-xs-center" each={post,i in filtered} onclick="{ parent.selected }">
+        <div class="card-block text-xs-center" each={post,i in filtered.slice(0,5)} onclick="{ parent.selected }">
 
           <span class={ active: parent.active==i}>{this.getHighlightedContent(post.content)}</span>
           
@@ -13,7 +13,7 @@
       </div>
 
     </div>
-    <div if={searchtag.searchField.matches(":focus") && searchField.value.length>0} class="navbar-fixed-top">
+    <div if={searchtag.searchField.matches(":focus") && searchField.value.length>0} class="">
      <button type="button" class="btn btn-default " onclick={createQuestion}>Ask a new question</button>
    </div>
    
