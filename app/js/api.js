@@ -1,7 +1,7 @@
 
     loader = riot.observable();
 
-// Current user (logged in or anonymous)
+
 API = {
 
   getObjectForTopic: function(topicTitle){
@@ -29,7 +29,7 @@ API = {
     postQuery.get(post_id).then(function(post) {
       if (post) {
 
-      //find image for topic if exists
+
       foundPost = post;
 
       
@@ -61,7 +61,7 @@ API = {
         answers: answers
       });
 
-    })
+    });
     
 
     
@@ -90,15 +90,15 @@ getanswersforpost: function(post, fn){
   return promise;
 },
 constructFeed: function(fn){
-  loader.trigger('start')
-  var promise = new Parse.Promise()
+  loader.trigger('start');
+  var promise = new Parse.Promise();
   Parse.Cloud.run("constructFeed").then(function(results){
     loader.trigger('done');
     promise.resolve(results);
   }, function(err) {
     console.error("failed to query posts: " + JSON.stringify(err));
-  })
-  return promise
+  });
+  return promise;
 },
 
 getallposts: function(fn, limit){
@@ -120,15 +120,15 @@ getallposts: function(fn, limit){
 },
 
 constructQuestionsForTopics: function(topic, fn){
-  loader.trigger('start')
-  var promise = new Parse.Promise()
+  loader.trigger('start');
+  var promise = new Parse.Promise();
   Parse.Cloud.run("constructQuestionsForTopics", {postContent: topic}).then(function(results){
     loader.trigger('done');
     promise.resolve(results);
   }, function(err) {
     console.error("failed to query posts: " + JSON.stringify(err));
-  })
-  return promise
+  });
+  return promise;
 }
 
 };

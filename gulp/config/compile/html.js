@@ -1,4 +1,5 @@
 var gulp = require('gulp');
+
 var $ = require('gulp-load-plugins')();
 
 gulp.task('html', [ 'fonts'], function () {
@@ -12,10 +13,9 @@ gulp.task('html', [ 'fonts'], function () {
   return gulp.src(['app/**/*.html','app/**/*.js','app/**/*.css'])
     .pipe(assets)
     .pipe($.if('*.js', $.uglify()))
-    .pipe($.if('*.js', $.browserify({
-        insertGlobals : true,
-        debug : !gulp.env.production
-      })))
+    .pipe($.if('*.js', $.babel({
+      presets: ['es2015']
+    })))
     .pipe(assets.restore())
     .pipe($.useref())
     .pipe($.if('*.html', $.minifyHtml({conditionals: true, loose: true})))

@@ -1,26 +1,22 @@
-<signup>
-<!--  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#signupModal">Open Modal</button>
- -->
+<ask>
+<!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#askModal">Ask a new Question</button> -->
 <!-- Modal -->
-<div id="signupModal" class="modal fade" role="dialog">
+<div id="askModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
 
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Join Sophus!</h4>
+        <!-- <h4 class="modal-title">Ask a new Question!</h4> -->
       </div>
       <div class="modal-body">
         <div class="info-btns">
-        <ul>
-          <li><a name="ios" onclick={clicked} href="https://itunes.apple.com/us/app/sophus/id958351164?mt=8&uo=4" target="itunes_store"> </a></li>
-          <li><a name="android" onclick={clicked} href="https://play.google.com/store/apps/details?id=com.sophusapp.sophus&hl=en" target="google_play_store"> </a></li>
-        </ul>
+        <search ></search>
       </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <div class="modal-footer text-xs-center">
+        <button type="button" class="btn btn-default" onclick={createQuestion}>Ask a new question</button>
       </div>
     </div>
 
@@ -28,18 +24,12 @@
 </div>
 
 <script>
-self=this
+  this.on('mount', function(){
+    this.tags.search.searchField.focus()
+  })
 
-this.on('mount', function(){
-  $('#signupModal').on('show.bs.modal', function() {
-        self.track()
-    })
-})
-  
-
-  clicked(e){
-   self.track(e.target.name)
-   window.open(e.target.href, e.target.target);
+  createQuestion(){
+    this.tags.search.searchField.focus()
   }
 </script>
 
@@ -83,4 +73,4 @@ this.on('mount', function(){
 
 </style>
 
-</signup>
+</ask>
