@@ -21,13 +21,19 @@
 	
 	<script>
 	var self = this
+	homefeedTag = this
 	self.postsTag = this.tags.homeFeedPosts
 
-		this.on('mount', function() {
-			self.postsTag.update({loading:true})
-			API.getallposts().then(function(results){
+	refresh(){
+		self.postsTag.update({loading:true})
+		API.getallposts().then(function(results){
 				self.postsTag.update({posts:results, loading:false})
 			})
+	}
+
+		this.on('mount', function() {
+			
+			self.refresh()
 		})
 
 	onsearchclick(){

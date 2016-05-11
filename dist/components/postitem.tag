@@ -85,6 +85,9 @@
 	getProfilePic(){
 		var author= self.post.get('author')
 		if (!author.get('profilePic') || this.post.get('anonymous')){
+			if (author.get('profileImageURL')){
+				return author.get('profileImageURL')
+			}
 			return 'https://files.parsetfss.com/135e5227-e041-4147-8248-a5eafaf852ef/tfss-6f1e964e-d7fc-4750-8ffb-43d5a76b136e-kangdo@umich.edu.png'
 
 		}else {

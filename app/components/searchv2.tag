@@ -1,7 +1,7 @@
 <search>
 	<div id="ajax-example">
 		<div class="">
-      <textarea name="searchField" id="searchField" oninput={onkeyup} placeholder="Search" class="searchbox"></textarea>
+      <textarea autofocus name="searchField" id="searchField" oninput={onkeyup} placeholder="Ask CHI!" class="searchbox"></textarea>
     </div>
     <div>
       <div show={ filtered.length } class="card ">
@@ -13,52 +13,64 @@
       </div>
 
     </div>
-  </div>
-  <script>
-    searchtag = this
+    <div if={searchtag.searchField.matches(":focus") && searchField.value.length>0} class="navbar-fixed-bottom">
+     <button type="button" class="btn btn-default " onclick={createQuestion}>Ask a new question</button>
+   </div>
+   
+ </div>
+ <script>
+  searchtag = this
 
-    this.min = opts.min || 0
-    this.filtered  = []
-    this.active = -1
-    var self = this
+  this.min = opts.min || 1
+  this.filtered  = []
+  this.active = -1
+  var self = this
 
-    this.lastWord = ""
+  this.lastWord = ""
 
-    this.choices = ['test','mark','chi','ictd in europe']
+  this.choices = ['test','mark','chi','ictd in europe']
 
-    this.on("mount", function(){
+  this.on("mount", function(){
 
-      API.getallposts().then(function(posts){
-        self.initChoices = posts
-        self.choices = posts
-        _.each(self.choices, function(post){
-          post.content = post.get('content')
-        })
+    API.getallposts().then(function(posts){
+      self.initChoices = posts
+      self.choices = posts
+      _.each(self.choices, function(post){
+        post.content = post.get('content')
       })
-
-
-
-
-
-
-      
-    })
-    this.on("updated", function(){
-
-
-
     })
 
-    scrollToTop(){
-      $('html, body').animate({
-        scrollTop: (this.searchField.offsetTop ) + 'px'
-      }, 'fast');
-    }
 
-    
 
-    getHighlightedContent(content){
-      var res = content.split(" ");
+
+
+
+
+  })
+  this.on("updated", function(){
+
+
+
+  })
+
+
+  createQuestion(){
+    console.log('creating a new question '+self.searchField.value);
+    askModalTag.update({question: self.searchField.value})
+    this.searchField.value=''
+    askModalTag.show()
+  }
+
+  scrollToTop(){
+    $('html, body').animate({
+      scrollTop: (this.searchField.offsetTop ) + 'px'
+    }, 'fast');
+  }
+
+
+
+  getHighlightedContent(content){
+    var res = content.split(" ");
         // res = _.map(res, function(word){
         //   if (self.searchField.value.toLowerCase().includes(word.toLowerCase())){
         //     console.log('wrd ' + word);
@@ -162,10 +174,18 @@
 
       <style scoped>
        #searchField{
+        overflow:hidden;
+        resize: none;
         text-align: center;
         min-height: 45px!important;
         margin-bottom: 0;
         width: 100%;
+        height: 62px;
+        font-size: 24px;
+        padding: 0 15px;
+        line-height: 62px;
+        border: 0;
+        box-shadow: 0 32px 90px 0 rgba(0,0,0,.29);
 
       }
 
