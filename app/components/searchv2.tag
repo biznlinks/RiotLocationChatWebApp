@@ -13,7 +13,7 @@
       </div>
 
     </div>
-    <div if={searchtag.searchField.matches(":focus") && searchField.value.length>0} class="navbar-fixed-bottom">
+    <div if={searchtag.searchField.matches(":focus") && searchField.value.length>0} class="navbar-fixed-top">
      <button type="button" class="btn btn-default " onclick={createQuestion}>Ask a new question</button>
    </div>
    
