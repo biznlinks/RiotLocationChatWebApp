@@ -2,7 +2,7 @@
 <div class="container">
  <div class="row">
             <div class="col-lg-6 col-md-offset-3  text-center">
-                <nav class="navbar navbar-light bg-faded navbar-fixed-top">
+            <nav class="navbar navbar-light bg-faded" >
   <!-- <button class="navbar-toggler pull-xs-right hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
     &#9776;
   </button> -->
