@@ -1,7 +1,7 @@
 <answeritem>
 	<div class="row">
 		<div class="col-xs-1">
-			<img src = "{this.getProfilePic()}" class = "profile img-circle"></img>
+			<img src = "{this.getProfilePic()}" class = "answer-profile-img img-circle"></img>
 		</div>
 		<div class="col-xs-9 content" >
 		<div class="row">
@@ -57,7 +57,7 @@
 		.author{
 			font-weight: bold;
 		}
-		.profile {
+		.answer-profile-img {
 			width: 30px;
 			height: 30px;
 			margin-right: 10px;
