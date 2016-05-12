@@ -61,7 +61,6 @@
     r(           home       ) // `notfound` would be nicer!
 
     function home() {
-      self.tags.feed.unmount()
       self.track('home')
       self.update({
         title:  "Welcome to Sophus!",
@@ -69,7 +68,7 @@
         route: "posts",
         selectedId: null,
       })
-      riot.mount('feed')
+      self.tags.feed.init()
     }
     function postdetail(id) {
       self.tags.postdetail.unmount()

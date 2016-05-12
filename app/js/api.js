@@ -74,7 +74,7 @@ API = {
   return promise;
 },
 
-getanswersforpost: function(post, fn){
+getanswersforpost: function(post){
   loader.trigger('start');
   var promise = new Parse.Promise();
 
@@ -89,7 +89,7 @@ getanswersforpost: function(post, fn){
   });
   return promise;
 },
-constructFeed: function(fn){
+constructFeed: function(){
   loader.trigger('start');
   var promise = new Parse.Promise();
   Parse.Cloud.run("constructFeed").then(function(results){
@@ -101,8 +101,8 @@ constructFeed: function(fn){
   return promise;
 },
 
-getallposts: function(fn, limit){
-  limit = limit || 20;
+getallposts: function(limit){
+  limit = limit || 1000;
   loader.trigger('start');
   var promise = new Parse.Promise();
   var query = new Parse.Query(Post);
@@ -119,7 +119,7 @@ getallposts: function(fn, limit){
   return promise;
 },
 
-constructQuestionsForTopics: function(topic, fn){
+constructQuestionsForTopics: function(topic){
   loader.trigger('start');
   var promise = new Parse.Promise();
   Parse.Cloud.run("constructQuestionsForTopics", {postContent: topic}).then(function(results){

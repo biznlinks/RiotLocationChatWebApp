@@ -1,49 +1,50 @@
 
 <feed>
-<ask></ask>
+	<ask></ask>
 	<div class="">
 		<div class="row welcome">
 			<div class="text-xs-center">
-			<h4 class="card-title">Welcome to the CHI'16 community!</h4>
-			<p class="card-text">Ask and Answer the people at CHI</p>
-		
-			 <!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#askModal">Ask a new Question</button> -->
-			 <search></search>
+				<h4 class="card-title">Welcome to the CHI'16 community!</h4>
+				<p class="card-text">Ask and Answer the people at CHI</p>
+
+				<!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#askModal">Ask a new Question</button> -->
+			</div>
 
 
 		</div>
-		
-    
-    </div>
+		<div>
+			<search></search>
+		</div>
 
-	<posts name="homeFeedPosts"></posts>
+		<posts name="homeFeedPosts"></posts>
 	</div>
 	
 	<script>
-	var self = this
-	homefeedTag = this
-	self.postsTag = this.tags.homeFeedPosts
+		var self = this
+		homefeedTag = this
 
-	refresh(){
-		self.postsTag.update({loading:true})
-		API.getallposts().then(function(results){
+		self.postsTag = this.tags.homeFeedPosts
+
+		init(){
+			self.postsTag.update({loading:true})
+			self.tags.search.init()
+			API.getallposts(20).then(function(results){
 				self.postsTag.update({posts:results, loading:false})
 			})
-	}
+		}
 
 		this.on('mount', function() {
-			
-			self.refresh()
+			self.init()
 		})
 
-	onsearchclick(){
-		$('#askModal').modal('show')
-	}
+		onsearchclick(){
+			$('#askModal').modal('show')
+		}
 
 	</script>
 	<style scoped>
-	.welcome {
-		margin-bottom: 20px
-	}
+		.welcome {
+			margin-bottom: 20px
+		}
 	</style>
 </feed>

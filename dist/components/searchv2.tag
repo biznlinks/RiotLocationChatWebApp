@@ -1,11 +1,11 @@
 <search>
 	<div id="ajax-example">
 		<div class="">
-      <textarea autofocus name="searchField" id="searchField" oninput={onkeyup} placeholder="Ask CHI!" class="searchbox"></textarea>
+      <textarea name="searchField" id="searchField" oninput={onkeyup} placeholder="Ask CHI!" class="searchbox" onfocus={this.searchonfocus}></textarea>
     </div>
-    <div>
+    <div >
       <div show={ filtered.length } class="card ">
-        <div class="card-block text-xs-center" each={post,i in filtered.slice(0,5)} onclick="{ parent.selected }">
+        <div class="card-block" each={post,i in filtered.slice(0,5)} onclick="{ parent.selected }">
 
           <span class={ active: parent.active==i}>{this.getHighlightedContent(post.content)}</span>
           
@@ -13,7 +13,7 @@
       </div>
 
     </div>
-    <div if={searchtag.searchField.matches(":focus") && searchField.value.length>0} class="">
+    <div if={ searchField.value.length>0} class="text-xs-center">
      <button type="button" class="btn btn-default " onclick={createQuestion}>Ask a new question</button>
    </div>
    
@@ -39,19 +39,18 @@
         post.content = post.get('content')
       })
     })
-
-
-
-
-
-
-
   })
-  this.on("updated", function(){
 
+  init(){
+    self.searchField.value = ""
+    self.filtered = []
+    self.update()
+  }
 
-
-  })
+  searchonfocus(){
+   
+    
+  }
 
 
   createQuestion(){
@@ -82,7 +81,9 @@
       }
 
       onkeyup(e){
+
         var searchText = this.searchField.value
+        
         this.scrollToTop()
         
         var lastWord = getLastWord(searchText)
@@ -99,7 +100,7 @@
 
         this.filtered = this.choices.filter(function(c) {
 
-          return c.content.match(self.re(e))
+          return c.content.toLowerCase().match(self.re(e))
         })
 
 
@@ -122,30 +123,28 @@
 
          }
 
-         function filterFunction(text, input) {
-          var lastWord = getLastWord(input)
-          return ContainsFilter(text, lastWord)
-        }
 
         re(e) {
-          return RegExp(self.lastWord,'i')
+          return RegExp(self.lastWord.toLowerCase(),'i')
         }
 
 
 
         selected(s) {
-          $('#askModal').modal('hide')
-          console.log(s.item.post);
-          var to = "/post/"+s.item.post.id;
-          riot.route(to)
+          // $('#askModal').modal('hide')
+          var postId = s.item.post.id
+          if(typeof postId === "object")
+            postId = s.item.post.objectId
 
+          self.init()
+
+          var to = "/post/"+ postId
+          riot.route(to)
         }
 
         selection(txt) {
-          this.searchField.value=''
+          console.log('outnow');
           this.active = -1
-          this.filtered = []
-          this.trigger('selected', txt)
         }
 
         getMongoResults(input) {

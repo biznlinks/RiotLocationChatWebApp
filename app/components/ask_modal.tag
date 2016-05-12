@@ -15,8 +15,8 @@
 
         <div if={!loading} class="modal-body">
           <div class="info-btns">
-            <textarea rows=2 autofocus id="searchField" name="searchField" placeholder="Ask CHI!" class="searchbox">{question}</textarea>
-            Name: <input type="text" name="name" placeholder= "Anonymous {lizard[0]}"></input>
+            <textarea rows=2 autofocus name="searchField" placeholder="Ask CHI!" class="searchbox">{question}</textarea>
+            <input class="text-xs-center" type="text" name="name" placeholder= "Handle (Optional)"></input>
           </div>
           <div class="modal-footer text-xs-center">
             <button type="button" class="btn btn-default" onclick={createQuestion}>Go!</button>
@@ -98,7 +98,7 @@
             console.log("Successfully added a post " )
             self.loading=false
             self.hide()
-            homefeedTag.refresh()
+            homefeedTag.init()
 
           }, function(err) {
             console.error('query failed: ' + JSON.stringify(err))
@@ -118,7 +118,7 @@
       text-align: center;
     }
 
-    #searchField{
+    .searchbox{
       overflow:hidden;
       resize: none;
       text-align: center;
@@ -127,7 +127,6 @@
       width: 100%;
       font-size: 24px;
       padding: 0 15px;
-      line-height: 62px;
       
           box-shadow: 0 2px 9px 0 rgba(0,0,0,.29);
 
