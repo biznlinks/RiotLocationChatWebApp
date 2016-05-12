@@ -8,18 +8,22 @@
 
       <!-- Modal content-->
       <div class="modal-content">
-      <div if={loading} class="modal-body text-xs-center">
+        <div if={loading} class="modal-body text-xs-center">
           <i class="fa fa-spinner fa-spin fa-3x fa-fw margin-bottom"></i>
           <span class="sr-only">Loading...</span>
         </div>
+        <div class="modal-header">
+        <h4 class="modal-title">Ask a new question</h4>
+        </div>
 
         <div if={!loading} class="modal-body">
+
           <div class="info-btns">
             <textarea rows=2 autofocus name="searchField" placeholder="Ask CHI!" class="searchbox">{question}</textarea>
             <input class="text-xs-center" type="text" name="name" placeholder= "Handle (Optional)"></input>
           </div>
-          <div class="modal-footer text-xs-center">
-            <button type="button" class="btn btn-default" onclick={createQuestion}>Go!</button>
+          <div class="go text-xs-center">
+            <button type="button" class="btn btn-primary" onclick={createQuestion}>Go!</button>
 
           </div>
         </div>
@@ -117,6 +121,9 @@
     :scope{
       text-align: center;
     }
+    .modal-content{
+      min-height: 300px
+    }
 
     .searchbox{
       overflow:hidden;
@@ -130,6 +137,9 @@
       
           box-shadow: 0 2px 9px 0 rgba(0,0,0,.29);
 
+    }
+    .go{
+          margin-top: 10px;
     }
   </style>
 

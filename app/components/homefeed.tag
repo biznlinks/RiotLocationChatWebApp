@@ -2,7 +2,7 @@
 <feed>
 	<ask></ask>
 	<div class="">
-		<div class="row welcome">
+		<div if={!searchFocus} class="row welcome">
 			<div class="text-xs-center">
 				<h4 class="card-title">Welcome to the CHI'16 community!</h4>
 				<p class="card-text">Ask and Answer the people at CHI</p>
@@ -22,6 +22,7 @@
 	<script>
 		var self = this
 		homefeedTag = this
+		self.searchFocus = false
 
 		self.postsTag = this.tags.homeFeedPosts
 
@@ -39,6 +40,12 @@
 
 		onsearchclick(){
 			$('#askModal').modal('show')
+		}
+
+		onSearchFocus(){
+			console.log("hereonfocus");
+			this.searchFocus = true
+			self.update()
 		}
 
 	</script>

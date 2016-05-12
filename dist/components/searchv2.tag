@@ -3,22 +3,22 @@
 		<div class="">
       <textarea name="searchField" id="searchField" oninput={onkeyup} placeholder="Ask CHI!" class="searchbox" onfocus={this.searchonfocus}></textarea>
     </div>
-    <div >
-      <div show={ filtered.length } class="card ">
-        <div class="card-block" each={post,i in filtered.slice(0,5)} onclick="{ parent.selected }">
+    <div if={ searchField.value.length>0} class="text-xs-center">
+    <button type="button" class="btn btn-primary " onclick={createQuestion}>Ask a new question</button>
+   </div>
 
-          <span class={ active: parent.active==i}>{this.getHighlightedContent(post.content)}</span>
-          
-        </div>
-      </div>
+   <div show={ filtered.length } class="card ">
+    <div class="card-block" each={post,i in filtered.slice(0,5)} onclick="{ parent.selected }">
+
+      <span class={ active: parent.active==i}>{this.getHighlightedContent(post.content.slice(0,140))}</span>
 
     </div>
-    <div if={ searchField.value.length>0} class="text-xs-center">
-     <button type="button" class="btn btn-default " onclick={createQuestion}>Ask a new question</button>
-   </div>
-   
- </div>
- <script>
+
+  </div>
+
+
+</div>
+<script>
   searchtag = this
 
   this.min = opts.min || 1
@@ -48,28 +48,27 @@
   }
 
   searchonfocus(){
-   
-    
-  }
+   this.parent.onSearchFocus()
+ }
 
 
-  createQuestion(){
-    console.log('creating a new question '+self.searchField.value);
-    askModalTag.update({question: self.searchField.value})
-    self.init()
-    askModalTag.show()
-  }
+ createQuestion(){
+  console.log('creating a new question '+self.searchField.value);
+  askModalTag.update({question: self.searchField.value})
+  self.init()
+  askModalTag.show()
+}
 
-  scrollToTop(){
-    $('html, body').animate({
-      scrollTop: (this.searchField.offsetTop ) + 'px'
-    }, 'fast');
-  }
+scrollToTop(){
+  $('html, body').animate({
+    scrollTop: (this.searchField.offsetTop ) + 'px'
+  }, 'fast');
+}
 
 
 
-  getHighlightedContent(content){
-    var res = content.split(" ");
+getHighlightedContent(content){
+  var res = content.split(" ");
         // res = _.map(res, function(word){
         //   if (self.searchField.value.toLowerCase().includes(word.toLowerCase())){
         //     console.log('wrd ' + word);
@@ -124,7 +123,7 @@
          }
 
 
-        re(e) {
+         re(e) {
           return RegExp(self.lastWord.toLowerCase(),'i')
         }
 
