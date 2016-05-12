@@ -43,7 +43,6 @@
 		}
 
 		onSearchFocus(){
-			console.log("hereonfocus");
 			this.searchFocus = true
 			self.update()
 		}

@@ -54,7 +54,7 @@
       display: block;
       font-family: sans-serif;
       /*margin-right: 0;*/
-      margin-bottom: 30px;
+      /*margin-bottom: 30px;*/
       /*margin-left: 50px;*/
       /*padding: 1em;*/
       /*text-align: center;*/
