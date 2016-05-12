@@ -19,7 +19,7 @@
 <container>
   <app-navi></app-navi>
   <!-- Page Content -->
-  <div class="container">
+  <div class="">
     <!-- <h1>{ title }</h1> -->
 
     <signup name="signupModal"></signup>
