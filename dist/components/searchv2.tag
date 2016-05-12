@@ -56,7 +56,7 @@
   createQuestion(){
     console.log('creating a new question '+self.searchField.value);
     askModalTag.update({question: self.searchField.value})
-    this.searchField.value=''
+    self.init()
     askModalTag.show()
   }
 
