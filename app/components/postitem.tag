@@ -2,7 +2,7 @@
 	<div class="card ">
 		<div class="card-block">
 
-			<div class="">
+			<div class="" onclick={ this.goToPost }>
 
 				<div class='postauthor text-muted'>
 					<img src = "{this.getProfilePic()}" class = "profile img-circle">
@@ -36,7 +36,7 @@
 			</a>
 		</div>
 		<div class="card-block" if={ answerBoxEnabled }>
-			<input type="text" name="answerbox"></input>
+			<textarea name="answerbox" placeholder="Answer"></textarea>
 			<div onclick={ this.submitAnswer }>Submit</div>
 		</div>
 		<div class="row">
@@ -73,13 +73,6 @@
 	self.answers = []
 	self.answerBoxEnabled = false
 
-	getAuthorName() {
-		if (this.post.get('anonymous'))
-			return 'Anonymous'
-		else 
-			return this.post.get('author').get('firstName') + ' ' + this.post.get('author').get('lastName')
-	}
-
 	this.on('mount', function() {
 		if (this.post.get('answerCount')>0)
 			API.getanswersforpost(this.post).then(function(answers){
@@ -87,6 +80,13 @@
 				self.update()
 			})
 	})
+
+	getAuthorName() {
+		if (this.post.get('anonymous'))
+			return 'Anonymous'
+		else 
+			return this.post.get('author').get('firstName') + ' ' + this.post.get('author').get('lastName')
+	}
 
 	getProfilePic(){
 		var author= self.post.get('author')
@@ -114,13 +114,32 @@
 	}
 
 	submitWannaknow(){
-		if (buttonIsGray) {
+		if (self.wannaknowButton.src.indexOf("gray") != -1) {	// the button is gray a.k.a user hasn't followed
+			var WannaknowObject = Parse.Object.extend('WannaKnow')
+			var wannaknowObject = new WannaknowObject()
 
+			wannaknowObject.save({
+				post: self.post,
+				//user:
+			}, {
+				success: function(wannaknowObject) {
+					self.post.set('wannaknowCount', self.post.get('wannaknowCount') + 1)
+					self.post.save()
+
+					self.wannaknowButton.src = '/images/wannaknow_blue@2x.png'
+					self.update()
+				},
+				error: function(wannaknowObject, error) {
+					// Do something if there is an error
+				}
+			})
+		} else {
+			// Deselect wannaknow here
 		}
 	}
 
 	submitAnswer(){
-		var answerContent = this.answerbox.value
+		var answerContent = self.answerbox.value
 
 		if (answerContent != '') {
 			var AnswerObject = Parse.Object.extend('Answer')
@@ -149,6 +168,14 @@
 			})
 		}
 	}
+
+	goToPost(){
+		var routeTo = '/post/' + self.post.id
+		riot.route(routeTo)
+
+		self.update()
+	}
+	
 </script>
 
 <style scoped>

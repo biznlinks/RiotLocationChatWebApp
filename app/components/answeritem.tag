@@ -10,8 +10,8 @@
 				{answer.get('answer')}
 			</span>
 			</div>
-			<div class="row" onclick={parent.showSignup}>
-				<div class='helpful text-muted'> Helpful   •   <i class="fa fa-thumbs-up" aria-hidden="true"/> {answer.get('likes')}</div>
+			<div class="row" onclick={this.submitLike}>
+				<div class='helpful text-muted'> Helpful   •   <i name="likeButton" class="fa fa-thumbs-o-up" aria-hidden="true"/> {answer.get('likes')}</div>
 			</div>
 			
 		</div>
@@ -36,6 +36,29 @@
 				}
 			}else {
 				return 'https://files.parsetfss.com/135e5227-e041-4147-8248-a5eafaf852ef/tfss-6f1e964e-d7fc-4750-8ffb-43d5a76b136e-kangdo@umich.edu.png'
+			}
+		}
+
+		submitLike(){
+			if (self.likeButton.className.indexOf("fa-thumbs-o-up") != -1) {
+				var LikeObject = Parse.Object.extend('Like')
+				var likeObject = new LikeObject()
+
+				likeObject.save({
+					answer: self.answer,
+					//user:
+				}, {
+					success: function(likeObject) {
+						self.answer.set('likes', self.answer.get('likes') + 1)
+						self.answer.save()
+
+						self.likeButton.className = "fa fa-thumbs-up"
+						self.update()
+					},
+					error: function(likeObject, error) {
+						// Do something if there is an error
+					}
+				})
 			}
 		}
 

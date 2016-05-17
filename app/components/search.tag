@@ -12,10 +12,10 @@
 				for (i = 0, len = this.length; i < len; i++) {
 					chr   = this.charCodeAt(i);
 					hash  = ((hash << 5) - hash) + chr;
-    hash |= 0; // Convert to 32bit integer
-  }
-  return hash;
-};
+          hash |= 0; // Convert to 32bit integer
+        }
+        return hash;
+      };
 
 var objectDict = {};
 
