@@ -2,7 +2,7 @@
 	<ul class="list-group list-group-flush">
 		<div class="card" each={topics}>
 			<a  href="/topics/{ topic }">
-				<li class="list-group-item"><span class="">{topic}</span> <span class="score">{count}</span></li>
+				<li class="list-group-item"><span class="topic-type"></span> <span class="">{topic}</span> <span class="score">{count}</span></li>
 			</a>
 		</div>
 	</ul>
@@ -34,6 +34,10 @@
 		.cardtitle {
 			float: left;
 		}
+		.topic-type{
+			font-size: small;
+		}
+
 		a {
 			display: block;
 			background: #f7f7f7;

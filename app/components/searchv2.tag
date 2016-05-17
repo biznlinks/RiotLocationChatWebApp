@@ -1,7 +1,7 @@
 <search>
 	<div id="ajax-example">
 		<div class="">
-      <textarea name="searchField" id="searchField" oninput={onkeyup} placeholder="Ask CHI!" class="searchbox" onfocus={this.searchonfocus}></textarea>
+      <textarea name="searchField" id="searchField" oninput={onkeyup} placeholder="Ask ICTD!" class="searchbox" onfocus={this.searchonfocus}></textarea>
     </div>
     <div if={ searchField.value.length>0} class="text-xs-center">
     <button type="button" class="btn btn-primary " onclick={createQuestion}>Ask a new question</button>

@@ -27,9 +27,9 @@
 
 				<div class="text-muted pull-xs-right">
 
-
-					<div class='wannaknow text-muted' onclick={ this.submitWannaknow }>
-						<img name="wannaknowButton" width="23px" src="/images/wannaknow_gray@2x.png"> 
+					<div class='wannaknow text-muted' >
+						<!-- <img width="23px" src="/images/wannaknow_gray@2x.png">  -->
+						<i class="fa fa-heart-o" name="wannaknowButton" aria-hidden="true" onclick={ this.submitWannaknow }></i>
 						{post.get('wannaknowCount')}
 					</div> 
 				</div>
@@ -114,7 +114,7 @@
 	}
 
 	submitWannaknow(){
-		if (self.wannaknowButton.src.indexOf("gray") != -1) {	// the button is gray a.k.a user hasn't followed
+		if (self.wannaknowButton.className.indexOf("fa-heart-o") != -1) {	// the button is gray a.k.a user hasn't followed
 			var WannaknowObject = Parse.Object.extend('WannaKnow')
 			var wannaknowObject = new WannaknowObject()
 
@@ -126,7 +126,7 @@
 					self.post.set('wannaknowCount', self.post.get('wannaknowCount') + 1)
 					self.post.save()
 
-					self.wannaknowButton.src = '/images/wannaknow_blue@2x.png'
+					self.wannaknowButton.className = 'fa fa-heart'
 					self.update()
 				},
 				error: function(wannaknowObject, error) {

@@ -6,6 +6,7 @@
 			<h4 class="card-title">#{topicName}</h4>
 			<p class="card-text"></p>
 			<p class="card-text"><small class="text-muted">{postCount} questions for this topic</small></p>
+			<button type="button" class="btn btn-primary " onclick={createQuestion}>Ask a new question</button>
 		</div>
 	</div>
 	<posts name="topicsFeedPosts"></posts>
@@ -18,6 +19,12 @@
 		self.topicName = decodeURI(this.opts.topicName)
 		self.postCount = 0
 		// self.topicName = decodeURI(this.parent.selectedTopicId)
+
+		createQuestion(){
+			console.log('creating a new question ');
+			askModalTag.update({question: "", topics: [self.topicName]})
+			askModalTag.show()
+		}
 
 		this.on('mount', function() {
 			console.log("updating "+ self.topicName);
@@ -34,7 +41,7 @@
 
 		getTopicImage(){
 			if (!self.topic || !self.topic.get('image')){
-				return 'http://files.parsetfss.com/57d0a677-36de-4c63-b991-c2bb1ac2dbb5/tfss-9c330043-dcf6-4139-9091-d8ea601ad14b-chi.jpeg'
+				return '\\\\files.parsetfss.com/492fed6a-4a8e-4a1f-9286-b7ca075fbe93/tfss-b90ff825-9002-4feb-bc90-315dbc0bbf24-Pasted%20image%20at%202016_05_17%2001_46%20PM.png'
 				
 			}
 			return self.topic.get('image').url()

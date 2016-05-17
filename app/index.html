@@ -13,7 +13,7 @@
     <link rel="apple-touch-icon" href="/images/app_icon.png">
 
 
-    <title>Sophus</title>
+    <title>Sophus-ICTD</title>
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
@@ -84,6 +84,7 @@
       </script>
 
       <script src = "/js/api.js"></script>
+
       <script src = "/js/mixins.js"></script>
       <script src="/components/app-navi.tag" type="riot/tag"></script>
       <script src="/components/container.tag" type="riot/tag"></script>
@@ -98,32 +99,8 @@
       <script src="/components/signup_modal.tag" type="riot/tag"></script>
       <script src="/components/ask_modal.tag" type="riot/tag"></script>
 
-
-      <script>
-
-
-         // init
-         Parse.initialize("NV3PXWz0D6qx90BI1aiWKY1gR8IJ2aBS07jeN566", "QHfiiv5CQkTVNH9Bpj3iMntZJ2ze3L8veDlj912R");
-
-         // devo
-        // Parse.initialize("v7xCxwERUx2HMylq25NBYR7blbSA7XhgZgphs7Vs", "QH1WvrsG2xILl3lffa41uDILqploEXuEKkqmO8V8");
-
-         var Post = Parse.Object.extend('Post');
-         var Topic = Parse.Object.extend('Topic');
-
-
-         riot.mixin(OptsMixin)
-
-         riot.compile(function() {
-
-            riot.route.base('/')
-            riot.mount('*')
-            riot.route.start(true)
-        })
-
-
-
-    </script>
+      <script src = "/js/init.js"></script>
+     
 
     <script>
     fbq('track', 'ViewContent');
