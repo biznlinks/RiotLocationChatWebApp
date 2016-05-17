@@ -50,6 +50,7 @@
     "express": "^4.12.3",
     "node-slack": "0.0.7",
     "request": "^2.55.0",
-    "serve-static": "^1.4.0"
+    "serve-static": "^1.4.0",
+    "gulp-cssimport": "latest"
   }
 }

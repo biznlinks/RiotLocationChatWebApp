@@ -18,8 +18,9 @@
 
 
 			</div>
-			<a onclick={this.showSignup}>
-				<div class="text-muted pull-xs-left">
+			<!-- <a onclick={this.showSignup}> -->		
+ 			<a>
+ 				<div class="text-muted pull-xs-left" onclick={ this.showAnswerBox }>
 					<div class='answercount' if={post.get('answerCount') >= 0} >{post.get('answerCount')} answer<span if={post.get('answerCount')!=1}>s</span>
 					</div>
 				</div>
@@ -27,12 +28,16 @@
 				<div class="text-muted pull-xs-right">
 
 
-					<div class='wannaknow text-muted' >
-						<img width="23px" src="/images/wannaknow_gray@2x.png"> 
+					<div class='wannaknow text-muted' onclick={ this.submitWannaknow }>
+						<img name="wannaknowButton" width="23px" src="/images/wannaknow_gray@2x.png"> 
 						{post.get('wannaknowCount')}
 					</div> 
 				</div>
 			</a>
+		</div>
+		<div class="card-block" if={ answerBoxEnabled }>
+			<input type="text" name="answerbox"></input>
+			<div onclick={ this.submitAnswer }>Submit</div>
 		</div>
 		<div class="row">
 			<div class="col-xs-12" >
@@ -66,6 +71,7 @@
 	var self = this
 	self.post = opts.post
 	self.answers = []
+	self.answerBoxEnabled = false
 
 	getAuthorName() {
 		if (this.post.get('anonymous'))
@@ -98,8 +104,50 @@
 		}
 	}
 
+	showAnswerBox(){
+		self.answerBoxEnabled = !self.answerBoxEnabled
+		self.update()
+	}
+
 	showSignup(){
 		$('#signupModal').modal('show')
+	}
+
+	submitWannaknow(){
+		if (buttonIsGray) {
+
+		}
+	}
+
+	submitAnswer(){
+		var answerContent = this.answerbox.value
+
+		if (answerContent != '') {
+			var AnswerObject = Parse.Object.extend('Answer')
+			var answerObject = new AnswerObject()
+			answerObject.save({
+				anonymous: true,
+				answer: answerContent,
+				//author: ,
+				likes: 0,
+				post: self.post,
+				//university: ,
+			}, {
+				success: function(answerObject) {
+					self.post.set('answerCount', self.post.get('answerCount') + 1)
+					self.post.save()
+
+					self.answers.push(answerObject)
+
+					self.answerBoxEnabled = false
+					self.answerbox.value = ''
+					self.update()
+				},
+				error: function(answerObject, error) {
+					// Do something if error
+				}
+			})
+		}
 	}
 </script>
 
