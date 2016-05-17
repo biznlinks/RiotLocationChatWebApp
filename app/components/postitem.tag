@@ -28,7 +28,8 @@
 
 
 					<div class='wannaknow text-muted' >
-						<img width="23px" src="/images/wannaknow_gray@2x.png"> 
+						<!-- <img width="23px" src="/images/wannaknow_gray@2x.png">  -->
+						<i class="fa fa-heart" aria-hidden="true"></i>
 						{post.get('wannaknowCount')}
 					</div> 
 				</div>

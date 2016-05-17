@@ -1,7 +1,7 @@
 <search>
 	<div id="ajax-example">
 		<div class="">
-			<input id="searchField" type="text" class="search-query form-control" placeholder="Search Questions in CHI'16" />
+			<input id="searchField" type="text" class="search-query form-control" placeholder="Search Questions in ICTD'16" />
 		</div>
 
 		<script>

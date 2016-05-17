@@ -19,7 +19,7 @@
         <div if={!loading} class="modal-body">
 
           <div class="info-btns">
-            <textarea rows=2 autofocus name="searchField" placeholder="Ask CHI!" class="searchbox">{question}</textarea>
+            <textarea rows=2 autofocus name="searchField" placeholder="Ask ICTD!" class="searchbox">{question}</textarea>
             <input class="text-xs-center" type="text" name="name" placeholder= "Handle (Optional)"></input>
           </div>
           <div class="go text-xs-center">
@@ -62,7 +62,7 @@
     createQuestion(){
       self.loading = true
       // create new user
-      var password = username = Date.now()+"@chi.conf"
+      var password = username = Date.now()+"@ictd.conf"
 
       var userACL = new Parse.ACL();
       userACL.setPublicReadAccess(true);
