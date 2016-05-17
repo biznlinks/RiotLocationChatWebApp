@@ -6,6 +6,7 @@
 			<h4 class="card-title">#{topicName}</h4>
 			<p class="card-text"></p>
 			<p class="card-text"><small class="text-muted">{postCount} questions for this topic</small></p>
+			<button type="button" class="btn btn-primary " onclick={createQuestion}>Ask a new question</button>
 		</div>
 	</div>
 	<posts name="topicsFeedPosts"></posts>
@@ -18,6 +19,12 @@
 		self.topicName = decodeURI(this.opts.topicName)
 		self.postCount = 0
 		// self.topicName = decodeURI(this.parent.selectedTopicId)
+
+		createQuestion(){
+			console.log('creating a new question ');
+			askModalTag.update({question: "", topics: [self.topicName]})
+			askModalTag.show()
+		}
 
 		this.on('mount', function() {
 			console.log("updating "+ self.topicName);

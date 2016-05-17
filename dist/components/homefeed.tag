@@ -1,6 +1,6 @@
 
 <feed>
-	<ask></ask>
+	
 	<div class="">
 		<div if={!searchFocus} class="row welcome">
 			<div class="text-xs-center">
