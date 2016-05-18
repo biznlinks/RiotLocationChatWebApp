@@ -43,8 +43,8 @@
 			<div class="col-xs-12" >
 				<div if={post.get('answerCount')>0}>
 					<hr/>
-					<div each={ answer in answers }>
-						<answeritem answer=answer></answeritem>
+					<div each={ ans in answers }>
+						<answeritem answer={ ans }></answeritem>
 					</div>
 
 				</div>
@@ -79,6 +79,19 @@
 				self.answers = answers
 				self.update()
 			})
+
+		// Check if user already followed this post
+		var WannaknowObject = Parse.Object.extend('WannaKnow')
+		var query = new Parse.Query(WannaknowObject)
+		query.equalTo('post', self.post)
+		query.equalTo('user', Parse.User.current())
+		query.find({
+			success: function(wannaknows) {
+				if (wannaknows.length > 0) self.wannaknowButton.className = "fa fa-heart"
+			}, 
+			error: function(error) {
+			}
+		})
 	})
 
 	getAuthorName() {
@@ -120,7 +133,7 @@
 
 			wannaknowObject.save({
 				post: self.post,
-				//user:
+				user: Parse.User.current()
 			}, {
 				success: function(wannaknowObject) {
 					self.post.set('wannaknowCount', self.post.get('wannaknowCount') + 1)
@@ -134,7 +147,25 @@
 				}
 			})
 		} else {
-			// Deselect wannaknow here
+			var WannaknowObject = Parse.Object.extend('WannaKnow')
+			var query = new Parse.Query(WannaknowObject)
+			query.equalTo('post', self.post)
+			query.equalTo('user', Parse.User.current())
+			query.find({
+				success: function(wannaknows) {
+					if (wannaknows.length > 0) {
+						self.wannaknowButton.className = "fa fa-heart-o"
+						wannaknows[0].destroy({})
+
+						self.post.set('wannaknowCount', self.post.get('wannaknowCount') - 1)
+						self.post.save()
+
+						self.update()
+					}
+				}, 
+				error: function(error) {
+				}
+			})
 		}
 	}
 
@@ -145,9 +176,8 @@
 			var AnswerObject = Parse.Object.extend('Answer')
 			var answerObject = new AnswerObject()
 			answerObject.save({
-				anonymous: true,
 				answer: answerContent,
-				//author: ,
+				author: Parse.User.current(),
 				likes: 0,
 				post: self.post,
 				//university: ,

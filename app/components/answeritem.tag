@@ -19,9 +19,22 @@
 
 	<script>
 		var self = this
-		this.answer = opts.answer
+		self.answer = opts.answer
 
-
+		this.on('mount', function() {
+			// Check if user already liked this answer
+			var LikeObject = Parse.Object.extend('Like')
+			var query = new Parse.Query(LikeObject)
+			query.equalTo('answer', self.answer)
+			query.equalTo('user', Parse.User.current())
+			query.find({
+				success: function(likes) {
+					if (likes.length > 0) self.likeButton.className = "fa fa-thumbs-up"
+				},
+				error: function(error) {
+				}
+			})
+		})
 
 		this.on('update', function() {
 			answer = this.answer
@@ -46,7 +59,7 @@
 
 				likeObject.save({
 					answer: self.answer,
-					//user:
+					user: Parse.User.current()
 				}, {
 					success: function(likeObject) {
 						self.answer.set('likes', self.answer.get('likes') + 1)
@@ -57,6 +70,26 @@
 					},
 					error: function(likeObject, error) {
 						// Do something if there is an error
+					}
+				})
+			} else {
+				var LikeObject = Parse.Object.extend('Like')
+				var query = new Parse.Query(LikeObject)
+				query.equalTo('answer', self.answer)
+				query.equalTo('user', Parse.User.current())
+				query.find({
+					success: function(likes) {
+						if (likes.length > 0) {
+							self.likeButton.className = "fa fa-thumbs-o-up"
+							likes[0].destroy({})
+
+							self.answer.set('likes', self.answer.get('likes') - 1)
+							self.answer.save()
+
+							self.update()
+						}
+					},
+					error: function(error) {
 					}
 				})
 			}
