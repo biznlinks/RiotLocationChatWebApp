@@ -19,7 +19,7 @@
 
 			</div>
 			<!-- <a onclick={this.showSignup}> -->		
- 			<a>
+ 			<div class="noselect pointer">
  				<div class="text-muted pull-xs-left" onclick={ this.showAnswerBox }>
 					<div class='answercount' if={post.get('answerCount') >= 0} >{post.get('answerCount')} answer<span if={post.get('answerCount')!=1}>s</span>
 					</div>
@@ -33,11 +33,11 @@
 						{post.get('wannaknowCount')}
 					</div> 
 				</div>
-			</a>
+			</div>
 		</div>
 		<div class="card-block" if={ answerBoxEnabled }>
-			<textarea name="answerbox" placeholder="Answer"></textarea>
-			<div onclick={ this.submitAnswer }>Submit</div>
+			<textarea name="answerbox" placeholder="Type your reply"></textarea>
+			<div class="pointer submit" onclick={ this.submitAnswer }>Submit</div>
 		</div>
 		<div class="card-block" if={ sending }>
 			Sending your reply ...
@@ -257,7 +257,6 @@
 
 	}
 
-
 	.answercount{
 		display: inline-block;
 		font-size: small;
@@ -265,6 +264,33 @@
 
 	.comment-input {
 		width: 100%
+	}
+
+	.pointer:hover {
+		cursor: pointer;
+	}
+
+	.submit {
+		position: absolute;
+		right: 3%;
+		color: #5c5c5c;
+	}
+
+	textarea {
+		width: 100%;
+		resize: none;
+		-webkit-border-radius: 5px;
+    	-moz-border-radius: 5px;
+    	border-radius: 5px;
+	}
+
+	.noselect {
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
 	}
 
 	@media (min-width: 480px) {
