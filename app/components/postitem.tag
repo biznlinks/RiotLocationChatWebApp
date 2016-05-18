@@ -39,6 +39,9 @@
 			<textarea name="answerbox" placeholder="Answer"></textarea>
 			<div onclick={ this.submitAnswer }>Submit</div>
 		</div>
+		<div class="card-block" if={ sending }>
+			Sending your answer ...
+		</div>
 		<div class="row">
 			<div class="col-xs-12" >
 				<div if={post.get('answerCount')>0}>
@@ -72,6 +75,7 @@
 	self.post = opts.post
 	self.answers = []
 	self.answerBoxEnabled = false
+	self.sending = false
 
 	this.on('mount', function() {
 		if (this.post.get('answerCount')>0)
@@ -128,9 +132,12 @@
 
 	submitWannaknow(){
 		if (self.wannaknowButton.className.indexOf("fa-heart-o") != -1) {	// the button is gray a.k.a user hasn't followed
+			// Update UI before processing
+			self.wannaknowButton.className = 'fa fa-heart'
+			self.update()
+
 			var WannaknowObject = Parse.Object.extend('WannaKnow')
 			var wannaknowObject = new WannaknowObject()
-
 			wannaknowObject.save({
 				post: self.post,
 				user: Parse.User.current()
@@ -138,8 +145,6 @@
 				success: function(wannaknowObject) {
 					self.post.set('wannaknowCount', self.post.get('wannaknowCount') + 1)
 					self.post.save()
-
-					self.wannaknowButton.className = 'fa fa-heart'
 					self.update()
 				},
 				error: function(wannaknowObject, error) {
@@ -147,6 +152,10 @@
 				}
 			})
 		} else {
+			// Update UI before processing
+			self.wannaknowButton.className = "fa fa-heart-o"
+			self.update()
+
 			var WannaknowObject = Parse.Object.extend('WannaKnow')
 			var query = new Parse.Query(WannaknowObject)
 			query.equalTo('post', self.post)
@@ -154,12 +163,9 @@
 			query.find({
 				success: function(wannaknows) {
 					if (wannaknows.length > 0) {
-						self.wannaknowButton.className = "fa fa-heart-o"
 						wannaknows[0].destroy({})
-
 						self.post.set('wannaknowCount', self.post.get('wannaknowCount') - 1)
 						self.post.save()
-
 						self.update()
 					}
 				}, 
@@ -173,24 +179,26 @@
 		var answerContent = self.answerbox.value
 
 		if (answerContent != '') {
+			// Set UI before processing
+			self.answerBoxEnabled = false
+			self.answerbox.value = ''
+			self.sending = true
+			self.update()
+
 			var AnswerObject = Parse.Object.extend('Answer')
 			var answerObject = new AnswerObject()
 			answerObject.save({
 				answer: answerContent,
 				author: Parse.User.current(),
 				likes: 0,
-				post: self.post,
-				//university: ,
+				post: self.post
 			}, {
 				success: function(answerObject) {
 					self.post.set('answerCount', self.post.get('answerCount') + 1)
 					self.post.save()
-
 					self.answers.push(answerObject)
-
-					self.answerBoxEnabled = false
-					self.answerbox.value = ''
-					self.update()
+					self.sending = false
+					self.update()		
 				},
 				error: function(answerObject, error) {
 					// Do something if error

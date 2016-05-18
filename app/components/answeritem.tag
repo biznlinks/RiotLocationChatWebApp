@@ -53,7 +53,10 @@
 		}
 
 		submitLike(){
-			if (self.likeButton.className.indexOf("fa-thumbs-o-up") != -1) {
+			if (self.likeButton.className.indexOf("fa-thumbs-o-up") != -1) {	// If the button is empty a.k.a user hasn't liked
+				self.likeButton.className = "fa fa-thumbs-up"
+				self.update()
+
 				var LikeObject = Parse.Object.extend('Like')
 				var likeObject = new LikeObject()
 
@@ -64,8 +67,6 @@
 					success: function(likeObject) {
 						self.answer.set('likes', self.answer.get('likes') + 1)
 						self.answer.save()
-
-						self.likeButton.className = "fa fa-thumbs-up"
 						self.update()
 					},
 					error: function(likeObject, error) {
@@ -73,6 +74,9 @@
 					}
 				})
 			} else {
+				self.likeButton.className = "fa fa-thumbs-o-up"
+				self.update()
+
 				var LikeObject = Parse.Object.extend('Like')
 				var query = new Parse.Query(LikeObject)
 				query.equalTo('answer', self.answer)
@@ -80,12 +84,9 @@
 				query.find({
 					success: function(likes) {
 						if (likes.length > 0) {
-							self.likeButton.className = "fa fa-thumbs-o-up"
 							likes[0].destroy({})
-
 							self.answer.set('likes', self.answer.get('likes') - 1)
 							self.answer.save()
-
 							self.update()
 						}
 					},
