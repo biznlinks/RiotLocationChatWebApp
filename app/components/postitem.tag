@@ -40,7 +40,7 @@
 			<div onclick={ this.submitAnswer }>Submit</div>
 		</div>
 		<div class="card-block" if={ sending }>
-			Sending your answer ...
+			Sending your reply ...
 		</div>
 		<div class="row">
 			<div class="col-xs-12" >
@@ -76,6 +76,7 @@
 	self.answers = []
 	self.answerBoxEnabled = false
 	self.sending = false
+	self.wannaknown = false
 
 	this.on('mount', function() {
 		if (this.post.get('answerCount')>0)
@@ -91,7 +92,10 @@
 		query.equalTo('user', Parse.User.current())
 		query.find({
 			success: function(wannaknows) {
-				if (wannaknows.length > 0) self.wannaknowButton.className = "fa fa-heart"
+				if (wannaknows.length > 0) {
+					self.wannaknowButton.className = "fa fa-heart"
+					self.wannaknown = true
+				}
 			}, 
 			error: function(error) {
 			}
@@ -131,9 +135,12 @@
 	}
 
 	submitWannaknow(){
-		if (self.wannaknowButton.className.indexOf("fa-heart-o") != -1) {	// the button is gray a.k.a user hasn't followed
+		if (!self.wannaknown) {	// the button is gray a.k.a user hasn't followed
 			// Update UI before processing
 			self.wannaknowButton.className = 'fa fa-heart'
+			self.wannaknown = true
+			self.post.set('wannaknowCount', self.post.get('wannaknowCount') + 1)
+			self.post.save()
 			self.update()
 
 			var WannaknowObject = Parse.Object.extend('WannaKnow')
@@ -143,9 +150,6 @@
 				user: Parse.User.current()
 			}, {
 				success: function(wannaknowObject) {
-					self.post.set('wannaknowCount', self.post.get('wannaknowCount') + 1)
-					self.post.save()
-					self.update()
 				},
 				error: function(wannaknowObject, error) {
 					// Do something if there is an error
@@ -154,6 +158,9 @@
 		} else {
 			// Update UI before processing
 			self.wannaknowButton.className = "fa fa-heart-o"
+			self.wannaknown = false
+			self.post.set('wannaknowCount', self.post.get('wannaknowCount') - 1)
+			self.post.save()
 			self.update()
 
 			var WannaknowObject = Parse.Object.extend('WannaKnow')
@@ -164,9 +171,6 @@
 				success: function(wannaknows) {
 					if (wannaknows.length > 0) {
 						wannaknows[0].destroy({})
-						self.post.set('wannaknowCount', self.post.get('wannaknowCount') - 1)
-						self.post.save()
-						self.update()
 					}
 				}, 
 				error: function(error) {

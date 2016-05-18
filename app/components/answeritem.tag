@@ -20,6 +20,7 @@
 	<script>
 		var self = this
 		self.answer = opts.answer
+		self.liked = false
 
 		this.on('mount', function() {
 			// Check if user already liked this answer
@@ -29,7 +30,10 @@
 			query.equalTo('user', Parse.User.current())
 			query.find({
 				success: function(likes) {
-					if (likes.length > 0) self.likeButton.className = "fa fa-thumbs-up"
+					if (likes.length > 0) {
+						self.likeButton.className = "fa fa-thumbs-up"
+						self.liked = true
+					}
 				},
 				error: function(error) {
 				}
@@ -53,8 +57,11 @@
 		}
 
 		submitLike(){
-			if (self.likeButton.className.indexOf("fa-thumbs-o-up") != -1) {	// If the button is empty a.k.a user hasn't liked
+			if (!self.liked) {	// If the button is empty a.k.a user hasn't liked
 				self.likeButton.className = "fa fa-thumbs-up"
+				self.liked = true
+				self.answer.set('likes', self.answer.get('likes') + 1)
+				self.answer.save()
 				self.update()
 
 				var LikeObject = Parse.Object.extend('Like')
@@ -65,9 +72,6 @@
 					user: Parse.User.current()
 				}, {
 					success: function(likeObject) {
-						self.answer.set('likes', self.answer.get('likes') + 1)
-						self.answer.save()
-						self.update()
 					},
 					error: function(likeObject, error) {
 						// Do something if there is an error
@@ -75,6 +79,9 @@
 				})
 			} else {
 				self.likeButton.className = "fa fa-thumbs-o-up"
+				self.liked = false
+				self.answer.set('likes', self.answer.get('likes') - 1)
+				self.answer.save()
 				self.update()
 
 				var LikeObject = Parse.Object.extend('Like')
@@ -85,9 +92,6 @@
 					success: function(likes) {
 						if (likes.length > 0) {
 							likes[0].destroy({})
-							self.answer.set('likes', self.answer.get('likes') - 1)
-							self.answer.save()
-							self.update()
 						}
 					},
 					error: function(error) {
