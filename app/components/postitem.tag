@@ -31,7 +31,7 @@
 						<!-- <img width="23px" src="/images/wannaknow_gray@2x.png">  -->
 						<i class="fa fa-heart-o" name="wannaknowButton" aria-hidden="true" onclick={ this.submitWannaknow }></i>
 						<!-- {post.get('wannaknowCount')} -->
-						<div name="wannaknowCount" class="wannaknow"></div>
+						{ wannaknowCount }
 					</div> 
 				</div>
 			</div>
@@ -77,6 +77,7 @@
 	self.answers = []
 	self.answerBoxEnabled = false
 	self.sending = false
+	self.wannaknowCount = 0
 	self.wannaknown = false
 
 	this.on('mount', function() {
@@ -86,7 +87,7 @@
 				self.update()
 			})
 
-		self.wannaknowCount.innerHTML = self.post.get('wannaknowCount')
+		self.wannaknowCount = self.post.get('wannaknowCount')
 
 		// Check if user already followed this post
 		var WannaknowObject = Parse.Object.extend('WannaKnow')
@@ -142,7 +143,7 @@
 			// Update UI before processing
 			self.wannaknowButton.className = 'fa fa-heart'
 			self.wannaknown = true
-			self.wannaknowCount.innerHTML = parseInt(self.wannaknowCount.innerHTML) + 1
+			self.wannaknowCount += 1
 			self.update()
 
 			if (Parse.User.current().get('firstName') == 'Anonymous')
@@ -164,7 +165,7 @@
 			// Update UI before processing
 			self.wannaknowButton.className = "fa fa-heart-o"
 			self.wannaknown = false
-			self.wannaknowCount.innerHTML = parseInt(self.wannaknowCount.innerHTML) - 1
+			self.wannaknowCount -= 1
 			self.update()
 
 			var WannaknowObject = Parse.Object.extend('WannaKnow')
