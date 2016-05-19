@@ -10,8 +10,8 @@
 				{answer.get('answer')}
 			</span>
 			</div>
-			<div class="row" onclick={this.submitLike}>
-				<div class='helpful text-muted'> Helpful   •   <i name="likeButton" class="fa fa-thumbs-o-up" aria-hidden="true"/> {answer.get('likes')}</div>
+			<div class="row pointer" onclick={this.submitLike}>
+				<div class='helpful text-muted'> Helpful   •   <i name="likeButton" class="fa fa-thumbs-o-up" aria-hidden="true"/> <div class="inline" name="likeCount"></div> </div>
 			</div>
 			
 		</div>
@@ -23,6 +23,8 @@
 		self.liked = false
 
 		this.on('mount', function() {
+			self.likeCount.innerHTML = self.answer.get('likes')
+
 			// Check if user already liked this answer
 			var LikeObject = Parse.Object.extend('Like')
 			var query = new Parse.Query(LikeObject)
@@ -60,8 +62,7 @@
 			if (!self.liked) {	// If the button is empty a.k.a user hasn't liked
 				self.likeButton.className = "fa fa-thumbs-up"
 				self.liked = true
-				self.answer.set('likes', self.answer.get('likes') + 1)
-				self.answer.save()
+				self.likeCount.innerHTML = parseInt(self.likeCount.innerHTML) + 1
 				self.update()
 
 				var LikeObject = Parse.Object.extend('Like')
@@ -80,8 +81,7 @@
 			} else {
 				self.likeButton.className = "fa fa-thumbs-o-up"
 				self.liked = false
-				self.answer.set('likes', self.answer.get('likes') - 1)
-				self.answer.save()
+				self.likeCount.innerHTML = parseInt(self.likeCount.innerHTML) - 1
 				self.update()
 
 				var LikeObject = Parse.Object.extend('Like')
@@ -133,6 +133,18 @@
 		.helpful {
 			display: inline-block;
 			font-size: smaller;
+		}
+		.inline {
+			display:inline-block;
+		}
+		.pointer:hover {
+			cursor: pointer;
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-khtml-user-select: none;
+			-moz-user-select: none;
+			-ms-user-select: none;
+			user-select: none;
 		}
 
 

@@ -19,7 +19,7 @@
 
 			</div>
 			<!-- <a onclick={this.showSignup}> -->		
- 			<div class="noselect pointer">
+ 			<div class="pointer">
  				<div class="text-muted pull-xs-left" onclick={ this.showAnswerBox }>
 					<div class='answercount' if={post.get('answerCount') >= 0} >{post.get('answerCount')} answer<span if={post.get('answerCount')!=1}>s</span>
 					</div>
@@ -30,7 +30,8 @@
 					<div class='wannaknow text-muted' >
 						<!-- <img width="23px" src="/images/wannaknow_gray@2x.png">  -->
 						<i class="fa fa-heart-o" name="wannaknowButton" aria-hidden="true" onclick={ this.submitWannaknow }></i>
-						{post.get('wannaknowCount')}
+						<!-- {post.get('wannaknowCount')} -->
+						<div name="wannaknowCount" class="wannaknow"></div>
 					</div> 
 				</div>
 			</div>
@@ -84,6 +85,8 @@
 				self.answers = answers
 				self.update()
 			})
+
+		self.wannaknowCount.innerHTML = self.post.get('wannaknowCount')
 
 		// Check if user already followed this post
 		var WannaknowObject = Parse.Object.extend('WannaKnow')
@@ -139,9 +142,11 @@
 			// Update UI before processing
 			self.wannaknowButton.className = 'fa fa-heart'
 			self.wannaknown = true
-			self.post.set('wannaknowCount', self.post.get('wannaknowCount') + 1)
-			self.post.save()
+			self.wannaknowCount.innerHTML = parseInt(self.wannaknowCount.innerHTML) + 1
 			self.update()
+
+			if (Parse.User.current().get('firstName') == 'Anonymous')
+				self.showSignup()
 
 			var WannaknowObject = Parse.Object.extend('WannaKnow')
 			var wannaknowObject = new WannaknowObject()
@@ -159,8 +164,7 @@
 			// Update UI before processing
 			self.wannaknowButton.className = "fa fa-heart-o"
 			self.wannaknown = false
-			self.post.set('wannaknowCount', self.post.get('wannaknowCount') - 1)
-			self.post.save()
+			self.wannaknowCount.innerHTML = parseInt(self.wannaknowCount.innerHTML) - 1
 			self.update()
 
 			var WannaknowObject = Parse.Object.extend('WannaKnow')
@@ -171,8 +175,9 @@
 				success: function(wannaknows) {
 					if (wannaknows.length > 0) {
 						wannaknows[0].destroy({})
+						self.update()
 					}
-				}, 
+				},
 				error: function(error) {
 				}
 			})
@@ -200,6 +205,8 @@
 				success: function(answerObject) {
 					self.post.set('answerCount', self.post.get('answerCount') + 1)
 					self.post.save()
+					Parse.User.current().set('answerCount', Parse.User.current().get('answerCount') + 1)
+					Parse.User.current().save()
 					self.answers.push(answerObject)
 					self.sending = false
 					self.update()		
@@ -212,10 +219,11 @@
 	}
 
 	goToPost(){
-		var routeTo = '/post/' + self.post.id
-		riot.route(routeTo)
-
-		self.update()
+		if (window.location.href.indexOf("/post/") == -1) {
+			var routeTo = '/post/' + self.post.id
+			riot.route(routeTo)
+			self.update()
+		}
 	}
 	
 </script>
@@ -268,6 +276,12 @@
 
 	.pointer:hover {
 		cursor: pointer;
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
 	}
 
 	.submit {
@@ -282,15 +296,6 @@
 		-webkit-border-radius: 5px;
     	-moz-border-radius: 5px;
     	border-radius: 5px;
-	}
-
-	.noselect {
-		-webkit-touch-callout: none;
-		-webkit-user-select: none;
-		-khtml-user-select: none;
-		-moz-user-select: none;
-		-ms-user-select: none;
-		user-select: none;
 	}
 
 	@media (min-width: 480px) {
