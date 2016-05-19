@@ -13,7 +13,7 @@
       </li>
     </ul>
 
-    
+
 
     <!-- <form class="form-inline pull-xs-right">
       <input class="form-control" type="text" placeholder="Search">
@@ -31,7 +31,7 @@
   this.links = [
   { name: "Home", url: "post" },
   { name: "Topics", url: "topics" },
-  // { name: "SignUp", url: "login" }
+  //{ name: "Login", url: "login" }
   ]
 
   var r = riot.route.create()

@@ -3,7 +3,7 @@
 <!-- Modal -->
 <div id="signupModal" class="modal fade" role="dialog">
 	<div class="modal-dialog">
-		
+
 		<!-- Modal content -->
 		<div class="modal-content">
 			<div class="modal-header">
@@ -16,7 +16,7 @@
 				Password: <input type="password" name="password"/> <br/>
 				Fullname: <input type="text" name="fullname"/> <br/>
 				<div name="submit" onclick="{ this.submitSignup }">Submit</div>
-				<div name="error" if={ isError }></div>
+				<div if={ isError }>{ error }</div>
 			</div>
 
 			<div class="modal-footer">
@@ -28,14 +28,45 @@
 </div>
 
 <script>
-	var self = this
+	var self     = this
 	self.isError = false
+	self.error   = ""
 
 	this.on('mount', function(){
 		$('#signupModal').on('show.bs.modal', function() {
 	    	self.track()
 		})
 	})
+
+	submitSignup(){
+		if (self.checkValidity())
+			self.showError(self.checkValidity())
+		else {
+			var user          = Parse.User.current()
+			var userEmail     = self.email.value
+			var userPassword  = self.password.value
+			var userFullname  = self.fullname.value
+
+			var userFirstname = userFullname.split(" ")[0]
+			var userLastname  = userFullname.substring(userFullname.indexOf(" "))
+
+			user.set('username', userEmail)
+			user.set('password', userPassword)
+			user.set('email', userEmail)
+			user.set('firstName', userFirstname)
+			user.set('lastName', userLastname)
+			user.save(null, {
+				success: function(user) {
+					$('#signupModal').modal('hide')
+				},
+				error: function(user, error) {
+					self.isError = true
+					self.error   = error.message
+					self.update()
+				}
+			})
+		}
+	}
 
 	checkValidity() {
 		if (!self.validateEmail(self.email.value)) return 1
@@ -54,56 +85,30 @@
 		self.isError = true
 		switch(errorCode) {
 			case 1:
-				self.error.innerHTML = "Email is not valid. Please enter a valid email"
+				self.error = "Email is not valid. Please enter a valid email"
 				break
 			case 2:
-				self.error.innerHTML = "Password should be from 6 to 32 characters of length"
+				self.error = "Password should be from 6 to 32 characters of length"
 				break
 			case 3:
-				self.error.innerHTML = "Fullname cannot be empty"
+				self.error = "Fullname cannot be empty"
 				break
 			default:
 				self.isError = false
+				self.error   = ""
 				break
 		}
 
 		self.update()
 	}
 
-	submitSignup(){
-		if (self.checkValidity())
-			self.showError(self.checkValidity())
-		else {
-			var user = Parse.User.current()
-			var userEmail = self.email.value
-			var userPassword = self.password.value
-			var userFullname = self.fullname.value
-
-			var userFirstname = userFullname.split(" ")[0]
-			var userLastname = userFullname.substring(userFullname.indexOf(" "))
-			
-			user.set('username', userEmail)
-			user.set('password', userPassword)
-			user.set('email', userEmail)
-			user.set('firstName', userFirstname)
-			user.set('lastName', userLastname)
-			user.save(null, {
-				success: function(user) {
-				},
-				error: function(user, error) {
-					console.log(error)
-				}
-			})
-		}
-	}
-	
 </script>
 
 <style scoped>
 :scope{
 	text-align: center;
 }
-	
+
 </style>
 
 </signup>

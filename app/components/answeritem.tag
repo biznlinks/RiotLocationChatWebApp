@@ -18,24 +18,24 @@
 	</div>
 
 	<script>
-		var self = this
-		self.answer = opts.answer
-		self.liked = false
+		var self       = this
+		self.answer    = opts.answer
+		self.liked     = false
 		self.likeCount = 0
 
 		this.on('mount', function() {
 			self.likeCount = self.answer.get('likes')
-
+			
 			// Check if user already liked this answer
 			var LikeObject = Parse.Object.extend('Like')
-			var query = new Parse.Query(LikeObject)
+			var query      = new Parse.Query(LikeObject)
 			query.equalTo('answer', self.answer)
 			query.equalTo('user', Parse.User.current())
 			query.find({
 				success: function(likes) {
 					if (likes.length > 0) {
 						self.likeButton.className = "fa fa-thumbs-up"
-						self.liked = true
+						self.liked                = true
 					}
 				},
 				error: function(error) {
@@ -62,9 +62,12 @@
 		submitLike(){
 			if (!self.liked) {	// If the button is empty a.k.a user hasn't liked
 				self.likeButton.className = "fa fa-thumbs-up"
-				self.liked = true
-				self.likeCount += 1
+				self.liked                = true
+				self.likeCount            += 1
 				self.update()
+
+				if (Parse.User.current().get('firstName') == 'Anonymous')
+					self.parent.showSignup()
 
 				var LikeObject = Parse.Object.extend('Like')
 				var likeObject = new LikeObject()
@@ -81,12 +84,12 @@
 				})
 			} else {
 				self.likeButton.className = "fa fa-thumbs-o-up"
-				self.liked = false
-				self.likeCount -= 1
+				self.liked                = false
+				self.likeCount            -= 1
 				self.update()
 
 				var LikeObject = Parse.Object.extend('Like')
-				var query = new Parse.Query(LikeObject)
+				var query      = new Parse.Query(LikeObject)
 				query.equalTo('answer', self.answer)
 				query.equalTo('user', Parse.User.current())
 				query.find({

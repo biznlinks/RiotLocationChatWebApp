@@ -8,7 +8,7 @@
 					<img src = "{this.getProfilePic()}" class = "profile img-circle">
 					<span><span >{this.getAuthorName()}</span> <br/>
 					<!-- <span class='author-about text-muted'>{post.get('author').get('about')}</span></span> -->
-					
+
 
 					<!-- <h4 class="card-title">{getAuthorName(post)}</h4> -->
 				</div>
@@ -18,7 +18,7 @@
 
 
 			</div>
-			<!-- <a onclick={this.showSignup}> -->		
+			<!-- <a onclick={this.showSignup}> -->
  			<div class="pointer">
  				<div class="text-muted pull-xs-left" onclick={ this.showAnswerBox }>
 					<div class='answercount' if={post.get('answerCount') >= 0} >{post.get('answerCount')} answer<span if={post.get('answerCount')!=1}>s</span>
@@ -27,12 +27,12 @@
 
 				<div class="text-muted pull-xs-right">
 
-					<div class='wannaknow text-muted' >
+					<div class='wannaknow text-muted' onclick={ this.submitWannaknow }>
 						<!-- <img width="23px" src="/images/wannaknow_gray@2x.png">  -->
-						<i class="fa fa-heart-o" name="wannaknowButton" aria-hidden="true" onclick={ this.submitWannaknow }></i>
+						<i class="fa fa-heart-o" name="wannaknowButton" aria-hidden="true"></i>
 						<!-- {post.get('wannaknowCount')} -->
 						{ wannaknowCount }
-					</div> 
+					</div>
 				</div>
 			</div>
 		</div>
@@ -72,13 +72,13 @@
 
 
 <script>
-	var self = this
-	self.post = opts.post
-	self.answers = []
+	var self              = this
+	self.post             = opts.post
+	self.answers          = []
 	self.answerBoxEnabled = false
-	self.sending = false
-	self.wannaknowCount = 0
-	self.wannaknown = false
+	self.sending          = false
+	self.wannaknowCount   = 0
+	self.wannaknown       = false
 
 	this.on('mount', function() {
 		if (this.post.get('answerCount')>0)
@@ -91,16 +91,16 @@
 
 		// Check if user already followed this post
 		var WannaknowObject = Parse.Object.extend('WannaKnow')
-		var query = new Parse.Query(WannaknowObject)
+		var query           = new Parse.Query(WannaknowObject)
 		query.equalTo('post', self.post)
 		query.equalTo('user', Parse.User.current())
 		query.find({
 			success: function(wannaknows) {
 				if (wannaknows.length > 0) {
 					self.wannaknowButton.className = "fa fa-heart"
-					self.wannaknown = true
+					self.wannaknown                = true
 				}
-			}, 
+			},
 			error: function(error) {
 			}
 		})
@@ -109,7 +109,7 @@
 	getAuthorName() {
 		if (this.post.get('anonymous'))
 			return 'Anonymous'
-		else 
+		else
 			return this.post.get('author').get('firstName') + ' ' + this.post.get('author').get('lastName')
 	}
 
@@ -135,15 +135,16 @@
 	}
 
 	showSignup(){
-		$('#signupModal').modal('show')
+		console.log($('#loginModal'))
+		$('#loginModal').modal('show')
 	}
 
 	submitWannaknow(){
 		if (!self.wannaknown) {	// the button is gray a.k.a user hasn't followed
 			// Update UI before processing
 			self.wannaknowButton.className = 'fa fa-heart'
-			self.wannaknown = true
-			self.wannaknowCount += 1
+			self.wannaknown                = true
+			self.wannaknowCount            += 1
 			self.update()
 
 			if (Parse.User.current().get('firstName') == 'Anonymous')
@@ -164,12 +165,12 @@
 		} else {
 			// Update UI before processing
 			self.wannaknowButton.className = "fa fa-heart-o"
-			self.wannaknown = false
-			self.wannaknowCount -= 1
+			self.wannaknown                = false
+			self.wannaknowCount            -= 1
 			self.update()
 
 			var WannaknowObject = Parse.Object.extend('WannaKnow')
-			var query = new Parse.Query(WannaknowObject)
+			var query           = new Parse.Query(WannaknowObject)
 			query.equalTo('post', self.post)
 			query.equalTo('user', Parse.User.current())
 			query.find({
@@ -191,8 +192,8 @@
 		if (answerContent != '') {
 			// Set UI before processing
 			self.answerBoxEnabled = false
-			self.answerbox.value = ''
-			self.sending = true
+			self.answerbox.value  = ''
+			self.sending          = true
 			self.update()
 
 			var AnswerObject = Parse.Object.extend('Answer')
@@ -210,7 +211,10 @@
 					Parse.User.current().save()
 					self.answers.push(answerObject)
 					self.sending = false
-					self.update()		
+					self.update()
+
+					if (Parse.User.current().get('firstName') == 'Anonymous')
+						self.showSignup()
 				},
 				error: function(answerObject, error) {
 					// Do something if error
@@ -226,7 +230,7 @@
 			self.update()
 		}
 	}
-	
+
 </script>
 
 <style scoped>
