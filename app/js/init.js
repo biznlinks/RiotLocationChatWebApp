@@ -1,11 +1,11 @@
 // // chi
-            Parse.initialize("NV3PXWz0D6qx90BI1aiWKY1gR8IJ2aBS07jeN566", "QHfiiv5CQkTVNH9Bpj3iMntZJ2ze3L8veDlj912R");
+            // Parse.initialize("NV3PXWz0D6qx90BI1aiWKY1gR8IJ2aBS07jeN566", "QHfiiv5CQkTVNH9Bpj3iMntZJ2ze3L8veDlj912R");
   
  // ictd
- //Parse.initialize("03XBJy9KH27oXnjBDsV7noOSJ4wHTkbRd78XCODg", "Gi8T8CK2XULruSKx71LyY9PHtptBUJk6Jz0ktH1S");
+ // Parse.initialize("03XBJy9KH27oXnjBDsV7noOSJ4wHTkbRd78XCODg", "Gi8T8CK2XULruSKx71LyY9PHtptBUJk6Jz0ktH1S");
 
- // devo
- // Parse.initialize("v7xCxwERUx2HMylq25NBYR7blbSA7XhgZgphs7Vs", "QH1WvrsG2xILl3lffa41uDILqploEXuEKkqmO8V8");
+ // ictd-devo
+ Parse.initialize("YDTZ5PlTlCy5pkxIUSd2S0RWareDqoaSqbnmNX11", "1KFxPXKErTsVAe5Zu9Gx5SDS40qNV6WxmVQ5gUuB");
 
  var Post = Parse.Object.extend('Post');
  var Topic = Parse.Object.extend('Topic');
