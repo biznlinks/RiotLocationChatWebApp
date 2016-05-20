@@ -11,7 +11,7 @@
 			</span>
 			</div>
 			<div class="row pointer" onclick={this.submitLike}>
-				<div class='helpful text-muted'> Helpful   •   <i name="likeButton" class="fa fa-thumbs-o-up" aria-hidden="true"/> { likeCount } </div>
+				<div class='helpful text-muted'> Helpful   •   <i name="likeButton" class={ fa: true, fa-thumbs-up: liked, fa-thumbs-o-up: !liked } aria-hidden="true"/> { likeCount } </div>
 			</div>
 
 		</div>
@@ -33,10 +33,8 @@
 			query.equalTo('user', Parse.User.current())
 			query.find({
 				success: function(likes) {
-					if (likes.length > 0) {
-						self.likeButton.className = "fa fa-thumbs-up"
-						self.liked                = true
-					}
+					if (likes.length > 0)
+						self.liked = true
 				},
 				error: function(error) {
 				}
@@ -48,7 +46,7 @@
 		})
 
 		getProfilePic(){
-			var author= self.answer.get('author')
+			var author = self.answer.get('author')
 			if (author.get('profilePic')){
 				profilePic = author.get('profilePic').url()
 				if (profilePic){
@@ -61,9 +59,8 @@
 
 		submitLike(){
 			if (!self.liked) {	// If the button is empty a.k.a user hasn't liked
-				self.likeButton.className = "fa fa-thumbs-up"
-				self.liked                = true
-				self.likeCount            += 1
+				self.liked     = true
+				self.likeCount += 1
 				self.update()
 
 				var LikeObject = Parse.Object.extend('Like')
@@ -80,9 +77,8 @@
 					}
 				})
 			} else {
-				self.likeButton.className = "fa fa-thumbs-o-up"
-				self.liked                = false
-				self.likeCount            -= 1
+				self.liked     = false
+				self.likeCount -= 1
 				self.update()
 
 				var LikeObject = Parse.Object.extend('Like')

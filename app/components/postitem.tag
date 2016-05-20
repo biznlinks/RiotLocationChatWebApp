@@ -29,7 +29,7 @@
 
 					<div class='wannaknow text-muted' onclick={ this.submitWannaknow }>
 						<!-- <img width="23px" src="/images/wannaknow_gray@2x.png">  -->
-						<i class="fa fa-heart-o" name="wannaknowButton" aria-hidden="true"></i>
+						<i class={ fa: true, fa-heart-o: !wannaknown, fa-heart: wannaknown } name="wannaknowButton" aria-hidden="true"></i>
 						<!-- {post.get('wannaknowCount')} -->
 						{ wannaknowCount }
 					</div>
@@ -96,10 +96,8 @@
 		query.equalTo('user', Parse.User.current())
 		query.find({
 			success: function(wannaknows) {
-				if (wannaknows.length > 0) {
-					self.wannaknowButton.className = "fa fa-heart"
-					self.wannaknown                = true
-				}
+				if (wannaknows.length > 0)
+					self.wannaknown = true
 			},
 			error: function(error) {
 			}
@@ -137,9 +135,8 @@
 	submitWannaknow(){
 		if (!self.wannaknown) {	// the button is gray a.k.a user hasn't followed
 			// Update UI before processing
-			self.wannaknowButton.className = 'fa fa-heart'
-			self.wannaknown                = true
-			self.wannaknowCount            += 1
+			self.wannaknown     = true
+			self.wannaknowCount += 1
 			self.update()
 
 			var WannaknowObject = Parse.Object.extend('WannaKnow')
@@ -156,9 +153,8 @@
 			})
 		} else {
 			// Update UI before processing
-			self.wannaknowButton.className = "fa fa-heart-o"
-			self.wannaknown                = false
-			self.wannaknowCount            -= 1
+			self.wannaknown     = false
+			self.wannaknowCount -= 1
 			self.update()
 
 			var WannaknowObject = Parse.Object.extend('WannaKnow')
