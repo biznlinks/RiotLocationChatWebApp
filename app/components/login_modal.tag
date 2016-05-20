@@ -71,6 +71,7 @@
 		Parse.User.logIn(self.email.value, self.password.value, {
 			success: function(user) {
 				$('#loginModal').modal('hide')
+				$('#loginSuccess').show()
 				self.parent.update()
 			},
 			error: function(user, error) {

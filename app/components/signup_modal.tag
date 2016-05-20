@@ -84,6 +84,7 @@
 			user.save(null, {
 				success: function(user) {
 					$('#signupModal').modal('hide')
+					$('#signupSuccess').show()
 				},
 				error: function(user, error) {
 					self.isError = true

@@ -26,6 +26,8 @@
     <ask name="askModal"></ask>
     <login name="loginModal"></login>
     <forgot name="forgotModal"></forgot>
+    <loginsuccess name="loginSuccess"></loginsuccess>
+    <signupsuccess name="signupSuccess"></signupsuccess>
 
     <div class="row">
       <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2  text-center">
@@ -52,6 +54,8 @@
       // $.getJSON("/data/papers.json", function(json) {
       //   allTopics = json
       // });
+      $('#signupSuccess').hide()
+      $('#loginSuccess').hide()
     })
 
     var r = riot.route.create()
