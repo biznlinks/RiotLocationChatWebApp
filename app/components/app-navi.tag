@@ -11,6 +11,12 @@
       <li class={ nav-item: true, active: parent.selectedId === url } each= {links}>
         <a class="nav-link" href="/{ url }" >{name}</a>
       </li>
+      <li class={ nav-item: true } if={ signupAvail } onclick={ this.showSignup }>
+        <div class="nav-link">Signup</div>
+      </li>
+      <li class={ nav-item: true } if={ !signupAvail } onclick={ this.logout }>
+        <div class="nav-link">Logout</div>
+      </li>
     </ul>
 
 
@@ -27,23 +33,12 @@
 
 <script>
   var self = this
+  self.signupAvail = true
 
-  this.on('update', function() {
-    if (Parse.User.current().get('firstName') == 'Anonymous') {
-      this.links = [
-        { name: "Home", url: "post" },
-        { name: "Topics", url: "topics" },
-        { name: "Login", url: "login" },
-        { name: "Signup", url: "signup"}
-      ]
-    } else {
-      this.links = [
-        { name: "Home", url: "post" },
-        { name: "Topics", url: "topics" },
-        { name: "Logout", url: "logout" }
-      ]
-    }
-  })
+  this.links = [
+    { name: "Home", url: "post" },
+    { name: "Topics", url: "topics" }
+  ]
 
   var r = riot.route.create()
   r(highlightCurrent)
@@ -51,6 +46,18 @@
 
   function highlightCurrent(id) {
     self.selectedId = id
+    self.update()
+  }
+
+  this.on('update', function() {
+    self.signupAvail = !Parse.User.current() || Parse.User.current().get('firstName') == 'Anonymous'
+  })
+
+  showSignup() {
+    $('#signupModal').modal('show')
+  }
+  logout() {
+    Parse.User.logOut()
     self.update()
   }
 </script>

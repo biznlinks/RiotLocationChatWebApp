@@ -16,6 +16,7 @@
 				Password: <input type="password" name="password"/> <br/>
 				<div name="submit" onclick={ this.submitLogin }>Submit</div>
 				<div name="forgotPassword" onclick={ this.forgotPassword }>Forgot Password?</div>
+				<div name="signup" onclick={ this.showSignup }>Signup for a new account</div>
 				<div if={ isError }>{ error }</div>
 			</div>
 
@@ -45,7 +46,7 @@
 		Parse.User.logIn(self.email.value, self.password.value, {
 			success: function(user) {
 				$('#loginModal').modal('hide')
-				self.update()
+				self.parent.update()
 			},
 			error: function(user, error) {
 				Parse.User.logIn(annonymous, annonymous, {
@@ -64,6 +65,11 @@
 	forgotPassword() {
 		$('#loginModal').modal('hide')
 		$('#forgotModal').modal('show')
+	}
+
+	showSignup() {
+		$('#loginModal').modal('hide')
+		$('#signupModal').modal('show')
 	}
 
 </script>

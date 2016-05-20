@@ -15,7 +15,8 @@
 				Email: <input type="text" name="email" /> <br/>
 				Password: <input type="password" name="password"/> <br/>
 				Fullname: <input type="text" name="fullname"/> <br/>
-				<div name="submit" onclick="{ this.submitSignup }">Submit</div>
+				<div name="submit" onclick={ this.submitSignup }>Submit</div>
+				<div>Already have an account? </div><div onclick={ this.showLogin }>Login</div>
 				<div if={ isError }>{ error }</div>
 			</div>
 
@@ -66,6 +67,11 @@
 				}
 			})
 		}
+	}
+
+	showLogin(){
+		$('#signupModal').modal('hide')
+		$('#loginModal').modal('show')
 	}
 
 	checkValidity() {
