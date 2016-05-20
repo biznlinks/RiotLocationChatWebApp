@@ -12,12 +12,28 @@
 			</div>
 
 			<div class="modal-body">
-				Email: <input type="text" name="email" /> <br/>
-				Password: <input type="password" name="password"/> <br/>
-				Fullname: <input type="text" name="fullname"/> <br/>
-				<div name="submit" onclick={ this.submitSignup }>Submit</div>
-				<div>Already have an account? </div><div onclick={ this.showLogin }>Login</div>
-				<div if={ isError }>{ error }</div>
+				<form>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+						<input type="text" class="form-control" name="email" placeholder="Email" />
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+						<input type="password" class="form-control" name="password" placeholder="Password" />
+					</div>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+						<input type="text" class="form-control" name="fullname" placeholder="Fullname" />
+					</div>
+
+					<br/>
+					<button class="btn btn-sm" name="submit" onclick={ this.submitSignup }>Submit</button>
+					<div class="text-warning info" if={ isError }>{ error }</div>
+				</form>
+					<div class="info">
+						Already have an account?
+						<div class="text-info pointer inline" onclick={ this.showLogin }>Log In</div>
+					</div>
 			</div>
 
 			<div class="modal-footer">
@@ -36,6 +52,15 @@
 	this.on('mount', function(){
 		$('#signupModal').on('show.bs.modal', function() {
 	    	self.track()
+		})
+
+		$('#signupModal').on('hidden.bs.modal', function () {
+			self.isError        = false
+			self.error          = ""
+			self.email.value    = ""
+			self.password.value = ""
+			self.fullname.value = ""
+			self.update()
 		})
 	})
 
@@ -111,9 +136,27 @@
 </script>
 
 <style scoped>
-:scope{
-	text-align: center;
-}
+	:scope{
+		text-align: center;
+	}
+
+	.pointer:hover {
+		cursor: pointer;
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+
+	.inline {
+		display: inline-block;
+	}
+
+	.input-group, .info {
+		margin-top: 7px;
+	}
 
 </style>
 

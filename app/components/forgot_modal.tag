@@ -12,12 +12,17 @@
 			</div>
 
 			<div class="modal-body">
-				<div name="form" if={ !success }>
-					Email: <input type="text" name="email" /> <br/>
-					<div name="submit" onclick="{ this.submitForgot }">Submit</div>
-					<div if={ isError }>{ error }</div>
-				</div>
-				<div name="successMsg" if={ success }>
+				<form if={ !success }>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+						<input type="text" class="form-control" name="email" placeholder="Email" />
+					</div>
+
+					<br/>
+					<button class="btn btn-sm" name="submit" onclick="{ this.submitForgot }">Submit</button>
+					<div class="text-warning info" if={ isError }>{ error }</div>
+				</form>
+				<div class="text-muted" name="successMsg" if={ success }>
 					Successfully reset your password, please check your email
 				</div>
 			</div>
@@ -38,6 +43,15 @@
 	self.isError = false
 	self.error   = ""
 
+	this.on('mount', function() {
+		$('#forgotModal').on('hidden.bs.modal', function () {
+			self.isError     = false
+			self.error       = ""
+			self.email.value = ""
+			self.update()
+		})
+	})
+
 	submitForgot(){
 		var userEmail = self.email.value
 		Parse.User.requestPasswordReset(userEmail, {
@@ -56,7 +70,27 @@
 </script>
 
 <style scoped>
+	:scope{
+		text-align: center;
+	}
 
+	.pointer:hover {
+		cursor: pointer;
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+
+	.inline {
+		display: inline-block;
+	}
+
+	.info {
+		margin-top: 7px;
+	}
 </style>
 
 </forgot>

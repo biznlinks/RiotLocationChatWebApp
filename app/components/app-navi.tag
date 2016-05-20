@@ -11,11 +11,21 @@
       <li class={ nav-item: true, active: parent.selectedId === url } each= {links}>
         <a class="nav-link" href="/{ url }" >{name}</a>
       </li>
-      <li class={ nav-item: true } if={ signupAvail } onclick={ this.showSignup }>
-        <div class="nav-link">Signup</div>
-      </li>
-      <li class={ nav-item: true } if={ !signupAvail } onclick={ this.logout }>
-        <div class="nav-link">Logout</div>
+      <li class={ nav-item: true } onclick={ this.update }>
+        <div class="btn-group">
+          <img src={ this.getProfilePic() } class="img-circle dropdown-toggle profile-img" data-toggle="dropdown"/>
+          <ul class="dropdown-menu dropdown-menu-right">
+            <li class="dropdown-item" if={ signupAvail } onclick={ this.showLogin }>
+              <a class="nav-link" href="#">Log In</a>
+            </li>
+            <li class="dropdown-item" if={ signupAvail } onclick={ this.showSignup }>
+              <a class="nav-link" href="#">Sign Up</a>
+            </li>
+            <li class="dropdown-item" if={ !signupAvail } onclick={ this.logout }>
+              <a class="nav-link" href="#">Logout</a>
+            </li>
+          </ul>
+        </div>
       </li>
     </ul>
 
@@ -53,12 +63,26 @@
     self.signupAvail = !Parse.User.current() || Parse.User.current().get('firstName') == 'Anonymous'
   })
 
+  getProfilePic(){
+    var user = Parse.User.current()
+    var profilePic = user.get('profileImageURL')
+    if (profilePic){
+      return profilePic
+    }
+  }
+
   showSignup() {
     $('#signupModal').modal('show')
   }
+
+  showLogin() {
+    $('#loginModal').modal('show')
+  }
+
   logout() {
     Parse.User.logOut()
     self.update()
+    window.location.reload()
   }
 </script>
 
@@ -80,6 +104,11 @@
     top: 0px;
     width: 100%;
     left: 0px;
+  }
+
+  .profile-img{
+    width: 35px;
+    height: 35px;
   }
 
   #logo {
