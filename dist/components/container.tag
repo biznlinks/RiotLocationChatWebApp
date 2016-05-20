@@ -22,8 +22,8 @@
   <div class="">
     <!-- <h1>{ title }</h1> -->
 
-    <signup name="signupModal"></signup>
-    <ask name="askModal"></ask>
+    <!-- <signup name="signupModal"></signup>
+ -->    <ask name="askModal"></ask>
     <login name="loginModal"></login>
     <forgot name="forgotModal"></forgot>
 

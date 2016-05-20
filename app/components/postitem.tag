@@ -134,11 +134,6 @@
 		self.update()
 	}
 
-	showSignup(){
-		console.log($('#loginModal'))
-		$('#loginModal').modal('show')
-	}
-
 	submitWannaknow(){
 		if (!self.wannaknown) {	// the button is gray a.k.a user hasn't followed
 			// Update UI before processing
@@ -146,9 +141,6 @@
 			self.wannaknown                = true
 			self.wannaknowCount            += 1
 			self.update()
-
-			if (Parse.User.current().get('firstName') == 'Anonymous')
-				self.showSignup()
 
 			var WannaknowObject = Parse.Object.extend('WannaKnow')
 			var wannaknowObject = new WannaknowObject()
@@ -212,9 +204,6 @@
 					self.answers.push(answerObject)
 					self.sending = false
 					self.update()
-
-					if (Parse.User.current().get('firstName') == 'Anonymous')
-						self.showSignup()
 				},
 				error: function(answerObject, error) {
 					// Do something if error

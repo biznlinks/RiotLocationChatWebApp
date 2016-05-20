@@ -52,7 +52,6 @@
       // $.getJSON("/data/papers.json", function(json) {
       //   allTopics = json
       // });
-      console.log(this.tags)
     })
 
     var r = riot.route.create()
@@ -61,6 +60,8 @@
     r('post/*', postdetail)
     r('topics',  topics     )
     r('topics/*', topicsfeed)
+    r('login', showLogin)
+    r('signup', showSignup)
     r(           home       ) // `notfound` would be nicer!
 
     function home() {
@@ -104,6 +105,12 @@
         route: "topicsfeed"
       })
       riot.mount('topicsfeed', {topicName: id})
+    }
+    function showLogin() {
+      $('#loginModal').modal('show')
+    }
+    function showSignup() {
+      $('#signupModal').modal('show')
     }
 
 </script>

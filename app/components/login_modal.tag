@@ -36,21 +36,26 @@
 		$('#loginModal').on('show.bs.modal', function() {
 	    	self.track()
 		})
-		console.log('function called')
 	})
 
 	submitLogin() {
 		var annonymous     = Parse.User.current().get('username')
-		Parse.User.current().logOut()
+		Parse.User.logOut()
 
-		Parse.User.logIn(self.email, self.password, {
+		Parse.User.logIn(self.email.value, self.password.value, {
 			success: function(user) {
 				$('#loginModal').modal('hide')
+				self.update()
 			},
-			error: function(error) {
-				Parse.User.logIn(annonymous, annonymous)
+			error: function(user, error) {
+				Parse.User.logIn(annonymous, annonymous, {
+					success: function(user) {
+					},
+					error: function(error) {
+					}
+				})
 				self.isError = true
-				self.error   = error.message
+				self.error   = "Incorrect email or password"
 				self.update()
 			}
 		})

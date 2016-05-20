@@ -28,11 +28,22 @@
 <script>
   var self = this
 
-  this.links = [
-  { name: "Home", url: "post" },
-  { name: "Topics", url: "topics" },
-  //{ name: "Login", url: "login" }
-  ]
+  this.on('update', function() {
+    if (Parse.User.current().get('firstName') == 'Anonymous') {
+      this.links = [
+        { name: "Home", url: "post" },
+        { name: "Topics", url: "topics" },
+        { name: "Login", url: "login" },
+        { name: "Signup", url: "signup"}
+      ]
+    } else {
+      this.links = [
+        { name: "Home", url: "post" },
+        { name: "Topics", url: "topics" },
+        { name: "Logout", url: "logout" }
+      ]
+    }
+  })
 
   var r = riot.route.create()
   r(highlightCurrent)

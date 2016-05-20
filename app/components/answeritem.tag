@@ -5,7 +5,7 @@
 		</div>
 		<div class="col-xs-9 content" >
 		<div class="row">
-			<span class="author">{answer.get('author').get('firstName')} {answer.get('author').get('lastName')}</span> 
+			<span class="author">{answer.get('author').get('firstName')} {answer.get('author').get('lastName')}</span>
 			<span class="content-text">
 				{answer.get('answer')}
 			</span>
@@ -13,7 +13,7 @@
 			<div class="row pointer" onclick={this.submitLike}>
 				<div class='helpful text-muted'> Helpful   •   <i name="likeButton" class="fa fa-thumbs-o-up" aria-hidden="true"/> { likeCount } </div>
 			</div>
-			
+
 		</div>
 	</div>
 
@@ -25,7 +25,7 @@
 
 		this.on('mount', function() {
 			self.likeCount = self.answer.get('likes')
-			
+
 			// Check if user already liked this answer
 			var LikeObject = Parse.Object.extend('Like')
 			var query      = new Parse.Query(LikeObject)
@@ -65,9 +65,6 @@
 				self.liked                = true
 				self.likeCount            += 1
 				self.update()
-
-				if (Parse.User.current().get('firstName') == 'Anonymous')
-					self.parent.showSignup()
 
 				var LikeObject = Parse.Object.extend('Like')
 				var likeObject = new LikeObject()
@@ -129,7 +126,7 @@
 		}
 		.content {
 			margin-left: 10px;
-			   
+
 		}
 		.content-text{
 			 white-space: pre-wrap;

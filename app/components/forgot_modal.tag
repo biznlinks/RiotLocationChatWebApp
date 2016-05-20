@@ -47,7 +47,7 @@
 			},
 			error: function(error) {
 				self.isError = true
-				self.error   = error.message
+				self.error   = "Invalid email"
 				self.update()
 			}
 		})
