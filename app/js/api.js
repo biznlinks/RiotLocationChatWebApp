@@ -134,16 +134,18 @@ getallposts: function(limit){
   });
   return promise;
 },
-
-constructQuestionsForTopics: function(topic){
-  loader.trigger('start');
+constructQuestionsForTopic: function(topic){
   var promise = new Parse.Promise();
-  Parse.Cloud.run("constructQuestionsForTopics", {postContent: topic}).then(function(results){
-    loader.trigger('done');
+  var query = new Parse.Query(Post);
+  query.equalTo("topic", topic);
+  query.descending('createdAt');
+  query.find().then(function(results) {
     promise.resolve(results);
-  }, function(err) {
-    console.error("failed to query posts: " + JSON.stringify(err));
+  },
+  function(err) {
+    console.error("failed to query answers: " + JSON.stringify(err));
   });
+
   return promise;
 }
 

@@ -19,8 +19,6 @@
 		topicstag = this
 		this.topics = []
 
-		
-
 		this.on('mount', function() {
 			self.schedule = Group.get('details').schedule
 			self.update()
@@ -28,7 +26,6 @@
 
 		showTopic(e){
 			console.log(e.item.title);
-
 		}
 
 	</script>
