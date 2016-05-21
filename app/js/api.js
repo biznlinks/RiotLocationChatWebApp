@@ -3,6 +3,22 @@
 
 
 API = {
+  fetchOne: function(className, key, value){
+    var promise = new Parse.Promise();
+    var Class = Parse.Object.extend(className);
+    var query = new Parse.Query(Class);
+    query.equalTo(key, value); 
+    query.first().then(function(object) {
+        if (object) {
+          promise.resolve(object);
+        } else {
+          promise.reject()
+        }
+    }, function(err) {
+        console.error('query failed: ' + JSON.stringify(err));
+    });
+    return promise;
+  },
 
   getObjectForTopic: function(topicTitle){
     var promise = new Parse.Promise();
