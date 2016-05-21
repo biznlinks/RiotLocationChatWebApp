@@ -30,7 +30,7 @@
 
   this.links = [
   { name: "Home", url: "post" },
-  { name: "Topics", url: "topics" },
+  { name: "Schedule", url: "topics" },
   // { name: "SignUp", url: "login" }
   ]
 
