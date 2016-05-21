@@ -36,6 +36,7 @@
       user.set("email", username);
 
       user.set("firstName", "Anonymous")
+      user.set("type", "dummy")
 
       user.set("lastName", lizard[0])
       user.set("profileImageURL", lizard[1])

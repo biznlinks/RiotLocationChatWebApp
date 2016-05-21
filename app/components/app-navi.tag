@@ -60,7 +60,7 @@
   }
 
   this.on('update', function() {
-    self.signupAvail = !Parse.User.current() || Parse.User.current().get('firstName') == 'Anonymous'
+    self.signupAvail = !Parse.User.current() || Parse.User.current().get('type') === 'dummy'
   })
 
   getProfilePic(){

@@ -81,6 +81,7 @@
 			user.set('email', userEmail)
 			user.set('firstName', userFirstname)
 			user.set('lastName', userLastname)
+			user.set("type", "actual")
 			user.save(null, {
 				success: function(user) {
 					$('#signupModal').modal('hide')
