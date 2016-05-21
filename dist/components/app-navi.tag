@@ -11,9 +11,25 @@
       <li class={ nav-item: true, active: parent.selectedId === url } each= {links}>
         <a class="nav-link" href="/{ url }" >{name}</a>
       </li>
+      <li class={ nav-item: true } onclick={ this.update }>
+        <div class="btn-group">
+          <img src={ this.getProfilePic() } class="img-circle dropdown-toggle profile-img" data-toggle="dropdown"/>
+          <ul class="dropdown-menu dropdown-menu-right">
+            <li class="dropdown-item" if={ signupAvail } onclick={ this.showLogin }>
+              <a class="nav-link" href="#">Log In</a>
+            </li>
+            <li class="dropdown-item" if={ signupAvail } onclick={ this.showSignup }>
+              <a class="nav-link" href="#">Sign Up</a>
+            </li>
+            <li class="dropdown-item" if={ !signupAvail } onclick={ this.logout }>
+              <a class="nav-link" href="#">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </li>
     </ul>
 
-    
+
 
     <!-- <form class="form-inline pull-xs-right">
       <input class="form-control" type="text" placeholder="Search">
@@ -27,11 +43,11 @@
 
 <script>
   var self = this
+  self.signupAvail = true
 
   this.links = [
   { name: "Home", url: "post" },
-  { name: "Schedule", url: "topics" },
-  // { name: "SignUp", url: "login" }
+  { name: "Schedule", url: "topics" }
   ]
 
   var r = riot.route.create()
@@ -41,6 +57,32 @@
   function highlightCurrent(id) {
     self.selectedId = id
     self.update()
+  }
+
+  this.on('update', function() {
+    self.signupAvail = !Parse.User.current() || Parse.User.current().get('firstName') == 'Anonymous'
+  })
+
+  getProfilePic(){
+    var user = Parse.User.current()
+    var profilePic = user.get('profileImageURL')
+    if (profilePic){
+      return profilePic
+    }
+  }
+
+  showSignup() {
+    $('#signupModal').modal('show')
+  }
+
+  showLogin() {
+    $('#loginModal').modal('show')
+  }
+
+  logout() {
+    Parse.User.logOut()
+    self.update()
+    window.location.reload()
   }
 </script>
 
@@ -62,6 +104,11 @@
     top: 0px;
     width: 100%;
     left: 0px;
+  }
+
+  .profile-img{
+    width: 35px;
+    height: 35px;
   }
 
   #logo {

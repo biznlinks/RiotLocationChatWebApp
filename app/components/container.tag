@@ -24,7 +24,10 @@
 
     <signup name="signupModal"></signup>
     <ask name="askModal"></ask>
-   
+    <login name="loginModal"></login>
+    <forgot name="forgotModal"></forgot>
+    <loginsuccess name="loginSuccess"></loginsuccess>
+    <signupsuccess name="signupSuccess"></signupsuccess>
 
     <div class="row">
       <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2  text-center">
@@ -40,21 +43,23 @@
   <!-- /.container -->
 
   <script>
-    var self = this
+    var self     = this
     containerTag = this
-    self.title = 'Now loading...'
-    self.body = ''
-    
-    self.route = "home"
+    self.title   = 'Now loading...'
+    self.body    = ''
+
+    self.route   = "home"
 
     this.on("mount", function(){
+      $('#signupSuccess').hide()
+      $('#loginSuccess').hide()
+
       var groupName = "ICTD"
       API.fetchOne("Group", "name", groupName).then(function(group){
         Group = group
       })
-
     })
-    
+
     var r = riot.route.create()
     r('#',       home       )
     r('post',   home      )
