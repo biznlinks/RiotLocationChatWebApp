@@ -5,15 +5,15 @@
 		</div>
 		<div class="col-xs-9 content" >
 		<div class="row">
-			<span class="author">{answer.get('author').get('firstName')} {answer.get('author').get('lastName')}</span> 
+			<span class="author">{answer.get('author').get('firstName')} {answer.get('author').get('lastName')}</span>
 			<span class="content-text">
 				{answer.get('answer')}
 			</span>
 			</div>
 			<div class="row pointer" onclick={this.submitLike}>
-				<div class='helpful text-muted'> Helpful   •   <i name="likeButton" class="fa fa-thumbs-o-up" aria-hidden="true"/> { likeCount } </div>
+				<div class='helpful text-muted'> Helpful   •   <i name="likeButton" class={ fa: true, fa-thumbs-up: liked, fa-thumbs-o-up: !liked } aria-hidden="true"/> { likeCount } </div>
 			</div>
-			
+
 		</div>
 	</div>
 
@@ -25,7 +25,7 @@
 
 		this.on('mount', function() {
 			self.likeCount = self.answer.get('likes')
-			
+
 			// Check if user already liked this answer
 			var LikeObject = Parse.Object.extend('Like')
 			var query      = new Parse.Query(LikeObject)
@@ -33,10 +33,8 @@
 			query.equalTo('user', Parse.User.current())
 			query.find({
 				success: function(likes) {
-					if (likes.length > 0) {
-						self.likeButton.className = "fa fa-thumbs-up"
-						self.liked                = true
-					}
+					if (likes.length > 0)
+						self.liked = true
 				},
 				error: function(error) {
 				}
@@ -48,7 +46,7 @@
 		})
 
 		getProfilePic(){
-			var author= self.answer.get('author')
+			var author = self.answer.get('author')
 			if (author.get('profilePic')){
 				profilePic = author.get('profilePic').url()
 				if (profilePic){
@@ -61,13 +59,9 @@
 
 		submitLike(){
 			if (!self.liked) {	// If the button is empty a.k.a user hasn't liked
-				self.likeButton.className = "fa fa-thumbs-up"
-				self.liked                = true
-				self.likeCount            += 1
+				self.liked     = true
+				self.likeCount += 1
 				self.update()
-
-				if (Parse.User.current().get('firstName') == 'Anonymous')
-					self.parent.showSignup()
 
 				var LikeObject = Parse.Object.extend('Like')
 				var likeObject = new LikeObject()
@@ -83,9 +77,8 @@
 					}
 				})
 			} else {
-				self.likeButton.className = "fa fa-thumbs-o-up"
-				self.liked                = false
-				self.likeCount            -= 1
+				self.liked     = false
+				self.likeCount -= 1
 				self.update()
 
 				var LikeObject = Parse.Object.extend('Like')
@@ -129,7 +122,7 @@
 		}
 		.content {
 			margin-left: 10px;
-			   
+
 		}
 		.content-text{
 			 white-space: pre-wrap;

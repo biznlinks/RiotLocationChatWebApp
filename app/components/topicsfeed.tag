@@ -22,7 +22,7 @@
 
 		createQuestion(){
 			console.log('creating a new question ');
-			askModalTag.update({question: "", topics: [self.topicName]})
+			askModalTag.update({question: "", topic: self.topicName})
 			askModalTag.show()
 		}
 
@@ -30,14 +30,21 @@
 			console.log("updating "+ self.topicName);
 			this.fetchTopicDetails()
 			self.postsTag.update({loading:true})
+			self.loadTopics()
+			askModalTag.on("posted", function(){
+				self.loadTopics()
+			})
+		})
+
+		loadTopics(){
 			if (self.topicName){
 				self.topicName = decodeURI(self.topicName)
-				API.constructQuestionsForTopics(self.topicName).then(function(results) { 
+				API.constructQuestionsForTopic(self.topicName).then(function(results) { 
 					self.update({postCount: results.length})
 					self.postsTag.update({posts:results, loading:false})
 				})
 			}
-		})
+		}
 
 		getTopicImage(){
 			if (!self.topic || !self.topic.get('image')){

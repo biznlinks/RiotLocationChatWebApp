@@ -22,10 +22,12 @@
   <div class="">
     <!-- <h1>{ title }</h1> -->
 
-    <!-- <signup name="signupModal"></signup>
- -->    <ask name="askModal"></ask>
+    <signup name="signupModal"></signup>
+    <ask name="askModal"></ask>
     <login name="loginModal"></login>
     <forgot name="forgotModal"></forgot>
+    <loginsuccess name="loginSuccess"></loginsuccess>
+    <signupsuccess name="signupSuccess"></signupsuccess>
 
     <div class="row">
       <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2  text-center">
@@ -49,10 +51,13 @@
     self.route   = "home"
 
     this.on("mount", function(){
-      // $.getJSON("/data/papers.json", function(json) {
-      //   allTopics = json
-      // });
-      console.log(this.tags)
+      $('#signupSuccess').hide()
+      $('#loginSuccess').hide()
+
+      var groupName = "ICTD"
+      API.fetchOne("Group", "name", groupName).then(function(group){
+        Group = group
+      })
     })
 
     var r = riot.route.create()

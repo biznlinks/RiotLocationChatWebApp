@@ -35,11 +35,14 @@
 		}
 
 		this.on('mount', function() {
+			askModalTag.on("posted", function(){
+				self.init()
+			})
 			self.init()
 		})
 
 		onsearchclick(){
-			$('#askModal').modal('show')
+			askModalTag.show()
 		}
 
 		onSearchFocus(){

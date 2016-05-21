@@ -51,11 +51,13 @@
     self.route   = "home"
 
     this.on("mount", function(){
-      // $.getJSON("/data/papers.json", function(json) {
-      //   allTopics = json
-      // });
       $('#signupSuccess').hide()
       $('#loginSuccess').hide()
+
+      var groupName = "ICTD"
+      API.fetchOne("Group", "name", groupName).then(function(group){
+        Group = group
+      })
     })
 
     var r = riot.route.create()

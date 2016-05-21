@@ -11,11 +11,9 @@
 		this.post = {}
 
 		this.on('mount', function() {
-			console.log('getting post content');
 			if (self.postid){
 				API.getDetailsForPost(self.postid).then(function(content){
 					self.post = content.post
-					console.log(self.post);
 					self.postsTag.update({posts: [self.post], loading:false})
 				})
 			}
@@ -35,9 +33,9 @@ fetchTopicImageForPost() {
 }
 
 getPostContent(){
-	
 
-	
+
+
 }
 
 

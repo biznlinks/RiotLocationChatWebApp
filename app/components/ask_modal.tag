@@ -20,7 +20,7 @@
 
           <div class="info-btns">
             <textarea rows=2 autofocus name="searchField" placeholder="Ask ICTD!" class="searchbox">{question}</textarea>
-            <div id="topics">#{topics[0]}</div>
+            <div id="topic">#{topic}</div>
             <input class="text-xs-center" type="text" name="name" placeholder= "Handle (Optional)"></input>
             
           </div>
@@ -39,7 +39,7 @@
     askModalTag = this
     self = this
     this.loading= false
-    this.topics = ["test"]
+    this.topic = ""
 
     this.question="testing"
 
@@ -47,9 +47,17 @@
 
     })
 
+    init(){
+      self.topic = ""
+      self.question = ""
+    }
+
+
     show(){
       $('#askModal').modal('show')
       this.searchField.focus()
+      this.searchField.value= self.question
+      self.update()
     }
 
     hide(){
@@ -71,6 +79,7 @@
       post.set("answerCount",0)
       post.set("viewcount",0)
       post.set("wannaknowCount",1)
+      post.set("topic", self.topic)
 
       post.set("university","umich")
 
@@ -78,7 +87,8 @@
         console.log("Successfully added a post ")
         self.loading=false
         self.hide()
-        homefeedTag.init()
+        self.init()
+        self.trigger('posted')
       })
     }
 

@@ -46,8 +46,8 @@
   self.signupAvail = true
 
   this.links = [
-    { name: "Home", url: "post" },
-    { name: "Topics", url: "topics" }
+  { name: "Home", url: "post" },
+  { name: "Schedule", url: "topics" }
   ]
 
   var r = riot.route.create()
