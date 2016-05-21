@@ -1,6 +1,5 @@
-
 <feed>
-	
+
 	<div class="">
 		<div if={!searchFocus} class="row welcome">
 			<div class="text-xs-center">
@@ -18,7 +17,7 @@
 
 		<posts name="homeFeedPosts"></posts>
 	</div>
-	
+
 	<script>
 		var self = this
 		homefeedTag = this

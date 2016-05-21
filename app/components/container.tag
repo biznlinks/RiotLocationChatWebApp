@@ -35,6 +35,7 @@
         <topics if={ route=="topics" }></topics>
         <postdetail if={ route=="postdetail" }></postdetail>
         <topicsfeed if={ route=="topicsfeed" }></topicsfeed>
+        <profile name="profile" if={ route=="profile" }></profile>
       </div>
     </div>
 
@@ -64,6 +65,7 @@
     r('post/*', postdetail)
     r('topics',  topics     )
     r('topics/*', topicsfeed)
+    r('profile', profile)
     r(           home       ) // `notfound` would be nicer!
 
     function home() {
@@ -107,6 +109,16 @@
         route: "topicsfeed"
       })
       riot.mount('topicsfeed', {topicName: id})
+    }
+    function profile() {
+      self.track('profile')
+      self.tags.profile.updateInfo()
+      self.update({
+        title: "",
+        body: "",
+        selectedId: null,
+        route: "profile"
+      })
     }
 
 </script>

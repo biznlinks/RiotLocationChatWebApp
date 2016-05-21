@@ -13,13 +13,16 @@
       </li>
       <li class={ nav-item: true } onclick={ this.update }>
         <div class="btn-group">
-          <img src={ this.getProfilePic() } class="img-circle dropdown-toggle profile-img" data-toggle="dropdown"/>
+          <img src={ this.getProfilePic() } class="img-circle dropdown-toggle profile-img pointer" data-toggle="dropdown"/>
           <ul class="dropdown-menu dropdown-menu-right">
             <li class="dropdown-item" if={ signupAvail } onclick={ this.showLogin }>
               <a class="nav-link" href="#">Log In</a>
             </li>
             <li class="dropdown-item" if={ signupAvail } onclick={ this.showSignup }>
               <a class="nav-link" href="#">Sign Up</a>
+            </li>
+            <li class="dropdown-item" if={ !signupAvail }>
+              <a class="nav-link" href="#" onclick={ this.gotoProfile }>Profile</a>
             </li>
             <li class="dropdown-item" if={ !signupAvail } onclick={ this.logout }>
               <a class="nav-link" href="#">Logout</a>
@@ -79,6 +82,10 @@
     $('#loginModal').modal('show')
   }
 
+  gotoProfile() {
+    riot.route('/profile')
+  }
+
   logout() {
     Parse.User.logOut()
     self.update()
@@ -109,6 +116,16 @@
   .profile-img{
     width: 35px;
     height: 35px;
+  }
+
+  .pointer:hover {
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
 
   #logo {
