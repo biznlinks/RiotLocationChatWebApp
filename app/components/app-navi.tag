@@ -49,8 +49,8 @@
   self.signupAvail = true
 
   this.links = [
-    { name: "Home", url: "post" },
-    { name: "Topics", url: "topics" }
+  { name: "Home", url: "post" },
+  { name: "Schedule", url: "topics" }
   ]
 
   var r = riot.route.create()
@@ -63,7 +63,7 @@
   }
 
   this.on('update', function() {
-    self.signupAvail = !Parse.User.current() || Parse.User.current().get('firstName') == 'Anonymous'
+    self.signupAvail = !Parse.User.current() || Parse.User.current().get('type') === 'dummy'
   })
 
   getProfilePic(){

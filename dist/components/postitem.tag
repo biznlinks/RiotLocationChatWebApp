@@ -20,7 +20,7 @@
 			</div>
 			<!-- <a onclick={this.showSignup}> -->
  			<div class="pointer">
- 				<div class="text-muted pull-xs-left" onclick={ this.showAnswerBox }>
+ 				<div class="text-muted pull-xs-left">
 					<div class='answercount' if={post.get('answerCount') >= 0} >{post.get('answerCount')} answer<span if={post.get('answerCount')!=1}>s</span>
 					</div>
 				</div>
@@ -29,19 +29,12 @@
 
 					<div class='wannaknow text-muted' onclick={ this.submitWannaknow }>
 						<!-- <img width="23px" src="/images/wannaknow_gray@2x.png">  -->
-						<i class="fa fa-heart-o" name="wannaknowButton" aria-hidden="true"></i>
+						<i class={ fa: true, fa-heart-o: !wannaknown, fa-heart: wannaknown } name="wannaknowButton" aria-hidden="true"></i>
 						<!-- {post.get('wannaknowCount')} -->
 						{ wannaknowCount }
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="card-block" if={ answerBoxEnabled }>
-			<textarea name="answerbox" placeholder="Type your reply"></textarea>
-			<div class="pointer submit" onclick={ this.submitAnswer }>Submit</div>
-		</div>
-		<div class="card-block" if={ sending }>
-			Sending your reply ...
 		</div>
 		<div class="row">
 			<div class="col-xs-12" >
@@ -52,9 +45,16 @@
 					</div>
 
 				</div>
+			</div>
+		</div>
 
-
-
+		<div align="right">
+			<div class="card-block">
+				<textarea name="answerbox" rows="3" placeholder="Type your reply"></textarea>
+				<button class="btn btn-sm submit" onclick={ this.submitAnswer }>Submit</button>
+			</div>
+			<div class="card-block" if={ sending }>
+				Sending your reply ...
 			</div>
 		</div>
 
@@ -75,7 +75,6 @@
 	var self              = this
 	self.post             = opts.post
 	self.answers          = []
-	self.answerBoxEnabled = false
 	self.sending          = false
 	self.wannaknowCount   = 0
 	self.wannaknown       = false
@@ -96,10 +95,8 @@
 		query.equalTo('user', Parse.User.current())
 		query.find({
 			success: function(wannaknows) {
-				if (wannaknows.length > 0) {
-					self.wannaknowButton.className = "fa fa-heart"
-					self.wannaknown                = true
-				}
+				if (wannaknows.length > 0)
+					self.wannaknown = true
 			},
 			error: function(error) {
 			}
@@ -114,7 +111,7 @@
 	}
 
 	getProfilePic(){
-		var author= self.post.get('author')
+		var author = self.post.get('author')
 		if (!author.get('profilePic') || this.post.get('anonymous')){
 			if (author.get('profileImageURL')){
 				return author.get('profileImageURL')
@@ -129,26 +126,12 @@
 		}
 	}
 
-	showAnswerBox(){
-		self.answerBoxEnabled = !self.answerBoxEnabled
-		self.update()
-	}
-
-	showSignup(){
-		console.log($('#loginModal'))
-		$('#loginModal').modal('show')
-	}
-
 	submitWannaknow(){
-		if (!self.wannaknown) {	// the button is gray a.k.a user hasn't followed
+		if (!self.wannaknown) {
 			// Update UI before processing
-			self.wannaknowButton.className = 'fa fa-heart'
-			self.wannaknown                = true
-			self.wannaknowCount            += 1
+			self.wannaknown     = true
+			self.wannaknowCount += 1
 			self.update()
-
-			if (Parse.User.current().get('firstName') == 'Anonymous')
-				self.showSignup()
 
 			var WannaknowObject = Parse.Object.extend('WannaKnow')
 			var wannaknowObject = new WannaknowObject()
@@ -164,9 +147,8 @@
 			})
 		} else {
 			// Update UI before processing
-			self.wannaknowButton.className = "fa fa-heart-o"
-			self.wannaknown                = false
-			self.wannaknowCount            -= 1
+			self.wannaknown     = false
+			self.wannaknowCount -= 1
 			self.update()
 
 			var WannaknowObject = Parse.Object.extend('WannaKnow')
@@ -212,9 +194,6 @@
 					self.answers.push(answerObject)
 					self.sending = false
 					self.update()
-
-					if (Parse.User.current().get('firstName') == 'Anonymous')
-						self.showSignup()
 				},
 				error: function(answerObject, error) {
 					// Do something if error
@@ -290,7 +269,6 @@
 	}
 
 	.submit {
-		position: absolute;
 		right: 3%;
 		color: #5c5c5c;
 	}
@@ -301,6 +279,7 @@
 		-webkit-border-radius: 5px;
     	-moz-border-radius: 5px;
     	border-radius: 5px;
+    	padding:7px;
 	}
 
 	@media (min-width: 480px) {

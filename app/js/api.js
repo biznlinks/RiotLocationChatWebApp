@@ -3,6 +3,22 @@
 
 
 API = {
+  fetchOne: function(className, key, value){
+    var promise = new Parse.Promise();
+    var Class = Parse.Object.extend(className);
+    var query = new Parse.Query(Class);
+    query.equalTo(key, value); 
+    query.first().then(function(object) {
+        if (object) {
+          promise.resolve(object);
+        } else {
+          promise.reject()
+        }
+    }, function(err) {
+        console.error('query failed: ' + JSON.stringify(err));
+    });
+    return promise;
+  },
 
   getObjectForTopic: function(topicTitle){
     var promise = new Parse.Promise();
@@ -118,16 +134,18 @@ getallposts: function(limit){
   });
   return promise;
 },
-
-constructQuestionsForTopics: function(topic){
-  loader.trigger('start');
+constructQuestionsForTopic: function(topic){
   var promise = new Parse.Promise();
-  Parse.Cloud.run("constructQuestionsForTopics", {postContent: topic}).then(function(results){
-    loader.trigger('done');
+  var query = new Parse.Query(Post);
+  query.equalTo("topic", topic);
+  query.descending('wannaknowCount');
+  query.find().then(function(results) {
     promise.resolve(results);
-  }, function(err) {
-    console.error("failed to query posts: " + JSON.stringify(err));
+  },
+  function(err) {
+    console.error("failed to query answers: " + JSON.stringify(err));
   });
+
   return promise;
 }
 
