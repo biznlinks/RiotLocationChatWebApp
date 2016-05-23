@@ -138,7 +138,7 @@ constructQuestionsForTopic: function(topic){
   var promise = new Parse.Promise();
   var query = new Parse.Query(Post);
   query.equalTo("topic", topic);
-  query.descending('createdAt');
+  query.descending('wannaknowCount');
   query.find().then(function(results) {
     promise.resolve(results);
   },
