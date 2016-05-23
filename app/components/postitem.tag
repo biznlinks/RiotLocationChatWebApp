@@ -50,7 +50,7 @@
 
 		<div align="right">
 			<div class="card-block">
-				<textarea name="answerbox" rows="3" placeholder="Type your reply"></textarea>
+				<textarea name="answerbox" rows="2" placeholder="Type your reply"></textarea>
 				<button class="btn btn-sm submit" onclick={ this.submitAnswer }>Submit</button>
 			</div>
 			<div class="card-block" if={ sending }>
