@@ -3,15 +3,29 @@
 <div>
 	<div class="info">
 		<img class="profile-pic img-circle" src="{ this.getProfilePic() }">
-		<div class="detail">
-			<div class="name">{ this.getFullname() }</div>
-			<div if={ !aboutBox }><div class="text-muted pointer" onclick={ this.toggleAboutBox }>About: </div>{ Parse.User.current().get('about') }</div>
-			<div if={ aboutBox } class="edit-about">
-				<textarea rows="1" placeholder="About you" name="aboutInput"></textarea>
-				<button class="btn btn-default about-form-btn" onclick={ this.submitAbout }><i class="fa fa-check"></i></button>
-				<button class="btn btn-default about-form-btn" onclick={ this.toggleAboutBox }><i class="fa fa-close"></i></button>
+		<div class="detail inline">
+			<div if={ !edit }>
+				<div class="name">{ this.getFullname() }</div>
+				<div class="score"><img src="/images/cup.png" id="cup">{ this.getScore() }</div>
+				<div class="about info-item">{ Parse.User.current().get('about') }</div>
+
+				<div class="info-item">
+					<button class="btn btn-sm" onclick={ this.toggleEdit }>Edit Profile</button>
+				</div>
 			</div>
-			<div class="score">{ this.getScore() }</div>
+
+			<div if={ edit }>
+				<form>
+					<div class="form-group">
+						<input name="name" type="text" class="form-control" placeholder="What's your name?">
+					</div>
+					<div class="form-group">
+						<input name="about" type="text" class="form-control" placeholder="Tell us something about yourself">
+					</div>
+					<button class="fa fa-check btn btn-success btn-sm" onclick={ this.submitEdit }></button>
+					<button class="fa fa-close btn btn-warning btn-sm" onclick={ this.toggleEdit }></button>
+				</form>
+			</div>
 		</div>
 	</div>
 
@@ -39,11 +53,11 @@
 </div>
 
 <script>
-	var self      = this
-	self.aboutBox = false
-	self.postTab  = true
-	self.posts    = []
-	self.replies  = []
+	var self     = this
+	self.edit    = false
+	self.postTab = true
+	self.posts   = []
+	self.replies = []
 
 	this.on('mount', function() {
 		self.updateInfo()
@@ -67,24 +81,39 @@
 		else return score
 	}
 
+	toggleEdit() {
+		self.edit        = !self.edit
+		self.name.value  = ''
+		self.about.value = ''
+		self.update()
+	}
+
 	toggleTab() {
 		self.postTab = !self.postTab
 		self.update()
 	}
 
-	toggleAboutBox() {
-		self.aboutBox = !self.aboutBox
-		self.aboutInput.value = typeof Parse.User.current().get('about') == 'undefined' ? '' : Parse.User.current().get('about')
-		self.update()
-	}
+	submitEdit() {
+		var user         = Parse.User.current()
+		var about        = self.about.value
+		var userFullname = self.name.value
 
-	submitAbout() {
-		Parse.User.current().set('about', self.aboutInput.value)
-		Parse.User.current().save({
+		if (userFullname != '') {
+			var userFirstname = userFullname.split(" ")[0]
+			var userLastname  = userFullname.substring(userFullname.indexOf(" "))
+			user.set('firstName', userFirstname)
+			user.set('lastName', userLastname)
+		}
+		if (about != '') {
+			user.set('about', about)
+		}
+
+		user.save(null, {
 			success: function(user) {
-				self.toggleAboutBox()
+				self.toggleEdit()
 			},
-			error: function(error) {
+			error: function(user, error) {
+				self.toggleEdit()
 			}
 		})
 	}
@@ -122,18 +151,39 @@
 <style scoped>
 
 	.detail {
-		display: inline-block;
 		margin-left: 2vw;
+		width: 40vw;
 	}
 
 	.name {
-		font-size: x-large;
+		font-size: xx-large;
 	}
 
 	.profile-pic {
-		width: 17vw;
-		height: 17vw;
+		width: 15vw;
+		height: 15vw;
 		vertical-align: top;
+	}
+
+	.info-item {
+		margin-top: 8px;
+	}
+
+	#cup {
+		width: 15px;
+		height: 15px;
+		margin-right: 4px;
+	}
+
+	.inline {
+		display: inline-block;
+	}
+
+/*	.line {
+		margin-top: 8px;
+	}*/
+
+	.fa-pencil {
 	}
 
 	textarea {
@@ -142,11 +192,6 @@
     	-moz-border-radius: 5px;
     	border-radius: 5px;
     	padding:7px;
-	}
-
-	.about-form-btn {
-		display: inline-block;
-		vertical-align: top;
 	}
 
 	.body {
