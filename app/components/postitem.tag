@@ -72,12 +72,12 @@
 
 
 <script>
-	var self              = this
-	self.post             = opts.post
-	self.answers          = []
-	self.sending          = false
-	self.wannaknowCount   = 0
-	self.wannaknown       = false
+	var self            = this
+	self.post           = opts.post
+	self.answers        = []
+	self.sending        = false
+	self.wannaknowCount = 0
+	self.wannaknown     = false
 
 	this.on('mount', function() {
 		if (this.post.get('answerCount')>0)

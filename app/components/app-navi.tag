@@ -89,6 +89,7 @@
   logout() {
     Parse.User.logOut()
     self.update()
+    riot.route('/')
     window.location.reload()
   }
 </script>
