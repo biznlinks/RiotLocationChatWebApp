@@ -109,6 +109,7 @@
 					Parse.User.current().set('username', response.email)
 					Parse.User.current().set('profileImageURL', response.picture.data.url)
 					Parse.User.current().set('friends', response.friends.data)
+					Parse.User.current().set('facebookID', response.id)
 					Parse.User.current().set('type', 'actual')
 					Parse.User.current().save(null, {
 						success: function(user) {
