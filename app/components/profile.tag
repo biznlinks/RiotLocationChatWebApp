@@ -163,7 +163,7 @@
 
 	.detail {
 		margin-left: 2vw;
-		width: 50vw;
+		width: 40vw;
 	}
 
 	.name {
