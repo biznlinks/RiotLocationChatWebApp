@@ -103,6 +103,7 @@
 			success: function(wannaknows) {
 				if (wannaknows.length > 0)
 					self.wannaknown = true
+					self.update()
 			},
 			error: function(error) {
 			}
