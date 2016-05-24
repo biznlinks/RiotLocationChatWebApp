@@ -161,7 +161,7 @@
 
 	.detail {
 		margin-left: 2vw;
-		width: 40vw;
+		width: 50vw;
 	}
 
 	.name {
@@ -193,7 +193,7 @@
 	}
 
 	#about {
-		margin-top: 31px;
+		margin-top: 29px;
 	}
 
 	.fa-pencil {
