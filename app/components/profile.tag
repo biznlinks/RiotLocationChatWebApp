@@ -94,6 +94,8 @@
 		}
 
 		self.update()
+		// Focus on name's input and set cursor at beginning
+		self.name.setSelectionRange(0, 0)
 		self.name.focus()
 	}
 
