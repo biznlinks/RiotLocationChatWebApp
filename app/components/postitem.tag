@@ -20,17 +20,16 @@
 			</div>
 			<!-- <a onclick={this.showSignup}> -->
  			<div class="pointer row">
- 				<div class="col-sm-4">
+ 				<div class="col-xs-4">
  					<span class="topic" if={ post.get('topic') != '' }>{ post.get('topic') }</span>
  				</div>
 
- 				<div class="col-sm-4 text-muted align-center">
+ 				<div class="col-xs-4 text-muted align-center">
 					<div class='answercount' if={post.get('answerCount') >= 0} >{post.get('answerCount')} Repl<span if={post.get('answerCount')!=1}>ies</span><span if={ post.get('answerCount') == 1 }>y</span>
 					</div>
 				</div>
 
-				<div class="col-sm-4 text-muted align-right">
-
+				<div class="col-xs-4 text-muted align-right">
 					<div class='wannaknow text-muted' onclick={ this.submitWannaknow }>
 						<!-- <img width="23px" src="/images/wannaknow_gray@2x.png">  -->
 						<i class={ fa: true, fa-heart-o: !wannaknown, fa-heart: wannaknown } name="wannaknowButton" aria-hidden="true"></i>
@@ -52,11 +51,12 @@
 			</div>
 		</div>
 
-		<div align="right">
-			<div class="card-block">
-				<textarea name="answerbox" rows="2" placeholder="Type your reply"></textarea>
-				<button class="btn btn-sm submit" onclick={ this.submitAnswer }>Submit</button>
+		<div class="reply-container" align="right">
+			<div class="card-block input-group">
+				<div class="input-group-addon answer-icon-container"><img src={ this.getUserProfilePic() } class="answer-icon img-circle"></div>
+				<textarea class="form-control" name="answerbox" id="answerbox" oninput={ this.onInput } rows="1" placeholder="Add reply"></textarea>
 			</div>
+			<a class="submit pointer" onclick={ this.submitAnswer } if={ submitButton }>Send</a>
 			<div class="card-block" if={ sending }>
 				Sending your reply ...
 			</div>
@@ -82,6 +82,7 @@
 	self.sending        = false
 	self.wannaknowCount = 0
 	self.wannaknown     = false
+	self.submitButton   = false
 
 	this.on('mount', function() {
 		if (this.post.get('answerCount')>0)
@@ -127,6 +128,14 @@
 			if (profilePic){
 				return profilePic
 			}
+		}
+	}
+
+	getUserProfilePic() {
+		var user       = Parse.User.current()
+		var profilePic = user.get('profileImageURL')
+		if (profilePic){
+			return profilePic
 		}
 	}
 
@@ -206,6 +215,16 @@
 		}
 	}
 
+	onInput() {
+		if (self.answerbox.value.length >= 3) {
+			self.submitButton = true
+			self.update()
+		} else {
+			self.submitButton = false
+			self.update()
+		}
+	}
+
 	goToPost(){
 		if (window.location.href.indexOf("/post/") == -1) {
 			var routeTo = '/post/' + self.post.id
@@ -272,18 +291,32 @@
 		user-select: none;
 	}
 
+	.inline {
+		display: inline-block;
+	}
+
 	.submit {
 		right: 3%;
-		color: #5c5c5c;
+		padding-right:0.9rem;
+		padding-bottom:0.9rem;
+		color: #0275D8;
+		text-align: right;
+	}
+
+	.submit:hover {
+		color: #004784;
 	}
 
 	.topic {
 		background-color: #0275D8;
 		padding: 5px;
 		color: white;
-		-webkit-border-radius: 5px;
-    	-moz-border-radius: 5px;
-    	border-radius: 5px;
+		-webkit-border-radius: 3px;
+    	-moz-border-radius: 3px;
+    	border-radius: 3px;
+    	white-space: nowrap;
+    	text-overflow: ellipsis;
+    	overflow: hidden;
 	}
 
 	.align-center {
@@ -294,8 +327,32 @@
 		text-align: right;
 	}
 
+	.reply-container {
+		background-color: #EEEEEE;
+	}
+
+	.answer-icon-container {
+		background-color: #FFFFFF;
+		border-right: 0;
+	}
+
+	.answer-icon {
+		width: 22px;
+		height: 22px;
+	}
+
+	.form-control {
+		border-left:0px;
+		padding: .375rem;
+	}
+
+	.input-group-addon {
+		padding: .25rem;
+	}
+
 	textarea {
 		width: 100%;
+		font-size: large;
 		resize: none;
 		-webkit-border-radius: 5px;
     	-moz-border-radius: 5px;
