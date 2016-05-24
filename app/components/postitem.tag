@@ -51,9 +51,9 @@
 			</div>
 		</div>
 
-		<div class="reply-container" align="right">
+		<div class="reply-container">
 			<div class="card-block input-group">
-				<div class="input-group-addon answer-icon-container"><img src={ this.getUserProfilePic() } class="answer-icon img-circle"></div>
+				<div class="input-group-addon answer-icon-container pointer" onclick={ this.toggleAnonymous }><img src={ this.getUserProfilePic() } class="answer-icon img-circle"></div>
 				<textarea class="form-control" name="answerbox" id="answerbox" oninput={ this.onInput } rows="1" placeholder="Add reply"></textarea>
 			</div>
 			<a class="submit pointer" onclick={ this.submitAnswer } if={ submitButton }>Send</a>
@@ -83,6 +83,7 @@
 	self.wannaknowCount = 0
 	self.wannaknown     = false
 	self.submitButton   = false
+	self.anonymous      = false
 
 	this.on('mount', function() {
 		if (this.post.get('answerCount')>0)
@@ -132,6 +133,9 @@
 	}
 
 	getUserProfilePic() {
+		if (self.anonymous && Parse.User.current().get('type') == 'actual')
+			return 'https://files.parsetfss.com/135e5227-e041-4147-8248-a5eafaf852ef/tfss-6f1e964e-d7fc-4750-8ffb-43d5a76b136e-kangdo@umich.edu.png'
+
 		var user       = Parse.User.current()
 		var profilePic = user.get('profileImageURL')
 		if (profilePic){
@@ -197,7 +201,8 @@
 				answer: answerContent,
 				author: Parse.User.current(),
 				likes: 0,
-				post: self.post
+				post: self.post,
+				anonymous: self.anonymous
 			}, {
 				success: function(answerObject) {
 					self.post.set('answerCount', self.post.get('answerCount') + 1)
@@ -223,6 +228,11 @@
 			self.submitButton = false
 			self.update()
 		}
+	}
+
+	toggleAnonymous() {
+		self.anonymous = !self.anonymous
+		self.update()
 	}
 
 	goToPost(){

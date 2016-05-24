@@ -5,7 +5,7 @@
 		</div>
 		<div class="col-xs-9 content" >
 		<div class="row">
-			<span class="author">{answer.get('author').get('firstName')} {answer.get('author').get('lastName')}</span>
+			<span class="author">{ this.getAuthorName() }</span>
 			<span class="content-text">
 				{answer.get('answer')}
 			</span>
@@ -45,10 +45,20 @@
 			answer = this.answer
 		})
 
+		getAuthorName() {
+			if (self.answer.get('anonymous'))
+				return 'Anonymous'
+			else
+				return self.answer.get('author').get('firstName') + ' ' + self.answer.get('author').get('lastName')
+		}
+
 		getProfilePic(){
+			if (self.answer.get('anonymous'))
+				return 'https://files.parsetfss.com/135e5227-e041-4147-8248-a5eafaf852ef/tfss-6f1e964e-d7fc-4750-8ffb-43d5a76b136e-kangdo@umich.edu.png'
+
 			var author = self.answer.get('author')
-			if (author.get('profilePic')){
-				profilePic = author.get('profilePic').url()
+			if (author.get('profileImageURL')){
+				profilePic = author.get('profileImageURL')
 				if (profilePic){
 					return profilePic
 				}
