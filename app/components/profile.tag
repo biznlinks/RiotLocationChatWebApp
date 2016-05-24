@@ -17,10 +17,10 @@
 			<div if={ edit }>
 				<form>
 					<div class="form-group">
-						<input name="name" type="text" class="form-control" placeholder="What's your name?">
+						<input name="name" type="text" class="form-control" id="name" placeholder="What's your name?">
 					</div>
 					<div class="form-group">
-						<input name="about" type="text" class="form-control" placeholder="Tell us something about yourself">
+						<input name="about" type="text" class="form-control" id="about" placeholder="Tell us something about yourself">
 					</div>
 					<button class="fa fa-check btn btn-success btn-sm" onclick={ this.submitEdit }></button>
 					<button class="fa fa-close btn btn-warning btn-sm" onclick={ this.toggleEdit }></button>
@@ -82,10 +82,19 @@
 	}
 
 	toggleEdit() {
-		self.edit        = !self.edit
-		self.name.value  = ''
-		self.about.value = ''
+		self.edit = !self.edit
+
+		if (self.edit) {
+			self.name.value = self.getFullname()
+			if (Parse.User.current().get('about'))
+				self.about.value = Parse.User.current().get('about')
+		} else {
+			self.name.value  = ''
+			self.about.value = ''
+		}
+
 		self.update()
+		self.name.focus()
 	}
 
 	toggleTab() {
@@ -100,7 +109,7 @@
 
 		if (userFullname != '') {
 			var userFirstname = userFullname.split(" ")[0]
-			var userLastname  = userFullname.substring(userFullname.indexOf(" "))
+			var userLastname  = userFullname.substring(userFullname.indexOf(" ") + 1)
 			user.set('firstName', userFirstname)
 			user.set('lastName', userLastname)
 		}
@@ -179,19 +188,25 @@
 		display: inline-block;
 	}
 
-/*	.line {
-		margin-top: 8px;
-	}*/
+	#name {
+		font-size: xx-large;
+	}
+
+	#about {
+		margin-top: 31px;
+	}
 
 	.fa-pencil {
 	}
 
-	textarea {
-		resize: none;
-		-webkit-border-radius: 5px;
-    	-moz-border-radius: 5px;
-    	border-radius: 5px;
-    	padding:7px;
+	.form-control {
+		padding: 0;
+		border: 0;
+		border-bottom: 1px dashed #ccc;
+		-webkit-appearance: none;
+        -moz-appearance: none;
+	    -ms-appearance: none;
+	    -o-appearance: none;
 	}
 
 	.body {
