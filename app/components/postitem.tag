@@ -19,13 +19,17 @@
 
 			</div>
 			<!-- <a onclick={this.showSignup}> -->
- 			<div class="pointer">
- 				<div class="text-muted pull-xs-left">
-					<div class='answercount' if={post.get('answerCount') >= 0} >{post.get('answerCount')} answer<span if={post.get('answerCount')!=1}>s</span>
+ 			<div class="pointer row">
+ 				<div class="col-sm-4">
+ 					<span class="topic" if={ post.get('topic') != '' }>{ post.get('topic') }</span>
+ 				</div>
+
+ 				<div class="col-sm-4 text-muted align-center">
+					<div class='answercount' if={post.get('answerCount') >= 0} >{post.get('answerCount')} Repl<span if={post.get('answerCount')!=1}>ies</span><span if={ post.get('answerCount') == 1 }>y</span>
 					</div>
 				</div>
 
-				<div class="text-muted pull-xs-right">
+				<div class="col-sm-4 text-muted align-right">
 
 					<div class='wannaknow text-muted' onclick={ this.submitWannaknow }>
 						<!-- <img width="23px" src="/images/wannaknow_gray@2x.png">  -->
@@ -271,6 +275,23 @@
 	.submit {
 		right: 3%;
 		color: #5c5c5c;
+	}
+
+	.topic {
+		background-color: #0275D8;
+		padding: 5px;
+		color: white;
+		-webkit-border-radius: 5px;
+    	-moz-border-radius: 5px;
+    	border-radius: 5px;
+	}
+
+	.align-center {
+		text-align: center;
+	}
+
+	.align-right {
+		text-align: right;
 	}
 
 	textarea {
