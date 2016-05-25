@@ -24,7 +24,7 @@
     <style type="text/css" src="css/styles.css"></style>
     <style>
       body {
-        padding-top: 50px;
+        padding-top: 0px;
         /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
       }
     </style>
@@ -57,7 +57,7 @@
 
 
 
-              <topics></topics>
+              <container></container>
 
               <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.2/js/tether.min.js"></script>
               <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
@@ -89,7 +89,7 @@
               <script src="/components/loader.tag" type="riot/tag"></script>
               <script src="/components/app-navi.tag" type="riot/tag"></script>
               <script src="/components/banner.tag" type="riot/tag"></script>
-              <script src="/components/container.tag" type="riot/tag"></script>
+              <script src="/components/widgetcontainer.tag" type="riot/tag"></script>
               <script src="/components/homefeed.tag" type="riot/tag"></script>
               <script src="/components/posts.tag" type="riot/tag"></script>
               <script src="/components/schedule.tag" type="riot/tag"></script>
@@ -106,48 +106,24 @@
               <script src="/components/profile.tag" type="riot/tag"></script>
               <script src="/components/answers_inprofile.tag" type="riot/tag"></script>
 
+              <script src = "/js/init.js"></script>
 
-              
-              <script type="text/javascript">
-               Parse.initialize("YDTZ5PlTlCy5pkxIUSd2S0RWareDqoaSqbnmNX11", "1KFxPXKErTsVAe5Zu9Gx5SDS40qNV6WxmVQ5gUuB");
-
-               var Post = Parse.Object.extend('Post');
-               var Topic = Parse.Object.extend('Topic');
+      <script type="text/javascript" src="http://l2.io/ip.js?var=myip"></script>
 
 
-               riot.mixin(OptsMixin)
-               var groupName = "ICTD"
-               API.fetchOne("Group", "name", groupName).then(function(group){
-                Group = group
-                 riot.compile(function() {
+              <script>
+                fbq('track', 'ViewContent');
 
-                riot.route.base('/')
-                riot.mount('*')
-                riot.route.start(true)
-              })
-              })
+                (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
-              
+                ga('create', 'UA-54296519-3', 'auto');
+                ga('send', 'pageview');
 
-
-            </script>
-
-            <script type="text/javascript" src="//l2.io/ip.js?var=myip"></script>
-
-
-            <script>
-              fbq('track', 'ViewContent');
-
-              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-              })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-              ga('create', 'UA-54296519-3', 'auto');
-              ga('send', 'pageview');
-
-              window.fbAsyncInit = function() {
-                Parse.FacebookUtils.init({
+                window.fbAsyncInit = function() {
+                  Parse.FacebookUtils.init({
                     // Debug appId
                     appId      : '399505526886852',
                     // Production appId
@@ -156,18 +132,18 @@
                     xfbml      : true,
                     version    : 'v2.5'
                   });
-              };
+                };
 
-              (function(d, s, id){
-               var js, fjs = d.getElementsByTagName(s)[0];
-               if (d.getElementById(id)) {return;}
-               js = d.createElement(s); js.id = id;
-               js.src = "//connect.facebook.net/en_US/sdk.js";
-               fjs.parentNode.insertBefore(js, fjs);
-             }(document, 'script', 'facebook-jssdk'));
+                (function(d, s, id){
+                 var js, fjs = d.getElementsByTagName(s)[0];
+                 if (d.getElementById(id)) {return;}
+                 js = d.createElement(s); js.id = id;
+                 js.src = "//connect.facebook.net/en_US/sdk.js";
+                 fjs.parentNode.insertBefore(js, fjs);
+                }(document, 'script', 'facebook-jssdk'));
 
-           </script>
+              </script>
 
-         </body>
+            </body>
 
-         </html>
+            </html>
