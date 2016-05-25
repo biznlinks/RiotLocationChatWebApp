@@ -1,9 +1,9 @@
 <answeritem>
 	<div class="row">
-		<div class="col-xs-1">
+		<div class="col-xs-1 profilePic">
 			<img src = "{this.getProfilePic()}" class = "answer-profile-img img-circle"></img>
 		</div>
-		<div class="col-xs-9 content" >
+		<div class="col-xs-11 content" >
 			<div class="row">
 				<span class="author">{ this.getAuthorName() }</span>
 				<span class="content-text">
@@ -132,7 +132,7 @@
 	}
 	.content {
 		/* margin-left: 10px; */
-		padding: 0;
+		padding-left: 8px;
 
 	}
 	.content-text{
@@ -153,6 +153,10 @@
 		-moz-user-select: none;
 		-ms-user-select: none;
 		user-select: none;
+	}
+	.profilePic{
+		padding-left: 0px;
+    	padding-top: 0px;
 	}
 
 

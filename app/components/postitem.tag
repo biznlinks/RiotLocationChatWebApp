@@ -21,7 +21,7 @@
 			<!-- <a onclick={this.showSignup}> -->
  			<div class="pointer row">
  				<div class="col-xs-7">
- 					<span class="topic" if={ post.get('topic') != '' }>{ post.get('topic') }</span>
+ 					<span class="topic" if={ post.get('topic') }>{ post.get('topic') }</span>
  				</div>
 
 				<div class="col-xs-5 text-muted align-right">
