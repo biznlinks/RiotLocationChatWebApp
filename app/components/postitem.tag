@@ -321,9 +321,9 @@
 		background-color: #EAEAEA;
 		color: #787878;
 		padding: 5px;
-		-webkit-border-radius: 10px;
-    	-moz-border-radius: 10px;
-    	border-radius: 10px;
+		-webkit-border-radius: 17px;
+    	-moz-border-radius: 17px;
+    	border-radius: 17px;
     	white-space: nowrap;
     	text-overflow: ellipsis;
     	overflow: hidden;

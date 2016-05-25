@@ -19,8 +19,12 @@
 	<div class="row">
 		<div class="event-info col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2 text-center">
 				<div class="event-title">ICTD 2016</div>
-				<div class="even-description">
+				<div class="even-description" if={ open }>
 					Event description here
+				</div>
+				<div class="arrow pointer" onclick={ this.toggleOpen }>
+					<div if={ open }><i class="fa fa-angle-up"></i></div>
+					<div if={ !open }><i class="fa fa-angle-down"></i></div>
 				</div>
 		</div>
 	</div>
@@ -28,6 +32,7 @@
 
 <script>
 	var self = this
+	self.open = true
 	self.deadline = '06/03/2016'
 
 	this.on('mount', function() {
@@ -50,6 +55,11 @@
 			'minutes': minutes,
 			'seconds': seconds
 		}
+	}
+
+	toggleOpen() {
+		self.open = !self.open
+		self.update()
 	}
 
 </script>
@@ -104,6 +114,23 @@
 
 	.even-description {
 		text-align: center;
+		margin-top: 8px;
+	}
+
+	.arrow {
+		margin-top: 7px;
+		text-align: center;
+		font-size: xx-large;
+	}
+
+	.pointer:hover {
+		cursor: pointer;
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
 	}
 </style>
 
