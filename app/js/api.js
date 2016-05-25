@@ -7,7 +7,7 @@ API = {
     var promise = new Parse.Promise();
     var Class = Parse.Object.extend(className);
     var query = new Parse.Query(Class);
-    query.equalTo(key, value); 
+    query.equalTo(key, value);
     query.first().then(function(object) {
         if (object) {
           promise.resolve(object);
@@ -20,10 +20,45 @@ API = {
     return promise;
   },
 
+  getProfilePicture: function(user) {
+    if (!user.get('profilePic')){
+      if (user.get('profileImageURL')){
+        return user.get('profileImageURL');
+      }
+      return '//files.parsetfss.com/135e5227-e041-4147-8248-a5eafaf852ef/tfss-6f1e964e-d7fc-4750-8ffb-43d5a76b136e-kangdo@umich.edu.png';
+
+    }else {
+      profilePic = user.get('profilePic').url();
+      if (profilePic){
+        return profilePic;
+      }
+    }
+  },
+
+  getCurrentUserProfilePicture: function() {
+    var user = Parse.User.current();
+
+    if (user.get('type') == 'dummy' || !user)
+      return '//files.parsetfss.com/135e5227-e041-4147-8248-a5eafaf852ef/tfss-6f1e964e-d7fc-4750-8ffb-43d5a76b136e-kangdo@umich.edu.png';
+
+    if (!user.get('profilePic')){
+      if (user.get('profileImageURL')){
+        return user.get('profileImageURL');
+      }
+      return '//files.parsetfss.com/135e5227-e041-4147-8248-a5eafaf852ef/tfss-6f1e964e-d7fc-4750-8ffb-43d5a76b136e-kangdo@umich.edu.png';
+
+    }else {
+      profilePic = user.get('profilePic').url();
+      if (profilePic){
+        return profilePic;
+      }
+    }
+  },
+
   getObjectForTopic: function(topicTitle){
     var promise = new Parse.Promise();
     var topicQuery = new Parse.Query(Topic);
-    topicQuery.equalTo('name', topicTitle); 
+    topicQuery.equalTo('name', topicTitle);
     topicQuery.find().then(function(topic){
       if (topic){
         if (topic[0])
@@ -48,7 +83,7 @@ API = {
 
       foundPost = post;
 
-      
+
       var commentQuery = new Parse.Query("Answer");
       commentQuery.equalTo('post', post);
       commentQuery.ascending('createdAt');
@@ -62,7 +97,7 @@ API = {
   }).then(function(answers) {
     var topics = foundPost.get('topics');
     var topicQuery = new Parse.Query(Topic);
-    topicQuery.containedIn('name', topics); 
+    topicQuery.containedIn('name', topics);
     topicQuery.find().then(function(topics){
       if (topics){
         foundTopicImageForPost = _.chain(topics)
@@ -78,9 +113,9 @@ API = {
       });
 
     });
-    
 
-    
+
+
   },
   function(err) {
     console.error("failed to query answers: " + JSON.stringify(err));

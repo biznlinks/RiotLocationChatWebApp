@@ -5,7 +5,8 @@
 			<div class="" onclick={ this.goToPost }>
 
 				<div class='postauthor text-muted'>
-					<img src = "{this.getProfilePic()}" class = "profile img-circle">
+					<img if={ !post.get('anonymous') } src = "{ API.getProfilePicture(post.get('author')) }" class = "profile img-circle">
+					<img if={ post.get('anonymous') } src="//files.parsetfss.com/135e5227-e041-4147-8248-a5eafaf852ef/tfss-6f1e964e-d7fc-4750-8ffb-43d5a76b136e-kangdo@umich.edu.png" class="profile img-circle">
 					<span><span >{this.getAuthorName()}</span> <br/>
 					<!-- <span class='author-about text-muted'>{post.get('author').get('about')}</span></span> -->
 
@@ -53,7 +54,10 @@
 
 		<div class="reply-container">
 			<div class="card-block input-group">
-				<div class="input-group-addon answer-icon-container pointer" onclick={ this.toggleAnonymous }><img src={ this.getUserProfilePic() } class="answer-icon img-circle"></div>
+				<div class="input-group-addon answer-icon-container pointer" onclick={ this.toggleAnonymous }>
+					<img src={ API.getCurrentUserProfilePicture() } class="answer-icon img-circle" if={ !anonymous }>
+					<img src="https://files.parsetfss.com/135e5227-e041-4147-8248-a5eafaf852ef/tfss-6f1e964e-d7fc-4750-8ffb-43d5a76b136e-kangdo@umich.edu.png" class="answer-icon img-circle" if={ anonymous }>
+				</div>
 				<textarea class="form-control" name="answerbox" id="answerbox" oninput={ this.onInput } rows="1" placeholder="Add reply"></textarea>
 			</div>
 			<a class="submit pointer" onclick={ this.submitAnswer } if={ submitButton }>Send</a>
@@ -366,6 +370,10 @@
 
 	.input-group-addon {
 		padding: .25rem;
+	}
+
+	.fa-heart {
+		color: #EB1B1B;
 	}
 
 	textarea {

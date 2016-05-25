@@ -1,7 +1,8 @@
 <answeritem>
 	<div class="row">
 		<div class="col-xs-1 profilePic">
-			<img src = "{this.getProfilePic()}" class = "answer-profile-img img-circle"></img>
+			<img if={ !answer.get('anonymous') } src="{API.getProfilePicture(answer.get('author'))}" class="answer-profile-img img-circle">
+			<img if={ answer.get('anonymous') } src="//files.parsetfss.com/135e5227-e041-4147-8248-a5eafaf852ef/tfss-6f1e964e-d7fc-4750-8ffb-43d5a76b136e-kangdo@umich.edu.png" class="answer-profile-img img-circle">
 		</div>
 		<div class="col-xs-11 content" >
 			<div class="row">

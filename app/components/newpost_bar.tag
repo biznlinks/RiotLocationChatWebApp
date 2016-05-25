@@ -1,8 +1,8 @@
 <postbar>
 
 <div class="input-group search-container">
-	<div class="icon-container input-group-addon pointer"><img src={ this.getUserProfilePic() } class="profile-icon img-circle"></div>
-	<textarea name="searchField" id="searchField" onfocus={ showAskModal } placeholder="Post on ICTD 2016" class="searchbox form-control" rows="1" onfocus={this.searchonfocus}></textarea>
+	<div class="icon-container input-group-addon pointer"><img src={ API.getCurrentUserProfilePicture() } class="profile-icon img-circle"></div>
+	<textarea name="postBar" id="searchField" onfocus={ showAskModal } placeholder="Post on ICTD 2016" class="searchbox form-control" rows="1" onfocus={this.searchonfocus}></textarea>
 </div>
 
 <script>

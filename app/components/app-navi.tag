@@ -13,7 +13,7 @@
       </li>
       <li class={ nav-item: true } onclick={ this.update }>
         <div class="btn-group">
-          <img src={ this.getProfilePic() } class="img-circle dropdown-toggle profile-img pointer" data-toggle="dropdown"/>
+          <img src={ API.getCurrentUserProfilePicture() } class="img-circle dropdown-toggle profile-img pointer" data-toggle="dropdown"/>
           <ul class="dropdown-menu dropdown-menu-right">
             <li class="dropdown-item" if={ signupAvail } onclick={ this.showLogin }>
               <a class="nav-link" href="#">Log In</a>

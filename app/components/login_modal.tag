@@ -113,8 +113,11 @@
 					Parse.User.current().set('type', 'actual')
 					Parse.User.current().save(null, {
 						success: function(user) {
-							$('#loginModal').modal('hide')
+							/*$('#loginModal').modal('hide')
 							$('#signupSuccess').show()
+							self.parent.update()*/
+							riot.route('/')
+    						window.location.reload()
 						},
 						error: function(user, error) {
 							self.isError = true
@@ -128,8 +131,10 @@
 				if (error.code == 208) {		// User has already signed up with Facebook
 					Parse.FacebookUtils.logIn('public_profile, email, user_friends', {
 						success: function(user) {
-							$('#loginModal').modal('hide')
-							$('#loginSuccess').show()
+							/*$('#loginModal').modal('hide')
+							$('#loginSuccess').show()*/
+							riot.route('/')
+    						window.location.reload()
 						},
 						error: function(user, error) {
 							self.isError = true
