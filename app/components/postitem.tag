@@ -20,7 +20,7 @@
 			</div>
 			<!-- <a onclick={this.showSignup}> -->
  			<div class="pointer row">
- 				<div class="col-xs-7">
+ 				<div class="col-xs-7 topicdiv">
  					<span class="topic" if={ post.get('topic') }>{ post.get('topic') }</span>
  				</div>
 
@@ -327,6 +327,9 @@
     	white-space: nowrap;
     	text-overflow: ellipsis;
     	overflow: hidden;
+	}
+	.topicdiv{
+		     padding-left: 0px; 
 	}
 
 	.align-left {

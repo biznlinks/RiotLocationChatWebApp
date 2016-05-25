@@ -50,7 +50,7 @@
 
   this.links = [
   { name: "Home", url: "post" },
-  { name: "Schedule", url: "topics" }
+  { name: "Schedule", url: "schedule" }
   ]
 
   var r = riot.route.create()

@@ -1,6 +1,6 @@
 <topics>
 	<div each={schedule.sessions} class="card">
-		<a  href="/topics/{ title }">
+		<a  href="/schedule/{ title }">
 		<div class="card-block">
 			<h4 class="card-title">{title}</h4>
 			<p class="card-text">{time}</p>
@@ -8,7 +8,7 @@
 		</a>
 		<ul class="list-group list-group-flush">
 			<li each={talks} class="list-group-item">
-			<a  href="/topics/{ title }">
+			<a  href="/schedule/{ title }">
 				{title} <br> <p class="text-muted authors">{authors}</p>
 				</a>
 			</li>

@@ -20,7 +20,7 @@
 		<div class="event-info col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2 text-center">
 				<div class="event-title">ICTD 2016</div>
 				<div class="even-description" if={ open }>
-					Event description here
+					{Group.get('description')}
 				</div>
 				<div class="arrow pointer" onclick={ this.toggleOpen }>
 					<div if={ open }><i class="fa fa-angle-up"></i></div>

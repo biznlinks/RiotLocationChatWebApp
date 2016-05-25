@@ -33,7 +33,7 @@
     <div class="row">
       <div class="main col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2  text-center">
         <feed if={ route=="posts" }></feed>
-        <topics if={ route=="topics" }></topics>
+        <topics if={ route=="schedule" }></topics>
         <postdetail if={ route=="postdetail" }></postdetail>
         <topicsfeed if={ route=="topicsfeed" }></topicsfeed>
         <profile name="profile" if={ route=="profile" }></profile>
@@ -66,8 +66,9 @@
     r('#',       home       )
     r('post',   home      )
     r('post/*', postdetail)
-    r('topics',  topics     )
-    r('topics/*', topicsfeed)
+    r('topics',  topics )
+    r('schedule',  topics )
+    r('schedule/*', topicsfeed)
     r('profile', profile)
     r(           home       ) // `notfound` would be nicer!
 
@@ -98,7 +99,7 @@
         title: "Trending Topics",
         body: "",
         selectedId: null,
-        route: "topics"
+        route: "schedule"
       })
     }
     function topicsfeed(id) {
