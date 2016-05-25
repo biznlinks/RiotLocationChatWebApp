@@ -33,7 +33,7 @@
 <script>
 	var self = this
 	self.open = true
-	self.deadline = 'June 03 2016 08:00:00 UTC-05:00'
+	self.deadline = '2016-06-03T10:00:00-04:00'
 
 	this.on('mount', function() {
 		var timeinterval = setInterval(function() {
