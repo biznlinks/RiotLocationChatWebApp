@@ -21,12 +21,15 @@
 
 		this.on('mount', function() {
 			self.schedule = Group.get('details').schedule
+			// Date(topicstag.schedule.sessions[0].starttime)
 			self.update()
 		})
 
 		showTopic(e){
 			console.log(e.item.title);
 		}
+
+
 
 	</script>
 
@@ -46,16 +49,19 @@
 
 		a {
 			display: block;
-			background: #f7f7f7;
+			/*background: #f7f7f7;*/
 			text-decoration: none;
 			width: 100%;
 			height: 100%;
 			/*line-height: 150px;*/
 			color: inherit;
+
 		}
+
 		a:hover {
 			background: #eee;
 			color: #000;
+			text-decoration: none;
 		}
 
 		ul {
