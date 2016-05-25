@@ -1,4 +1,19 @@
 <topics>
+	<div class="row" each={schedule.sessions}>
+		<div class="col-xs-3">
+			<h4 class="card-title">{hour}</h4>
+		</div>
+		<div class="col-xs-9">
+			<h4 class="card-title">{title}</h4>
+			<ul class="list-group list-group-flush">
+			<li each={talks} class="list-group-item">
+			<a  href="/schedule/{ title }">
+				{title} <br> <p class="text-muted authors">{authors}</p>
+				</a>
+			</li>
+		</ul>
+		</div>
+	</div>
 	<div each={schedule.sessions} class="card">
 		<a  href="/schedule/{ title }">
 		<div class="card-block">
