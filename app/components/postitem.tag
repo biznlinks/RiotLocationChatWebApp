@@ -20,14 +20,14 @@
 			</div>
 			<!-- <a onclick={this.showSignup}> -->
  			<div class="pointer row">
- 				<div class="col-xs-7 topicdiv">
+ 				<div class="col-xs-7 infodiv">
  					<span class="topic" if={ post.get('topic') }>{ post.get('topic') }</span>
  				</div>
 
-				<div class="col-xs-5 text-muted align-right">
+				<div class="col-xs-5 text-muted align-right infodiv">
 					<div class='answercount' if={post.get('answerCount') >= 0} >{post.get('answerCount')} Repl<span if={post.get('answerCount')!=1}>ies</span><span if={ post.get('answerCount') == 1 }>y</span>
 					</div>
-					|
+					
 					<div class='wannaknow text-muted' onclick={ this.submitWannaknow }>
 						<!-- <img width="23px" src="/images/wannaknow_gray@2x.png">  -->
 						<i class={ fa: true, fa-heart-o: !wannaknown, fa-heart: wannaknown } name="wannaknowButton" aria-hidden="true"></i>
@@ -284,6 +284,7 @@
 	.answercount{
 		display: inline-block;
 		font-size: small;
+	    padding-right: 20px;
 	}
 
 	.comment-input {
@@ -328,8 +329,8 @@
     	text-overflow: ellipsis;
     	overflow: hidden;
 	}
-	.topicdiv{
-		     padding-left: 0px; 
+	.infodiv{
+		     padding: 0px; 
 	}
 
 	.align-left {
