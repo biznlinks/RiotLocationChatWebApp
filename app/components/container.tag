@@ -18,6 +18,7 @@
 </loader>
 <container>
   <app-navi></app-navi>
+  <banner></banner>
   <!-- Page Content -->
   <div class="">
     <!-- <h1>{ title }</h1> -->

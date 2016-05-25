@@ -20,16 +20,14 @@
 			</div>
 			<!-- <a onclick={this.showSignup}> -->
  			<div class="pointer row">
- 				<div class="col-xs-4">
+ 				<div class="col-xs-7">
  					<span class="topic" if={ post.get('topic') != '' }>{ post.get('topic') }</span>
  				</div>
 
- 				<div class="col-xs-4 text-muted align-center">
+				<div class="col-xs-5 text-muted align-right">
 					<div class='answercount' if={post.get('answerCount') >= 0} >{post.get('answerCount')} Repl<span if={post.get('answerCount')!=1}>ies</span><span if={ post.get('answerCount') == 1 }>y</span>
 					</div>
-				</div>
-
-				<div class="col-xs-4 text-muted align-right">
+					|
 					<div class='wannaknow text-muted' onclick={ this.submitWannaknow }>
 						<!-- <img width="23px" src="/images/wannaknow_gray@2x.png">  -->
 						<i class={ fa: true, fa-heart-o: !wannaknown, fa-heart: wannaknown } name="wannaknowButton" aria-hidden="true"></i>
@@ -319,23 +317,26 @@
 	}
 
 	.topic {
-		background-color: #0275D8;
+		font-size: smaller;
+		background-color: #EAEAEA;
+		color: #787878;
 		padding: 5px;
-		color: white;
-		-webkit-border-radius: 3px;
-    	-moz-border-radius: 3px;
-    	border-radius: 3px;
+		-webkit-border-radius: 10px;
+    	-moz-border-radius: 10px;
+    	border-radius: 10px;
     	white-space: nowrap;
     	text-overflow: ellipsis;
     	overflow: hidden;
 	}
 
-	.align-center {
-		text-align: center;
+	.align-left {
+		text-align: left;
+		white-space: nowrap;
 	}
 
 	.align-right {
 		text-align: right;
+		white-space: nowrap;
 	}
 
 	.reply-container {
