@@ -113,7 +113,6 @@
           user: Parse.User.current()
         },{
           success: function(post) {
-            console.log("Successfully added a post ")
             self.loading=false
             self.hide()
             self.init()
