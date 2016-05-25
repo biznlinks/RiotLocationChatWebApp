@@ -33,7 +33,7 @@
 <script>
 	var self = this
 	self.open = true
-	self.deadline = '2016-06-03T10:00:00-04:00'
+	self.deadline = '2016-06-03T09:00:00-04:00'
 
 	this.on('mount', function() {
 		var timeinterval = setInterval(function() {
@@ -46,9 +46,12 @@
 
 	getRemainingTime(deadline) {
 		var t       = Date.parse(deadline) - Date.parse(new Date())
-		var seconds = Math.floor( (t/1000) % 60 )
-		var minutes = Math.floor( (t/1000/60) % 60 )
-		var hours   = Math.floor( (t/100/60/60) % 24 ) + Math.floor( (t/1000/60/60/24) )*24
+		t           /= 1000
+		var hours   = Math.floor( (t/3600) )
+		t           -= hours * 3600
+		var minutes = Math.floor( (t/60) )
+		t           -= minutes * 60
+		var seconds = t
 
 		return {
 			'hours': hours,
