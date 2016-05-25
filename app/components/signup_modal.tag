@@ -14,6 +14,10 @@
 			<div class="modal-body">
 				<form>
 					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+						<input type="text" class="form-control" name="fullname" placeholder="Full name" />
+					</div>
+					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
 						<input type="text" class="form-control" name="email" placeholder="Email" />
 					</div>
@@ -21,17 +25,18 @@
 						<span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
 						<input type="password" class="form-control" name="password" placeholder="Password" />
 					</div>
-					<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-						<input type="text" class="form-control" name="fullname" placeholder="Fullname" />
-					</div>
 
 					<br/>
-					<button class="btn btn-sm" name="submit" onclick={ this.submitSignup }>Submit</button>
+					<button class="btn btn-sm" name="submit" onclick={ this.submitSignup }>Join</button>
 					<div class="text-warning info" if={ isError }>{ error }</div>
 				</form>
+					<div class="facebook-option">
+						<button class="btn btn-default btn-primary" onclick={ this.submitFacebook }>
+							<i class="fa fa-facebook-f" id="facebook-logo"></i> Log in with Facebook
+						</button>
+					</div>
 					<div class="info">
-						Already have an account?
+						or
 						<div class="text-info pointer inline" onclick={ this.showLogin }>Log In</div>
 					</div>
 			</div>
@@ -74,7 +79,7 @@
 			var userFullname  = self.fullname.value
 
 			var userFirstname = userFullname.split(" ")[0]
-			var userLastname  = userFullname.substring(userFullname.indexOf(" "))
+			var userLastname  = userFullname.substring(userFullname.indexOf(" ") + 1)
 
 			user.set('username', userEmail)
 			user.set('password', userPassword)
@@ -94,6 +99,53 @@
 				}
 			})
 		}
+	}
+
+	submitFacebook() {
+		Parse.FacebookUtils.link(Parse.User.current(), 'public_profile, email, user_friends', {
+			success: function(user) {
+				FB.api('/me?fields=first_name, last_name, picture, email, friends', function(response) {
+					Parse.User.current().set('firstName', response.first_name)
+					Parse.User.current().set('lastName', response.last_name)
+					Parse.User.current().set('email', response.email)
+					Parse.User.current().set('username', response.email)
+					Parse.User.current().set('profileImageURL', response.picture.data.url)
+					Parse.User.current().set('friends', response.friends.data)
+					Parse.User.current().set('facebookID', response.id)
+					Parse.User.current().set('type', 'actual')
+					Parse.User.current().save(null, {
+						success: function(user) {
+							$('#signupModal').modal('hide')
+							$('#signupSuccess').show()
+						},
+						error: function(user, error) {
+							self.isError = true
+							self.error = error.message
+							self.update()
+						}
+					})
+				})
+			},
+			error: function(user, error) {
+				if (error.code == 208) {		// User has already signed up with Facebook
+					Parse.FacebookUtils.logIn('public_profile, email, user_friends', {
+						success: function(user) {
+							$('#signupModal').modal('hide')
+							$('#loginSuccess').show()
+						},
+						error: function(user, error) {
+							self.isError = true
+							self.error = error.message
+							self.update()
+						}
+					})
+				} else {
+					self.isError = true
+					self.error = error.message
+					self.update()
+				}
+			}
+		})
 	}
 
 	showLogin(){
@@ -156,8 +208,21 @@
 		display: inline-block;
 	}
 
-	.input-group, .info {
+	.input-group {
 		margin-top: 7px;
+	}
+
+	.info {
+		margin-top: 20px;
+		margin-bottom: 10px;
+	}
+
+	.facebook-option {
+		margin-top: 20px;
+	}
+
+	#facebook-logo {
+		margin-right: 5px
 	}
 
 </style>
