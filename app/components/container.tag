@@ -31,7 +31,7 @@
     <signupsuccess name="signupSuccess"></signupsuccess>
 
     <div class="row">
-      <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2  text-center">
+      <div class="main col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2  text-center">
         <feed if={ route=="posts" }></feed>
         <topics if={ route=="topics" }></topics>
         <postdetail if={ route=="postdetail" }></postdetail>
@@ -133,11 +133,20 @@
     /*margin-right: 0;*/
     margin-bottom: 130px;
     /*margin-left: 50px;*/
-    padding: 1em;
+    /*padding: 1em;*/
     /*text-align: center;*/
     color: #666;
 
 
+  }
+  .main {
+        padding-right: 0px;
+    padding-left: 0px;
+  }
+
+  .row {
+         margin-right: 0px; 
+     margin-left: 0px; 
   }
 
 
