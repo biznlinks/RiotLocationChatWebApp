@@ -22,13 +22,13 @@
             <textarea rows=2 autofocus name="searchField" placeholder="Ask ICTD!" class="searchbox">{question}</textarea>
             <div id="topic">#{topic}</div>
             <input class="text-xs-center" type="text" name="name" placeholder= "Handle (Optional)"></input>
-            
+
           </div>
           <div class="go text-xs-center">
             <button type="button" class="btn btn-primary" onclick={createQuestion}>Go!</button>
           </div>
         </div>
-        
+
       </div>
 
 
@@ -41,7 +41,7 @@
     this.loading= false
     this.topic = ""
 
-    this.question="testing"
+    this.question=""
 
     this.on('mount', function(){
 

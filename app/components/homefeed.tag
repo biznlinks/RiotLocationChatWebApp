@@ -12,7 +12,7 @@
 
 		</div> -->
 		<div>
-			<search></search>
+			<postbar></postbar>
 		</div>
 
 		<posts name="homeFeedPosts"></posts>
@@ -27,7 +27,7 @@
 
 		init(){
 			self.postsTag.update({loading:true})
-			self.tags.search.init()
+			//self.tags.search.init()
 			API.getallposts(20).then(function(results){
 				self.postsTag.update({posts:results, loading:false})
 			})
