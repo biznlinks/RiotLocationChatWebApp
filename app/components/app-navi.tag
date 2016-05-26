@@ -49,7 +49,6 @@
   self.signupAvail = true
 
   this.links = [
-  { name: "Home", url: "post" },
   { name: "Schedule", url: "schedule" }
   ]
 
