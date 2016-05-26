@@ -60,8 +60,8 @@
       }
 
       .profile-icon {
-        height: 45px;
-        width: 45px;
+        height: 35px;
+        width: 35px;
       }
 </style>
 

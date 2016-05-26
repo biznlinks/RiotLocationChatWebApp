@@ -11,7 +11,6 @@
 
 
 		</div> -->
-		<banner></banner>
 		<div>
 			<postbar></postbar>
 		</div>

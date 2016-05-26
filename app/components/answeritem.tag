@@ -2,7 +2,7 @@
 	<div class="row">
 		<div class="col-xs-1 profilePic">
 			<img if={ !answer.get('anonymous') } src="{API.getProfilePicture(answer.get('author'))}" class="answer-profile-img img-circle">
-			<img if={ answer.get('anonymous') } src="//files.parsetfss.com/135e5227-e041-4147-8248-a5eafaf852ef/tfss-6f1e964e-d7fc-4750-8ffb-43d5a76b136e-kangdo@umich.edu.png" class="answer-profile-img img-circle">
+			<img if={ answer.get('anonymous') } src="/images/default_profile.png" class="answer-profile-img img-circle">
 		</div>
 		<div class="col-xs-11 content" >
 			<div class="row">
@@ -55,7 +55,7 @@
 
 		getProfilePic(){
 			if (self.answer.get('anonymous'))
-				return 'https://files.parsetfss.com/135e5227-e041-4147-8248-a5eafaf852ef/tfss-6f1e964e-d7fc-4750-8ffb-43d5a76b136e-kangdo@umich.edu.png'
+				return '/images/default_profile.png'
 
 			var author = self.answer.get('author')
 			if (author.get('profileImageURL')){
@@ -64,7 +64,7 @@
 					return profilePic
 				}
 			}else {
-				return 'https://files.parsetfss.com/135e5227-e041-4147-8248-a5eafaf852ef/tfss-6f1e964e-d7fc-4750-8ffb-43d5a76b136e-kangdo@umich.edu.png'
+				return '/images/default_profile.png'
 			}
 		}
 
