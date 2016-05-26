@@ -372,10 +372,6 @@
 		padding: .25rem;
 	}
 
-	.fa-heart {
-		color: #EB1B1B;
-	}
-
 	textarea {
 		width: 100%;
 		font-size: large;
