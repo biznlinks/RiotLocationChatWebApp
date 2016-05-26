@@ -49,17 +49,13 @@
     containerTag = this
     self.title   = 'Now loading...'
     self.body    = ''
+    self.group = this.opts.group
 
     self.route   = "home"
 
     this.on("mount", function(){
       $('#signupSuccess').hide()
       $('#loginSuccess').hide()
-
-      var groupName = "ICTD"
-      API.fetchOne("Group", "name", groupName).then(function(group){
-        Group = group
-      })
     })
 
     var r = riot.route.create()
