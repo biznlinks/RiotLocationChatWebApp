@@ -1,5 +1,5 @@
 <container>
-  
+
 
   <div class="">
     <!-- <h1>{ title }</h1> -->
@@ -20,17 +20,14 @@
     containerTag = this
     self.title   = 'Now loading...'
     self.body    = ''
+    
+    self.group = this.opts.group
 
     self.route   = "home"
 
     this.on("mount", function(){
       $('#signupSuccess').hide()
       $('#loginSuccess').hide()
-
-      var groupName = "ICTD"
-      API.fetchOne("Group", "name", groupName).then(function(group){
-        Group = group
-      })
     })
 
     var r = riot.route.create()
@@ -48,32 +45,32 @@
       self.tags.feed.init()
     }
     
-</script>
-<style scoped>
-  :scope {
-    display: block;
-    font-family: sans-serif;
-    /*margin-right: 0;*/
-    margin-bottom: 130px;
-    /*margin-left: 50px;*/
-    /*padding: 1em;*/
-    /*text-align: center;*/
-    color: #666;
+  </script>
+  <style scoped>
+    :scope {
+      display: block;
+      font-family: sans-serif;
+      /*margin-right: 0;*/
+      margin-bottom: 130px;
+      /*margin-left: 50px;*/
+      /*padding: 1em;*/
+      /*text-align: center;*/
+      color: #666;
 
 
-  }
-  .main {
-        padding-right: 0px;
-    padding-left: 0px;
-  }
+    }
+    .main {
+      padding-right: 0px;
+      padding-left: 0px;
+    }
 
-  .row {
-         margin-right: 0px; 
+    .row {
+     margin-right: 0px; 
      margin-left: 0px; 
-  }
+   }
 
 
-  @media (min-width: 480px) {
+   @media (min-width: 480px) {
     :scope {
       /*margin-right: 200px;*/
       margin-bottom: 0;

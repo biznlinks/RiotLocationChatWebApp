@@ -103,7 +103,7 @@
       post.set("topic", self.topic)
 
       post.set("university","umich")
-      post.set("group", Group)
+      post.set("group", containerTag.group)
 
       post.save().then(function(){
         var Wannaknow = Parse.Object.extend('WannaKnow')
