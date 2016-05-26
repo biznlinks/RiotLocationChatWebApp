@@ -51,7 +51,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 
 		<div class="reply-container">
 			<hr/>
@@ -330,8 +330,8 @@
 		background-color: #EAEAEA;
 		color: #787878;
 		padding: 5px;
-		    padding-left: 10px;
-    padding-right: 10px;
+		padding-left: 10px;
+    	padding-right: 10px;
 		-webkit-border-radius: 17px;
     	-moz-border-radius: 17px;
     	border-radius: 17px;
