@@ -40,8 +40,7 @@
         font-size: 24px;
         padding: 0 15px;
         line-height: 62px;
-        border: 1px solid #CCCCCC;
-        border-left: 0;
+        border: none;
       }
 
       .search-container {
@@ -50,6 +49,9 @@
 
       .input-group {
         width: 100%;
+      }
+      .input-group-addon{
+        border: none;
       }
 
       .icon-container {

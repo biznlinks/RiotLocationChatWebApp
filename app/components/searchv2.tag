@@ -182,8 +182,7 @@ getHighlightedContent(content){
         font-size: 24px;
         padding: 0 15px;
         line-height: 62px;
-        border: 0;
-        box-shadow: 0 32px 90px 0 rgba(0,0,0,.29);
+        border: none;
 
       }
 

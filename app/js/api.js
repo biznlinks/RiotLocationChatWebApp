@@ -38,7 +38,7 @@ API = {
   getCurrentUserProfilePicture: function() {
     var user = Parse.User.current();
 
-    if (user.get('type') == 'dummy' || !user)
+    if (!user || user.get('type') == 'dummy')
       return '/images/default_profile.png';
 
     if (!user.get('profilePic')){

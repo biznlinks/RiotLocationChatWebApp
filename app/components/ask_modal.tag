@@ -14,8 +14,10 @@
         </div>
 
         <div if={!loading} class="modal-body">
-          <div class="profile-image-container">
+          <div class="profile-container">
             <img class="profile-image img-circle" src={ API.getCurrentUserProfilePicture() }>
+            <div class="user-name text-muted" if={ !loggedIn }>Anonymous</div>
+            <div class="user-name text-muted" if={ loggedIn }>{ Parse.User.current().get('firstName') } { Parse.User.current().get('lastName') }</div>
           </div>
 
           <div class="post-container info-btns">
@@ -148,6 +150,11 @@
     .profile-image {
       height: 80px;
       width: 80px;
+    }
+
+    .user-name {
+      font-size: large;
+      margin-top:15px;
     }
 
     .post-container {

@@ -51,8 +51,10 @@
 				</div>
 			</div>
 		</div>
+		
 
 		<div class="reply-container">
+			<hr/>
 			<div class="card-block input-group">
 				<div class="input-group-addon answer-icon-container pointer" onclick={ this.toggleAnonymous }>
 					<img src={ API.getCurrentUserProfilePicture() } class="answer-icon img-circle" if={ !anonymous }>
@@ -328,6 +330,8 @@
 		background-color: #EAEAEA;
 		color: #787878;
 		padding: 5px;
+		    padding-left: 10px;
+    padding-right: 10px;
 		-webkit-border-radius: 17px;
     	-moz-border-radius: 17px;
     	border-radius: 17px;
@@ -349,8 +353,8 @@
 		white-space: nowrap;
 	}
 
-	.reply-container {
-		background-color: #EEEEEE;
+	.reply-container  hr{
+		margin: 0;
 	}
 
 	.answer-icon-container {
@@ -364,13 +368,18 @@
 	}
 
 	.form-control {
-		border-left:0px;
 		padding: .8rem;
+		border: none;
+	}
+
+	.input-group {
+		padding: 0px;
 	}
 
 	.input-group-addon {
 		padding: .375rem;
 		padding-left: .8rem;
+		border: none;
 	}
 
 	textarea {
@@ -380,6 +389,7 @@
 		-webkit-border-radius: 5px;
     	-moz-border-radius: 5px;
     	border-radius: 5px;
+    	border: none;
 	}
 
 	@media (min-width: 480px) {

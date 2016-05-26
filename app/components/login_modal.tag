@@ -83,7 +83,6 @@
 			success: function(user) {
 				riot.route('/')
     			window.location.reload()
-    			$('#loginSuccess').show()
 			},
 			error: function(user, error) {
 				Parse.User.logIn(annonymous, annonymous, {
@@ -115,7 +114,6 @@
 						success: function(user) {
 							riot.route('/')
     						window.location.reload()
-    						$('#signupSuccess').show()
 						},
 						error: function(user, error) {
 							self.isError = true
@@ -131,7 +129,6 @@
 						success: function(user) {
 							riot.route('/')
     						window.location.reload()
-    						$('#loginSuccess').show()
 						},
 						error: function(user, error) {
 							self.isError = true
