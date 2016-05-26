@@ -12,20 +12,22 @@
           <i class="fa fa-spinner fa-spin fa-3x fa-fw margin-bottom"></i>
           <span class="sr-only">Loading...</span>
         </div>
-        <div class="modal-header">
-          <h4 class="modal-title">Ask a new question</h4>
-        </div>
 
         <div if={!loading} class="modal-body">
+          <div class="profile-image-container">
+            <img class="profile-image img-circle" src={ API.getCurrentUserProfilePicture() }>
+          </div>
 
-          <div class="info-btns">
-            <textarea rows=2 autofocus name="searchField" placeholder="Ask ICTD!" class="searchbox">{question}</textarea>
-            <div id="topic">#{topic}</div>
-            <input class="text-xs-center" type="text" name="name" placeholder= "Handle (Optional)" if={ !loggedIn }></input>
+          <div class="post-container info-btns">
+            <textarea rows="5" autofocus name="searchField" placeholder="Post about ICTD" class="searchbox">{question}</textarea>
+            <div class="text-muted" id="topic" if={ topic!='' }>#{topic}</div>
+            <div class="handle-container">
+              <input class="handle" type="text" name="name" placeholder= "Handle (Optional)" if={ !loggedIn }></input>
+            </div>
 
           </div>
           <div class="go text-xs-center">
-            <button type="button" class="btn btn-primary" onclick={createQuestion}>Post</button>
+            <button type="button" class="btn btn-primary go-btn" onclick={createQuestion}>Post</button>
             <div class="error text-warning" if={ isError }>{ error }</div>
           </div>
         </div>
@@ -49,10 +51,11 @@
 
     this.on('mount', function(){
       $('#askModal').on('hidden.bs.modal', function() {
-        self.isError  = false
-        self.error    = ""
-        self.loading  = false
-        self.question = ""
+        self.isError    = false
+        self.error      = ""
+        self.loading    = false
+        self.question   = ""
+        self.name.value = ""
       })
     })
 
@@ -133,26 +136,63 @@
     :scope{
       text-align: center;
     }
+
+    .modal-content {
+      background-color: #F5F5F5;
+    }
+
     .modal-content{
       min-height: 300px
+    }
+
+    .profile-image {
+      height: 80px;
+      width: 80px;
+    }
+
+    .post-container {
+      margin-top: 50px;
     }
 
     .searchbox{
       overflow:hidden;
       resize: none;
-      text-align: center;
+      text-align: left;
       min-height: 45px!important;
-      margin-bottom: 0;
+      margin-bottom: 10px;
       width: 100%;
       font-size: 24px;
-      padding: 0 15px;
+      padding: 7px 15px;
+      border: none;
+      border-bottom: 1px solid #BBBBBB;
+      background-color: #F5F5F5;
+    }
 
-      box-shadow: 0 2px 9px 0 rgba(0,0,0,.29);
+    #topic {
+      text-align: left;
+      padding-left: 10px;
+    }
 
+    .handle-container {
+      text-align: left;
+      margin-top: 10px;
+    }
+
+    .handle {
+      text-align: left;
+      padding: 5px 10px;
+      border: none;
+      border-bottom: 1px solid #BBBBBB;
+      background-color: #F5F5F5;
     }
 
     .go{
-      margin-top: 10px;
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    .go-btn {
+      padding: 5px 20px;
     }
 
     .error {

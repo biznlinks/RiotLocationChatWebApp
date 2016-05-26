@@ -81,9 +81,9 @@
 
 		Parse.User.logIn(self.email.value, self.password.value, {
 			success: function(user) {
-				$('#loginModal').modal('hide')
-				$('#loginSuccess').show()
-				self.parent.update()
+				riot.route('/')
+    			window.location.reload()
+    			$('#loginSuccess').show()
 			},
 			error: function(user, error) {
 				Parse.User.logIn(annonymous, annonymous, {
@@ -113,11 +113,9 @@
 					Parse.User.current().set('type', 'actual')
 					Parse.User.current().save(null, {
 						success: function(user) {
-							/*$('#loginModal').modal('hide')
-							$('#signupSuccess').show()
-							self.parent.update()*/
 							riot.route('/')
     						window.location.reload()
+    						$('#signupSuccess').show()
 						},
 						error: function(user, error) {
 							self.isError = true
@@ -131,10 +129,9 @@
 				if (error.code == 208) {		// User has already signed up with Facebook
 					Parse.FacebookUtils.logIn('public_profile, email, user_friends', {
 						success: function(user) {
-							/*$('#loginModal').modal('hide')
-							$('#loginSuccess').show()*/
 							riot.route('/')
     						window.location.reload()
+    						$('#loginSuccess').show()
 						},
 						error: function(user, error) {
 							self.isError = true
