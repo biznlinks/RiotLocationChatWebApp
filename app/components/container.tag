@@ -18,7 +18,6 @@
 </loader>
 <container>
   <app-navi></app-navi>
-  <banner if={ route!="profile" }></banner>
   <!-- Page Content -->
   <div class="">
     <!-- <h1>{ title }</h1> -->

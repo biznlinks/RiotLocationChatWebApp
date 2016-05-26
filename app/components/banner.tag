@@ -2,7 +2,7 @@
 
 <div>
 	<div class="row" align="center">
-		<div class="timer-container col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2 text-center">
+		<div class="timer-container text-center">
 			<div class="timer-background">
 				<div class="timer" name="timer">
 					<span class="hours" name="hours"></span> hr
@@ -17,9 +17,9 @@
 	</div>
 
 	<div class="row">
-		<div class="event-info col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2 text-center">
+		<div class="event-info text-center">
 				<div class="event-title">ICTD 2016</div>
-				<div class="even-description" if={ open }>
+				<div class="event-description" if={ open }>
 					{containerTag.group.get('description')}
 				</div>
 				<div class="arrow pointer" onclick={ this.toggleOpen }>
