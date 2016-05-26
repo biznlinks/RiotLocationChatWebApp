@@ -6,7 +6,7 @@
 
 				<div class='postauthor text-muted'>
 					<img if={ !post.get('anonymous') } src = "{ API.getProfilePicture(post.get('author')) }" class = "profile img-circle">
-					<img if={ post.get('anonymous') } src="//files.parsetfss.com/135e5227-e041-4147-8248-a5eafaf852ef/tfss-6f1e964e-d7fc-4750-8ffb-43d5a76b136e-kangdo@umich.edu.png" class="profile img-circle">
+					<img if={ post.get('anonymous') } src="/images/default_profile.png" class="profile img-circle">
 					<span><span >{this.getAuthorName()}</span> <br/>
 					<!-- <span class='author-about text-muted'>{post.get('author').get('about')}</span></span> -->
 
@@ -56,7 +56,7 @@
 			<div class="card-block input-group">
 				<div class="input-group-addon answer-icon-container pointer" onclick={ this.toggleAnonymous }>
 					<img src={ API.getCurrentUserProfilePicture() } class="answer-icon img-circle" if={ !anonymous }>
-					<img src="https://files.parsetfss.com/135e5227-e041-4147-8248-a5eafaf852ef/tfss-6f1e964e-d7fc-4750-8ffb-43d5a76b136e-kangdo@umich.edu.png" class="answer-icon img-circle" if={ anonymous }>
+					<img src="/images/default_profile.png" class="answer-icon img-circle" if={ anonymous }>
 				</div>
 				<textarea class="form-control" name="answerbox" id="answerbox" oninput={ this.onInput } rows="1" placeholder="Add reply"></textarea>
 			</div>
@@ -127,7 +127,7 @@
 			if (author.get('profileImageURL')){
 				return author.get('profileImageURL')
 			}
-			return 'https://files.parsetfss.com/135e5227-e041-4147-8248-a5eafaf852ef/tfss-6f1e964e-d7fc-4750-8ffb-43d5a76b136e-kangdo@umich.edu.png'
+			return '/images/default_profile.png'
 
 		}else {
 			profilePic = author.get('profilePic').url()
@@ -139,7 +139,7 @@
 
 	getUserProfilePic() {
 		if (self.anonymous && Parse.User.current().get('type') == 'actual')
-			return 'https://files.parsetfss.com/135e5227-e041-4147-8248-a5eafaf852ef/tfss-6f1e964e-d7fc-4750-8ffb-43d5a76b136e-kangdo@umich.edu.png'
+			return '/images/default_profile.png'
 
 		var user       = Parse.User.current()
 		var profilePic = user.get('profileImageURL')
@@ -365,11 +365,12 @@
 
 	.form-control {
 		border-left:0px;
-		padding: .375rem;
+		padding: .8rem;
 	}
 
 	.input-group-addon {
-		padding: .25rem;
+		padding: .375rem;
+		padding-left: .8rem;
 	}
 
 	textarea {
@@ -379,7 +380,6 @@
 		-webkit-border-radius: 5px;
     	-moz-border-radius: 5px;
     	border-radius: 5px;
-    	padding:7px;
 	}
 
 	@media (min-width: 480px) {

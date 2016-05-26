@@ -25,7 +25,7 @@ API = {
       if (user.get('profileImageURL')){
         return user.get('profileImageURL');
       }
-      return '//files.parsetfss.com/135e5227-e041-4147-8248-a5eafaf852ef/tfss-6f1e964e-d7fc-4750-8ffb-43d5a76b136e-kangdo@umich.edu.png';
+      return '/images/default_profile.png';
 
     }else {
       profilePic = user.get('profilePic').url();
@@ -39,13 +39,13 @@ API = {
     var user = Parse.User.current();
 
     if (user.get('type') == 'dummy' || !user)
-      return '//files.parsetfss.com/135e5227-e041-4147-8248-a5eafaf852ef/tfss-6f1e964e-d7fc-4750-8ffb-43d5a76b136e-kangdo@umich.edu.png';
+      return '/images/default_profile.png';
 
     if (!user.get('profilePic')){
       if (user.get('profileImageURL')){
         return user.get('profileImageURL');
       }
-      return '//files.parsetfss.com/135e5227-e041-4147-8248-a5eafaf852ef/tfss-6f1e964e-d7fc-4750-8ffb-43d5a76b136e-kangdo@umich.edu.png';
+      return '/images/default_profile.png';
 
     }else {
       profilePic = user.get('profilePic').url();

@@ -12,7 +12,7 @@
         <a class="nav-link" href="/{ url }" >{name}</a>
       </li>
       <li class={ nav-item: true } onclick={ this.update }>
-        <div class="btn-group">
+        <div class="btn-group profile-container">
           <img src={ API.getCurrentUserProfilePicture() } class="img-circle dropdown-toggle profile-img pointer" data-toggle="dropdown"/>
           <ul class="dropdown-menu dropdown-menu-right">
             <li class="dropdown-item" if={ signupAvail } onclick={ this.showLogin }>
@@ -114,9 +114,13 @@
     left: 0px;
   }
 
+  .profile-container {
+    padding: 5px;
+  }
+
   .profile-img{
-    width: 35px;
-    height: 35px;
+    width: 25px;
+    height: 25px;
   }
 
   .pointer:hover {
