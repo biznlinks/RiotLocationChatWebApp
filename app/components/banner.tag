@@ -19,7 +19,7 @@
 	<div class="row">
 		<div class="event-info col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2 text-center">
 				<div class="event-title">ICTD 2016</div>
-				<div class="even-description" if={ open }>
+				<div class="event-description" if={ open }>
 					{Group.get('description')}
 				</div>
 				<div class="arrow pointer" onclick={ this.toggleOpen }>
