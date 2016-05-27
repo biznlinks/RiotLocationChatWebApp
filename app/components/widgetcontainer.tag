@@ -6,7 +6,7 @@
 
     <ask name="askModal"></ask>
 
-    <div class="navigation">
+    <!-- <div class="navigation">
       <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item">
           <a class={ nav-link: true, active: sophusTab } href="" onclick={ this.toggleTab }>
@@ -19,11 +19,11 @@
           </a>
         </li>
       </ul>
-    </div>
+    </div> -->
 
     <div class="row">
       <div class="main col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2  text-center">
-        <posts if={ sophusTab }></posts>
+        <posts></posts>
         <twitter if={ !sophusTab }></twitter>
       </div>
     </div>
@@ -84,7 +84,6 @@
     .main {
       padding-right: 0px;
       padding-left: 0px;
-      padding-top: 12px;
       background-color: #DBDBDB;
     }
 
