@@ -1,9 +1,9 @@
 <postitem>
 
-<div class="card">
+<div class="card" onkeyup={ this.gotoPost }>
 	<div class="post-author">
 		<img class="author-profile img-circle" if={ !post.get('anonymous') } src={ API.getProfilePicture(post.get('author')) }>
-		<img class="author-profile img-circle" if={ post.get('anonymous') } src="/images/default-profile.png">
+		<img class="author-profile img-circle" if={ post.get('anonymous') } src="/images/default_profile.png">
 
 		<span class="author-name">{ this.getAuthorName() }</span>
 	</div>
@@ -27,8 +27,7 @@
 	}
 
 	gotoPost() {
-		riot.route('/post/' + self.post.id)
-		self.update()
+		window.open('https://ictd.sophusapp.com/post/' + self.post.id)
 	}
 </script>
 

@@ -15,7 +15,7 @@
         </li>
         <li class="nav-item">
           <a class={ nav-link: true, active: !sophusTab } href="" onclick={ this.toggleTab }>
-            <img class="app-icon" src="/images/app_icon.png"> Twitter
+            <img class="twitter-icon" src="/images/twitter_logo.png"> Twitter
           </a>
         </li>
       </ul>
@@ -89,13 +89,18 @@
     }
 
     .nav-tabs .nav-link {
-      padding: 0.5em;
+      padding: 0.4em;
     }
 
     .app-icon {
       width: 25px;
       height: 25px;
       margin-bottom: 2px;
+    }
+
+    .twitter-icon {
+      width: 26px;
+      height: 26px;
     }
 
     .row {
