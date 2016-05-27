@@ -8,7 +8,7 @@
 		<span class="author-name">{ this.getAuthorName() }</span>
 	</div>
 
-	<div class="post-content">
+	<div class="post-content" onclick={ this.gotoPost }>
 		<p>{ post.get('content') }</p>
 	</div>
 
@@ -24,6 +24,11 @@
 			var author = self.post.get('author')
 			return author.get('firstName') + ' ' + author.get('lastName')[0] + '.'
 		}
+	}
+
+	gotoPost() {
+		riot.route('/post/' + self.post.id)
+		self.update()
 	}
 </script>
 
@@ -43,10 +48,12 @@
 
 	.author-name {
 		font-weight: bold;
+		margin-left: 5px;
 	}
 
 	.post-content {
-		margin-top: 8px;
+		margin-top: 12px;
+		text-align: justify;
 	}
 </style>
 </postitem>
