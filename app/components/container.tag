@@ -137,7 +137,8 @@
 
   }
   .main {
-        padding-right: 0px;
+    margin-top: 20px;
+    padding-right: 0px;
     padding-left: 0px;
   }
 

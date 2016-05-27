@@ -29,6 +29,7 @@
 
 	.reply-content {
 		font-size: large;
+		color: #424242;
 	}
 
 	.pointer:hover {
