@@ -12,11 +12,36 @@
 		<p>{ post.get('content') }</p>
 	</div>
 
+	<div class="wannaknow pointer" onclick={ this.submitWannaknow }>
+		<i class={ fa:true, fa-heart:wannaknown, fa-heart-o:!wannaknown }></i>
+		{ wannaknowCount }
+	</div>
+
 </div>
 
 <script>
-	var self = this
-	self.post = opts.post
+	var self            = this
+	self.post           = opts.post
+	self.wannaknown     = false
+	self.wannaknowCount = 0
+
+	this.on('mount', function() {
+		self.wannaknowCount = self.post.get('wannaknowCount')
+		// Check if user already followed this post
+		var WannaknowObject = Parse.Object.extend('WannaKnow')
+		var query           = new Parse.Query(WannaknowObject)
+		query.equalTo('post', self.post)
+		query.equalTo('user', Parse.User.current())
+		query.find({
+			success: function(wannaknows) {
+				if (wannaknows.length > 0)
+					self.wannaknown = true
+					self.update()
+			},
+			error: function(error) {
+			}
+		})
+	})
 
 	getAuthorName() {
 		if (self.post.get('anonymous')) return 'Anonymous'
@@ -29,6 +54,49 @@
 	gotoPost() {
 		window.open('https://ictd.sophusapp.com/post/' + self.post.id)
 	}
+
+	submitWannaknow() {
+		if (!self.wannaknown) {
+			// Update UI before processing
+			self.wannaknown     = true
+			self.wannaknowCount += 1
+			self.update()
+
+			var WannaknowObject = Parse.Object.extend('WannaKnow')
+			var wannaknowObject = new WannaknowObject()
+			wannaknowObject.save({
+				post: self.post,
+				user: Parse.User.current()
+			}, {
+				success: function(wannaknowObject) {
+				},
+				error: function(wannaknowObject, error) {
+					// Do something if there is an error
+				}
+			})
+		} else {
+			// Update UI before processing
+			self.wannaknown     = false
+			self.wannaknowCount -= 1
+			self.update()
+
+			var WannaknowObject = Parse.Object.extend('WannaKnow')
+			var query           = new Parse.Query(WannaknowObject)
+			query.equalTo('post', self.post)
+			query.equalTo('user', Parse.User.current())
+			query.find({
+				success: function(wannaknows) {
+					if (wannaknows.length > 0) {
+						wannaknows[0].destroy({})
+						self.update()
+					}
+				},
+				error: function(error) {
+				}
+			})
+		}
+	}
+
 </script>
 
 <style scoped>
@@ -38,6 +106,7 @@
 		-webkit-border-radius: 0px;
     	-moz-border-radius: 0px;
     	border-radius: 0px;
+    	background-color: #FAFAFA;
 	}
 
 	.author-profile {
@@ -53,6 +122,20 @@
 	.post-content {
 		margin-top: 12px;
 		text-align: justify;
+	}
+
+	.wannaknow {
+		font-size: small;
+	}
+
+	.pointer:hover {
+		cursor: pointer;
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
 	}
 </style>
 </postitem>
