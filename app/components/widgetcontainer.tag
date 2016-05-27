@@ -23,7 +23,8 @@
 
     <div class="row">
       <div class="main col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2  text-center">
-        <posts if={ route=="home" }></posts>
+        <posts if={ sophusTab }></posts>
+        <twitter if={ !sophusTab }></twitter>
       </div>
     </div>
 
