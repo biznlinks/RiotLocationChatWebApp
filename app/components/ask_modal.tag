@@ -153,6 +153,7 @@
     }
 
     .user-name {
+      color: #616161;
       font-size: large;
       margin-top:15px;
     }

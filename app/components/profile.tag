@@ -167,6 +167,7 @@
 	}
 
 	.name {
+		color: #616161;
 		font-size: xx-large;
 	}
 

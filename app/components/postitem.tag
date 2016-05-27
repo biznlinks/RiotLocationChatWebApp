@@ -7,7 +7,7 @@
 				<div class='postauthor text-muted'>
 					<img if={ !post.get('anonymous') } src = "{ API.getProfilePicture(post.get('author')) }" class = "profile img-circle">
 					<img if={ post.get('anonymous') } src="/images/default_profile.png" class="profile img-circle">
-					<span><span >{this.getAuthorName()}</span> <br/>
+					<span class="author">{this.getAuthorName()}</span> <br/>
 					<!-- <span class='author-about text-muted'>{post.get('author').get('about')}</span></span> -->
 
 
@@ -269,10 +269,16 @@
     	padding: 0.9rem;
 	}
 	.post-content{
-		font-size: large;
+		font-size: 20px;
+		color: #424242;
+		margin-top: 15px;
+		margin-bottom: 20px;
 	}
 	.postauthor{
 		margin-bottom: 5px;
+	}
+	.author {
+		content: #616161;
 	}
 	.author-about{
 		font-size: smaller;
@@ -363,8 +369,8 @@
 	}
 
 	.answer-icon {
-		width: 22px;
-		height: 22px;
+		width: 25px;
+		height: 25px;
 	}
 
 	.form-control {

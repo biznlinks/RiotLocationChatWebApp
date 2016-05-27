@@ -124,7 +124,9 @@
 		margin-left: 1px;
 	}
 	.author{
+		font-size: 16px;
 		font-weight: bold;
+		color: #616161;
 	}
 	.answer-profile-img {
 		width: 30px;
@@ -134,9 +136,10 @@
 	.content {
 		/* margin-left: 10px; */
 		padding-left: 8px;
-
 	}
 	.content-text{
+		color: #424242;
+		font-size: 16px;
 		white-space: pre-wrap;
 	}
 	.helpful {

@@ -5,13 +5,14 @@
 		<div class="timer-container text-center">
 			<div class="timer-background">
 				<div class="timer" name="timer">
-					<span class="hours" name="hours"></span> hr
-					<span class="minutes" name="minutes"></span> m
-					<span class="seconds" name="seconds"></span> s
+					<span if={ days > 0 }>{days} day<span if={ days > 1}>s</span></span>
+					<span if={ hours > 0 }>{hours} hour<span if={ hours > 1 }>s</span></span>
+					<span if={ minutes > 0 }>{minutes} minute<span if={ minutes > 1 }>s</span></span>
+					<span if={ seconds > 0 }>{seconds} second<span if={ seconds > 1 }>s</span></span>
 				</div>
 			</div>
 			<div class="reminder-container">
-				<button class="reminder btn btn-primary"><i class="fa fa-star"></i>Remind Me</button>
+				<button class="reminder btn btn-primary"><i class="fa fa-star"></i>Stay Updated</button>
 			</div>
 		</div>
 	</div>
@@ -31,33 +32,32 @@
 </div>
 
 <script>
-	var self = this
-	self.open = true
+	var self      = this
+	self.open     = true
+	self.days     = 0
+	self.hours    = 0
+	self.minutes  = 0
+	self.seconds  = 0
 	self.deadline = '2016-06-03T09:00:00-04:00'
 
 	this.on('mount', function() {
 		var timeinterval = setInterval(function() {
-			var t = self.getRemainingTime(self.deadline)
-			self.hours.innerHTML = t.hours
-			self.minutes.innerHTML = t.minutes
-			self.seconds.innerHTML = t.seconds
+			self.setRemainingTime(self.deadline)
+			self.update()
 		}, 1000)
 	})
 
-	getRemainingTime(deadline) {
-		var t       = Date.parse(deadline) - Date.parse(new Date())
-		t           /= 1000
-		var hours   = Math.floor( (t/3600) )
-		t           -= hours * 3600
-		var minutes = Math.floor( (t/60) )
-		t           -= minutes * 60
-		var seconds = t
+	setRemainingTime(deadline) {
+		var t = Date.parse(deadline) - Date.parse(new Date())
+		var seconds = Math.floor( (t/1000) % 60 )
+		var minutes = Math.floor( (t/1000/60) % 60 )
+		var hours = Math.floor( (t/(1000*60*60)) % 24 )
+		var days = Math.floor( t/(1000*60*60*24) )
 
-		return {
-			'hours': hours,
-			'minutes': minutes,
-			'seconds': seconds
-		}
+		self.days    = days
+		self.hours   = hours
+		self.minutes = minutes
+		self.seconds = seconds
 	}
 
 	toggleOpen() {
@@ -105,7 +105,6 @@
 
 	.event-info {
 		background-color: white;
-		margin-top: 8px;
 		margin-bottom: 15px;
 		padding: 0.5rem 1rem;
 	}
