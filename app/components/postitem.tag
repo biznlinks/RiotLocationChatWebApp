@@ -271,6 +271,8 @@
 	.post-content{
 		font-size: 20px;
 		color: #424242;
+		margin-top: 15px;
+		margin-bottom: 20px;
 	}
 	.postauthor{
 		margin-bottom: 5px;
