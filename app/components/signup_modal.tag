@@ -8,10 +8,11 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Join Sophus!</h4>
+				<h4 class="modal-title">Join Sophus</h4>
 			</div>
 
 			<div class="modal-body">
+				<div class="updated text-primary" if={ stayUpdated }>We will keep you updated</div>
 				<form>
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
@@ -50,11 +51,14 @@
 </div>
 
 <script>
-	var self     = this
-	self.isError = false
-	self.error   = ""
+	var self         = this
+	self.stayUpdated = opts.stayUpdated
+	self.isError     = false
+	self.error       = ""
 
 	this.on('mount', function(){
+		self.stayUpdated = false
+
 		$('#signupModal').on('show.bs.modal', function() {
 	    	self.track()
 		})
@@ -65,6 +69,7 @@
 			self.email.value    = ""
 			self.password.value = ""
 			self.fullname.value = ""
+			self.stayUpdated    = false
 			self.update()
 		})
 	})
@@ -102,7 +107,7 @@
 	}
 
 	submitFacebook() {
-		Parse.FacebookUtils.link(Parse.User.current(), 'public_profile, email, user_friends', {
+		/*Parse.FacebookUtils.link(Parse.User.current(), 'public_profile, email, user_friends', {
 			success: function(user) {
 				FB.api('/me?fields=first_name, last_name, picture, email, friends', function(response) {
 					Parse.User.current().set('firstName', response.first_name)
@@ -145,6 +150,44 @@
 					self.update()
 				}
 			}
+		})*/
+
+		Parse.User.logOut().then(() => {
+			Parse.FacebookUtils.logIn('public_profile, email, user_friends', {
+				success: function(user) {
+					if (user.existed()) {
+						riot.route('/')
+						window.location.reload()
+					} else {
+						FB.api('/me?fields=first_name, last_name, picture, email, friends', function(response) {
+							Parse.User.current().set('firstName', response.first_name)
+							Parse.User.current().set('lastName', response.last_name)
+							Parse.User.current().set('email', response.email)
+							Parse.User.current().set('username', response.email)
+							Parse.User.current().set('profileImageURL', response.picture.data.url)
+							Parse.User.current().set('friends', response.friends.data)
+							Parse.User.current().set('facebookID', response.id)
+							Parse.User.current().set('type', 'actual')
+							Parse.User.current().save(null, {
+								success: function(user) {
+									riot.route('/')
+		    						window.location.reload()
+								},
+								error: function(user, error) {
+									self.isError = true
+									self.error = error.message
+									self.update()
+								}
+							})
+						})
+					}
+				},
+				error: function(user, error) {
+					self.isError = true
+					self.error = error.message
+					self.update()
+				}
+			})
 		})
 	}
 
@@ -202,6 +245,11 @@
 		-moz-user-select: none;
 		-ms-user-select: none;
 		user-select: none;
+	}
+
+	.updated {
+		margin-top: 0px;
+		margin-bottom: 12px;
 	}
 
 	.inline {

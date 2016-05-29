@@ -1,6 +1,6 @@
 <app-navi>
 
-<nav class="navbar navbar-light bg-faded navbar-static-top">
+<nav class={navbar-gradient: home, navbar-nongradient: !home, navbar: true, navbar-static-top: true}>
   <!-- <button class="navbar-toggler pull-xs-right hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
     &#9776;
   </button> -->
@@ -8,9 +8,13 @@
     <a class="navbar-brand" href="/"> <img id="logo" alt="Logo" src="/images/app_icon.png" > SOPHUS </a>
 
     <ul class="nav navbar-nav pull-xs-right">
-      <li class={ nav-item: true, active: parent.selectedId === url } each= {links}>
-        <a class="nav-link" href="/{ url }" >{name}</a>
+      <li class={ nav-item: true, active: parent.selectedId === url }>
+        <a class="nav-icon nav-link" href=""><i class="fa fa-search fa-4"></i></a>
       </li>
+      <li class={ nav-item: true, active: parent.selectedId === url }>
+        <a class="nav-icon nav-link" href="/schedule"><i class="fa fa-calendar fa-4"></i></a>
+      </li>
+
       <li class={ nav-item: true } onclick={ this.update }>
         <div class="btn-group profile-container">
           <img src={ API.getCurrentUserProfilePicture() } class="img-circle dropdown-toggle profile-img pointer" data-toggle="dropdown"/>
@@ -45,12 +49,9 @@
 
 
 <script>
-  var self = this
+  var self         = this
   self.signupAvail = true
-
-  this.links = [
-  { name: "Schedule", url: "schedule" }
-  ]
+  self.home        = true
 
   var r = riot.route.create()
   r(highlightCurrent)
@@ -63,6 +64,9 @@
 
   this.on('update', function() {
     self.signupAvail = !Parse.User.current() || Parse.User.current().get('type') === 'dummy'
+
+    if (self.parent.route == 'posts') self.home = true
+    else self.home = false
   })
 
   getProfilePic(){
@@ -105,6 +109,17 @@
     color: #666;
   }
 
+  .navbar-gradient {
+    background: -webkit-linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0));
+    background: -o-linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0));
+    background: -moz-linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0));
+    background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0));
+  }
+
+  .navbar-nongradient {
+    background: rgba(0,0,0,0.9);
+  }
+
   .navbar{
     position: absolute;
     top: 0px;
@@ -112,13 +127,33 @@
     left: 0px;
   }
 
-  .profile-container {
-    padding: 5px;
+  .navbar-brand {
+    color: white;
+  }
+
+  .nav {
+    padding-top: 0.4rem;
+  }
+
+  .navbar-nav .nav-link {
+    padding-top: .1rem;
+    padding-bottom: 0;
+  }
+
+  .nav-icon {
+    font-size: large;
+    color: white;
   }
 
   .profile-img{
-    width: 25px;
-    height: 25px;
+    width: 30px;
+    height: 30px;
+  }
+
+  .dropdown-item {
+    padding-top: .425rem;
+    padding-bottom: .425rem;
+    color: #EEEEEE;
   }
 
   .pointer:hover {

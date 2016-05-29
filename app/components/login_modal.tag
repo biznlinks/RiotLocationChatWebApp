@@ -99,7 +99,7 @@
 	}
 
 	submitFacebook() {
-		Parse.FacebookUtils.link(Parse.User.current(), 'public_profile, email, user_friends', {
+		/*Parse.FacebookUtils.link(Parse.User.current(), 'public_profile, email, user_friends', {
 			success: function(user) {
 				FB.api('/me?fields=first_name, last_name, picture, email, friends', function(response) {
 					Parse.User.current().set('firstName', response.first_name)
@@ -142,6 +142,44 @@
 					self.update()
 				}
 			}
+		})*/
+
+		Parse.User.logOut().then(() => {
+			Parse.FacebookUtils.logIn('public_profile, email, user_friends', {
+				success: function(user) {
+					if (user.existed()) {
+						riot.route('/')
+						window.location.reload()
+					} else {
+						FB.api('/me?fields=first_name, last_name, picture, email, friends', function(response) {
+							Parse.User.current().set('firstName', response.first_name)
+							Parse.User.current().set('lastName', response.last_name)
+							Parse.User.current().set('email', response.email)
+							Parse.User.current().set('username', response.email)
+							Parse.User.current().set('profileImageURL', response.picture.data.url)
+							Parse.User.current().set('friends', response.friends.data)
+							Parse.User.current().set('facebookID', response.id)
+							Parse.User.current().set('type', 'actual')
+							Parse.User.current().save(null, {
+								success: function(user) {
+									riot.route('/')
+		    						window.location.reload()
+								},
+								error: function(user, error) {
+									self.isError = true
+									self.error = error.message
+									self.update()
+								}
+							})
+						})
+					}
+				},
+				error: function(user, error) {
+					self.isError = true
+					self.error = error.message
+					self.update()
+				}
+			})
 		})
 	}
 

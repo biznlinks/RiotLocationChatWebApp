@@ -1,6 +1,6 @@
 <banner>
 
-<div>
+<div class="banner-container">
 	<div class="row" align="center">
 		<div class="timer-container text-center">
 			<div class="timer-background">
@@ -11,7 +11,7 @@
 					<span if={ seconds > 0 }>{seconds} second<span if={ seconds > 1 }>s</span></span>
 				</div>
 			</div>
-			<div class="reminder-container">
+			<div class="reminder-container" onclick={ this.showSignup }>
 				<button class="reminder btn btn-primary"><i class="fa fa-star"></i>Stay Updated</button>
 			</div>
 		</div>
@@ -65,9 +65,18 @@
 		self.update()
 	}
 
+	showSignup() {
+		self.parent.tags.signupModal.update({stayUpdated: true})
+		$('#signupModal').modal('show')
+	}
+
 </script>
 
 <style scoped>
+	.banner-container {
+		margin-top: -50px;
+	}
+
 	.timer-container {
 		background-image: url('/images/annarbor.jpg');
 		height: 220px;
@@ -77,8 +86,8 @@
 	}
 
 	.timer-background {
-		background-color: rgba(0,0,0,0.6);
-		margin-top: 50px;
+		background: rgba(0,0,0,0.6);
+		margin-top: 70px;
 		padding: .5rem 1.2rem;
 		-webkit-border-radius: 8px;
     	-moz-border-radius: 8px;
