@@ -23,9 +23,10 @@
     <!-- <h1>{ title }</h1> -->
 
     <signup name="signupModal"></signup>
-    <ask name="askModal"></ask>
     <login name="loginModal"></login>
     <forgot name="forgotModal"></forgot>
+    <ask name="askModal"></ask>
+    <search name="searchModal"></search>
     <loginsuccess name="loginSuccess"></loginsuccess>
     <signupsuccess name="signupSuccess"></signupsuccess>
 
