@@ -36,6 +36,7 @@
 				success: function(likes) {
 					if (likes.length > 0)
 						self.liked = true
+					self.update()
 				},
 				error: function(error) {
 				}
