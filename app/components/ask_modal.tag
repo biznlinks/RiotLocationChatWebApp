@@ -7,7 +7,7 @@
     <div  class="modal-dialog">
 
       <!-- Modal content-->
-      <div class="modal-content">
+      <div class="modal-content" id="ask-modal">
         <div if={loading} class="modal-body text-xs-center">
           <i class="fa fa-spinner fa-spin fa-3x fa-fw margin-bottom"></i>
           <span class="sr-only">Loading...</span>
@@ -38,10 +38,11 @@
                 <div class="text-muted" id="topic" if={ topic!='' }>#{topic}</div>
 
               </div>
-              <div class="go text-xs-center">
-                <button type="button" class="btn btn-primary go-btn" onclick={createQuestion}>Post</button>
-                <div class="error text-warning" if={ isError }>{ error }</div>
-              </div>
+            </div>
+
+            <div class="go text-xs-center">
+              <button type="button" class="btn btn-primary go-btn" onclick={createQuestion}>Post</button>
+              <div class="error text-warning" if={ isError }>{ error }</div>
             </div>
           </div>
         </div>
@@ -168,6 +169,10 @@
       text-align: center;
     }
 
+    #ask-modal {
+      min-height: 250px;
+    }
+
     .modal-content {
       background-color: #F5F5F5;
       min-height: 300px
@@ -194,8 +199,8 @@
       width: 100%;
       font-size: 24px;
       padding: 7px 15px;
+      padding-right: 0;
       border: none;
-      border-bottom: 1px solid #BBBBBB;
       background-color: #F5F5F5;
     }
 

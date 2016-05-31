@@ -2,7 +2,7 @@
 	<div class="card ">
 		<div class="card-block">
 
-			<div class="" onclick={ this.goToPost }>
+			<div class="pointer" onclick={ this.goToPost }>
 
 				<div class='postauthor text-muted'>
 					<img if={ !post.get('anonymous') } src = "{ API.getProfilePicture(post.get('author')) }" class = "profile img-circle">
@@ -44,7 +44,7 @@
 		<div class="row">
 			<div class="col-xs-12" >
 				<div if={post.get('answerCount')>0}>
-					
+
 					<div each={ ans in answers }>
 						<answeritem answer={ ans }></answeritem>
 					</div>
@@ -266,7 +266,7 @@
 
 	}
 	hr {
-		
+
 	}
 
 	.card-block {
