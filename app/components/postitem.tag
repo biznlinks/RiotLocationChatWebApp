@@ -2,7 +2,7 @@
 	<div class="card ">
 		<div class="card-block">
 
-			<div class="" onclick={ this.goToPost }>
+			<div class="pointer" onclick={ this.goToPost }>
 
 				<div class='postauthor text-muted'>
 					<img if={ !post.get('anonymous') } src = "{ API.getProfilePicture(post.get('author')) }" class = "profile img-circle">
@@ -14,7 +14,7 @@
 					<!-- <h4 class="card-title">{getAuthorName(post)}</h4> -->
 				</div>
 
-				<p class="post-content pointer">{post.get('content')}</p>
+				<p class="post-content">{post.get('content')}</p>
 
 
 
