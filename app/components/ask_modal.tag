@@ -21,7 +21,7 @@
           </div>
 
           <div class="post-container info-btns">
-            <textarea rows="5" autofocus name="searchField" placeholder="Post about ICTD" class="searchbox">{question}</textarea>
+            <textarea rows="4" autofocus id="searchField" name="searchField" placeholder="Post about ICTD" class="searchbox">{question}</textarea>
             <div class="text-muted" id="topic" if={ topic!='' }>#{topic}</div>
             <div class="handle-container">
               <input class="handle" type="text" name="name" placeholder= "Handle (Optional)" if={ !loggedIn }></input>
@@ -52,6 +52,9 @@
     self.question = ""
 
     this.on('mount', function(){
+      $('#askModal').on('shown.bs.modal', function() {
+        $('#searchField').focus()
+      })
       $('#askModal').on('hidden.bs.modal', function() {
         self.isError    = false
         self.error      = ""
@@ -69,7 +72,6 @@
 
     show(){
       $('#askModal').modal('show')
-      self.searchField.focus()
       self.searchField.value= self.question
 
       if (Parse.User.current().get('type') == 'dummy') self.loggedIn = false
@@ -148,8 +150,8 @@
     }
 
     .profile-image {
-      height: 80px;
-      width: 80px;
+      height: 70px;
+      width: 70px;
     }
 
     .user-name {
@@ -159,7 +161,7 @@
     }
 
     .post-container {
-      margin-top: 50px;
+      margin-top: 40px;
     }
 
     .searchbox{

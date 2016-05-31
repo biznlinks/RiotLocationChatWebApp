@@ -1,32 +1,70 @@
 <topics>
-	<div each={schedule.sessions} class="card">
-		<a  href="/topics/{ title }">
-		<div class="card-block">
-			<h4 class="card-title">{title}</h4>
-			<p class="card-text">{time}</p>
+
+<div class="bd-example bd-example-tabs" role="tabpanel">
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    
+    <li class="nav-item" each={day in days}>
+      <a class= {"nav-link": true, "active": (day===activeDay)} id="home-tab" name={day} onclick={selectActiveDay}>{day}</a>
+    </li>   
+  </ul>
+ 
+	<div class="row session" each={sessions}>
+		<div class="col-xs-3">
+			<h4 class="card-title">{hour}</h4>
 		</div>
-		</a>
-		<ul class="list-group list-group-flush">
+		<div class="col-xs-9">
+			<a  href="/schedule/{ title }">
+			<h4 class="card-title">{title}</h4>
+			</a>
+			
 			<li each={talks} class="list-group-item">
-			<a  href="/topics/{ title }">
+			<a  href="/schedule/{ title }">
 				{title} <br> <p class="text-muted authors">{authors}</p>
 				</a>
 			</li>
-		</ul>
+		
+		</div>
 	</div>
+	
 	<script>
 		var self = this
 		topicstag = this
-		this.topics = []
+		this.schedule = []
+
+		selectActiveDay(e){
+			console.log(e.item.day);
+			self.activeDay = e.item.day
+			self.updateSessionsForActiveDay()
+
+		}
 
 		this.on('mount', function() {
-			self.schedule = Group.get('details').schedule
+			self.schedule = containerTag.group.get('details').schedule
+			
+			self.days = _.uniq(_.pluck(self.schedule.sessions, 'day'))
+
+			self.activeDay = self.days[0]
+
+			self.updateSessionsForActiveDay()
+
+
+			// Date(topicstag.schedule.sessions[0].starttime)
 			self.update()
 		})
+
+		updateSessionsForActiveDay(){
+			self.sessions = _.filter(self.schedule.sessions, function(session){
+				if (session.day===self.activeDay)
+					return true
+			})
+
+		}
 
 		showTopic(e){
 			console.log(e.item.title);
 		}
+
+
 
 	</script>
 
@@ -44,18 +82,25 @@
 			font-size: small;
 		}
 
+		.session {
+			padding: 10px;
+		}
+
 		a {
 			display: block;
-			background: #f7f7f7;
+			/*background: #f7f7f7;*/
 			text-decoration: none;
 			width: 100%;
 			height: 100%;
 			/*line-height: 150px;*/
 			color: inherit;
+
 		}
+
 		a:hover {
 			background: #eee;
 			color: #000;
+			text-decoration: none;
 		}
 
 		ul {

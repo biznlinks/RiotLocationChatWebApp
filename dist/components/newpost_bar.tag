@@ -2,7 +2,7 @@
 
 <div class="input-group search-container">
 	<div class="icon-container input-group-addon pointer"><img src={ API.getCurrentUserProfilePicture() } class="profile-icon img-circle"></div>
-	<textarea name="postBar" id="searchField" onclick={ showAskModal } placeholder="What's on your mind?" class="searchbox form-control" rows="1"></textarea>
+	<textarea name="postBar" id="searchField" onfocus={ showAskModal } placeholder="What's on your mind?" class="searchbox form-control" rows="1" onfocus={this.searchonfocus}></textarea>
 </div>
 
 <script>

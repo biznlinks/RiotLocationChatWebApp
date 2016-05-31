@@ -23,18 +23,21 @@
     <!-- <h1>{ title }</h1> -->
 
     <signup name="signupModal"></signup>
-    <ask name="askModal"></ask>
     <login name="loginModal"></login>
     <forgot name="forgotModal"></forgot>
+    <ask name="askModal"></ask>
+    <search name="searchModal"></search>
     <loginsuccess name="loginSuccess"></loginsuccess>
     <signupsuccess name="signupSuccess"></signupsuccess>
 
+    <banner if={ route=="posts" }></banner>
     <div class="row">
-      <div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2  text-center">
+      <div class="main col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2  text-center">
         <feed if={ route=="posts" }></feed>
-        <topics if={ route=="topics" }></topics>
+        <topics if={ route=="schedule" }></topics>
         <postdetail if={ route=="postdetail" }></postdetail>
         <topicsfeed if={ route=="topicsfeed" }></topicsfeed>
+        <profile name="profile" if={ route=="profile" }></profile>
       </div>
     </div>
 
@@ -47,25 +50,23 @@
     containerTag = this
     self.title   = 'Now loading...'
     self.body    = ''
+    self.group = this.opts.group
 
     self.route   = "home"
 
     this.on("mount", function(){
       $('#signupSuccess').hide()
       $('#loginSuccess').hide()
-
-      var groupName = "ICTD"
-      API.fetchOne("Group", "name", groupName).then(function(group){
-        Group = group
-      })
     })
 
     var r = riot.route.create()
     r('#',       home       )
     r('post',   home      )
     r('post/*', postdetail)
-    r('topics',  topics     )
-    r('topics/*', topicsfeed)
+    r('topics',  topics )
+    r('schedule',  topics )
+    r('schedule/*', topicsfeed)
+    r('profile', profile)
     r(           home       ) // `notfound` would be nicer!
 
     function home() {
@@ -95,7 +96,7 @@
         title: "Trending Topics",
         body: "",
         selectedId: null,
-        route: "topics"
+        route: "schedule"
       })
     }
     function topicsfeed(id) {
@@ -110,6 +111,16 @@
       })
       riot.mount('topicsfeed', {topicName: id})
     }
+    function profile() {
+      self.track('profile')
+      self.tags.profile.updateInfo()
+      self.update({
+        title: "",
+        body: "",
+        selectedId: null,
+        route: "profile"
+      })
+    }
 
 </script>
 
@@ -120,11 +131,21 @@
     /*margin-right: 0;*/
     margin-bottom: 130px;
     /*margin-left: 50px;*/
-    padding: 1em;
+    /*padding: 1em;*/
     /*text-align: center;*/
     color: #666;
 
 
+  }
+  .main {
+    margin-top: 20px;
+    padding-right: 0px;
+    padding-left: 0px;
+  }
+
+  .row {
+         margin-right: 0px;
+     margin-left: 0px;
   }
 
 

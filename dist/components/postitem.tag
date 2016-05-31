@@ -5,8 +5,9 @@
 			<div class="" onclick={ this.goToPost }>
 
 				<div class='postauthor text-muted'>
-					<img src = "{this.getProfilePic()}" class = "profile img-circle">
-					<span><span >{this.getAuthorName()}</span> <br/>
+					<img if={ !post.get('anonymous') } src = "{ API.getProfilePicture(post.get('author')) }" class = "profile img-circle">
+					<img if={ post.get('anonymous') } src="/images/default_profile.png" class="profile img-circle">
+					<span class="author">{this.getAuthorName()}</span> <br/>
 					<!-- <span class='author-about text-muted'>{post.get('author').get('about')}</span></span> -->
 
 
@@ -19,13 +20,16 @@
 
 			</div>
 			<!-- <a onclick={this.showSignup}> -->
- 			<div class="pointer">
- 				<div class="text-muted pull-xs-left">
-					<div class='answercount' if={post.get('answerCount') >= 0} >{post.get('answerCount')} answer<span if={post.get('answerCount')!=1}>s</span>
-					</div>
-				</div>
+ 			<div class="pointer row">
+ 				<div class="col-xs-7 infodiv">
+ 					<span class="topic" if={ post.get('topic') }>
+ 						{ post.get('topic').slice(0,20) } <span if={ post.get('topic').length > 20 }>...</span>
+ 					</span>
+ 				</div>
 
-				<div class="text-muted pull-xs-right">
+				<div class="col-xs-5 text-muted align-right infodiv">
+					<div class='answercount' if={post.get('answerCount') >= 0} >{post.get('answerCount')} Repl<span if={post.get('answerCount')!=1}>ies</span><span if={ post.get('answerCount') == 1 }>y</span>
+					</div>
 
 					<div class='wannaknow text-muted' onclick={ this.submitWannaknow }>
 						<!-- <img width="23px" src="/images/wannaknow_gray@2x.png">  -->
@@ -48,11 +52,17 @@
 			</div>
 		</div>
 
-		<div align="right">
-			<div class="card-block">
-				<textarea name="answerbox" rows="3" placeholder="Type your reply"></textarea>
-				<button class="btn btn-sm submit" onclick={ this.submitAnswer }>Submit</button>
+
+		<div class="reply-container">
+			<hr/>
+			<div class="card-block input-group">
+				<div class="input-group-addon answer-icon-container pointer" onclick={ this.toggleAnonymous }>
+					<img src={ API.getCurrentUserProfilePicture() } class="answer-icon img-circle" if={ !anonymous }>
+					<img src="/images/default_profile.png" class="answer-icon img-circle" if={ anonymous }>
+				</div>
+				<textarea class="form-control" name="answerbox" id="answerbox" oninput={ this.onInput } rows="1" placeholder="Add reply"></textarea>
 			</div>
+			<a class="submit pointer" onclick={ this.submitAnswer } if={ submitButton }>Send</a>
 			<div class="card-block" if={ sending }>
 				Sending your reply ...
 			</div>
@@ -72,12 +82,14 @@
 
 
 <script>
-	var self              = this
-	self.post             = opts.post
-	self.answers          = []
-	self.sending          = false
-	self.wannaknowCount   = 0
-	self.wannaknown       = false
+	var self            = this
+	self.post           = opts.post
+	self.answers        = []
+	self.sending        = false
+	self.wannaknowCount = 0
+	self.wannaknown     = false
+	self.submitButton   = false
+	self.anonymous      = false
 
 	this.on('mount', function() {
 		if (this.post.get('answerCount')>0)
@@ -97,6 +109,7 @@
 			success: function(wannaknows) {
 				if (wannaknows.length > 0)
 					self.wannaknown = true
+					self.update()
 			},
 			error: function(error) {
 			}
@@ -116,13 +129,24 @@
 			if (author.get('profileImageURL')){
 				return author.get('profileImageURL')
 			}
-			return 'https://files.parsetfss.com/135e5227-e041-4147-8248-a5eafaf852ef/tfss-6f1e964e-d7fc-4750-8ffb-43d5a76b136e-kangdo@umich.edu.png'
+			return '/images/default_profile.png'
 
 		}else {
 			profilePic = author.get('profilePic').url()
 			if (profilePic){
 				return profilePic
 			}
+		}
+	}
+
+	getUserProfilePic() {
+		if (self.anonymous && Parse.User.current().get('type') == 'actual')
+			return '/images/default_profile.png'
+
+		var user       = Parse.User.current()
+		var profilePic = user.get('profileImageURL')
+		if (profilePic){
+			return profilePic
 		}
 	}
 
@@ -184,7 +208,8 @@
 				answer: answerContent,
 				author: Parse.User.current(),
 				likes: 0,
-				post: self.post
+				post: self.post,
+				anonymous: self.anonymous
 			}, {
 				success: function(answerObject) {
 					self.post.set('answerCount', self.post.get('answerCount') + 1)
@@ -200,6 +225,21 @@
 				}
 			})
 		}
+	}
+
+	onInput() {
+		if (self.answerbox.value.length >= 3) {
+			self.submitButton = true
+			self.update()
+		} else {
+			self.submitButton = false
+			self.update()
+		}
+	}
+
+	toggleAnonymous() {
+		self.anonymous = !self.anonymous
+		self.update()
 	}
 
 	goToPost(){
@@ -229,10 +269,16 @@
     	padding: 0.9rem;
 	}
 	.post-content{
-		font-size: large;
+		font-size: 20px;
+		color: #424242;
+		margin-top: 15px;
+		margin-bottom: 20px;
 	}
 	.postauthor{
 		margin-bottom: 5px;
+	}
+	.author {
+		content: #616161;
 	}
 	.author-about{
 		font-size: smaller;
@@ -252,6 +298,7 @@
 	.answercount{
 		display: inline-block;
 		font-size: small;
+	    padding-right: 20px;
 	}
 
 	.comment-input {
@@ -268,18 +315,87 @@
 		user-select: none;
 	}
 
+	.inline {
+		display: inline-block;
+	}
+
 	.submit {
 		right: 3%;
-		color: #5c5c5c;
+		padding-right:0.9rem;
+		padding-bottom:0.9rem;
+		color: #0275D8;
+		text-align: right;
+	}
+
+	.submit:hover {
+		color: #004784;
+	}
+
+	.topic {
+		font-size: smaller;
+		background-color: #EAEAEA;
+		color: #787878;
+		padding: 5px;
+		padding-left: 10px;
+    	padding-right: 10px;
+		-webkit-border-radius: 17px;
+    	-moz-border-radius: 17px;
+    	border-radius: 17px;
+    	white-space: nowrap;
+    	text-overflow: ellipsis;
+    	overflow: hidden;
+	}
+	.infodiv{
+		     padding: 0px;
+	}
+
+	.align-left {
+		text-align: left;
+		white-space: nowrap;
+	}
+
+	.align-right {
+		text-align: right;
+		white-space: nowrap;
+	}
+
+	.reply-container  hr{
+		margin: 0;
+	}
+
+	.answer-icon-container {
+		background-color: #FFFFFF;
+		border-right: 0;
+	}
+
+	.answer-icon {
+		width: 25px;
+		height: 25px;
+	}
+
+	.form-control {
+		padding: .8rem;
+		border: none;
+	}
+
+	.input-group {
+		padding: 0px;
+	}
+
+	.input-group-addon {
+		padding: .375rem;
+		padding-left: .8rem;
+		border: none;
 	}
 
 	textarea {
 		width: 100%;
+		font-size: large;
 		resize: none;
 		-webkit-border-radius: 5px;
     	-moz-border-radius: 5px;
     	border-radius: 5px;
-    	padding:7px;
+    	border: none;
 	}
 
 	@media (min-width: 480px) {
