@@ -17,7 +17,7 @@
 </style>
 </loader>
 <container>
-  <app-navi></app-navi>
+  <app-navi name="appNavi"></app-navi>
   <!-- Page Content -->
   <div class="">
     <!-- <h1>{ title }</h1> -->
@@ -72,7 +72,7 @@
     function home() {
       self.track('home')
       self.update({
-        title:  "Welcome to Sophus!",
+        title:  "ICTD 2016",
         body:  "This is the feed!",
         route: "posts",
         selectedId: null,
@@ -83,7 +83,7 @@
       self.tags.postdetail.unmount()
       self.track('postdetail')
       self.update({
-        title: "",
+        title: "SOPHUS",
         body: "",
         selectedId: id,
         route: "postdetail"
@@ -93,7 +93,7 @@
     function topics() {
       self.track('topics')
       self.update({
-        title: "Trending Topics",
+        title: "SCHEDULE",
         body: "",
         selectedId: null,
         route: "schedule"
@@ -103,7 +103,7 @@
       self.tags.topicsfeed.unmount()
       self.track('topicsfeed')
       self.update({
-        title: "",
+        title: decodeURIComponent(id),
         body: "",
         selectedId: null,
         selectedTopicId: id,
@@ -115,7 +115,7 @@
       self.track('profile')
       self.tags.profile.updateInfo()
       self.update({
-        title: "",
+        title: "PROFILE",
         body: "",
         selectedId: null,
         route: "profile"
