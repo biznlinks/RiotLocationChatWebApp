@@ -128,17 +128,12 @@
   :scope {
     display: block;
     font-family: sans-serif;
-    /*margin-right: 0;*/
-    margin-bottom: 130px;
-    /*margin-left: 50px;*/
-    /*padding: 1em;*/
-    /*text-align: center;*/
     color: #666;
 
 
   }
   .main {
-    margin-top: 20px;
+    margin-top: 15px;
     padding-right: 0px;
     padding-left: 0px;
   }

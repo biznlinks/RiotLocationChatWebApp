@@ -268,10 +268,7 @@
 	hr {
 
 	}
-
-	.card-block {
-    	padding: 0.9rem;
-	}
+	
 	.post-content{
 		font-size: 20px;
 		color: #424242;
