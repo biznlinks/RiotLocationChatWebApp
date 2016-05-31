@@ -1,0 +1,1 @@
+firebase use --add sophus-web; firebase deploy
