@@ -17,9 +17,8 @@
 		</div>
 	</div>
 
-	<div class="row">
-		<div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2 event-container">
-			<div class="event-info text-center">
+	<div class="row event-container">
+			<div class="event-info text-center col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
 					<div class="event-title">ICTD 2016</div>
 					<div class="event-description" if={ open }>
 						{containerTag.group.get('description')}
@@ -29,7 +28,6 @@
 						<div if={ !open }><i class="fa fa-angle-down"></i></div>
 					</div>
 			</div>
-		</div>
 	</div>
 </div>
 
@@ -119,8 +117,7 @@
 	}
 
 	.event-container {
-		padding-right: 0;
-		padding-left: 0;
+		background-color: white;
 	}
 
 	.event-info {
