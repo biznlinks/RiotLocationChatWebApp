@@ -118,5 +118,8 @@
 				margin-bottom: 0;
 			}
 		}
+		.nav-link {
+			padding: 0.5em !important;
+		}
 	</style>
 </topics>
