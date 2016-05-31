@@ -14,6 +14,7 @@
         </div>
 
         <div if={!loading} class="modal-body">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
           <div class="profile-container">
             <img class="profile-image img-circle" src={ API.getCurrentUserProfilePicture() }>
             <div class="user-name text-muted" if={ !loggedIn }>Anonymous</div>
