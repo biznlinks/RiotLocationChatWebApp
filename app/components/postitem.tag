@@ -40,10 +40,11 @@
 				</div>
 			</div>
 		</div>
+		<hr if={post.get('answerCount')>0}/>
 		<div class="row">
 			<div class="col-xs-12" >
 				<div if={post.get('answerCount')>0}>
-					<hr/>
+					
 					<div each={ ans in answers }>
 						<answeritem answer={ ans }></answeritem>
 					</div>
@@ -264,6 +265,9 @@
 		font-weight: normal;
 
 	}
+	hr {
+		
+	}
 
 	.card-block {
     	padding: 0.9rem;
@@ -278,7 +282,7 @@
 		margin-bottom: 5px;
 	}
 	.author {
-		content: #616161;
+		padding-right: 8px;
 	}
 	.author-about{
 		font-size: smaller;

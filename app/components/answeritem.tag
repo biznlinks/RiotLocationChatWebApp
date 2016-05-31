@@ -6,7 +6,7 @@
 		</div>
 		<div class="col-xs-11 content" >
 			<div class="row">
-				<span class="author">{ this.getAuthorName() }</span>
+				<span class="author text-muted">{ this.getAuthorName() }</span>
 				<span class="content-text">
 					{answer.get('answer')}
 				</span>
@@ -124,9 +124,7 @@
 		margin-left: 1px;
 	}
 	.author{
-		font-size: 16px;
-		font-weight: bold;
-		color: #616161;
+		content: #616161;
 	}
 	.answer-profile-img {
 		width: 30px;
@@ -135,12 +133,11 @@
 	}
 	.content {
 		/* margin-left: 10px; */
-		padding-left: 8px;
+		padding-left: 20px;
+		font-size: 14px;
 	}
 	.content-text{
 		color: #424242;
-		font-size: 16px;
-		white-space: pre-wrap;
 	}
 	.helpful {
 		display: inline-block;

@@ -23,10 +23,10 @@
 					<div class="event-description" if={ open }>
 						{containerTag.group.get('description')}
 					</div>
-					<div class="arrow pointer" onclick={ this.toggleOpen }>
+					<!-- <div class="arrow pointer" onclick={ this.toggleOpen }>
 						<div if={ open }><i class="fa fa-angle-up"></i></div>
 						<div if={ !open }><i class="fa fa-angle-down"></i></div>
-					</div>
+					</div> -->
 			</div>
 	</div>
 </div>
