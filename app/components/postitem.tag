@@ -14,7 +14,7 @@
 					<!-- <h4 class="card-title">{getAuthorName(post)}</h4> -->
 				</div>
 
-				<p class="post-content">{post.get('content')}</p>
+				<p class="post-content pointer">{post.get('content')}</p>
 
 
 
@@ -44,7 +44,7 @@
 		<div class="row">
 			<div class="col-xs-12" >
 				<div if={post.get('answerCount')>0}>
-					
+
 					<div each={ ans in answers }>
 						<answeritem answer={ ans }></answeritem>
 					</div>
@@ -266,7 +266,7 @@
 
 	}
 	hr {
-		
+
 	}
 
 	.card-block {
