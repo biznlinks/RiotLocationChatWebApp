@@ -5,10 +5,10 @@
 		<div class="timer-container text-center">
 			<div class="timer-background">
 				<div class="timer" name="timer">
-					<span if={ days>0 }>{days} d</span>
-					<span if={ days!=0 || hours>0 }>{hours} h</span>
-					<span if={ (days!=0 && hours!=0) || minutes>0 }>{minutes} m</span>
-					<span if={ (days!=0 && hours!=0 && minutes!=0) || seconds>0 }>{seconds} s</span>
+					<span if={ days>0 }>{days}d</span>
+					<span if={ days!=0 || hours>0 }>{hours}h</span>
+					<span if={ (days!=0 && hours!=0) || minutes>0 }>{minutes}m</span>
+					<span if={ (days!=0 && hours!=0 && minutes!=0) || seconds>0 }>{seconds}s</span>
 				</div>
 			</div>
 			<div class="reminder-container" onclick={ this.showSignup }>
@@ -132,16 +132,6 @@
 		margin-top: 7px;
 		text-align: center;
 		font-size: xx-large;
-	}
-
-	.pointer:hover {
-		cursor: pointer;
-		-webkit-touch-callout: none;
-		-webkit-user-select: none;
-		-khtml-user-select: none;
-		-moz-user-select: none;
-		-ms-user-select: none;
-		user-select: none;
 	}
 </style>
 

@@ -16,7 +16,8 @@
         <div if={!loading} class="modal-body">
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <div class="profile-container">
-            <img class="profile-image img-circle" src={ API.getCurrentUserProfilePicture() }>
+            <img class="profile-image img-circle pointer" if={ !anonymous } src={ API.getCurrentUserProfilePicture() } onclick={ this.toggleAnonymous }>
+            <img class="profile-image img-circle pointer" if={ anonymous } src="/images/default_profile.png" onclick={ this.toggleAnonymous } >
             <div class="user-name text-muted" if={ !loggedIn }>Anonymous</div>
             <div class="user-name text-muted" if={ loggedIn }>{ Parse.User.current().get('firstName') } { Parse.User.current().get('lastName') }</div>
           </div>
@@ -42,15 +43,15 @@
   </div>
 
   <script>
-    askModalTag   = this
-    var self      = this
-    self.loggedIn = false
-    self.loading  = false
-    self.isError  = false
-    self.error    = ""
-    self.topic    = ""
-
-    self.question = ""
+    askModalTag    = this
+    var self       = this
+    self.anonymous = false
+    self.loggedIn  = false
+    self.loading   = false
+    self.isError   = false
+    self.error     = ""
+    self.topic     = ""
+    self.question  = ""
 
     this.on('mount', function(){
       $('#askModal').on('shown.bs.modal', function() {
@@ -85,6 +86,11 @@
       $('#askModal').modal('hide')
     }
 
+    toggleAnonymous() {
+      self.anonymous = !self.anonymous
+      self.update()
+    }
+
     createQuestion(){
       self.loading = true
 
@@ -109,6 +115,7 @@
       post.set("viewcount",0)
       post.set("wannaknowCount",0)
       post.set("topic", self.topic)
+      post.set("anonymous", self.anonymous)
 
       post.set("university","umich")
       post.set("group", containerTag.group)
@@ -208,6 +215,16 @@
 
     .error {
       margin-top: 10px;
+    }
+
+    .pointer:hover {
+      cursor: pointer;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
     }
   </style>
 
