@@ -21,13 +21,7 @@
 			</div>
 			<!-- <a onclick={this.showSignup}> -->
  			<div class="pointer row">
- 				<div class="col-xs-7 infodiv">
- 					<span class="topic" if={ post.get('topic') }>
- 						{ post.get('topic').slice(0,20) } <span if={ post.get('topic').length > 20 }>...</span>
- 					</span>
- 				</div>
-
-				<div class="col-xs-5 text-muted align-right infodiv">
+				<div class="col-xs-5 text-muted infodiv">
 					<div class='answercount' if={post.get('answerCount') >= 0} >{post.get('answerCount')} Repl<span if={post.get('answerCount')!=1}>ies</span><span if={ post.get('answerCount') == 1 }>y</span>
 					</div>
 
@@ -38,6 +32,12 @@
 						{ wannaknowCount }
 					</div>
 				</div>
+
+				<div class="col-xs-7 align-right infodiv">
+ 					<span class="topic" if={ post.get('topic') }>
+ 						{ post.get('topic').slice(0,20) } <span if={ post.get('topic').length > 20 }>...</span>
+ 					</span>
+ 				</div>
 			</div>
 		</div>
 		<hr if={post.get('answerCount')>0}/>
