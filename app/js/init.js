@@ -9,6 +9,9 @@
   Parse.initialize("YDTZ5PlTlCy5pkxIUSd2S0RWareDqoaSqbnmNX11", "1KFxPXKErTsVAe5Zu9Gx5SDS40qNV6WxmVQ5gUuB");
   FBAppId = '399505526886852';
 
+// old-databse
+//Parse.initialize("Rw6U09ERS7r2VAiPbqXV8iSDTuhOoAYJqzbRa0Cs", "6PxPrGuIqchYYdjPyCiHccjCbMKjSAfmAHyFwjEr");
+
  var Post = Parse.Object.extend('Post');
  var Topic = Parse.Object.extend('Topic');
 

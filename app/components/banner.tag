@@ -18,15 +18,17 @@
 	</div>
 
 	<div class="row">
-		<div class="event-info text-center">
-				<div class="event-title">ICTD 2016</div>
-				<div class="event-description" if={ open }>
-					{containerTag.group.get('description')}
-				</div>
-				<div class="arrow pointer" onclick={ this.toggleOpen }>
-					<div if={ open }><i class="fa fa-angle-up"></i></div>
-					<div if={ !open }><i class="fa fa-angle-down"></i></div>
-				</div>
+		<div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2 event-container">
+			<div class="event-info text-center">
+					<div class="event-title">ICTD 2016</div>
+					<div class="event-description" if={ open }>
+						{containerTag.group.get('description')}
+					</div>
+					<div class="arrow pointer" onclick={ this.toggleOpen }>
+						<div if={ open }><i class="fa fa-angle-up"></i></div>
+						<div if={ !open }><i class="fa fa-angle-down"></i></div>
+					</div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -100,6 +102,10 @@
 		font-size: x-large;
 	}
 
+	.btn {
+		padding: .3rem .7rem;
+	}
+
 	.reminder-container {
 		margin-top: 10px;
 	}
@@ -109,7 +115,12 @@
 	}
 
 	.fa-star {
-		margin-right: 1rem;
+		margin-right: 0.75rem;
+	}
+
+	.event-container {
+		padding-right: 0;
+		padding-left: 0;
 	}
 
 	.event-info {

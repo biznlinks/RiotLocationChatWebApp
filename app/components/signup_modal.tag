@@ -152,7 +152,7 @@
 			}
 		})*/
 
-		Parse.User.logOut().then(() => {
+		Parse.User.logOut().then(function() {
 			Parse.FacebookUtils.logIn('public_profile, email, user_friends', {
 				success: function(user) {
 					if (user.existed()) {

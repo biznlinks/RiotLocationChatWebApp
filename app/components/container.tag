@@ -32,7 +32,7 @@
 
     <banner if={ route=="posts" }></banner>
     <div class="row">
-      <div class="main col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2  text-center">
+      <div class="main col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2 text-center">
         <feed if={ route=="posts" }></feed>
         <topics if={ route=="schedule" }></topics>
         <postdetail if={ route=="postdetail" }></postdetail>
