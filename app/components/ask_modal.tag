@@ -18,8 +18,8 @@
           <div class="profile-container">
             <img class="profile-image img-circle pointer" if={ !anonymous } src={ API.getCurrentUserProfilePicture() } onclick={ this.toggleAnonymous }>
             <img class="profile-image img-circle pointer" if={ anonymous } src="/images/default_profile.png" onclick={ this.toggleAnonymous } >
-            <div class="user-name text-muted" if={ !loggedIn }>Anonymous</div>
-            <div class="user-name text-muted" if={ loggedIn }>{ Parse.User.current().get('firstName') } { Parse.User.current().get('lastName') }</div>
+            <div class="user-name text-muted" if={ !loggedIn || anonymous }>Anonymous</div>
+            <div class="user-name text-muted" if={ loggedIn && !anonymous }>{ Parse.User.current().get('firstName') } { Parse.User.current().get('lastName') }</div>
           </div>
 
           <div class="post-container info-btns">
@@ -186,6 +186,10 @@
       background-color: #F5F5F5;
     }
 
+    .searchbox:focus {
+      outline: none;
+    }
+
     #topic {
       text-align: left;
       padding-left: 10px;
@@ -202,6 +206,10 @@
       border: none;
       border-bottom: 1px solid #BBBBBB;
       background-color: #F5F5F5;
+    }
+
+    .handle:focus {
+      outline: none;
     }
 
     .go{
