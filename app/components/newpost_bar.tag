@@ -2,14 +2,14 @@
 
 <div class="input-group search-container">
 	<div class="icon-container input-group-addon pointer"><img src={ API.getCurrentUserProfilePicture() } class="profile-icon img-circle"></div>
-	<textarea name="postBar" id="searchField" onclick={ showAskModal } placeholder="What's on your mind?" class="searchbox form-control" rows="1"></textarea>
+	<textarea name="postBar" id="searchField" onclick={ showAskModal } placeholder="What's happening?" class="searchbox form-control" rows="1"></textarea>
 </div>
 
 <script>
 	var self = this
 	self.anonymous = false
 
-	showAskModal() {
+  showAskModal() {
 		self.parent.parent.tags.askModal.show()
 	}
 
