@@ -1,1 +1,1 @@
-firebase use --add sophus; firebase deploy
+firebase use --add sophus-dev; firebase deploy
