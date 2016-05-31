@@ -5,7 +5,7 @@
     &#9776;
   </button> -->
   <div class="navbar-toggleable-xs" id="exCollapsingNavbar2">
-    <a class="navbar-brand" href="/"> <img id="logo" alt="Logo" src="/images/app_icon.png" > SOPHUS </a>
+    <a class="navbar-brand" href="/"> <img id="logo" alt="Logo" src="/images/app_icon.png" > { title } </a>
 
     <ul class="nav navbar-nav pull-xs-right">
       <li class={ nav-item: true, active: parent.selectedId === url }>
@@ -52,6 +52,7 @@
   var self         = this
   self.signupAvail = true
   self.home        = true
+  self.title       = opts.title
 
   var r = riot.route.create()
   r(highlightCurrent)

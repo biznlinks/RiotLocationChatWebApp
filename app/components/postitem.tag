@@ -1,8 +1,8 @@
 <postitem>
-	<div class="card ">
-		<div class="card-block">
+	<div class="card">
+		<div class="card-block pointer">
 
-			<div class="pointer" onclick={ this.goToPost }>
+			<div class="" onclick={ this.goToPost }>
 
 				<div class='postauthor text-muted'>
 					<img if={ !post.get('anonymous') } src = "{ API.getProfilePicture(post.get('author')) }" class = "profile img-circle">
