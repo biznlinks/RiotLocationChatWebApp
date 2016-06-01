@@ -80,7 +80,7 @@
 			var userFullname  = self.fullname.value
 
 			var userFirstname = userFullname.split(" ")[0]
-			var userLastname  = userFullname.substring(userFullname.indexOf(" ") + 1)
+			var userLastname  = userFullname.indexOf(" ")==-1 ? '' : userFullname.substring(userFullname.indexOf(" ") + 1)
 
 			user.set('username', userEmail)
 			user.set('password', userPassword)

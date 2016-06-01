@@ -10,7 +10,7 @@
 	self.anonymous = false
 
   showAskModal() {
-		self.parent.parent.tags.askModal.show()
+		$('#askModal').modal('show')
 	}
 
 	getUserProfilePic() {

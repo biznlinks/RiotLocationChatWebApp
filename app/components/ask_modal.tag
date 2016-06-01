@@ -67,6 +67,13 @@
     this.on('mount', function(){
       $('#askModal').on('shown.bs.modal', function() {
         $('#searchField').focus()
+        if (Parse.User.current().get('type') == 'dummy') self.loggedIn = false
+        else self.loggedIn = true
+
+        if (self.parent.route == "topicsfeed")
+          self.topic = topicsfeedtag.topicName
+
+        self.update()
       })
       $('#askModal').on('hidden.bs.modal', function() {
         self.isError      = false
@@ -85,12 +92,6 @@
 
     show(){
       $('#askModal').modal('show')
-      self.searchField.value= self.question
-
-      if (Parse.User.current().get('type') == 'dummy') self.loggedIn = false
-      else self.loggedIn = true
-
-      self.update()
     }
 
     hide(){
@@ -122,7 +123,7 @@
 
       if (!self.loggedIn && self.handle.value != '') {
         var userFirstname = self.handle.value.split(" ")[0]
-        var userLastname  = self.handle.value.substring(self.handle.value.indexOf(" ") + 1)
+        var userLastname  = self.handle.value.indexOf(" ")==-1 ? '' : self.handle.value.substring(self.handle.value.indexOf(" ") + 1)
         currentUser.set('firstName', userFirstname)
         currentUser.set('lastName', userLastname)
         currentUser.save()
@@ -211,6 +212,7 @@
     #topic {
       text-align: left;
       padding-left: 10px;
+      margin-bottom: 10px;
     }
 
     .handle-container {
