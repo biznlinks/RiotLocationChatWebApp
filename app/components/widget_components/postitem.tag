@@ -122,7 +122,6 @@
 
 	.post-content {
 		margin-top: 12px;
-		text-align: justify;
 	}
 
 	.wannaknow {
