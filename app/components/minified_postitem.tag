@@ -1,17 +1,13 @@
-<postitem>
-	<div class="card">
-		<div class="card-block pointer">
+<minipostitem>
+	<div class="card outer-container">
+		<div class="mini-container card-block pointer">
 
 			<div class="" onclick={ this.goToPost }>
 
-				<div class='postauthor text-muted'>
+				<div class='postauthor text-muted' if={opts.author}>
 					<img if={ !post.get('anonymous') } src = "{ API.getProfilePicture(post.get('author')) }" class = "profile img-circle">
 					<img if={ post.get('anonymous') } src="/images/default_profile.png" class="profile img-circle">
 					<span class="author">{this.getAuthorName()}</span> <br/>
-					<!-- <span class='author-about text-muted'>{post.get('author').get('about')}</span></span> -->
-
-
-					<!-- <h4 class="card-title">{getAuthorName(post)}</h4> -->
 				</div>
 
 				<p class="post-content" name="content">{post.get('content')}</p>
@@ -19,16 +15,13 @@
 
 
 			</div>
-			<!-- <a onclick={this.showSignup}> -->
  			<div class="pointer row">
 				<div class="col-xs-5 text-muted infodiv">
 					<div class='answercount' if={post.get('answerCount') >= 0} >{post.get('answerCount')} Repl<span if={post.get('answerCount')!=1}>ies</span><span if={ post.get('answerCount') == 1 }>y</span>
 					</div>
 
 					<div class='wannaknow text-muted' onclick={ this.submitWannaknow }>
-						<!-- <img width="23px" src="/images/wannaknow_gray@2x.png">  -->
 						<i class={ fa: true, fa-heart-o: !wannaknown, fa-heart: wannaknown } name="wannaknowButton" aria-hidden="true"></i>
-						<!-- {post.get('wannaknowCount')} -->
 						{ wannaknowCount }
 					</div>
 				</div>
@@ -40,40 +33,6 @@
  				</div>
 			</div>
 		</div>
-		<hr if={post.get('answerCount')>0}/>
-		<div class="row">
-			<div class="col-xs-12" >
-				<div if={post.get('answerCount')>0}>
-
-					<div each={ ans in answers }>
-						<answeritem answer={ ans }></answeritem>
-					</div>
-
-				</div>
-			</div>
-		</div>
-
-
-		<div class="reply-container">
-			<hr/>
-			<div class="card-block input-group">
-				<div class="input-group-addon answer-icon-container pointer" onclick={ this.toggleAnonymous }>
-					<img src={ API.getCurrentUserProfilePicture() } class="answer-icon img-circle" if={ !anonymous }>
-					<img src="/images/default_profile.png" class="answer-icon img-circle" if={ anonymous }>
-				</div>
-				<textarea class="form-control" name="answerbox" id="answerbox" oninput={ this.onInput } rows="1" placeholder="Add reply"></textarea>
-			</div>
-			<div class="submit pointer" onclick={ this.submitAnswer } if={ submitButton }>Send</div>
-			<div class="card-block" if={ sending }>
-				Sending your reply ...
-			</div>
-		</div>
-
-
-		<!-- <ul class="list-group list-group-flush">
-			<li class="list-group-item"><input class="comment-input" type="text" placeholder="Answer" /></li>
-		</ul>
-	-->
 </div>
 
 
@@ -244,9 +203,12 @@
 		font-weight: normal;
 
 	}
-	hr {
-		margin: 0px;
-		margin-bottom: 1rem;
+
+	.outer-container {
+		margin-bottom: 0;
+	}
+	.mini-container {
+		padding: 0.8rem;
 	}
 
 	.post-content{
@@ -386,4 +348,4 @@
 		}
 	}
 </style>
-</postitem>
+</minipostitem>

@@ -14,13 +14,13 @@
 			<h4 class="session-h4">{hour}</h4>
 		</div>
 		<div class="col-xs-9 session-detail">
-			<a  class="session-title" href="/schedule/{ title }">
+			<a  class="session-title" href="/schedule/{ encodeURI(title) }">
 				<h4 class="session-h4">{title}</h4>
 			</a>
 
 			<div class="talk-container">
 				<li each={talks} class="talk list-group-item">
-					<a href="/schedule/{ title }">
+					<a href="/schedule/{ encodeURI(title) }">
 					{title} <br>
 					</a>
 				</li>

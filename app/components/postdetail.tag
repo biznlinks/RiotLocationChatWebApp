@@ -1,11 +1,15 @@
 <postDetail>
 
-	<posts></posts>
+	<posts name="post"></posts>
+
+	<div class="related-container">
+		<div class="related-text">Related Posts</div>
+		<miniposts class="related-posts" name="minifiedPosts"></miniposts>
+	</div>
 
 	<script>
 		var self = this
 		postDetailTag = this
-		self.postsTag = this.tags.posts
 		self.postid = this.opts.postid
 
 		this.post = {}
@@ -14,7 +18,11 @@
 			if (self.postid){
 				API.getDetailsForPost(self.postid).then(function(content){
 					self.post = content.post
-					self.postsTag.update({posts: [self.post], loading:false})
+					self.tags.post.update({posts: [self.post], loading:false})
+				})
+
+				API.getallposts(3).then(function(results){
+					self.tags.minifiedPosts.update({posts:results, loading:false, author:false})
 				})
 			}
 		})
@@ -49,6 +57,16 @@ getPostContent(){
 	.profile {
 		width: 40px;
 		height: 40px;
+	}
+
+	.related-container {
+		margin-top: 20px;
+	}
+	.related-text {
+		font-weight: bold;
+		font-size: large;
+		margin-bottom: 20px;
+		padding-left: 10px;
 	}
 </style>
 </postDetail>
