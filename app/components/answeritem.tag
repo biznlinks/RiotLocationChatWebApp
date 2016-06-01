@@ -119,7 +119,7 @@
 	}
 	.row{
 		margin-bottom: 10px;
-		margin-left: 1px;
+		margin-left: 10px;
 	}
 	.author{
 		content: #616161;
@@ -156,8 +156,6 @@
 		user-select: none;
 	}
 	.profilePic{
-		padding-left: 0px;
-    	padding-top: 0px;
     	display: inline-table;
 	}
 
