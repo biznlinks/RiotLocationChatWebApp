@@ -36,9 +36,10 @@
         <feed if={ route=="posts" }></feed>
         <topics if={ route=="schedule" }></topics>
         <postdetail if={ route=="postdetail" }></postdetail>
-        <topicsfeed if={ route=="topicsfeed" }></topicsfeed>
         <profile name="profile" if={ route=="profile" }></profile>
       </div>
+
+      <topicsfeed if={ route=="topicsfeed" }></topicsfeed>
     </div>
 
     <!-- /.row -->
