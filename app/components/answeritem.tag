@@ -132,6 +132,7 @@
 		font-size: 14px;
 		display: inline-block;
 		padding-left: 10px;
+		width: 90%;
 	}
 	.content-text{
 		color: #424242;
@@ -156,7 +157,7 @@
 	.profilePic{
 		padding-left: 0px;
     	padding-top: 0px;
-    	display: inline-block;
+    	display: inline-flex;
 	}
 
 
