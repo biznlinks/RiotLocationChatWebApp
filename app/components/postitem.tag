@@ -14,7 +14,7 @@
 					<!-- <h4 class="card-title">{getAuthorName(post)}</h4> -->
 				</div>
 
-				<p class="post-content" name="content">{this.getContent()}</p>
+				<p class="post-content" name="content">{post.get('content')}</p>
 
 
 
@@ -122,13 +122,6 @@
 			return 'Anonymous'
 		else
 			return this.post.get('author').get('firstName') + ' ' + this.post.get('author').get('lastName')
-	}
-
-	getContent() {
-		var content = self.post.get('content')
-		var regex = /(https?:\/\/([-\w\.]+)+(:\d+)?(\/([\w\/_\.]*(\?\S+)?)?)?)/ig
-		var replacedContent = content.replace(regex, "<a href='$1' target='_blank'>$1</a>");
-		self.content.innerHTML = replacedContent
 	}
 
 	submitWannaknow(){

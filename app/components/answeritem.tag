@@ -1,20 +1,17 @@
 <answeritem>
 	<div class="row">
-		<div class="col-xs-1 col-md-1 profilePic">
+		<div class="profilePic">
 			<img if={ !answer.get('anonymous') } src="{API.getProfilePicture(answer.get('author'))}" class="answer-profile-img img-circle">
 			<img if={ answer.get('anonymous') } src="/images/default_profile.png" class="answer-profile-img img-circle">
 		</div>
-		<div class="col-xs-11 col-md-11 content" >
-			<div class="row">
-				<span class="author text-muted">{ this.getAuthorName() }</span>
-				<span class="content-text" name="content">
-					{this.getContent()}
-				</span>
-			</div>
-			<div class="row pointer" onclick={this.submitLike}>
-				<div class='helpful text-muted'> Helpful   •   <i name="likeButton" class={ fa: true, fa-thumbs-up: liked, fa-thumbs-o-up: !liked } aria-hidden="true"/> { likeCount } </div>
-			</div>
-
+		<div class="content">
+			<span class="author text-muted">{ this.getAuthorName() }</span>
+			<span class="content-text" name="content">
+				{this.getContent()}
+			</span>
+		</div>
+		<div class="pointer" onclick={this.submitLike}>
+			<div class='helpful text-muted'> Helpful   •   <i name="likeButton" class={ fa: true, fa-thumbs-up: liked, fa-thumbs-o-up: !liked } aria-hidden="true"/> { likeCount } </div>
 		</div>
 	</div>
 
@@ -114,7 +111,7 @@
 	}
 	.row{
 		margin-bottom: 10px;
-		margin-left: 1px;
+		margin-left: 10px;
 	}
 	.author{
 		content: #616161;
@@ -124,16 +121,19 @@
 		height: 30px;
 	}
 	.content {
-		/* margin-left: 10px; */
-		padding-left: 20px;
 		font-size: 14px;
+		display: inline-table;
+		padding-left: 10px;
+		width: calc(100% - 40px);
 	}
 	.content-text{
 		color: #424242;
 	}
 	.helpful {
-		display: inline-block;
+		display: inline-table;
 		font-size: smaller;
+		padding-left: 44px;
+		padding-top: 5px;
 	}
 	.inline {
 		display:inline-block;
@@ -148,8 +148,7 @@
 		user-select: none;
 	}
 	.profilePic{
-		padding-left: 0px;
-    	padding-top: 0px;
+    	display: inline-table;
 	}
 	a{
 		display: inline;
@@ -166,6 +165,13 @@
 			/*margin-right: 200px;*/
 			margin-bottom: 0;
 		}
+	}
+	@media (min-width: 240px) {
+		:scope {
+			/*margin-right: 200px;*/
+			margin-bottom: 0;
+		}
+
 	}
 </style>
 </answeritem>

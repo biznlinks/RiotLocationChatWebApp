@@ -13,3 +13,8 @@
     to { -webkit-transform: rotate(360deg); }
 }
 
+.noScroll {
+    overflow: hidden;
+    position: fixed;
+	}
+

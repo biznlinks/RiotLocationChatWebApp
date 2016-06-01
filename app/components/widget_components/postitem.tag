@@ -19,6 +19,7 @@
 
 </div>
 
+
 <script>
 	var self            = this
 	self.post           = opts.post
@@ -47,7 +48,7 @@
 		if (self.post.get('anonymous')) return 'Anonymous'
 		else {
 			var author = self.post.get('author')
-			return author.get('firstName') + ' ' + author.get('lastName')[0] + '.'
+			return this.post.get('author').get('firstName') + ' ' + this.post.get('author').get('lastName')
 		}
 	}
 
@@ -106,7 +107,7 @@
 		-webkit-border-radius: 0px;
     	-moz-border-radius: 0px;
     	border-radius: 0px;
-    	background-color: #FAFAFA;
+    	/*background-color: #FAFAFA;*/
 	}
 
 	.author-profile {
@@ -121,7 +122,6 @@
 
 	.post-content {
 		margin-top: 12px;
-		text-align: justify;
 	}
 
 	.wannaknow {
