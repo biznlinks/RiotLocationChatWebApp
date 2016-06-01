@@ -9,7 +9,9 @@
 	<div if={!loading}>
 		<div class="post-item" each={ post in posts }>
 			<postitem post={ post }></postitem>
+			<hr>
 		</div>
+
 	</div>
 
 

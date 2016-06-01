@@ -84,7 +84,7 @@
     .main {
       padding-right: 0px;
       padding-left: 0px;
-      background-color: #DBDBDB;
+
     }
 
     .nav-tabs .nav-link {
