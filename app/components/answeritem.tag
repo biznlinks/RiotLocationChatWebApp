@@ -130,17 +130,18 @@
 	}
 	.content {
 		font-size: 14px;
-		display: inline-block;
+		display: inline-table;
 		padding-left: 10px;
-		width: 90%;
+		width: calc(100% - 40px);
 	}
 	.content-text{
 		color: #424242;
 	}
 	.helpful {
-		display: inline-block;
+		display: inline-table;
 		font-size: smaller;
 		padding-left: 44px;
+		padding-top: 5px;
 	}
 	.inline {
 		display:inline-block;
@@ -157,7 +158,7 @@
 	.profilePic{
 		padding-left: 0px;
     	padding-top: 0px;
-    	display: inline-flex;
+    	display: inline-table;
 	}
 
 
