@@ -198,9 +198,9 @@
 
 		if (answerContent != '') {
 			// Set UI before processing
-			self.answerBoxEnabled = false
-			self.answerbox.value  = ''
-			self.sending          = true
+			self.answerbox.value = ''
+			self.sending         = true
+			self.submitButton    = false
 			self.update()
 
 			var AnswerObject = Parse.Object.extend('Answer')
