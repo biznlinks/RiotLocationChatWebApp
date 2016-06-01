@@ -33,7 +33,7 @@
 					</div>
 				</div>
 
-				<div class="col-xs-7 align-right infodiv">
+				<div class="col-xs-7 align-right infodiv" onclick={ this.gotoTopic }>
  					<span class="topic" if={ post.get('topic') }>
  						{ post.get('topic').slice(0,20) } <span if={ post.get('topic').length > 20 }>...</span>
  					</span>
@@ -251,6 +251,12 @@
 		}
 	}
 
+	gotoTopic() {
+		var routeTo = '/schedule/' + encodeURIComponent(self.post.get('topic'))
+		riot.route(routeTo)
+		self.update()
+	}
+
 </script>
 
 <style scoped>
@@ -269,7 +275,7 @@
 		margin: 0px;
 		margin-bottom: 1rem;
 	}
-	
+
 	.post-content{
 		font-size: 20px;
 		color: #424242;
