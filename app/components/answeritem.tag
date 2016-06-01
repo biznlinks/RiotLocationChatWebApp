@@ -1,20 +1,17 @@
 <answeritem>
 	<div class="row">
-		<div class="col-xs-1 profilePic">
+		<div class="profilePic">
 			<img if={ !answer.get('anonymous') } src="{API.getProfilePicture(answer.get('author'))}" class="answer-profile-img img-circle">
 			<img if={ answer.get('anonymous') } src="/images/default_profile.png" class="answer-profile-img img-circle">
 		</div>
-		<div class="col-xs-11 content" >
-			<div class="row">
-				<span class="author text-muted">{ this.getAuthorName() }</span>
-				<span class="content-text">
-					{answer.get('answer')}
-				</span>
-			</div>
-			<div class="row pointer" onclick={this.submitLike}>
-				<div class='helpful text-muted'> Helpful   •   <i name="likeButton" class={ fa: true, fa-thumbs-up: liked, fa-thumbs-o-up: !liked } aria-hidden="true"/> { likeCount } </div>
-			</div>
-
+		<div class="content">
+			<span class="author text-muted">{ this.getAuthorName() }</span>
+			<span class="content-text">
+				{answer.get('answer')}
+			</span>
+		</div>
+		<div class="pointer" onclick={this.submitLike}>
+			<div class='helpful text-muted'> Helpful   •   <i name="likeButton" class={ fa: true, fa-thumbs-up: liked, fa-thumbs-o-up: !liked } aria-hidden="true"/> { likeCount } </div>
 		</div>
 	</div>
 
@@ -130,12 +127,11 @@
 	.answer-profile-img {
 		width: 30px;
 		height: 30px;
-		margin-right: 10px;
 	}
 	.content {
-		/* margin-left: 10px; */
-		padding-left: 20px;
 		font-size: 14px;
+		display: inline-block;
+		padding-left: 10px;
 	}
 	.content-text{
 		color: #424242;
@@ -143,6 +139,7 @@
 	.helpful {
 		display: inline-block;
 		font-size: smaller;
+		padding-left: 44px;
 	}
 	.inline {
 		display:inline-block;
@@ -159,6 +156,7 @@
 	.profilePic{
 		padding-left: 0px;
     	padding-top: 0px;
+    	display: inline-block;
 	}
 
 
@@ -167,6 +165,13 @@
 			/*margin-right: 200px;*/
 			margin-bottom: 0;
 		}
+	}
+	@media (min-width: 240px) {
+		:scope {
+			/*margin-right: 200px;*/
+			margin-bottom: 0;
+		}
+		
 	}
 </style>
 </answeritem>
