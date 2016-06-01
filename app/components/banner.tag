@@ -49,11 +49,10 @@
 	self.hours        = 0
 	self.minutes      = 0
 	self.seconds      = 0
-	self.deadline   = '2016-06-03T09:00:00-04:00'
+	self.deadline     = '2016-06-03T09:00:00-04:00'
 	self.liveSession  = null
 
 	this.on('mount', function() {
-		console.log(containerTag.group.get('details').schedule.sessions)
 		if (Date.parse(self.deadline) - Date.parse(new Date()) > 0) {
 			self.timeinterval = setInterval(function() {
 				self.setRemainingTime(self.deadline)
