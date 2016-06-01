@@ -122,7 +122,7 @@
 
       if (!self.loggedIn && self.handle.value != '') {
         var userFirstname = self.handle.value.split(" ")[0]
-        var userLastname  = self.handle.value.substring(userFullname.indexOf(" ") + 1)
+        var userLastname  = self.handle.value.substring(self.handle.value.indexOf(" ") + 1)
         currentUser.set('firstName', userFirstname)
         currentUser.set('lastName', userLastname)
         currentUser.save()

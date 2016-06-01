@@ -1,15 +1,16 @@
 <topics>
 
-<div class="bd-example bd-example-tabs" role="tabpanel">
-  <ul class="nav nav-tabs" id="myTab" role="tablist">
+<div class="schedule-container">
+	<div class="bd-example bd-example-tabs" role="tabpanel">
+	  <ul class="nav nav-tabs" id="myTab" role="tablist">
 
-    <li class="nav-item" each={day in days}>
-      <a class= {"nav-link": true, "active": (day===activeDay)} id="home-tab" name={day} onclick={selectActiveDay}>{day}</a>
-    </li>
-  </ul>
+	    <li class="nav-item" each={day in days}>
+	      <a class= {"nav-link": true, "active": (day===activeDay)} id="home-tab" name={day} onclick={selectActiveDay}>{day}</a>
+	    </li>
+	  </ul>
 
 	<div class="row session" each={sessions}>
-		<div class="col-xs-3">
+		<div class="col-xs-3 session-hour">
 			<h4 class="session-h4">{hour}</h4>
 		</div>
 		<div class="col-xs-9 session-detail">
@@ -17,14 +18,17 @@
 				<h4 class="session-h4">{title}</h4>
 			</a>
 
-			<li each={talks} class="talk list-group-item">
-				<a href="/schedule/{ title }">
-				{title} <br>
-				</a>
-			</li>
+			<div class="talk-container">
+				<li each={talks} class="talk list-group-item">
+					<a href="/schedule/{ title }">
+					{title} <br>
+					</a>
+				</li>
+			</div>
 
 		</div>
 	</div>
+</div>
 
 	<script>
 		var self = this
@@ -69,6 +73,11 @@
 	</script>
 
 	<style scoped>
+		.schedule-container {
+			background: white;
+			padding: 10px;
+		}
+
 		#myTab {
 			border: none;
 		}
@@ -87,29 +96,53 @@
 		}
 
 		.session {
+			border-top: 1px solid #b3b3b3;
+		}
+
+		.session-hour {
 			padding: 30px 10px;
-			padding-bottom: 0;
-			padding-right: 0;
-			border-top: 1px solid black;
 		}
 
 		.session-detail {
-			padding: 0;
+			padding: 30px 0px;
+		}
+
+		.session-detail:hover {
+			background: #dedede;
+		}
+
+		.session-detail:hover .session-title {
+			color: black;
+			text-decoration: none;
+			background: #dedede;
 		}
 
 		.session-title {
 			padding-left: 20px;
+			padding-bottom: 30px;
 		}
 
 		.session-h4 {
-			margin-bottom: 30px;
+			margin-bottom: 0;
+		}
+
+		.talk-container {
+			margin-bottom: -30px;
 		}
 
 		.talk {
-			background: #eee;
-			margin-bottom: 5px;
 			border: none;
-			border-top: 1px solid black;
+			border-top: 1px solid #b3b3b3;
+		}
+
+		.talk:hover {
+			background: #eeeeee;
+		}
+
+		.talk:hover a {
+			color: black;
+			text-decoration: none;
+			background: #eeeeee;
 		}
 
 		a {
@@ -120,7 +153,6 @@
 			height: 100%;
 			/*line-height: 150px;*/
 			color: inherit;
-			background: #eee;
 		}
 
 		a:hover {

@@ -103,7 +103,7 @@
       self.tags.topicsfeed.unmount()
       self.track('topicsfeed')
       self.update({
-        title: decodeURIComponent(id),
+        title: "TOPIC",
         body: "",
         selectedId: null,
         selectedTopicId: id,
