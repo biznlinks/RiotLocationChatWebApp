@@ -220,6 +220,10 @@
 		margin-top: 5px;
 	}
 
+	input[type="text"] {
+		background-color: #eee;
+	}
+
 	.pointer:hover {
 		cursor: pointer;
 		-webkit-touch-callout: none;

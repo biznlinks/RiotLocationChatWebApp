@@ -1,10 +1,10 @@
 <answeritem>
 	<div class="row">
-		<div class="col-xs-1 profilePic">
+		<div class="col-xs-1 col-md-1 profilePic">
 			<img if={ !answer.get('anonymous') } src="{API.getProfilePicture(answer.get('author'))}" class="answer-profile-img img-circle">
 			<img if={ answer.get('anonymous') } src="/images/default_profile.png" class="answer-profile-img img-circle">
 		</div>
-		<div class="col-xs-11 content" >
+		<div class="col-xs-11 col-md-11 content" >
 			<div class="row">
 				<span class="author text-muted">{ this.getAuthorName() }</span>
 				<span class="content-text">
@@ -130,7 +130,6 @@
 	.answer-profile-img {
 		width: 30px;
 		height: 30px;
-		margin-right: 10px;
 	}
 	.content {
 		/* margin-left: 10px; */
