@@ -63,7 +63,7 @@
 				</div>
 				<textarea class="form-control" name="answerbox" id="answerbox" oninput={ this.onInput } rows="1" placeholder="Add reply"></textarea>
 			</div>
-			<a class="submit pointer" onclick={ this.submitAnswer } if={ submitButton }>Send</a>
+			<div class="submit pointer" onclick={ this.submitAnswer } if={ submitButton }>Send</div>
 			<div class="card-block" if={ sending }>
 				Sending your reply ...
 			</div>
@@ -332,7 +332,7 @@
 		padding-right:0.9rem;
 		padding-bottom:0.9rem;
 		color: #0275D8;
-		text-align: right;
+		text-align: center;
 	}
 
 	.submit:hover {
