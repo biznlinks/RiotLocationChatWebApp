@@ -1,9 +1,10 @@
 <topicsfeed>
 	<div class="card">
 		<div class="card-block topic-title-container">
-			<h4 class="card-title">#{topicName}</h4>
-			<p class="card-text"></p>
+			<h4 class="card-title">{topicName}</h4>
+			<p class="card-text">{talk.authors}</p>
 			<!-- <p class="card-text"><small class="text-muted">{postCount} questions for this topic</small></p> -->
+
 
 		</div>
 	</div>
@@ -60,6 +61,15 @@
 
 		// load information about the topic like picture/ video/ description/ etc
 		fetchTopicDetails() {
+			var schedule = containerTag.group.get('details').schedule
+			self.talk = _.filter(_.flatten(_.pluck(schedule.sessions, 'talks')), function(talk){
+				if (talk.title=== self.topicName){
+					return true
+				}
+				return false
+			})[0]
+
+
 			if (self.topicName){
 				self.topicName = decodeURI(self.topicName)
 				API.getObjectForTopic(self.topicName.toLowerCase()).then(function(topic){
