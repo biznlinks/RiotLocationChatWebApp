@@ -185,6 +185,7 @@
 	}
 
 	showSignup() {
+		$('body').addClass('noScroll');
 		$('#loginModal').modal('hide')
 		$('#signupModal').modal('show')
 	}
@@ -194,6 +195,11 @@
 <style scoped>
 	:scope{
 		text-align: center;
+	}
+
+	.noScroll {
+    overflow: hidden;
+    position: fixed;
 	}
 
 	.facebook-option {
