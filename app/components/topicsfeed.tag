@@ -1,16 +1,18 @@
-
 <topicsfeed>
 	<div class="card">
-		<img class="card-img-top" src="{this.getTopicImage()}" alt="Card image cap"></img>
-		<div class="card-block">
+		<div class="card-block topic-title-container">
 			<h4 class="card-title">#{topicName}</h4>
 			<p class="card-text"></p>
-			<p class="card-text"><small class="text-muted">{postCount} questions for this topic</small></p>
-			<button type="button" class="btn btn-primary " onclick={createQuestion}>Ask a new question</button>
+			<!-- <p class="card-text"><small class="text-muted">{postCount} questions for this topic</small></p> -->
+
 		</div>
 	</div>
-	<posts name="topicsFeedPosts"></posts>
 
+	<div class="row">
+		<div class="main col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2 text-center">
+			<postbar></postbar>
+			<posts name="topicsFeedPosts"></posts>
+	</div>
 
 	<script>
 		var self = this
@@ -39,7 +41,7 @@
 		loadTopics(){
 			if (self.topicName){
 				self.topicName = decodeURI(self.topicName)
-				API.constructQuestionsForTopic(self.topicName).then(function(results) { 
+				API.constructQuestionsForTopic(self.topicName).then(function(results) {
 					self.update({postCount: results.length})
 					self.postsTag.update({posts:results, loading:false})
 				})
@@ -49,7 +51,7 @@
 		getTopicImage(){
 			if (!self.topic || !self.topic.get('image')){
 				return '\\\\files.parsetfss.com/492fed6a-4a8e-4a1f-9286-b7ca075fbe93/tfss-b90ff825-9002-4feb-bc90-315dbc0bbf24-Pasted%20image%20at%202016_05_17%2001_46%20PM.png'
-				
+
 			}
 			return self.topic.get('image').url()
 			// else
@@ -65,14 +67,20 @@
 					self.update()
 				})
 			}
-			
+
 		}
 
 	</script>
 
 	<style scoped>
-		.card-img-top{
-			width: 100%;
+		.topic-title-container {
+			text-align: center;
+		}
+
+		.main {
+			margin-top: 0;
+			padding-right: 0px;
+			padding-left: 0px;
 		}
 	</style>
 </topicsfeed>

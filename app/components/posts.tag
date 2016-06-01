@@ -2,15 +2,15 @@
 	<div if={loading}>
 		<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...
 	</div>
-	<div if={this.posts.length==0 }>
-		No one has asked yet. 
+	<div if={this.posts.length==0 } class="zero-post">
+		0 posts for this topic.
 	</div>
 	<div if={ !loading }>
 		<div class="postitem" each={ post in posts }>
 			<postitem post={post}></postitem>
 		</div>
 	</div>
-	
+
 
 	<script>
 		var self = this
@@ -20,8 +20,8 @@
 		this.loading = false
 
 
-		
-		
+
+
 	</script>
 
 	<style scoped>
@@ -30,7 +30,11 @@
 			/*font-weight: 300;*/
 			/*font-size: 24px;*/
 
-			
+
+		}
+
+		.zero-post {
+			padding-left: 10px;
 		}
 
 
