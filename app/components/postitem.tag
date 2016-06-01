@@ -14,7 +14,7 @@
 					<!-- <h4 class="card-title">{getAuthorName(post)}</h4> -->
 				</div>
 
-				<p class="post-content">{post.get('content')}</p>
+				<p class="post-content" name="content">{this.getContent()}</p>
 
 
 
@@ -124,31 +124,11 @@
 			return this.post.get('author').get('firstName') + ' ' + this.post.get('author').get('lastName')
 	}
 
-	getProfilePic(){
-		var author = self.post.get('author')
-		if (!author.get('profilePic') || this.post.get('anonymous')){
-			if (author.get('profileImageURL')){
-				return author.get('profileImageURL')
-			}
-			return '/images/default_profile.png'
-
-		}else {
-			profilePic = author.get('profilePic').url()
-			if (profilePic){
-				return profilePic
-			}
-		}
-	}
-
-	getUserProfilePic() {
-		if (self.anonymous && Parse.User.current().get('type') == 'actual')
-			return '/images/default_profile.png'
-
-		var user       = Parse.User.current()
-		var profilePic = user.get('profileImageURL')
-		if (profilePic){
-			return profilePic
-		}
+	getContent() {
+		var content = self.post.get('content')
+		var regex = /(https?:\/\/([-\w\.]+)+(:\d+)?(\/([\w\/_\.]*(\?\S+)?)?)?)/ig
+		var replacedContent = content.replace(regex, "<a href='$1' target='_blank'>$1</a>");
+		self.content.innerHTML = replacedContent
 	}
 
 	submitWannaknow(){

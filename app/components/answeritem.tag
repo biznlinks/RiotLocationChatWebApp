@@ -7,8 +7,8 @@
 		<div class="col-xs-11 col-md-11 content" >
 			<div class="row">
 				<span class="author text-muted">{ this.getAuthorName() }</span>
-				<span class="content-text">
-					{answer.get('answer')}
+				<span class="content-text" name="content">
+					{this.getContent()}
 				</span>
 			</div>
 			<div class="row pointer" onclick={this.submitLike}>
@@ -54,19 +54,11 @@
 				return self.answer.get('author').get('firstName') + ' ' + self.answer.get('author').get('lastName')
 		}
 
-		getProfilePic(){
-			if (self.answer.get('anonymous'))
-				return '/images/default_profile.png'
-
-			var author = self.answer.get('author')
-			if (author.get('profileImageURL')){
-				profilePic = author.get('profileImageURL')
-				if (profilePic){
-					return profilePic
-				}
-			}else {
-				return '/images/default_profile.png'
-			}
+		getContent() {
+			var content = self.answer.get('answer')
+			var regex = /(https?:\/\/([-\w\.]+)+(:\d+)?(\/([\w\/_\.]*(\?\S+)?)?)?)/ig
+			var replacedContent = content.replace(regex, "<a href='$1' target='_blank'>$1</a>")
+			self.content.innerHTML = replacedContent
 		}
 
 		submitLike(){
@@ -158,6 +150,14 @@
 	.profilePic{
 		padding-left: 0px;
     	padding-top: 0px;
+	}
+	a{
+		display: inline;
+		color: #47b6ff;
+	}
+	a:hover {
+		background-color: white;
+		color: #0084db;
 	}
 
 
