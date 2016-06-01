@@ -225,7 +225,7 @@
 	}
 
 	gotoTopic() {
-		var routeTo = '/schedule/' + encodeURIComponent(self.post.get('topic'))
+		var routeTo = '/schedule/' + encodeURI(self.post.get('topic'))
 		riot.route(routeTo)
 		self.update()
 	}

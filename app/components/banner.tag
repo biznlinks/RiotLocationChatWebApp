@@ -114,7 +114,7 @@
 	}
 
 	gotoTopic() {
-		var routeTo = '/schedule/' + encodeURIComponent(self.liveSession.title)
+		var routeTo = '/schedule/' + encodeURI(self.liveSession.title)
 		riot.route(routeTo)
 		self.update()
 	}
