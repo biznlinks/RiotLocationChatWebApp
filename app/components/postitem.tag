@@ -266,7 +266,8 @@
 
 	}
 	hr {
-
+		margin: 0px;
+		margin-bottom: 1rem;
 	}
 	
 	.post-content{
