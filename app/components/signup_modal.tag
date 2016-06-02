@@ -55,7 +55,7 @@
 	this.on('mount', function(){
 		self.stayUpdated = false
 
-		$('#signupModal').on('show.bs.modal', function() {
+		$('#signupModal').on('shown.bs.modal', function() {
 	    	self.track()
 	    	$('body').css('overflow', 'hidden')
         	$('body').css('position', 'fixed')
