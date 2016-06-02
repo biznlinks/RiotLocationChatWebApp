@@ -46,7 +46,7 @@
 		</div>
 
 		<div class="tab-content">
-			<posts name="postList" if={ postTab }></posts>
+			<posts name="postList" if={ postTab } profile={ true }></posts>
 			<ansprofile name="replyList" if={ !postTab }></ansprofile>
 		</div>
 	</div>

@@ -1,5 +1,9 @@
 <ansprofile>
 
+	<div if={ replies.length == 0 } class="zero-post">
+		No replies yet
+	</div>
+
 	<div class="card pointer" each={ reply in replies } onclick={ this.gotoPost(reply) }>
 		<div class="card-block">
 			<p class="post-content text-muted">{ reply.get('post').get('content') }</p>
@@ -25,6 +29,14 @@
 <style scoped>
 	.card-block {
     	padding: 0.9rem;
+	}
+
+	.zero-post {
+		padding-top: 150px;
+		text-align: center;
+		font-size: 30px;
+		font-weight: 600;
+		color: #bbb;
 	}
 
 	.reply-content {
