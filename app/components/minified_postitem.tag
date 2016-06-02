@@ -289,7 +289,7 @@
     	overflow: hidden;
 	}
 	.infodiv{
-		     padding: 0px;
+		padding: 0px;
 	}
 
 	.align-left {
