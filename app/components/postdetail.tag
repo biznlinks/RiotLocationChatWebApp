@@ -1,11 +1,13 @@
 <postDetail>
 
+<div class="detail-container">
 	<posts name="post"></posts>
 
 	<div class="related-container">
 		<div class="related-text">Related Posts</div>
 		<miniposts class="related-posts" name="minifiedPosts"></miniposts>
 	</div>
+</div>
 
 	<script>
 		var self = this
@@ -15,17 +17,24 @@
 		this.post = {}
 
 		this.on('mount', function() {
+			self.init()
+		})
+
+		init() {
 			if (self.postid){
 				API.getDetailsForPost(self.postid).then(function(content){
 					self.post = content.post
 					self.tags.post.update({posts: [self.post], loading:false})
+					$(document).scrollTop(0)
+					self.update()
 				})
 
 				API.getallposts(3).then(function(results){
 					self.tags.minifiedPosts.update({posts:results, loading:false, author:false})
+					self.update()
 				})
 			}
-		})
+		}
 
 		getTopicImage(){
 			var image = self.topicImage
@@ -54,6 +63,11 @@ getPostContent(){
 	.card-img-top{
 		width: 100%;
 	}
+
+	.detail-container {
+		margin-top: -6px;
+	}
+
 	.profile {
 		width: 40px;
 		height: 40px;
