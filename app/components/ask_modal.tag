@@ -66,7 +66,10 @@
 
     this.on('mount', function(){
       $('#askModal').on('shown.bs.modal', function() {
-        $('#searchField').focus()
+        if ($(window).width() >= 544) {
+         $('#searchField').focus()
+        }
+
         if (Parse.User.current().get('type') == 'dummy') self.loggedIn = false
         else self.loggedIn = true
 
