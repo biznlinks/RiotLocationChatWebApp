@@ -67,7 +67,9 @@
     this.on('mount', function(){
       $('#askModal').on('shown.bs.modal', function() {
         if ($(window).width() >= 544) {
-         $('#searchField').focus()
+          $('#searchField').focus()
+        } else {
+          $('#postBar').blur()
         }
 
         if (Parse.User.current().get('type') == 'dummy') self.loggedIn = false

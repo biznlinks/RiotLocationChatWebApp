@@ -2,7 +2,7 @@
 
 <div class="input-group search-container">
 	<div class="icon-container input-group-addon pointer"><img src={ API.getCurrentUserProfilePicture() } class="profile-icon img-circle"></div>
-	<textarea name="postBar" id="searchField" onclick={ showAskModal } placeholder="What's happening?" class="searchbox form-control" rows="1"></textarea>
+	<textarea name="postBar" id="postBar" onclick={ showAskModal } placeholder="What's happening?" class="searchbox form-control" rows="1"></textarea>
 </div>
 
 <script>
@@ -29,7 +29,7 @@
 </script>
 
 <style scoped>
-	#searchField{
+	#postBar{
         overflow:hidden;
         resize: none;
         text-align: left;
