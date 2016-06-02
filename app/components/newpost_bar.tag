@@ -2,7 +2,7 @@
 
 <div class="input-group search-container">
 	<div class="icon-container input-group-addon pointer"><img src={ API.getCurrentUserProfilePicture() } class="profile-icon img-circle"></div>
-	<textarea name="postBar" id="postBar" onclick={ showAskModal } placeholder="What's happening?" class="searchbox form-control" rows="1"></textarea>
+	<div name="postBar" id="postBar" onclick={ showAskModal } class="text-muted form-control">What's happenning?</div>
 </div>
 
 <script>

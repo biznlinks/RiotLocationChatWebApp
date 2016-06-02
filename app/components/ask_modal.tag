@@ -70,7 +70,6 @@
           $('#searchField').focus()
         } else {
           $('#searchField').blur()
-          $('#postBar').blur()
         }
 
         if (Parse.User.current().get('type') == 'dummy') self.loggedIn = false
