@@ -31,6 +31,8 @@
 					self.update()
 				})
 			}
+
+			$(document).scrollTop(0)
 		}
 
 		getTopicImage(){
