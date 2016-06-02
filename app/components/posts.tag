@@ -3,7 +3,7 @@
 		<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...
 	</div>
 	<div if={this.posts.length==0 } class="zero-post">
-		0 posts for this topic.
+		Be the first to post
 	</div>
 	<div if={ !loading }>
 		<div class="postitem" each={ post in posts }>
@@ -34,7 +34,11 @@
 		}
 
 		.zero-post {
-			padding-left: 10px;
+			padding-top: 150px;
+			text-align: center;
+			font-size: 30px;
+			font-weight: 600;
+			color: #bbb;
 		}
 
 
