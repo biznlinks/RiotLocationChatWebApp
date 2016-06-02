@@ -73,6 +73,9 @@
         if (self.parent.route == "topicsfeed")
           self.topic = topicsfeedtag.topicName
 
+        $('body').css('overflow', 'hidden')
+        $('body').css('position', 'fixed')
+
         self.update()
       })
       $('#askModal').on('hidden.bs.modal', function() {
@@ -81,6 +84,9 @@
         self.loading      = false
         self.question     = ""
         self.handle.value = ""
+
+        $('body').css('overflow', 'scroll')
+        $('body').css('position', 'relative')
       })
     })
 

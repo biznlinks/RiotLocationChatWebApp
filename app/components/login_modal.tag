@@ -60,6 +60,9 @@
 	this.on('mount', function(){
 		$('#loginModal').on('show.bs.modal', function() {
 	    	self.track()
+
+	    	$('body').css('overflow', 'hidden')
+        	$('body').css('position', 'fixed')
 		})
 
 		$('#loginModal').on('hidden.bs.modal', function () {
@@ -67,6 +70,10 @@
 			self.error          = ""
 			self.email.value    = ""
 			self.password.value = ""
+
+			$('body').css('overflow', 'scroll')
+        	$('body').css('position', 'relative')
+
 			self.update()
 		})
 	})

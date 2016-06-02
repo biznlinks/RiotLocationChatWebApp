@@ -57,6 +57,8 @@
 
 		$('#signupModal').on('show.bs.modal', function() {
 	    	self.track()
+	    	$('body').css('overflow', 'hidden')
+        	$('body').css('position', 'fixed')
 		})
 
 		$('#signupModal').on('hidden.bs.modal', function () {
@@ -66,6 +68,10 @@
 			self.password.value = ""
 			self.fullname.value = ""
 			self.stayUpdated    = false
+
+			$('body').css('overflow', 'scroll')
+        	$('body').css('position', 'relative')
+
 			self.update()
 		})
 	})

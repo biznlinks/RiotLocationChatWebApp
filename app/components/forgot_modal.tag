@@ -40,10 +40,18 @@
 	self.error   = ""
 
 	this.on('mount', function() {
+		$('#forgotModal').on('shown.bs.modal', function() {
+			$('body').css('overflow', 'hidden')
+        	$('body').css('position', 'fixed')
+		})
 		$('#forgotModal').on('hidden.bs.modal', function () {
 			self.isError     = false
 			self.error       = ""
 			self.email.value = ""
+
+			$('body').css('overflow', 'scroll')
+        	$('body').css('position', 'relative')
+
 			self.update()
 		})
 	})
