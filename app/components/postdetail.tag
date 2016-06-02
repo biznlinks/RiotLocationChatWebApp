@@ -15,17 +15,23 @@
 		this.post = {}
 
 		this.on('mount', function() {
+			self.init()
+		})
+
+		init() {
 			if (self.postid){
 				API.getDetailsForPost(self.postid).then(function(content){
 					self.post = content.post
 					self.tags.post.update({posts: [self.post], loading:false})
+					self.update()
 				})
 
 				API.getallposts(3).then(function(results){
 					self.tags.minifiedPosts.update({posts:results, loading:false, author:false})
+					self.update()
 				})
 			}
-		})
+		}
 
 		getTopicImage(){
 			var image = self.topicImage

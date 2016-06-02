@@ -27,18 +27,18 @@
 		</div>
 	</div>
 
-	<div class="row event-container">
+	<!-- <div class="row event-container">
 			<div class="event-info text-center col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
 					<div class="event-title">ICTD 2016</div>
 					<div class="event-description" if={ open }>
 						{containerTag.group.get('description')}
 					</div>
-					<!-- <div class="arrow pointer" onclick={ this.toggleOpen }>
+					<div class="arrow pointer" onclick={ this.toggleOpen }>
 						<div if={ open }><i class="fa fa-angle-up"></i></div>
 						<div if={ !open }><i class="fa fa-angle-down"></i></div>
-					</div> -->
+					</div>
 			</div>
-	</div>
+	</div> -->
 </div>
 
 <script>

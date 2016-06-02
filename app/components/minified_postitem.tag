@@ -176,7 +176,7 @@
 	}
 
 	goToPost(){
-		if (window.location.href.indexOf("/post/") == -1) {
+		if (window.location.href.indexOf("/post/" + self.post.id) == -1) {
 			var routeTo = '/post/' + self.post.id
 			riot.route(routeTo)
 			self.update()
@@ -304,41 +304,6 @@
 
 	.reply-container  hr{
 		margin: 0;
-	}
-
-	.answer-icon-container {
-		background-color: #FFFFFF;
-		border-right: 0;
-	}
-
-	.answer-icon {
-		width: 25px;
-		height: 25px;
-	}
-
-	.form-control {
-		padding: .8rem;
-		border: none;
-	}
-
-	.input-group {
-		padding: 0px;
-	}
-
-	.input-group-addon {
-		padding: .375rem;
-		padding-left: .8rem;
-		border: none;
-	}
-
-	textarea {
-		width: 100%;
-		font-size: large;
-		resize: none;
-		-webkit-border-radius: 5px;
-    	-moz-border-radius: 5px;
-    	border-radius: 5px;
-    	border: none;
 	}
 
 	@media (min-width: 480px) {

@@ -81,7 +81,7 @@
       self.tags.feed.init()
     }
     function postdetail(id) {
-      self.tags.postdetail.unmount()
+      //self.tags.postdetail.unmount()
       self.track('postdetail')
       self.update({
         title: "SOPHUS",
@@ -89,7 +89,9 @@
         selectedId: id,
         route: "postdetail"
       })
-      riot.mount('postdetail', {postid: id})
+      self.tags.postdetail.update({postid: id})
+      self.tags.postdetail.init()
+      //riot.mount('postdetail', {postid: id})
     }
     function topics() {
       self.track('topics')
