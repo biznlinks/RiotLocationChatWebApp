@@ -157,7 +157,7 @@ getallposts: function(limit){
   loader.trigger('start');
   var promise = new Parse.Promise();
   var query = new Parse.Query(Post);
-  query.descending('createdAt');
+  query.descending('updatedAt');
   query.include('author');
   query.limit(limit);
   query.find().then(function(results) {
