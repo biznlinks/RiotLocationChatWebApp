@@ -2,7 +2,7 @@
 
 <div>
 	<div class="info">
-		<img class="profile-pic img-circle" src="{ this.getProfilePic() }">
+		<img class="profile-pic img-circle" src="{ API.getCurrentUserProfilePicture() }">
 		<div class="detail inline">
 			<div if={ !edit }>
 				<div class="name">{ this.getFullname() }</div>
