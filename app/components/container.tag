@@ -37,6 +37,7 @@
         <topics if={ route=="schedule" }></topics>
         <postdetail if={ route=="postdetail" }></postdetail>
         <profile name="profile" if={ route=="profile" }></profile>
+        <groups name="groups" if={ route=="groups" }></groups>
       </div>
 
       <topicsfeed if={ route=="topicsfeed" }></topicsfeed>
@@ -68,6 +69,7 @@
     r('schedule',  topics )
     r('schedule/*', topicsfeed)
     r('profile', profile)
+    r('groups',  localgroups)
     r(           home       ) // `notfound` would be nicer!
 
     function home() {
@@ -122,6 +124,15 @@
         body: "",
         selectedId: null,
         route: "profile"
+      })
+    }
+    function localgroups() {
+      self.track('localgroups')
+      self.update({
+        title: "GROUPS",
+        body: "",
+        selectedId: null,
+        route: "groups"
       })
     }
 

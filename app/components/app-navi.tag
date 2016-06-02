@@ -9,10 +9,10 @@
 
     <ul class="nav navbar-nav pull-xs-right">
       <li class={ nav-item: true, active: parent.selectedId === url }>
-        <a class="nav-icon nav-link" href="" onclick={ this.showSearch }><i class="fa fa-search fa-4"></i></a>
+        <a class="nav-icon nav-link" onclick={ this.showSearch }><i class="fa fa-search fa-4"></i></a>
       </li>
       <li class={ nav-item: true, active: parent.selectedId === url }>
-        <a class="nav-icon nav-link" href="/schedule"><i class="fa fa-calendar fa-4"></i></a>
+        <a class="nav-icon nav-link" onclick={ this.gotoSchedule }><i class="fa fa-calendar fa-4"></i></a>
       </li>
 
       <li class={ nav-item: true } onclick={ this.update }>
@@ -90,14 +90,20 @@
     $('#searchModal').modal('show')
   }
 
+  gotoSchedule() {
+    riot.route('schedule')
+    self.update()
+  }
+
   gotoProfile() {
-    riot.route('/profile')
+    riot.route('profile')
+    self.update()
   }
 
   logout() {
     Parse.User.logOut()
     self.update()
-    riot.route('/')
+    riot.route('')
     window.location.reload()
   }
 </script>

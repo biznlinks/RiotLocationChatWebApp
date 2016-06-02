@@ -218,14 +218,14 @@
 
 	goToPost(){
 		if (window.location.href.indexOf("/post/") == -1) {
-			var routeTo = '/post/' + self.post.id
+			var routeTo = 'post/' + self.post.id
 			riot.route(routeTo)
 			self.update()
 		}
 	}
 
 	gotoTopic() {
-		var routeTo = '/schedule/' + encodeURI(self.post.get('topic'))
+		var routeTo = 'schedule/' + encodeURI(self.post.get('topic'))
 		riot.route(routeTo)
 		self.update()
 	}

@@ -34,7 +34,7 @@
 
             <div class="col-xs-9 col-sm-12 post-container">
               <div class="info-btns">
-                <textarea rows="3" autofocus id="searchField" name="searchField" placeholder="Post about ICTD" class="searchbox">{question}</textarea>
+                <textarea rows="3" id="searchField" name="searchField" placeholder="Post about ICTD" class="searchbox">{question}</textarea>
                 <div class="text-muted" id="topic" if={ topic!='' }>#{topic}</div>
 
               </div>
@@ -66,7 +66,10 @@
 
     this.on('mount', function(){
       $('#askModal').on('shown.bs.modal', function() {
-        $('#searchField').focus()
+        if ($(window).width() >= 544) {
+          $('#searchField').focus()
+        }
+
         if (Parse.User.current().get('type') == 'dummy') self.loggedIn = false
         else self.loggedIn = true
 

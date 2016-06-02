@@ -130,7 +130,7 @@
 		self.init()
 		$('#searchModal').modal('hide')
 
-		var to = "/post/"+ postId
+		var to = "post/"+ postId
 		riot.route(to)
 	}
 

@@ -182,6 +182,34 @@ constructQuestionsForTopic: function(topic){
   });
 
   return promise;
+},
+getallgroups: function() {
+  loader.trigger('start');
+  var promise = new Parse.Promise();
+  var query = new Parse.Query(Parse.Object.extend('Group'));
+  query.equalTo("type", "group");
+  query.find().then(function(results) {
+    loader.trigger('done');
+    promise.resolve(results);
+  },
+  function(err) {
+    console.error("failed to query groups: " + JSON.stringify(err));
+  });
+  return promise;
+},
+getallevents: function() {
+  loader.trigger('start');
+  var promise = new Parse.Promise();
+  var query = new Parse.Query(Parse.Object.extend('Group'));
+  query.equalTo("type", "event");
+  query.find().then(function(results) {
+    loader.trigger('done');
+    promise.resolve(results);
+  },
+  function(err) {
+    console.error("failed to query groups: " + JSON.stringify(err));
+  });
+  return promise;
 }
 
 };

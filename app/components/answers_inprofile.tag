@@ -15,7 +15,7 @@
 
 	gotoPost(reply) {
 		return function(e) {
-			var routeTo = '/post/' + reply.get('post').id
+			var routeTo = 'post/' + reply.get('post').id
 			riot.route(routeTo)
 			self.update()
 		}

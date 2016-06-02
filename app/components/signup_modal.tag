@@ -96,7 +96,7 @@
 			user.set("type", "actual")
 			user.save(null, {
 				success: function(user) {
-					riot.route('/')
+					riot.route('')
     				window.location.reload()
 				},
 				error: function(user, error) {
@@ -158,7 +158,7 @@
 			Parse.FacebookUtils.logIn('public_profile, email, user_friends', {
 				success: function(user) {
 					if (user.existed()) {
-						riot.route('/')
+						riot.route('')
 						window.location.reload()
 					} else {
 						FB.api('/me?fields=first_name, last_name, picture, email, friends', function(response) {
@@ -172,7 +172,7 @@
 							Parse.User.current().set('type', 'actual')
 							Parse.User.current().save(null, {
 								success: function(user) {
-									riot.route('/')
+									riot.route('')
 		    						window.location.reload()
 								},
 								error: function(user, error) {
