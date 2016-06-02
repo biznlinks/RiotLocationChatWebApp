@@ -19,11 +19,11 @@
 		})
 
 		init() {
-			$(document).scrollTop(0)
 			if (self.postid){
 				API.getDetailsForPost(self.postid).then(function(content){
 					self.post = content.post
 					self.tags.post.update({posts: [self.post], loading:false})
+					$(document).scrollTop(0)
 					self.update()
 				})
 
