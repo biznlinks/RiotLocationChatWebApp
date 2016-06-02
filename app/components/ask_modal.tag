@@ -69,6 +69,7 @@
         if ($(window).width() >= 544) {
           $('#searchField').focus()
         } else {
+          $('#searchField').blur()
           $('#postBar').blur()
         }
 
