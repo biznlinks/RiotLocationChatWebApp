@@ -1,11 +1,13 @@
 <postDetail>
 
+<div class="detail-container">
 	<posts name="post"></posts>
 
 	<div class="related-container">
 		<div class="related-text">Related Posts</div>
 		<miniposts class="related-posts" name="minifiedPosts"></miniposts>
 	</div>
+</div>
 
 	<script>
 		var self = this
@@ -61,6 +63,11 @@ getPostContent(){
 	.card-img-top{
 		width: 100%;
 	}
+
+	.detail-container {
+		margin-top: -6px;
+	}
+
 	.profile {
 		width: 40px;
 		height: 40px;
