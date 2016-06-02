@@ -19,6 +19,7 @@
 		})
 
 		init() {
+			$(document).scrollTop(0)
 			if (self.postid){
 				API.getDetailsForPost(self.postid).then(function(content){
 					self.post = content.post
@@ -31,8 +32,6 @@
 					self.update()
 				})
 			}
-
-			$(document).scrollTop(0)
 		}
 
 		getTopicImage(){
