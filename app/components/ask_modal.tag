@@ -20,7 +20,7 @@
         <div if={!loading} class="modal-body">
 
           <div class="row">
-            <div class="profile-container col-xs-3 col-sm-12">
+            <div class="profile-container">
               <img class="profile-image img-circle pointer" if={ !anonymous } src={ API.getCurrentUserProfilePicture() } onclick={ this.toggleAnonymous }>
               <img class="profile-image img-circle pointer" if={ anonymous } src="/images/default_profile.png" onclick={ this.toggleAnonymous } >
               <div class="user-name text-muted" if={ !loggedIn }>
@@ -32,7 +32,7 @@
               <div class="user-name text-muted" if={ loggedIn && !anonymous }>{ Parse.User.current().get('firstName') } { Parse.User.current().get('lastName') }</div>
             </div>
 
-            <div class="col-xs-9 col-sm-12 post-container">
+            <div class="post-container">
               <div class="info-btns">
                 <textarea rows="3" autofocus id="searchField" name="searchField" placeholder="Post about ICTD" class="searchbox">{question}</textarea>
                 <div class="text-muted" id="topic" if={ topic!='' }>#{topic}</div>
@@ -235,6 +235,7 @@
       border: none;
       border-bottom: 1px solid #BBBBBB;
       background-color: #F5F5F5;
+      text-align: center;
     }
 
     .handle:focus {
@@ -278,9 +279,6 @@
       .searchbox {
         font-size: 24px;
       }
-      .handle {
-        text-align: center;
-      }
     }
 
     @media screen and (max-width: 543px) {
@@ -299,9 +297,6 @@
       }
       .searchbox {
         font-size: 20px;
-      }
-      .handle {
-        text-align: left;
       }
     }
   </style>
