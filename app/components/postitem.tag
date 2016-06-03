@@ -56,7 +56,7 @@
 
 		<div class="reply-container">
 			<hr/>
-			<div class="card-block input-group">
+			<div class="form-container card-block input-group">
 				<div class="input-group-addon answer-icon-container pointer" onclick={ this.toggleAnonymous }>
 					<img src={ API.getCurrentUserProfilePicture() } class="answer-icon img-circle" if={ !anonymous }>
 					<img src="/images/default_profile.png" class="answer-icon img-circle" if={ anonymous }>
@@ -338,6 +338,10 @@
 	.align-right {
 		text-align: right;
 		white-space: nowrap;
+	}
+
+	.reply-container {
+		padding-left: .45rem;
 	}
 
 	.reply-container  hr{

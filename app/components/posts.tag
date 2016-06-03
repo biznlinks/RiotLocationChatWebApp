@@ -2,8 +2,12 @@
 	<div if={loading}>
 		<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...
 	</div>
-	<div if={this.posts.length==0 } class="zero-post">
+	<div if={this.posts.length==0 && profile!=true} class="zero-post">
 		Be the first to post
+	</div>
+	<div if={this.posts.length==0 && profile==true} class="zero-post">
+		No posts yet
+	</div>
 	</div>
 	<div if={ !loading }>
 		<div class="postitem" each={ post in posts }>
@@ -15,6 +19,7 @@
 	<script>
 		var self = this
 		postsTag = this
+		self.profile = opts.profile
 		this.posts = opts.posts
 		this.postsVisible = true
 		this.loading = false

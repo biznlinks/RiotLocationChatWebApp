@@ -1,7 +1,7 @@
 <banner>
 
 <div class="banner-container">
-	<div class="row" align="center">
+	<div class="" align="center">
 		<div class="timer-container text-center">
 			<div class="timer-background" if={ !live }>
 				<div class="timer" name="timer">
@@ -23,6 +23,12 @@
 				<div class="live-session pointer" onclick={ this.gotoTopic }>
 					{liveSession.title}
 				</div>
+			</div>
+
+		</div>
+		<div class="most-active-container">
+			<div each={ user in mostActive } class="most-active">
+				<img src={ API.getProfilePicture(user) } class="img-circle most-active-picture">
 			</div>
 		</div>
 	</div>
@@ -66,6 +72,11 @@
 			self.live = true
 			self.update()
 		}
+
+		API.getMostActiveUsers(5).then(function(results) {
+			self.mostActive = results
+			self.update()
+		})
 	})
 
 	setRemainingTime(deadline) {
@@ -128,7 +139,7 @@
 
 	.timer-container {
 		background-image: url('/images/annarbor.jpg');
-		height: 220px;
+		height: 270px;
 		background-size: cover;
     	background-repeat: no-repeat;
     	background-position: 50% 50%;
@@ -186,10 +197,28 @@
 		color: white;
 		font-size: xx-large;
 		margin-top: 10px;
+		line-height: 1.3;
 	}
 
 	.fa-star {
 		margin-right: 0.75rem;
+	}
+
+	.most-active-container {
+		margin: 0 auto;
+		margin-top: -40px;
+		/*float: right;*/
+	}
+
+	.most-active {
+		margin-right: 10px;
+		display: inline-block;
+	}
+
+	.most-active-picture {
+		width: 35px;
+		height: 35px;
+		border: 2px solid white;
 	}
 
 	.event-container {

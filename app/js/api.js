@@ -157,7 +157,7 @@ getallposts: function(limit){
   loader.trigger('start');
   var promise = new Parse.Promise();
   var query = new Parse.Query(Post);
-  query.descending('createdAt');
+  query.descending('updatedAt');
   query.include('author');
   query.limit(limit);
   query.find().then(function(results) {
@@ -243,6 +243,20 @@ comparedistance: function(groupA, groupB) {
   if (distance(groupA.get('location'), USER_POSITION) > distance(groupB.get('location'), USER_POSITION)) return 1;
   else if (distance(groupA.get('location'), USER_POSITION) < distance(groupB.get('location'), USER_POSITION)) return -1;
   else return 0;
+},
+getMostActiveUsers: function(limit) {
+  limit = limit || 5;
+  var promise = new Parse.Promise();
+  var query = new Parse.Query(Parse.Object.extend('User'));
+  query.descending('score');
+  query.limit(limit);
+  query.find().then(function(results) {
+    promise.resolve(results);
+  },
+  function(err) {
+    console.error("failed to query most active users: " + JSON.stringify(err));
+  });
+  return promise;
 }
 
 };
