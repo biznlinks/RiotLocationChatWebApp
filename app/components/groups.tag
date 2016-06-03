@@ -92,9 +92,13 @@
 		font-size: large;
 		padding: 7px 0;
 		width: 100%;
-		-webkit-border-radius: 15px;
-    	-moz-border-radius: 15px;
-    	border-radius: 15px;
+		-webkit-border-radius: 25px;
+    	-moz-border-radius: 25px;
+    	border-radius: 25px;
+	}
+
+	.search-groups:focus {
+		outline: none;
 	}
 
 	.groups-container {
