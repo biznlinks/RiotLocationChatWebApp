@@ -4,7 +4,7 @@
     <path fill="#FFFFFF" d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"></path>
   </svg>
 </button>
-<!-- 
+<!--
 <div class="input-group search-container">
   <div class="icon-container input-group-addon pointer"><img src={ API.getCurrentUserProfilePicture() } class="profile-icon img-circle"></div>
   <textarea name="postBar" id="searchField" onclick={ showAskModal } placeholder="What's happening?" class="searchbox form-control" rows="1"></textarea>
@@ -17,20 +17,6 @@
   showAskModal() {
     $('#askModal').modal('show')
   }
-
-  getUserProfilePic() {
-    if (self.anonymous && Parse.User.current().get('type') == 'actual') {
-     return 'https://files.parsetfss.com/135e5227-e041-4147-8248-a5eafaf852ef/tfss-6f1e964e-d7fc-4750-8ffb-43d5a76b136e-kangdo@umich.edu.png'
-     self.update()
-   }
-
-   var user       = Parse.User.current()
-   var profilePic = user.get('profileImageURL')
-   if (profilePic){
-     return profilePic
-     self.update()
-   }
- }
 </script>
 
 <style scoped>
