@@ -34,7 +34,7 @@
     <div class="row">
       <div class="main col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2 text-center">
         <feed if={ route=="posts" }></feed>
-        <topics if={ route=="schedule" }></topics>
+        <topics if={ route=="schedule" || route=="live" }></topics>
         <postdetail if={ route=="postdetail" }></postdetail>
         <profile name="profile" if={ route=="profile" }></profile>
       </div>
@@ -65,6 +65,7 @@
     r('post',   home      )
     r('post/*', postdetail)
     r('topics',  topics )
+    r('live/*',  live )
     r('schedule',  topics )
     r('schedule/*', topicsfeed)
     r('profile', profile)
@@ -101,6 +102,17 @@
         selectedId: null,
         route: "schedule"
       })
+       self.tags.topics.init()
+    }
+    function live(id) {
+      self.track('live')
+      self.update({
+        title: "LIVE",
+        body: "",
+        selectedId: null,
+        route: "live"
+      })
+      self.tags.topics.live(id)
     }
     function topicsfeed(id) {
       self.tags.topicsfeed.unmount()

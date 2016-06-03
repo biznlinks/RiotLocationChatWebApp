@@ -2,7 +2,7 @@
 	<div class="card">
 		<div class="card-block topic-title-container">
 			<p class="card-title"><strong>{topicName}</strong></p>
-			<p class="card-text">{talk.authors}</p>
+			<!-- <p class="card-text">{talk.authors}</p> -->
 			<!-- <p class="card-text"><small class="text-muted">{postCount} questions for this topic</small></p> -->
 
 

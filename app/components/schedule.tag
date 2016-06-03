@@ -43,6 +43,10 @@
 		}
 
 		this.on('mount', function() {
+			self.init()
+		})
+
+		init(){
 			self.schedule = containerTag.group.get('details').schedule
 
 			self.days = _.uniq(_.pluck(self.schedule.sessions, 'day'))
@@ -51,10 +55,10 @@
 
 			self.updateSessionsForActiveDay()
 
-
 			// Date(topicstag.schedule.sessions[0].starttime)
 			self.update()
-		})
+
+		}
 
 		updateSessionsForActiveDay(){
 			self.sessions = _.filter(self.schedule.sessions, function(session){
@@ -62,6 +66,15 @@
 					return true
 			})
 
+		}
+
+		live(id){
+			self.sessions = _.filter(self.schedule.sessions, function(session){
+				if (session.title=== decodeURI(id))
+					return true
+			})
+			self.days = _.uniq(_.pluck(self.sessions, 'day'))
+			self.update()
 		}
 
 		showTopic(e){
