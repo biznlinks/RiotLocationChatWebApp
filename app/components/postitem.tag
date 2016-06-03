@@ -128,6 +128,7 @@
 		var regex = /(https?:\/\/([-\w\.]+)+(:\d+)?(\/([\w\/_\.]*(\?\S+)?)?)?)/ig
 		var replacedContent = content.replace(regex, "<a href='$1' target='_blank'>$1</a>")
 		self.content.innerHTML = replacedContent
+		return self.post.get('content')
 	}
 
 	submitWannaknow(){
@@ -227,7 +228,7 @@
 		var el = e.target || e.srcElement;
 		
 		if (el.nodeName === 'A') {
-			window.location(el.href, '_blank');
+			window.open(el.href, '_blank');
 			el.click()
 		}
 		else {
