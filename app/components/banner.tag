@@ -216,8 +216,9 @@
 	}
 
 	.most-active-picture {
-		width: 30px;
-		height: 30px;
+		width: 35px;
+		height: 35px;
+		border: 2px solid white;
 	}
 
 	.event-container {
