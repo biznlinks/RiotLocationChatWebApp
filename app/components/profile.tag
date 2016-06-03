@@ -4,7 +4,7 @@
 	<div class="info">
 		<div class="row">
 			<img class="profile-pic img-circle col-sm-3 col-xs-3" src="{ API.getCurrentUserProfilePicture() }">
-			<div class="detail inline col-sm-9 col-xs-9">
+			<div class="detail inline col-sm-8 col-xs-8">
 				<div if={ !edit }>
 					<div class="name">{ this.getFullname() }</div>
 					<div class="score"><img src="/images/cup.png" id="cup">{ this.getScore() }</div>
@@ -165,7 +165,7 @@
 
 	.name {
 		color: #616161;
-		font-size: xx-large;
+		font-size: x-large;
 	}
 
 	.profile-pic {
@@ -187,7 +187,7 @@
 	}
 
 	#name {
-		font-size: xx-large;
+		font-size: x-large;
 	}
 
 	#about {
