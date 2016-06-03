@@ -31,6 +31,9 @@
             <li class="dropdown-item" if={ !signupAvail } onclick={ this.logout }>
               <a class="nav-link" href="#">Logout</a>
             </li>
+            <li class="dropdown-item"  } onclick={ this.sendfeedback }>
+              <a class="nav-link" href="#">Feedback</a>
+            </li>
           </ul>
         </div>
       </li>
@@ -61,6 +64,10 @@
   function highlightCurrent(id) {
     self.selectedId = id
     self.update()
+  }
+
+  sendfeedback(){
+    window.location.href = "mailto:team@sophusapp.com"
   }
 
   this.on('update', function() {
