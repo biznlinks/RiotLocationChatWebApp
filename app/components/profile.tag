@@ -2,29 +2,31 @@
 
 <div>
 	<div class="info">
-		<img class="profile-pic img-circle" src="{ API.getCurrentUserProfilePicture() }">
-		<div class="detail inline">
-			<div if={ !edit }>
-				<div class="name">{ this.getFullname() }</div>
-				<div class="score"><img src="/images/cup.png" id="cup">{ this.getScore() }</div>
-				<div class="about info-item">{ Parse.User.current().get('about') }</div>
+		<div class="row">
+			<img class="profile-pic img-circle col-sm-3 col-xs-3" src="{ API.getCurrentUserProfilePicture() }">
+			<div class="detail inline col-sm-9 col-xs-9">
+				<div if={ !edit }>
+					<div class="name">{ this.getFullname() }</div>
+					<div class="score"><img src="/images/cup.png" id="cup">{ this.getScore() }</div>
+					<div class="about info-item">{ Parse.User.current().get('about') }</div>
 
-				<div class="info-item">
-					<button class="btn btn-sm" onclick={ this.toggleEdit }>Edit Profile</button>
+					<div class="info-item">
+						<button class="btn btn-sm" onclick={ this.toggleEdit }>Edit Profile</button>
+					</div>
 				</div>
-			</div>
 
-			<div if={ edit }>
-				<form>
-					<div class="form-group">
-						<input name="name" type="text" class="form-control" id="name" placeholder="What's your name?">
-					</div>
-					<div class="form-group">
-						<input name="about" type="text" class="form-control" id="about" placeholder="Tell us something about yourself">
-					</div>
-					<button class="fa fa-check btn btn-success btn-sm" onclick={ this.submitEdit }></button>
-					<button class="fa fa-close btn btn-warning btn-sm" onclick={ this.toggleEdit }></button>
-				</form>
+				<div if={ edit }>
+					<form>
+						<div class="form-group">
+							<input name="name" type="text" class="form-control" id="name" placeholder="What's your name?">
+						</div>
+						<div class="form-group">
+							<input name="about" type="text" class="form-control" id="about" placeholder="Tell us something about yourself">
+						</div>
+						<button class="fa fa-check btn btn-success btn-sm" onclick={ this.submitEdit }></button>
+						<button class="fa fa-close btn btn-warning btn-sm" onclick={ this.toggleEdit }></button>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -161,20 +163,13 @@
 
 <style scoped>
 
-	.detail {
-		margin-left: 2vw;
-		width: 40vw;
-	}
-
 	.name {
 		color: #616161;
 		font-size: xx-large;
 	}
 
 	.profile-pic {
-		width: 15vw;
-		height: 15vw;
-		vertical-align: top;
+		margin-top: 10px;
 	}
 
 	.info-item {
@@ -232,6 +227,20 @@
 		-moz-user-select: none;
 		-ms-user-select: none;
 		user-select: none;
+	}
+
+	@media screen and (max-width: 543px) {
+		.profile-pic {
+			width: 80px;
+			height: 50px;
+		}
+	}
+
+	@media screen and (min-width: 544px) {
+		.profile-pic {
+			width: 130px;
+			height: 100px;
+		}
 	}
 
 </style>
