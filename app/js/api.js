@@ -190,6 +190,7 @@ getallgroups: function() {
   query.equalTo("type", "group");
   query.find().then(function(results) {
     loader.trigger('done');
+    results.sort(API.comparedistance);
     promise.resolve(results);
   },
   function(err) {
@@ -204,12 +205,44 @@ getallevents: function() {
   query.equalTo("type", "event");
   query.find().then(function(results) {
     loader.trigger('done');
+    results.sort(API.comparedistance);
     promise.resolve(results);
   },
   function(err) {
     console.error("failed to query groups: " + JSON.stringify(err));
   });
   return promise;
+},
+getusercity: function(userlocation) {
+  var promise = new Parse.Promise();
+  var geocoder = new google.maps.Geocoder;
+  userlocation = {lat: userlocation.latitude, lng: userlocation.longitude};
+  geocoder.geocode({'location': userlocation}, function(results, status) {
+    if (status === google.maps.GeocoderStatus.OK) {
+      for (var i = 0; i < results.length; i++)
+        if (results[i].types[0] == 'locality') {
+          promise.resolve(results[i].address_components[0].long_name);
+        }
+    }
+  });
+  return promise;
+},
+comparedistance: function(groupA, groupB) {
+  var distance = function(p1, p2) {
+    var R = 6371;
+    var dLat = (p2.latitude - p1.latitude) * Math.PI / 180;
+    var dLong = (p2.longitude - p1.longitude) * Math.PI / 180;
+    var lat1 = p1.latitude * Math.PI / 180;
+    var lat2 = p2.latitude * Math.PI / 180;
+
+    var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.sin(dLong/2) * Math.sin(dLong/2) * Math.cos(lat1) * Math.cos(lat2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    return R * c;
+  };
+
+  if (distance(groupA.get('location'), USER_POSITION) > distance(groupB.get('location'), USER_POSITION)) return 1;
+  else if (distance(groupA.get('location'), USER_POSITION) < distance(groupB.get('location'), USER_POSITION)) return -1;
+  else return 0;
 }
 
 };

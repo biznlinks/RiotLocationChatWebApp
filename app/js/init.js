@@ -19,6 +19,21 @@
   })
 })
 
+ if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      USER_POSITION = position.coords;
+      API.getusercity(USER_POSITION).then(function(results) {
+        USER_LOCALE = results;
+      });
+    }, function(error) {
+      $.getJSON("https://intecolab.com:5000/get_ipinfo?callback=?", function(res) {
+        USER_POSITION =  res.loc;
+        USER_LOCALE = res.city;
+      })
+    });
+  } else {
+  }
+
 
 
  if (!Parse.User.current()) {

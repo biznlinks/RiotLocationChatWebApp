@@ -59,6 +59,7 @@
     this.on("mount", function(){
       $('#signupSuccess').hide()
       $('#loginSuccess').hide()
+      //self.requestLocation()
     })
 
     var r = riot.route.create()
@@ -134,6 +135,14 @@
         selectedId: null,
         route: "groups"
       })
+    }
+
+    requestLocation() {
+      if (Navigatior.geolocation) {
+        console.log('enabled')
+      } else {
+        console.log('disabled')
+      }
     }
 
 </script>
