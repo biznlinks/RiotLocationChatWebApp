@@ -31,10 +31,10 @@
     <signupsuccess name="signupSuccess"></signupsuccess>
 
     <banner if={ route=="posts" }></banner>
-    <div class="row">
+    <div class="">
       <div class="main col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2 text-center">
         <feed if={ route=="posts" }></feed>
-        <topics if={ route=="schedule" }></topics>
+        <topics if={ route=="schedule" || route=="live" }></topics>
         <postdetail if={ route=="postdetail" }></postdetail>
         <profile name="profile" if={ route=="profile" }></profile>
       </div>
@@ -65,10 +65,12 @@
     r('post',   home      )
     r('post/*', postdetail)
     r('topics',  topics )
+    r('live/*',  live )
     r('schedule',  topics )
     r('schedule/*', topicsfeed)
     r('profile', profile)
     r(           home       ) // `notfound` would be nicer!
+    r('present', home)
 
     function home() {
       self.track('home')
@@ -101,6 +103,17 @@
         selectedId: null,
         route: "schedule"
       })
+       self.tags.topics.init()
+    }
+    function live(id) {
+      self.track('live')
+      self.update({
+        title: "LIVE",
+        body: "",
+        selectedId: null,
+        route: "live"
+      })
+      self.tags.topics.live(id)
     }
     function topicsfeed(id) {
       self.tags.topicsfeed.unmount()
@@ -135,10 +148,14 @@
 
 
   }
+  
   .main {
-    margin-top: 15px;
     padding-right: 0px;
     padding-left: 0px;
+  }
+
+  .card {
+    border-radius: 0px;
   }
 
   .row {

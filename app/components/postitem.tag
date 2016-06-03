@@ -14,13 +14,13 @@
 					<!-- <h4 class="card-title">{getAuthorName(post)}</h4> -->
 				</div>
 
-				<p class="post-content" name="content">{post.get('content')}</p>
+				<p class="post-content" name="content">{this.getContent()}</p>
 
 
 
 			</div>
 			<!-- <a onclick={this.showSignup}> -->
- 			<div class="pointer row">
+			<div class="pointer row">
 				<div class="col-xs-5 text-muted infodiv">
 					<div class='answercount' if={post.get('answerCount') >= 0} >{post.get('answerCount')} Repl<span if={post.get('answerCount')!=1}>ies</span><span if={ post.get('answerCount') == 1 }>y</span>
 					</div>
@@ -34,10 +34,10 @@
 				</div>
 
 				<div class="col-xs-7 align-right infodiv" onclick={ this.gotoTopic }>
- 					<span class="topic" if={ post.get('topic') }>
- 						{ post.get('topic').slice(0,20) } <span if={ post.get('topic').length > 20 }>...</span>
- 					</span>
- 				</div>
+					<span class="topic" if={ post.get('topic') }>
+						{ post.get('topic').slice(0,20) } <span if={ post.get('topic').length > 20 }>...</span>
+					</span>
+				</div>
 			</div>
 		</div>
 		<hr if={post.get('answerCount')>0}/>
@@ -110,7 +110,7 @@
 			success: function(wannaknows) {
 				if (wannaknows.length > 0)
 					self.wannaknown = true
-					self.update()
+				self.update()
 			},
 			error: function(error) {
 			}
@@ -122,6 +122,13 @@
 			return 'Anonymous'
 		else
 			return this.post.get('author').get('firstName') + ' ' + this.post.get('author').get('lastName')
+	}
+	getContent() {
+		var content = self.post.get('content')
+		var regex = /(https?:\/\/([-\w\.]+)+(:\d+)?(\/([\w\/_\.]*(\?\S+)?)?)?)/ig
+		var replacedContent = content.replace(regex, "<a href='$1' target='_blank'>$1</a>")
+		self.content.innerHTML = replacedContent
+		return self.post.get('content')
 	}
 
 	submitWannaknow(){
@@ -216,12 +223,22 @@
 		self.update()
 	}
 
-	goToPost(){
-		if (window.location.href.indexOf("/post/") == -1) {
-			var routeTo = '/post/' + self.post.id
-			riot.route(routeTo)
-			self.update()
+	goToPost(e){
+		e = e || event;
+		var el = e.target || e.srcElement;
+		
+		if (el.nodeName === 'A') {
+			window.open(el.href, '_blank');
+			el.click()
 		}
+		else {
+			if (window.location.href.indexOf("/post/") == -1) {
+				var routeTo = '/post/' + self.post.id
+				riot.route(routeTo)
+				self.update()
+			}
+		}
+
 	}
 
 	gotoTopic() {
@@ -279,7 +296,7 @@
 	.answercount{
 		display: inline-block;
 		font-size: small;
-	    padding-right: 20px;
+		padding-right: 20px;
 	}
 
 	.comment-input {
@@ -318,16 +335,16 @@
 		color: #787878;
 		padding: 5px;
 		padding-left: 10px;
-    	padding-right: 10px;
+		padding-right: 10px;
 		-webkit-border-radius: 17px;
-    	-moz-border-radius: 17px;
-    	border-radius: 17px;
-    	white-space: nowrap;
-    	text-overflow: ellipsis;
-    	overflow: hidden;
+		-moz-border-radius: 17px;
+		border-radius: 17px;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
 	}
 	.infodiv{
-		     padding: 0px;
+		padding: 0px;
 	}
 
 	.align-left {
@@ -378,9 +395,9 @@
 		font-size: large;
 		resize: none;
 		-webkit-border-radius: 5px;
-    	-moz-border-radius: 5px;
-    	border-radius: 5px;
-    	border: none;
+		-moz-border-radius: 5px;
+		border-radius: 5px;
+		border: none;
 	}
 
 	@media (min-width: 480px) {
