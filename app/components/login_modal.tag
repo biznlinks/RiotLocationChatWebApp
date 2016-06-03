@@ -150,19 +150,19 @@
 		})*/
 
 		Parse.User.logOut().then(function() {
-			Parse.FacebookUtils.logIn('public_profile, email, user_friends', {
+			Parse.FacebookUtils.logIn('public_profile, email', {
 				success: function(user) {
 					if (user.existed()) {
 						riot.route('/')
 						window.location.reload()
 					} else {
-						FB.api('/me?fields=first_name, last_name, picture, email, friends', function(response) {
+						FB.api('/me?fields=first_name, last_name, picture, email', function(response) {
 							Parse.User.current().set('firstName', response.first_name)
 							Parse.User.current().set('lastName', response.last_name)
 							Parse.User.current().set('email', response.email)
 							Parse.User.current().set('username', response.email)
 							Parse.User.current().set('profileImageURL', response.picture.data.url)
-							Parse.User.current().set('friends', response.friends.data)
+							//Parse.User.current().set('friends', response.friends.data)
 							Parse.User.current().set('facebookID', response.id)
 							Parse.User.current().set('type', 'actual')
 							Parse.User.current().save(null, {
