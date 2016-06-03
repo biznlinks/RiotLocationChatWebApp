@@ -182,6 +182,20 @@ constructQuestionsForTopic: function(topic){
   });
 
   return promise;
+},
+getMostActiveUsers: function(limit) {
+  limit = limit || 5;
+  var promise = new Parse.Promise();
+  var query = new Parse.Query(Parse.Object.extend('User'));
+  query.descending('score');
+  query.limit(limit);
+  query.find().then(function(results) {
+    promise.resolve(results);
+  },
+  function(err) {
+    console.error("failed to query most active users: " + JSON.stringify(err));
+  });
+  return promise;
 }
 
 };
