@@ -1,13 +1,14 @@
 <postDetail>
 
-<div class="detail-container">
-	<posts name="post"></posts>
+	<div class="detail-container">
+		<posts name="post"></posts>
+		<hr>
+		<div class="related-container">
+			<div class="related-text">Related Posts</div>
 
-	<div class="related-container">
-		<div class="related-text">Related Posts</div>
-		<miniposts class="related-posts" name="minifiedPosts"></miniposts>
+			<miniposts class="related-posts" name="minifiedPosts"></miniposts>
+		</div>
 	</div>
-</div>
 
 	<script>
 		var self = this
@@ -65,7 +66,7 @@ getPostContent(){
 	}
 
 	.detail-container {
-		margin-top: -6px;
+		margin-top: 15px;
 	}
 
 	.profile {
