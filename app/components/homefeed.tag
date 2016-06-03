@@ -1,6 +1,6 @@
 <feed>
 
-	<div class="">
+	<div class="postfeed">
 		<div>
 			<postbar></postbar>
 		</div>
@@ -14,6 +14,16 @@
 		self.searchFocus = false
 
 		self.postsTag = this.tags.homeFeedPosts
+
+		self.timer = setInterval(function(){ self.reloadTimer() }, 3000);
+
+		reloadTimer() {
+		    API.getallposts(20).then(function(results){
+		    	if (self.postsTag.posts.length!=results.length){
+		    		self.postsTag.update({posts:results, loading:false})
+		    	}
+			})
+		}
 
 		init(){
 			self.postsTag.update({loading:true})
@@ -41,5 +51,8 @@
 
 	</script>
 	<style scoped>
+	.postfeed{
+    margin-top: 15px;
+  }
 	</style>
 </feed>
