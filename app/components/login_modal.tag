@@ -7,8 +7,15 @@
 		<!-- Modal content -->
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Login</h4>
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<div class="facebook-option">
+					<button class="btn btn-default btn-primary" onclick={ this.submitFacebook }>
+						<i class="fa fa-facebook-f" id="facebook-logo"></i> Log in with Facebook
+					</button>
+				</div>
+			</div>
+			<div class="divider">
+				<strong class="divider-title ng-binding">or</strong>
 			</div>
 
 			<div class="modal-body">
@@ -27,11 +34,6 @@
 					<div class="text-warning info" if={ isError }>{ error }</div>
 				</form>
 
-				<div class="facebook-option">
-					<button class="btn btn-default btn-primary" onclick={ this.submitFacebook }>
-						<i class="fa fa-facebook-f" id="facebook-logo"></i> Log in with Facebook
-					</button>
-				</div>
 				<div class="info">
 					or
 					<div class="text-info pointer inline" onclick={ this.showSignup }>Sign Up</div> |
@@ -234,6 +236,27 @@
 	.info {
 		margin-top: 20px;
 		margin-bottom: 10px;
+	}
+
+	.divider {
+	    border-top: 1px solid #d9dadc;
+	    display: block;
+	    line-height: 1px;
+	    margin: 15px 0;
+	    position: relative;
+	    text-align: center;
+	}
+
+	.divider .divider-title {
+	    background: #fff;
+	    font-size: 12px;
+	    letter-spacing: 1px;
+	    padding: 0 20px;
+	    text-transform: uppercase;
+	}
+
+	.modal-header{
+		border-bottom:0px; 
 	}
 </style>
 
