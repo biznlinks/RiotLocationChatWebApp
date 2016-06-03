@@ -183,7 +183,7 @@
 
 		@media (min-width: 480px) {
 			:scope {
-				margin-right: 200px;
+				/*margin-right: 200px;*/
 				margin-bottom: 0;
 			}
 		}

@@ -126,12 +126,12 @@
   }
 
   .navbar{
-    position: absolute;
-    top: 0px;
+    /*position: absolute;*/
+/*    top: 0px;
     width: 100%;
     left: 0px;
     -webkit-border-radius: 0;
-    -moz-border-radius: 0;
+    -moz-border-radius: 0;*/
     border-radius: 0;
   }
 

@@ -134,7 +134,7 @@
 
 <style scoped>
 	.banner-container {
-		margin-top: -50px;
+		margin-top: -57px;
 	}
 
 	.timer-container {
