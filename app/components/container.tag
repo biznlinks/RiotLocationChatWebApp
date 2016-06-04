@@ -143,7 +143,7 @@
     function localgroups() {
       self.track('localgroups')
       self.update({
-        title: "GROUPS",
+        title: USER_LOCALE,
         body: "",
         selectedId: null,
         route: "groups"
@@ -168,7 +168,7 @@
 
 
   }
-  
+
   .main {
     padding-right: 0px;
     padding-left: 0px;

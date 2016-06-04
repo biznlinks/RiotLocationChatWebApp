@@ -191,6 +191,9 @@ getallgroups: function() {
   query.find().then(function(results) {
     loader.trigger('done');
     results.sort(API.comparedistance);
+    results = results.filter(function(event) {
+      return API.distance(event.get('location'), USER_POSITION) <= 160;
+    });
     promise.resolve(results);
   },
   function(err) {
@@ -206,6 +209,9 @@ getallevents: function() {
   query.find().then(function(results) {
     loader.trigger('done');
     results.sort(API.comparedistance);
+    results = results.filter(function(event) {
+      return API.distance(event.get('location'), USER_POSITION) <= 1609;
+    });
     promise.resolve(results);
   },
   function(err) {
@@ -227,21 +233,20 @@ getusercity: function(userlocation) {
   });
   return promise;
 },
+distance: function(p1, p2) {
+  var R = 6371;
+  var dLat = (p2.latitude - p1.latitude) * Math.PI / 180;
+  var dLong = (p2.longitude - p1.longitude) * Math.PI / 180;
+  var lat1 = p1.latitude * Math.PI / 180;
+  var lat2 = p2.latitude * Math.PI / 180;
+
+  var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.sin(dLong/2) * Math.sin(dLong/2) * Math.cos(lat1) * Math.cos(lat2);
+  var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+  return R * c;
+},
 comparedistance: function(groupA, groupB) {
-  var distance = function(p1, p2) {
-    var R = 6371;
-    var dLat = (p2.latitude - p1.latitude) * Math.PI / 180;
-    var dLong = (p2.longitude - p1.longitude) * Math.PI / 180;
-    var lat1 = p1.latitude * Math.PI / 180;
-    var lat2 = p2.latitude * Math.PI / 180;
-
-    var a = Math.sin(dLat/2) * Math.sin(dLat/2) + Math.sin(dLong/2) * Math.sin(dLong/2) * Math.cos(lat1) * Math.cos(lat2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-    return R * c;
-  };
-
-  if (distance(groupA.get('location'), USER_POSITION) > distance(groupB.get('location'), USER_POSITION)) return 1;
-  else if (distance(groupA.get('location'), USER_POSITION) < distance(groupB.get('location'), USER_POSITION)) return -1;
+  if (API.distance(groupA.get('location'), USER_POSITION) > API.distance(groupB.get('location'), USER_POSITION)) return 1;
+  else if (API.distance(groupA.get('location'), USER_POSITION) < API.distance(groupB.get('location'), USER_POSITION)) return -1;
   else return 0;
 },
 getMostActiveUsers: function(limit) {

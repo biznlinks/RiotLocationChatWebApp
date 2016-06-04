@@ -1,10 +1,10 @@
 <groups>
 
 <div class="outer-container">
-	<div class="user-locale">
+	<!-- <div class="user-locale">
 		<span class="fa fa-map-marker"></span>
 		<span class="city-name">{ USER_LOCALE }</span>
-	</div>
+	</div> -->
 
 	<div class="search-container row">
 		<div class="col-sm-8 col-sm-offset-2">
@@ -46,6 +46,12 @@
 			</div>
 		</div>
 	</div> -->
+
+	<button class="btn mfb-component--br" name="submit" onclick={ showAskModal }>
+		<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+		    <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" stroke="white" stroke-width="2" fill="none"/>
+		</svg>
+	</button>
 </div>
 
 
@@ -130,6 +136,28 @@
 
 	.name {
 		margin-top: 10px;
+	}
+
+	.mfb-component--br {
+		right: 0;
+		bottom: 0;
+		text-align: center;
+	}
+	.mfb-component--tl, .mfb-component--tr, .mfb-component--bl, .mfb-component--br {
+		box-sizing: border-box;
+		margin: 25px;
+		position: fixed;
+		white-space: nowrap;
+		z-index: 30;
+		list-style: none;
+		border-radius: 50%;
+		width: 55px;
+		height: 55px;
+		padding: 0px;
+		background: #039be5;
+		color: white;
+		font-size: 1.6em;
+		box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
 	}
 
 </style>
