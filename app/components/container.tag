@@ -70,6 +70,7 @@
     r('schedule/*', topicsfeed)
     r('profile', profile)
     r(           home       ) // `notfound` would be nicer!
+    r('present', home)
 
     function home() {
       self.track('home')
