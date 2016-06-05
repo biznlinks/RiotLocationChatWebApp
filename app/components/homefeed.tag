@@ -1,6 +1,6 @@
 <feed>
 
-	<div class="">
+	<div class="postfeed">
 		<div>
 			<postbar></postbar>
 		</div>
@@ -41,5 +41,8 @@
 
 	</script>
 	<style scoped>
+	.postfeed{
+    margin-top: 15px;
+  }
 	</style>
 </feed>
