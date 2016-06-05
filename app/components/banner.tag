@@ -25,10 +25,10 @@
 				</div>
 			</div>
 
-			<div class="most-active-container">
-				<div each={ user in mostActive } class="most-active">
-					<img src={ API.getProfilePicture(user) } class="img-circle most-active-picture">
-				</div>
+		</div>
+		<div class="most-active-container">
+			<div each={ user in mostActive } class="most-active">
+				<img src={ API.getProfilePicture(user) } class="img-circle most-active-picture">
 			</div>
 		</div>
 	</div>
