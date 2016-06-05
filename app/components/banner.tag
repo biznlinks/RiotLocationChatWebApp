@@ -180,25 +180,39 @@
 
 	.live-text-container {
 		padding-bottom: 5px;
+		font-weight: lighter;
+		font-size: 24px;
+		    
 	}
 
 	.fa-circle {
 		color: #77de6d;
+		font-size: 12px;
+	    vertical-align: middle;
+	    padding-bottom: 7px;	
 	}
 
 	.live-text {
 		color: white;
-		font-weight: bolder;
+		/*font-weight: bolder;*/
 		font-size: x-large;
 		margin-left: 10px;
 	}
 
 	.live-session {
 		color: white;
-		font-size: xx-large;
+		font-size: 36px;
 		margin-top: 10px;
 		line-height: 1.3;
+		font-weight: lighter;
 	}
+	@media (max-width: 480px) {
+			.live-session {
+		
+		font-size: 30px;
+		
+	}
+		}
 
 	.fa-star {
 		margin-right: 0.75rem;
