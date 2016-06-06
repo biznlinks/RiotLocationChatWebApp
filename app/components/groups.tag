@@ -18,13 +18,6 @@
 		</div> -->
 		<div class="box">
 			<div class="row">
-				<div class="col-sm-3 col-xs-3 tile" each={ event in events }>
-					<div>
-						<img if={ typeof event.get('image')!='undefined' } src={ event.get('image').url() } class="image img-circle">
-						<img if={ typeof event.get('image')=='undefined' } src="" class="image gray img-circle">
-					</div>
-					<div class="name">{ event.get('name') }</div>
-				</div>
 				<div class="col-sm-3 col-xs-3 tile" each={ group in groups }>
 					<div>
 						<img if={ typeof group.get('image')!='undefined' } src={ group.get('image').url() } class="image img-circle">
@@ -66,10 +59,7 @@
 	init() {
 		API.getallgroups().then(function(groups) {
 			self.groups = groups
-			API.getallevents().then(function(events) {
-				self.events = events
-				self.update()
-			})
+			self.update()
 		})
 	}
 </script>

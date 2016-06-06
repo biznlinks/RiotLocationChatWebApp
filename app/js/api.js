@@ -183,35 +183,15 @@ constructQuestionsForTopic: function(topic){
 
   return promise;
 },
-getallgroups: function() {
+getallgroups: function(type=null) {
   loader.trigger('start');
   var promise = new Parse.Promise();
   var query = new Parse.Query(Parse.Object.extend('Group'));
-  query.equalTo("type", "group");
+  if (type) query.equalTo("type", type);
   query.find().then(function(results) {
     loader.trigger('done');
+    results = results.filter(function(event) { return API.distance(event.get('location'), USER_POSITION) <= 1600; });
     results.sort(API.comparedistance);
-    results = results.filter(function(event) {
-      return API.distance(event.get('location'), USER_POSITION) <= 160;
-    });
-    promise.resolve(results);
-  },
-  function(err) {
-    console.error("failed to query groups: " + JSON.stringify(err));
-  });
-  return promise;
-},
-getallevents: function() {
-  loader.trigger('start');
-  var promise = new Parse.Promise();
-  var query = new Parse.Query(Parse.Object.extend('Group'));
-  query.equalTo("type", "event");
-  query.find().then(function(results) {
-    loader.trigger('done');
-    results.sort(API.comparedistance);
-    results = results.filter(function(event) {
-      return API.distance(event.get('location'), USER_POSITION) <= 1609;
-    });
     promise.resolve(results);
   },
   function(err) {
