@@ -34,7 +34,7 @@
 
             <div class="post-container">
               <div class="info-btns">
-                <textarea rows="3" autofocus id="searchField" name="searchField" placeholder="Post about ICTD" class="searchbox">{question}</textarea>
+                <textarea rows="3" autofocus id="searchField" name="searchField" placeholder="Post about ICTD" class="searchbox"></textarea>
                 <div class="text-muted" id="topic" if={ topic!='' }>#{topic}</div>
 
               </div>
@@ -62,7 +62,6 @@
     self.isError   = false
     self.error     = ""
     self.topic     = ""
-    self.question  = ""
 
     this.on('mount', function(){
       $('#askModal').on('shown.bs.modal', function() {
@@ -84,11 +83,12 @@
         self.update()
       })
       $('#askModal').on('hidden.bs.modal', function() {
-        self.isError      = false
-        self.error        = ""
-        self.loading      = false
-        self.question     = ""
-        self.handle.value = ""
+        self.isError           = false
+        self.error             = ""
+        self.loading           = false
+        self.searchField.value = ""
+        self.topic             = ""
+        self.handle.value      = ""
 
         $('body').css('overflow', 'scroll')
         $('body').css('position', 'relative')
@@ -96,8 +96,10 @@
     })
 
     init(){
-      self.topic    = ""
-      self.question = ""
+      self.topic             = ""
+      self.searchField.value = ""
+      self.update()
+      console.log(self.searchField)
     }
 
 
@@ -163,7 +165,7 @@
             self.loading=false
             self.hide()
             self.init()
-            self.trigger('posted')
+            //self.trigger('posted')
           },
           error: function(post, error) {
             self.isError = true
