@@ -60,7 +60,6 @@
     this.on("mount", function(){
       $('#signupSuccess').hide()
       $('#loginSuccess').hide()
-      //self.requestLocation()
     })
 
     var r = riot.route.create()
@@ -79,7 +78,7 @@
     function home() {
       self.track('home')
       self.update({
-        title:  "ICTD 2016",
+        title:  self.group.get('name'),
         body:  "This is the feed!",
         route: "posts",
         selectedId: null,

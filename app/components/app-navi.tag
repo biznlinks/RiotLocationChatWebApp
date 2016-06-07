@@ -5,9 +5,7 @@
     &#9776;
   </button> -->
   <div class="navbar-toggleable-xs" id="exCollapsingNavbar2">
-    <a class="navbar-brand" href="/groups"> <img id="logo" alt="Logo" src="/images/app_icon.png" >  </a>
-
-    { title }
+    <div class="navbar-brand"> <a href="/groups"><img id="logo" alt="Logo" src="/images/app_icon.png" ></a>  { title }</div>
 
     <ul class="nav navbar-nav pull-xs-right">
       <li class={ nav-item: true, active: parent.selectedId === url }>
@@ -33,7 +31,7 @@
             <li class="dropdown-item" if={ !signupAvail } onclick={ this.logout }>
               <a class="nav-link" href="#">Logout</a>
             </li>
-            <li class="dropdown-item"  } onclick={ this.sendfeedback }>
+            <li class="dropdown-item" onclick={ this.sendfeedback }>
               <a class="nav-link" href="#">Feedback</a>
             </li>
           </ul>

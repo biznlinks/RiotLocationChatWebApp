@@ -12,15 +12,16 @@
 
 			<div class="header modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
 			<div if={!loading} class="modal-body">
-				<div class="groupname-container" onclick={ this.update() }>
-					<input type="text" name="groupname" placeholder="New Group"></input>
+				<div class="groupinfo-container" id="info" if={ !chooseLocation }>
+					<div><input type="text" name="groupname" id="groupname" placeholder="New Group"></div>
+					<div><input type="text" name="desc" id="desc" placeholder="Short Description"></div>
 				</div>
 
-				<div id="map"></div>
+				<div id="map" class="hide"></div>
+				<div class="address" onclick={ this.showMap }>{ address }</div>
 
-				<div class="address">{ address }</div>
-
-				<div class="confirm-container"><button class="btn btn-default" onclick={ this.submitGroup }>Create</button></div>
+				<div class="confirm-container" if={ !chooseLocation }><button class="btn btn-default" onclick={ this.submitGroup }>Create</button></div>
+				<div class="confirm-container" if={ chooseLocation }><button class="btn btn-default" onclick={ this.closeMap }>OK</button></div>
 				<div class="error text-warning" if={ isError }>{ error }</div>
 			</div>
 		</div>
@@ -30,22 +31,48 @@
 
 <script>
 	var self     = this
-	self.address = ''
+	self.address = 'Choose Location'
 	self.isError = false
 	self.error   = ''
+	self.chooseLocation = false
 
 	this.on('mount', function() {
-		self.map = new google.maps.Map(document.getElementById('map'), {
+		$('#creategroupModal').on('shown.bs.modal', function() {
+			// There is something with BS modals that requires
+			// 'resize' event to be triggered to show the map
+			/*google.maps.event.trigger(self.map, 'resize')
+			self.map.setCenter(new google.maps.LatLng(USER_POSITION.latitude, USER_POSITION.longitude))
+			self.map.setZoom(10)*/
+		})
+		$('#creategroupModal').on('hidden.bs.modal', function() {
+			self.isError         = false
+			self.error           = ''
+			self.address         = 'Choose Location'
+			self.groupname.value = ''
+
+			self.chooseLocation  = false
+			self.closeMap()
+			self.gmap            = null
+			if (self.marker) {
+				self.marker.setPosition(null)
+				self.groupCircle.setCenter(null)
+			}
+			self.update()
+		})
+	})
+
+	initMap() {
+		self.gmap = new google.maps.Map(document.getElementById('map'), {
 			center: {lat: USER_POSITION.latitude, lng: USER_POSITION.longitude},
           	zoom: 13
 		})
 		self.userMarker = new google.maps.Marker({
-			map: self.map,
+			map: self.gmap,
 			position: {lat: USER_POSITION.latitude, lng: USER_POSITION.longitude},
 			icon: '/images/marker.png'
 		})
 		self.marker = new google.maps.Marker({
-			map: self.map,
+			map: self.gmap,
 			icon: '/images/marker-filled.png'
 		})
 		self.groupCircle = new google.maps.Circle({
@@ -54,41 +81,25 @@
 			strokeWeight: 1,
 			fillColor: '#A9A9C3',
 			fillOpacity: 0.3,
-			map: self.map,
+			map: self.gmap,
 			radius: 1609,
 			clickable: false
 		})
-		self.service = new google.maps.places.PlacesService(self.map);
+		self.service = new google.maps.places.PlacesService(self.gmap);
 
-		self.map.addListener('click', function(e) {
+		self.gmap.addListener('click', function(e) {
 			self.marker.setPosition(e.latLng)
-			self.map.panTo(e.latLng)
+			self.gmap.panTo(e.latLng)
 			self.getStreetAddress(e.latLng)
 			self.groupCircle.setCenter(self.marker.position)
 		})
 
 		self.userMarker.addListener('click', function(e) {
 			self.marker.setPosition(self.userMarker.position)
+			self.getStreetAddress(e.latLng)
 			self.groupCircle.setCenter(self.marker.position)
 		})
-
-		$('#creategroupModal').on('shown.bs.modal', function() {
-			// There is something with BS modals that requires
-			// 'resize' event to be triggered to show the map
-			google.maps.event.trigger(self.map, 'resize')
-			self.map.setCenter(new google.maps.LatLng(USER_POSITION.latitude, USER_POSITION.longitude))
-			self.map.setZoom(10)
-		})
-		$('#creategroupModal').on('hidden.bs.modal', function() {
-			self.isError         = false
-			self.error           = ''
-			self.address         = ''
-			self.groupname.value = ''
-			self.marker.setPosition(null)
-			self.groupCircle.setCenter(null)
-			self.update()
-		})
-	})
+	}
 
 	getStreetAddress(position) {
 		var request = {
@@ -147,7 +158,7 @@
 	generateGroupId() {
 		var promise = new Parse.Promise()
 		var groupId = self.groupname.value.toLowerCase()
-		groupId     = groupId.replace(new RegExp(' ','g'), '')
+		groupId     = groupId.replace(new RegExp(' ','g'), '-')
 
 		randomGroupId()
 
@@ -170,6 +181,40 @@
 
 		return promise
 	}
+
+	showMap() {
+		if (self.chooseLocation) return null;
+
+		$('#info').slideUp({
+			duration: 500,
+			complete: function() {
+				self.chooseLocation = true
+				self.address = self.address == 'Choose Location' ? '' : self.address
+				self.update()
+
+				var height = $(window).height() >= 1000 ? 500 : 300;
+				$('#map').animate({height: height}, {
+					duration: 500,
+					complete: function() {
+						if (self.gmap == null)
+							self.initMap()
+					}
+				}).removeClass('hide')
+			}
+		})
+	}
+
+	closeMap() {
+		$('#map').animate({height: 0},{
+			duration: 500,
+			complete: function() {
+				if (self.address == '') self.address = 'Choose Location'
+				self.chooseLocation = false
+				self.update()
+				$('#info').slideDown({duration: 500})
+			}
+		}).addClass('hide')
+	}
 </script>
 
 <style scoped>
@@ -182,16 +227,33 @@
 		padding-bottom: 0;
 	}
 
-	.groupname-container input {
+	.groupinfo-container input {
 		text-align: center;
-		font-size: large;
+		margin-top: 15px;
 		border: none;
 		border-bottom: 1px solid #eeeeee;
+	}
+
+	.groupinfo-container#groupname {
+		font-size: x-large;
+	}
+
+	.groupinfo-container#desc {
+		font-size: large;
 	}
 
 	#map {
 		margin-top: 20px;
 		margin-bottom: 20px;
+	}
+
+	#map.hide {
+		height: 0;
+		margin: 0;
+	}
+
+	.address {
+		margin-top: 20px;
 	}
 
 	.confirm-container {

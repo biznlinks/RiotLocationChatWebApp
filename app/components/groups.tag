@@ -18,7 +18,7 @@
 		</div> -->
 		<div class="box">
 			<div class="row">
-				<div class="col-sm-3 col-xs-3 tile" each={ group in groups }>
+				<div class="col-sm-3 col-xs-3 tile" each={ group in groups } onclick={ this.chooseGroup(group) }>
 					<div>
 						<img if={ typeof group.get('image')!='undefined' } src={ group.get('image').url() } class="image img-circle">
 						<img if={ typeof group.get('image')=='undefined' } src="" class="image gray img-circle">
@@ -65,6 +65,14 @@
 
 	showCreateModal() {
 		$('#creategroupModal').modal('show')
+	}
+
+	chooseGroup(e) {
+		return function() {
+			containerTag.group = e
+			riot.route(encodeURI(e.get('groupId')))
+			self.update()
+		}
 	}
 </script>
 <style scoped>
