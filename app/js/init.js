@@ -9,26 +9,30 @@
 
  riot.mixin(OptsMixin)
 
- var groupName = "ICTD"
- API.fetchOne("Group", "name", groupName).then(function(group){
-  Group = group
-  riot.compile(function() {
-    riot.route.base('/');
-    riot.mount('container', {group: group});
-    riot.route.start(true);
+function riotMount() {
+   var groupName = "ICTD"
+   API.fetchOne("Group", "name", groupName).then(function(group){
+    Group = group
+    riot.compile(function() {
+      riot.route.base('/');
+      riot.mount('container', {group: group});
+      riot.route.start(true);
+    })
   })
-})
+}
 
  if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       USER_POSITION = position.coords;
       API.getusercity(USER_POSITION).then(function(results) {
         USER_LOCALE = results;
+        riotMount();
       });
     }, function(error) {
       $.getJSON("https://intecolab.com:5000/get_ipinfo?callback=?", function(res) {
-        USER_POSITION =  res.loc;
+        USER_POSITION = {latitude: parseFloat(res.loc.split(',')[0]), longitude: parseFloat(res.loc.split(',')[1])};
         USER_LOCALE = res.city;
+        riotMount();
       })
     });
   } else {

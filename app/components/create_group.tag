@@ -20,7 +20,7 @@
 
 				<div class="address">{ address }</div>
 
-				<div class="confirm-container"><button class="btn btn-default" onclick={ this.submitGroup }>Submit</button></div>
+				<div class="confirm-container"><button class="btn btn-default" onclick={ this.submitGroup }>Create</button></div>
 				<div class="error text-warning" if={ isError }>{ error }</div>
 			</div>
 		</div>
@@ -44,7 +44,7 @@
 			position: {lat: USER_POSITION.latitude, lng: USER_POSITION.longitude},
 			icon: '/images/marker.png'
 		})
-		self.marker  = new google.maps.Marker({
+		self.marker = new google.maps.Marker({
 			map: self.map,
 			icon: '/images/marker-filled.png'
 		})
