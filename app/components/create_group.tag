@@ -42,16 +42,34 @@
 		self.userMarker = new google.maps.Marker({
 			map: self.map,
 			position: {lat: USER_POSITION.latitude, lng: USER_POSITION.longitude},
-			icon: '/images/user_marker.png'
+			icon: '/images/marker.png'
 		})
-		self.marker  = new google.maps.Marker({ map: self.map })
+		self.marker  = new google.maps.Marker({
+			map: self.map,
+			icon: '/images/marker-filled.png'
+		})
+		self.groupCircle = new google.maps.Circle({
+			strokeColor: '#282A6A',
+			strokeOpacity: 0.8,
+			strokeWeight: 1,
+			fillColor: '#A9A9C3',
+			fillOpacity: 0.3,
+			map: self.map,
+			radius: 1609,
+			clickable: false
+		})
 		self.service = new google.maps.places.PlacesService(self.map);
 
 		self.map.addListener('click', function(e) {
-			self.marker.setMap(self.map)
 			self.marker.setPosition(e.latLng)
 			self.map.panTo(e.latLng)
 			self.getStreetAddress(e.latLng)
+			self.groupCircle.setCenter(self.marker.position)
+		})
+
+		self.userMarker.addListener('click', function(e) {
+			self.marker.setPosition(self.userMarker.position)
+			self.groupCircle.setCenter(self.marker.position)
 		})
 
 		$('#creategroupModal').on('shown.bs.modal', function() {
@@ -66,7 +84,8 @@
 			self.error           = ''
 			self.address         = ''
 			self.groupname.value = ''
-			self.marker.setMap(null)
+			self.marker.setPosition(null)
+			self.groupCircle.setCenter(null)
 			self.update()
 		})
 	})
@@ -110,6 +129,7 @@
 			type: 'group'
 		},{
 			success: function(group) {
+				groupsTag.init()
 				$('#creategroupModal').modal('hide')
 			}, error: function(group, error) {
 				self.isError = true

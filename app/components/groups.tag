@@ -50,7 +50,7 @@
 
 <script>
 	var self = this
-
+	groupsTag = this
 
 	this.on('mount', function() {
 		self.init()
