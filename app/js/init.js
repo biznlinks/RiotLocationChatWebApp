@@ -10,8 +10,8 @@
  riot.mixin(OptsMixin)
 
 function riotMount() {
-   var groupName = "ICTD"
-   API.fetchOne("Group", "name", groupName).then(function(group){
+  var groupName = "ICTD"
+  API.fetchOne("Group", "name", groupName).then(function(group){
     Group = group
     riot.compile(function() {
       riot.route.base('/');
@@ -21,21 +21,21 @@ function riotMount() {
   })
 }
 
- if (navigator.geolocation) {
+  $.getJSON("https://intecolab.com:5000/get_ipinfo?callback=?", function(res) {
+    USER_POSITION = {latitude: parseFloat(res.loc.split(',')[0]), longitude: parseFloat(res.loc.split(',')[1])};
+    USER_LOCALE = res.city;
+    riotMount();
+  })
+
+  if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       USER_POSITION = position.coords;
       API.getusercity(USER_POSITION).then(function(results) {
         USER_LOCALE = results;
-        riotMount();
+        containerTag.update();
       });
     }, function(error) {
-      $.getJSON("https://intecolab.com:5000/get_ipinfo?callback=?", function(res) {
-        USER_POSITION = {latitude: parseFloat(res.loc.split(',')[0]), longitude: parseFloat(res.loc.split(',')[1])};
-        USER_LOCALE = res.city;
-        riotMount();
-      })
     });
-  } else {
   }
 
 

@@ -37,7 +37,7 @@
 	this.on('mount', function() {
 		self.map = new google.maps.Map(document.getElementById('map'), {
 			center: {lat: USER_POSITION.latitude, lng: USER_POSITION.longitude},
-          	zoom: 11
+          	zoom: 13
 		})
 		self.userMarker = new google.maps.Marker({
 			map: self.map,
@@ -111,32 +111,64 @@
 	submitGroup() {
 		if (self.groupname.value.length < 3) {
 			self.isError = true
-			self.error = "Groups' names must be at least 3-character long"
+			self.error   = "Groups' names must be at least 3-character long"
 			self.update()
 			return null
 		} else if (!self.marker.position) {
 			self.isError = true
-			self.error = "Choose group's position on the map"
+			self.error   = "Choose group's position on the map"
 			self.update()
 			return null
 		}
 
-		var GroupObject = Parse.Object.extend('Group')
-		var newGroup = new GroupObject()
-		newGroup.save({
-			location: new Parse.GeoPoint(self.marker.position.lat(), self.marker.position.lng()),
-			name: self.groupname.value,
-			type: 'group'
-		},{
-			success: function(group) {
-				groupsTag.init()
-				$('#creategroupModal').modal('hide')
-			}, error: function(group, error) {
-				self.isError = true
-				self.error = error.message
-				self.update()
-			}
+		self.generateGroupId().then(function(results) {
+			var groupId = results
+
+			var GroupObject = Parse.Object.extend('Group')
+			var newGroup    = new GroupObject()
+			newGroup.save({
+				location: new Parse.GeoPoint(self.marker.position.lat(), self.marker.position.lng()),
+				name: self.groupname.value,
+				groupId: groupId,
+				type: 'group'
+			},{
+				success: function(group) {
+					groupsTag.init()
+					$('#creategroupModal').modal('hide')
+				}, error: function(group, error) {
+					self.isError = true
+					self.error = error.message
+					self.update()
+				}
+			})
 		})
+	}
+
+	generateGroupId() {
+		var promise = new Parse.Promise()
+		var groupId = self.groupname.value.toLowerCase()
+		groupId     = groupId.replace(new RegExp(' ','g'), '')
+
+		randomGroupId()
+
+		function randomGroupId() {
+			var randomId    = Math.round(Math.random() * 999 + 1)
+			var tempGroupId = groupId + '-' + randomId
+			var GroupObject = Parse.Object.extend('Group')
+			var query       = new Parse.Query(GroupObject)
+			query.equalTo('groupId', tempGroupId)
+			query.find({
+				success: function(groups) {
+					if (groups.length == 0) promise.resolve(tempGroupId)
+					else randomGroupId()
+				},
+				error: function(error) {
+					randomGroupId()
+				}
+			})
+		}
+
+		return promise
 	}
 </script>
 
