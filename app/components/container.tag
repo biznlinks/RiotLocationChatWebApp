@@ -27,6 +27,7 @@
     <forgot name="forgotModal"></forgot>
     <ask name="askModal"></ask>
     <search name="searchModal"></search>
+    <creategroup name="creategroupModal"></creategroup>
     <loginsuccess name="loginSuccess"></loginsuccess>
     <signupsuccess name="signupSuccess"></signupsuccess>
 
