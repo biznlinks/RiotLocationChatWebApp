@@ -52,6 +52,7 @@
 	})
 
 	init() {
+		containerTag.group = null
 		API.getallgroups().then(function(groups) {
 			self.groups = groups
 			self.update()
@@ -64,7 +65,6 @@
 
 	chooseGroup(group) {
 		return function() {
-			containerTag.group = group
 			riot.route(encodeURI(group.get('groupId')))
 			self.update()
 		}

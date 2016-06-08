@@ -244,16 +244,27 @@ getMostActiveUsers: function(limit) {
   });
   return promise;
 },
+getGroupWithId: function(id) {
+  var promise = new Parse.Promise();
+  var query = new Parse.Query(Parse.Object.extend('Group'));
+  query.equalTo('groupId', id);
+  query.find().then(function(results) {
+    promise.resolve(results);
+  }, function(err) {
+    console.error("failed to query group from given id: " + JSON.stringify(err));
+  });
+  return promise;
+},
 getUserGroups: function(user) {
   var promise = new Parse.Promise();
   var query = new Parse.Query(Parse.Object.extend('UserGroup'));
   query.equalTo('user', user);
   query.find().then(function(results) {
-    promise.resolve(results)
+    promise.resolve(results);
   },
   function(err) {
     console.error("failed to query user's groups: " + JSON.stringify(err));
-  })
+  });
   return promise;
 }
 

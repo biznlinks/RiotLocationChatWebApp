@@ -64,24 +64,43 @@
 
     var r = riot.route.create()
     r('#',       home       )
-    r('post',   home      )
+    r('groups',  home)
     r('post/*', postdetail)
     r('topics',  topics )
     r('live/*',  live )
     r('schedule',  topics )
     r('schedule/*', topicsfeed)
     r('profile', profile)
-    r('groups',  localgroups)
-    r(           home       ) // `notfound` would be nicer!
-    r('present', home)
+    r(home) // `notfound` would be nicer!
 
-    function home() {
-      self.track('home')
+    function home(id) {
+      if (id == '') {
+        self.track('home')
+        self.update({
+          title: USER_LOCALE,
+          body: "",
+          route: "groups",
+          selectedId: null
+        })
+        self.tags.groups.init()
+      } else {
+        API.getGroupWithId(id).then(function(results) {
+          if (results.length > 0) {
+            self.group = results[0]
+            feed()
+          } else {
+            // not found
+          }
+        })
+      }
+    }
+    function feed() {
+      self.track('feed')
       self.update({
         title:  self.group.get('name'),
         body:  "This is the feed!",
         route: "posts",
-        selectedId: null,
+        selectedId: null
       })
       self.tags.feed.init()
     }
