@@ -62,10 +62,10 @@
 		$('#creategroupModal').modal('show')
 	}
 
-	chooseGroup(e) {
+	chooseGroup(group) {
 		return function() {
-			containerTag.group = e
-			riot.route(encodeURI(e.get('groupId')))
+			containerTag.group = group
+			riot.route(encodeURI(group.get('groupId')))
 			self.update()
 		}
 	}
