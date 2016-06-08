@@ -5,7 +5,11 @@
     &#9776;
   </button> -->
   <div class="navbar-toggleable-xs" id="exCollapsingNavbar2">
-    <div class="navbar-brand"> <a href="/groups"><img id="logo" alt="Logo" src="/images/app_icon.png" ></a>  { title }</div>
+    <div class="navbar-brand">
+      <a href="/groups"><img id="logo" alt="Logo" src="/images/app_icon.png" ></a>
+      <span if={ containerTag.route!='groups' }>{ title }</span>
+      <span if={ containerTag.route=='groups' }>{ USER_LOCALE }</span>
+    </div>
 
     <ul class="nav navbar-nav pull-xs-right">
       <!-- <li class={ nav-item: true, active: parent.selectedId === url }>
