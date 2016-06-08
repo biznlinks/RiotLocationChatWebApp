@@ -70,7 +70,7 @@
 
 		live(id){
 			self.sessions = _.filter(self.schedule.sessions, function(session){
-				if (session.title=== decodeURI(id))
+				if (session.title===decodeURI(id) && Date.parse(new Date()) - Date.parse(session.starttime + '-04:00') < 7200000)
 					return true
 			})
 			self.days = _.uniq(_.pluck(self.sessions, 'day'))
