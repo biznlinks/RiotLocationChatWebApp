@@ -64,7 +64,7 @@
 
     var r = riot.route.create()
     r('#',       home       )
-    r('groups',  home)
+    r('groups',  groups)
     r('post/*', postdetail)
     r('topics',  topics )
     r('live/*',  live )
@@ -74,25 +74,28 @@
     r(home) // `notfound` would be nicer!
 
     function home(id) {
-      if (id == '') {
-        self.track('home')
-        self.update({
-          title: USER_LOCALE,
-          body: "",
-          route: "groups",
-          selectedId: null
-        })
-        self.tags.groups.init()
+      if (id == '' || id == 'groups') {
+        groups()
+      } else if (self.group) {
+        feed()
       } else {
-        API.getGroupWithId(id).then(function(results) {
-          if (results.length > 0) {
-            self.group = results[0]
-            feed()
-          } else {
-            // not found
-          }
+        API.fetchOne('Group', 'groupId', id).then(function(results) {
+          self.group = results
+          feed()
+        }, function(err) {
+          console.log('notfound')
         })
       }
+    }
+    function groups() {
+      self.track('home')
+      self.update({
+        title: USER_LOCALE,
+        body: "",
+        route: "groups",
+        selectedId: null
+      })
+      self.tags.groups.init()
     }
     function feed() {
       self.track('feed')
@@ -102,6 +105,7 @@
         route: "posts",
         selectedId: null
       })
+      self.tags.banner.init()
       self.tags.feed.init()
     }
     function postdetail(id) {

@@ -12,7 +12,7 @@ API = {
         if (object) {
           promise.resolve(object);
         } else {
-          promise.reject()
+          promise.reject();
         }
     }, function(err) {
         console.error('query failed: ' + JSON.stringify(err));
@@ -200,6 +200,18 @@ getallgroups: function(type=null) {
   });
   return promise;
 },
+getjoinedgroups: function(user) {
+  var promise = new Parse.Promise();
+  var query = new Parse.Query(Parse.Object.extend('UserGroup'));
+  query.equalTo('user', user);
+
+  query.find().then(function(results) {
+    promise.resolve(results);
+  }, function(err) {
+    console.error("failed to query joined groups: " + JSON.stringify(err));
+  });
+  return promise;
+},
 getusercity: function(userlocation) {
   var promise = new Parse.Promise();
   var geocoder = new google.maps.Geocoder;
@@ -241,17 +253,6 @@ getMostActiveUsers: function(limit) {
   },
   function(err) {
     console.error("failed to query most active users: " + JSON.stringify(err));
-  });
-  return promise;
-},
-getGroupWithId: function(id) {
-  var promise = new Parse.Promise();
-  var query = new Parse.Query(Parse.Object.extend('Group'));
-  query.equalTo('groupId', id);
-  query.find().then(function(results) {
-    promise.resolve(results);
-  }, function(err) {
-    console.error("failed to query group from given id: " + JSON.stringify(err));
   });
   return promise;
 },

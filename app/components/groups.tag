@@ -8,32 +8,41 @@
 	</div> -->
 
 	<div class="groups-container">
-		<!-- <div class="title">
-			<i>Events</i>
-		</div> -->
-		<div class="box">
+		<div class="title">
+			<i>Joined</i>
+		</div>
+		<div class="joined">
 			<div class="row">
-				<div class="col-sm-3 col-xs-3 tile" each={ group in groups } onclick={ this.chooseGroup(group) }>
+				<div class="col-sm-3 col-xs-4 tile" each={ group in joinedGroups } onclick={ this.chooseGroup(group.get('group')) }>
 					<div>
-						<img if={ typeof group.get('image')!='undefined' } src={ group.get('image').url() } class="image img-circle">
-						<img if={ typeof group.get('image')=='undefined' } src="" class="image gray img-circle">
+						<img if={ typeof group.get('group').get('image')!='undefined' } src={ group.get('group').get('image').url() } class="image img-circle">
+						<img if={ typeof group.get('group').get('image')=='undefined' } src="" class="image gray img-circle">
 					</div>
-					<div class="name">{ group.get('name') }</div>
+					<div class="name">{ group.get('group').get('name') }</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<!-- <div class="inner-container">
 		<div class="title">
-			<i>Interests</i>
+			<i>Nearby</i>
 		</div>
-		<div class="box">
-			<div class="row">
-
-			</div>
+		<div class="nearby">
+			<ul>
+				<li each={ group in groups } onclick={ this.chooseGroup(group) }>
+					<div class="row">
+						<div class="col-sm-2 col-xs-2 image-container">
+							<img if={ typeof group.get('image')!='undefined' } src={ group.get('image').url() } class="image img-circle">
+							<img if={ typeof group.get('image')=='undefined' } src="" class="image gray img-circle">
+						</div>
+						<div class="col-sm-10 col-xs-10 group-info">
+							<div class="name">{ group.get('name') }</div>
+							<div class="desc">{ group.get('description') }</div>
+						</div>
+					</div>
+				</li>
+			</ul>
 		</div>
-	</div> -->
+	</div>
 
 	<button class="btn mfb-component--br" name="submit" onclick={ showCreateModal }>
 		<svg style="width:24px;height:24px" viewBox="0 0 24 24">
@@ -53,9 +62,16 @@
 
 	init() {
 		containerTag.group = null
-		API.getallgroups().then(function(groups) {
-			self.groups = groups
-			self.update()
+		API.getjoinedgroups(Parse.User.current()).then(function(joinedGroups) {
+			self.joinedGroups = joinedGroups
+			API.getallgroups().then(function(groups) {
+				self.groups = groups.filter(function(group) {
+					for (var i = 0; i < self.joinedGroups.length; i++)
+						if (group.id == self.joinedGroups[i].get('group').id) return false
+					return true
+				})
+				self.update()
+			})
 		})
 	}
 
@@ -65,6 +81,7 @@
 
 	chooseGroup(group) {
 		return function() {
+			containerTag.group = group
 			riot.route(encodeURI(group.get('groupId')))
 			self.update()
 		}
@@ -113,8 +130,19 @@
 		border-bottom: 1px solid #909090;
 	}
 
-	.box {
+	.joined {
 		margin-top: 20px;
+	}
+
+	.nearby li {
+		padding-top: 20px;
+		padding-bottom: 20px;
+		border-bottom: 1px solid #ccc;
+	}
+
+	.nearby ul {
+		list-style: none;
+		padding: 0;
 	}
 
 	.tile {
@@ -122,13 +150,24 @@
 		margin-bottom: 15px;
 	}
 
+	.image-container {
+		text-align: center;
+	}
+
 	.image {
 		height: 50px;
 		width: 50px;
+		object-fit: cover;
 	}
 
 	.gray {
 		background-color: #b5b5b5;
+	}
+
+	.nearby .name {
+		margin-top: 0;
+		font-size: large;
+		color: #555;
 	}
 
 	.name {
