@@ -12,16 +12,26 @@
 
 			<div class="header modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
 			<div if={!loading} class="modal-body">
-				<div class="groupinfo-container" id="info" if={ !chooseLocation }>
-					<div><input type="text" name="groupname" id="groupname" placeholder="New Group"></div>
-					<div><input type="text" name="desc" id="desc" placeholder="Short Description"></div>
+				<div id="info-form" if={ !chooseImage }>
+					<div class="groupinfo-container" id="info" if={ !chooseLocation }>
+						<div class="photo" onclick={ showImage }>
+							<div class="add-photo">Add Image</div>
+						</div>
+						<div><input type="text" name="groupname" id="groupname" placeholder="New Group"></div>
+						<div><input type="text" name="desc" id="desc" placeholder="Short Description"></div>
+					</div>
+
+					<div id="map" class="hide"></div>
+					<div class="address text-muted" onclick={ this.showMap }>{ address }</div>
 				</div>
 
-				<div id="map" class="hide"></div>
-				<div class="address" onclick={ this.showMap }>{ address }</div>
+				<div id="image-search" if={ chooseImage }>
+					<input type="text" placeholder="Search">
+				</div>
 
-				<div class="confirm-container" if={ !chooseLocation }><button class="btn btn-default" onclick={ this.submitGroup }>Create</button></div>
+				<div class="confirm-container" if={ !chooseLocation && !chooseImage }><button class="btn btn-default" onclick={ this.submitGroup }>Create</button></div>
 				<div class="confirm-container" if={ chooseLocation }><button class="btn btn-default" onclick={ this.closeMap }>OK</button></div>
+				<div class="confirm-container" if={ chooseImage }><button class="btn btn-default" onclick={ this.closeImage }>OK</button></div>
 				<div class="error text-warning" if={ isError }>{ error }</div>
 			</div>
 		</div>
@@ -30,11 +40,12 @@
 </div>
 
 <script>
-	var self     = this
-	self.address = 'Choose Location'
-	self.isError = false
-	self.error   = ''
+	var self            = this
+	self.address        = 'Change Location'
+	self.isError        = false
+	self.error          = ''
 	self.chooseLocation = false
+	self.chooseImage    = false
 
 	this.on('mount', function() {
 		$('#creategroupModal').on('shown.bs.modal', function() {
@@ -47,7 +58,7 @@
 		$('#creategroupModal').on('hidden.bs.modal', function() {
 			self.isError         = false
 			self.error           = ''
-			self.address         = 'Choose Location'
+			self.address         = 'Change Location'
 			self.groupname.value = ''
 
 			self.chooseLocation  = false
@@ -189,10 +200,10 @@
 			duration: 500,
 			complete: function() {
 				self.chooseLocation = true
-				self.address = self.address == 'Choose Location' ? '' : self.address
+				self.address = self.address == 'Change Location' ? '' : self.address
 				self.update()
 
-				var height = $(window).height() >= 1000 ? 500 : 300;
+				var height = $(window).height() >= 1000 ? 500 : 300
 				$('#map').animate({height: height}, {
 					duration: 500,
 					complete: function() {
@@ -208,12 +219,35 @@
 		$('#map').animate({height: 0},{
 			duration: 500,
 			complete: function() {
-				if (self.address == '') self.address = 'Choose Location'
+				if (self.address == '') self.address = 'Change Location'
 				self.chooseLocation = false
 				self.update()
 				$('#info').slideDown({duration: 500})
 			}
 		}).addClass('hide')
+	}
+
+	showImage() {
+		$('#info-form').slideUp({
+			duration: 500,
+			complete: function() {
+				self.chooseImage = true
+				self.update()
+				$('#image-search').slideUp({duration: 0})
+				$('#image-search').slideDown({duration: 500})
+			}
+		})
+	}
+
+	closeImage() {
+		$('#image-search').slideUp({
+			duration:500,
+			complete: function() {
+				self.chooseImage = false
+				self.update()
+				$('#info-form').slideDown({duration: 500})
+			}
+		})
 	}
 </script>
 
@@ -227,19 +261,37 @@
 		padding-bottom: 0;
 	}
 
+	.photo {
+		height: 100px;
+		width: 100px;
+		-webkit-border-radius: 50%;
+    	-moz-border-radius: 50%;
+    	border-radius: 50%;
+    	border:1px dashed #00BFFF;
+    	margin: 0 auto;
+    	padding-top: 35px;
+	}
+	.photo .add-photo {
+		color: #00BFFF;
+	}
+
 	.groupinfo-container input {
 		text-align: center;
 		margin-top: 15px;
 		border: none;
-		border-bottom: 1px solid #eeeeee;
 	}
 
-	.groupinfo-container#groupname {
+	#groupname {
 		font-size: x-large;
+		width: 100%;
+	}
+	#groupname:focus, #desc:focus {
+		outline: none;
 	}
 
-	.groupinfo-container#desc {
+	#desc {
 		font-size: large;
+		width: 100%
 	}
 
 	#map {

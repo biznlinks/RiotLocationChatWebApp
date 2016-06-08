@@ -1,16 +1,11 @@
 <groups>
 
 <div class="outer-container">
-	<!-- <div class="user-locale">
-		<span class="fa fa-map-marker"></span>
-		<span class="city-name">{ USER_LOCALE }</span>
-	</div> -->
-
-	<div class="search-container row">
+	<!-- <div class="search-container row">
 		<div class="col-sm-8 col-sm-offset-2">
 			<textarea placeholder="Search Groups" class="search-groups" rows="1"></textarea>
 		</div>
-	</div>
+	</div> -->
 
 	<div class="groups-container">
 		<!-- <div class="title">
