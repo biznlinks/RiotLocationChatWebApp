@@ -243,6 +243,18 @@ getMostActiveUsers: function(limit) {
     console.error("failed to query most active users: " + JSON.stringify(err));
   });
   return promise;
+},
+getUserGroups: function(user) {
+  var promise = new Parse.Promise();
+  var query = new Parse.Query(Parse.Object.extend('UserGroup'));
+  query.equalTo('user', user);
+  query.find().then(function(results) {
+    promise.resolve(results)
+  },
+  function(err) {
+    console.error("failed to query user's groups: " + JSON.stringify(err));
+  })
+  return promise;
 }
 
 };

@@ -53,7 +53,7 @@
     containerTag = this
     self.title   = 'Now loading...'
     self.body    = ''
-    self.group = this.opts.group
+    self.group   = this.opts.group
 
     self.route   = "home"
 
