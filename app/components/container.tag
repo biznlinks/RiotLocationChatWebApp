@@ -100,7 +100,7 @@
     function feed() {
       self.track('feed')
       self.update({
-        title:  self.group.get('name'),
+        title: "",
         body:  "This is the feed!",
         route: "posts",
         selectedId: null
