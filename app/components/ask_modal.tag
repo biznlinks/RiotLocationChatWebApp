@@ -163,6 +163,7 @@
         },{
           success: function(post) {
             self.loading=false
+            homefeedTag.init()
             self.hide()
             self.init()
             //self.trigger('posted')
