@@ -95,6 +95,7 @@
 	.outer-container {
 		background-color: white;
 		padding: 10px;
+		margin-top: 50px;
 	}
 
 	.user-locale {
