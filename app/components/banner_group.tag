@@ -11,7 +11,7 @@
 				<div class="members text-muted">{ locale } • { containerTag.group.get('memberCount') } joined</div>
 				<div class="most-active-container">
 					<div each={ user in mostActive } class="most-active">
-						<img src={ API.getProfilePicture(user) } class="img-circle most-active-picture">
+						<img src={ API.getProfilePicture(user.get('user')) } class="img-circle most-active-picture">
 					</div>
 				</div>
 				<div class="group-desc">{ containerTag.group.get('description') }</div>
@@ -31,7 +31,7 @@
 	})
 
 	init() {
-		API.getMostActiveUsers(5).then(function(results) {
+		API.getActiveUsers(containerTag.group, 5).then(function(results) {
 			self.mostActive = results
 			self.update()
 		})

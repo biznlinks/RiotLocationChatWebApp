@@ -142,6 +142,7 @@
 
 	.nearby ul {
 		list-style: none;
+		margin-bottom: 0;
 		padding: 0;
 	}
 

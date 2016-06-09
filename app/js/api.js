@@ -242,12 +242,12 @@ comparedistance: function(groupA, groupB) {
   else if (API.distance(groupA.get('location'), USER_POSITION) < API.distance(groupB.get('location'), USER_POSITION)) return -1;
   else return 0;
 },
-getMostActiveUsers: function(limit) {
+getActiveUsers: function(group, limit) {
   limit = limit || 5;
   var promise = new Parse.Promise();
-  var query = new Parse.Query(Parse.Object.extend('User'));
-  query.descending('score');
+  var query = new Parse.Query(Parse.Object.extend('UserGroup'));
   query.limit(limit);
+  query.equalTo('group', group)
   query.find().then(function(results) {
     promise.resolve(results);
   },
