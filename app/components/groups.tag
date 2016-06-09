@@ -210,7 +210,8 @@
 
 	.gray {
 		border: none;
-		background-color: #b5b5b5;
+		background-image: url('/images/default_image.jpg');
+		object-fit: fill;
 	}
 
 	.nearby .name {
