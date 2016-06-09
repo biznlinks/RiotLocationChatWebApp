@@ -171,6 +171,15 @@
 		padding-bottom: 70px;
 	}
 
+	.fa-chevron-right {
+		text-align: left;
+		padding-left: 0;
+	}
+	.fa-chevron-left {
+		text-align: right;
+		padding-right: 0;
+	}
+
 	.tile {
 		vertical-align: top;
 		text-align: center;
