@@ -41,11 +41,11 @@
 			<ul>
 				<li each={ group in groups } onclick={ this.chooseGroup(group) }>
 					<div class="row pointer">
-						<div class="col-sm-2 col-xs-2 image-container">
+						<div class="col-sm-2 col-xs-3 image-container">
 							<img if={ typeof group.get('image')!='undefined' } src={ group.get('image').url() } class="image img-circle">
 							<img if={ typeof group.get('image')=='undefined' } src="" class="image gray img-circle">
 						</div>
-						<div class="col-sm-10 col-xs-10 group-info">
+						<div class="col-sm-10 col-xs-9 group-info">
 							<div class="name">{ group.get('name') }</div>
 							<div class="desc">{ group.get('description') }</div>
 						</div>
