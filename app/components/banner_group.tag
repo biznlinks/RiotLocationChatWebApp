@@ -78,6 +78,8 @@
 				if (self.mostActive.length < 5) self.mostActive.push(Parse.User.current())
 				else self.mostActive[4] = Parse.User.current()
 				self.update()
+				containerTag.group.set('memberCount', containerTag.group.get('memberCount') + 1)
+				containerTag.group.save()
 			},
 			error: function(userGroup, error) {
 				console.error("Error saving UserGroup " + error.message)
