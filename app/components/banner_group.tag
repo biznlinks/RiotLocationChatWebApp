@@ -2,7 +2,7 @@
 
 <div class="banner-container">
 	<div class="" align="center">
-		<div class="background-image">
+		<div class="background-image" id="background">
 		</div>
 
 		<div class="row group-info">
@@ -56,6 +56,10 @@
 		}
 
 		self.memberCount = containerTag.group.get('memberCount')
+		if (containerTag.group.get('image')) {
+			bgUrl = containerTag.group.get('image').url()
+			$('#background').css("background-image", "url('" + bgUrl + "')")
+		} else $('#background').css("background-image", "url('/images/annarbor.jpg')")
 		self.update()
 	}
 
@@ -92,7 +96,6 @@
 	}
 
 	.background-image {
-		background-image: url('/images/annarbor.jpg');
 		height: 220px;
 		background-size: cover;
     	background-repeat: no-repeat;
