@@ -18,7 +18,10 @@
 						<img if={ typeof group.get('group').get('image')!='undefined' } src={ group.get('group').get('image').url() } class="image img-circle">
 						<img if={ typeof group.get('group').get('image')=='undefined' } src="" class="image gray img-circle">
 					</div>
-					<div class="name">{ group.get('group').get('name') }</div>
+					<div class="name">
+						{ group.get('group').get('name').slice(0,20) }
+						<span if={ group.get('group').get('name').length > 20 }>...</span>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -128,11 +131,11 @@
 
 	.title {
 		padding: 5px 10px;
-		border-bottom: 1px solid #909090;
 	}
 
 	.joined {
-		margin-top: 20px;
+		margin-top: 10px;
+		border-bottom: 1px solid #909090;
 	}
 
 	.nearby li {

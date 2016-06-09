@@ -96,10 +96,10 @@
 	}
 
 	.background-image {
-		height: 220px;
 		background-size: cover;
     	background-repeat: no-repeat;
     	background-position: 50% 50%;
+		height: 220px;
 	}
 
 	.group-info {
@@ -160,6 +160,13 @@
 		-moz-user-select: none;
 		-ms-user-select: none;
 		user-select: none;
+	}
+
+
+	@media screen and (min-width: 534px) {
+		.background-image {
+			height: 300px;
+		}
 	}
 </style>
 
