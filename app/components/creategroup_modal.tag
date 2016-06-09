@@ -151,11 +151,27 @@
 				location: new Parse.GeoPoint(self.marker.position.lat(), self.marker.position.lng()),
 				name: self.groupname.value,
 				groupId: groupId,
+				memberCount: 1,
 				type: 'group'
 			},{
 				success: function(group) {
-					groupsTag.init()
-					$('#creategroupModal').modal('hide')
+					var UserGroupObject = Parse.Object.extend('UserGroup')
+					var newUserGroup = new UserGroupObject()
+					newUserGroup.save({
+						user: Parse.User.current(),
+						group: group
+					}, {
+						success: function(userGroup) {
+							$('#creategroupModal').modal('hide')
+							containerTag.group = group
+							riot.route(encodeURI(group.get('groupId')))
+							self.update()
+						}, error: function(userGroup, error) {
+							self.isError = true
+							self.error = error.message
+							self.update()
+						}
+					})
 				}, error: function(group, error) {
 					self.isError = true
 					self.error = error.message

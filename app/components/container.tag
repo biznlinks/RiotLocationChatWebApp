@@ -74,6 +74,7 @@
     r(home) // `notfound` would be nicer!
 
     function home(id) {
+      id = decodeURI(id)
       if (id == '' || id == 'groups') {
         groups()
       } else if (self.group) {
