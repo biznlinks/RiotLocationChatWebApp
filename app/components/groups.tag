@@ -211,7 +211,7 @@
 	.gray {
 		border: none;
 		background-image: url('/images/default_image.jpg');
-		object-fit: fill;
+		background-size: cover;
 	}
 
 	.nearby .name {
