@@ -8,7 +8,7 @@
 		<div class="row group-info">
 			<div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
 				<div class="group-name">{ containerTag.group.get('name') }</div>
-				<div class="members text-muted">{ locale } • { containerTag.group.get('memberCount') } joined</div>
+				<div class="members text-muted">{ locale } • { memberCount } joined</div>
 				<div class="most-active-container">
 					<div each={ user in mostActive } class="most-active">
 						<img src={ API.getProfilePicture(user) } class="img-circle most-active-picture">
@@ -25,6 +25,7 @@
 	var self = this
 	self.joined = false
 	self.locale = ''
+	self.memberCount = 0
 
 	this.on('mount', function() {
 		self.init()
@@ -53,10 +54,14 @@
 				self.update()
 			})
 		}
+
+		self.memberCount = containerTag.group.get('memberCount')
+		self.update()
 	}
 
 	submitJoin() {
 		self.joined = true
+		self.memberCount++
 		self.update()
 
 		var UserGroup = Parse.Object.extend('UserGroup')
@@ -67,12 +72,13 @@
 		},{
 			success: function(userGroup) {
 				if (self.mostActive.length < 5) self.mostActive.push(Parse.User.current())
-				else self.mostActive[5] = Parse.User.current()
+				else self.mostActive[4] = Parse.User.current()
 				self.update()
 			},
 			error: function(userGroup, error) {
 				console.error("Error saving UserGroup " + error.message)
 				self.joined = false
+				self.memberCount--
 				self.update()
 			}
 		})

@@ -247,7 +247,8 @@ getActiveUsers: function(group, limit) {
   var promise = new Parse.Promise();
   var query = new Parse.Query(Parse.Object.extend('UserGroup'));
   query.limit(limit);
-  query.equalTo('group', group)
+  query.equalTo('group', group);
+  query.addDescending('createdAt');
   query.find().then(function(results) {
     promise.resolve(results);
   },

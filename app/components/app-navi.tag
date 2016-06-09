@@ -1,6 +1,6 @@
 <app-navi>
 
-<nav class={navbar-gradient: home, navbar-nongradient: !home, navbar: true, navbar-static-top: true}>
+<nav class={navbar-gradient: home, navbar-nongradient: !home, navbar: true, navbar-static-top: containerTag.route!='groups', navbar-fixed-top: containerTag.route=='groups'}>
   <!-- <button class="navbar-toggler pull-xs-right hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
     &#9776;
   </button> -->
