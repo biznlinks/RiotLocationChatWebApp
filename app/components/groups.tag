@@ -13,11 +13,11 @@
 		</div>
 		<div class="joined">
 			<div class="row">
-				<div class="col-sm-1 col-xs-1 fa fa-chevron-left arrow" if={ joinedStart!=0 } onclick={ this.shiftLeft }></div>
+				<div class="col-sm-1 col-xs-1 fa fa-chevron-left arrow pointer" if={ joinedStart!=0 } onclick={ this.shiftLeft }></div>
 
 				<div class={col-sm-10: true, col-xs-10: true, col-sm-offset-1: joinedStart==0 || joinedGroups.length <= joinedLength, col-xs-offset-1: joinedStart==0 || joinedGroups.length <= joinedLength }>
 					<div class="row">
-						<div class="col-sm-3 col-xs-4 tile" each={ group in joinedGroups.slice(joinedStart, joinedEnd) } onclick={ this.chooseGroup(group.get('group')) }>
+						<div class="col-sm-3 col-xs-4 tile pointer" each={ group in joinedGroups.slice(joinedStart, joinedEnd) } onclick={ this.chooseGroup(group.get('group')) }>
 							<div>
 								<img if={ typeof group.get('group').get('image')!='undefined' } src={ group.get('group').get('image').url() } class="image img-circle">
 								<img if={ typeof group.get('group').get('image')=='undefined' } src="" class="image gray img-circle">
@@ -30,7 +30,7 @@
 					</div>
 				</div>
 
-				<div class="col-sm-1 col-xs-1 fa fa-chevron-right arrow" if={ joinedEnd < joinedGroups.length } onclick={ this.shiftRight }></div>
+				<div class="col-sm-1 col-xs-1 fa fa-chevron-right arrow pointer" if={ joinedEnd < joinedGroups.length } onclick={ this.shiftRight }></div>
 			</div>
 		</div>
 
@@ -40,7 +40,7 @@
 		<div class="nearby">
 			<ul>
 				<li each={ group in groups } onclick={ this.chooseGroup(group) }>
-					<div class="row">
+					<div class="row pointer">
 						<div class="col-sm-2 col-xs-2 image-container">
 							<img if={ typeof group.get('image')!='undefined' } src={ group.get('image').url() } class="image img-circle">
 							<img if={ typeof group.get('image')=='undefined' } src="" class="image gray img-circle">
@@ -167,7 +167,8 @@
 	}
 
 	.arrow {
-		margin-top: 30px;
+		padding-top: 40px;
+		padding-bottom: 70px;
 	}
 
 	.tile {
@@ -233,6 +234,16 @@
 		color: white;
 		font-size: 1.6em;
 		box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+	}
+
+	.pointer:hover {
+		cursor: pointer;
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
 	}
 
 </style>
