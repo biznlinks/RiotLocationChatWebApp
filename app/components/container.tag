@@ -96,6 +96,7 @@
         selectedId: null
       })
       self.tags.groups.init()
+      self.toTop()
     }
     function feed() {
       self.track('feed')
@@ -107,9 +108,9 @@
       })
       self.tags.banner.init()
       self.tags.feed.init()
+      self.toTop()
     }
     function postdetail(id) {
-      //self.tags.postdetail.unmount()
       self.track('postdetail')
       self.update({
         title: "SOPHUS",
@@ -119,7 +120,7 @@
       })
       self.tags.postdetail.update({postid: id})
       self.tags.postdetail.init()
-      //riot.mount('postdetail', {postid: id})
+      self.toTop()
     }
     function topics() {
       self.track('topics')
@@ -129,7 +130,8 @@
         selectedId: null,
         route: "schedule"
       })
-       self.tags.topics.init()
+      self.tags.topics.init()
+      self.toTop()
     }
     function live(id) {
       self.track('live')
@@ -140,6 +142,7 @@
         route: "live"
       })
       self.tags.topics.live(id)
+      self.toTop()
     }
     function topicsfeed(id) {
       self.tags.topicsfeed.unmount()
@@ -152,6 +155,7 @@
         route: "topicsfeed"
       })
       riot.mount('topicsfeed', {topicName: id})
+      self.toTop()
     }
     function profile() {
       self.track('profile')
@@ -162,15 +166,7 @@
         selectedId: null,
         route: "profile"
       })
-    }
-    function localgroups() {
-      self.track('localgroups')
-      self.update({
-        title: USER_LOCALE,
-        body: "",
-        selectedId: null,
-        route: "groups"
-      })
+      self.toTop()
     }
 
     requestLocation() {
@@ -179,6 +175,10 @@
       } else {
         console.log('disabled')
       }
+    }
+
+    toTop() {
+      window.scrollTo(0,0)
     }
 
 </script>
