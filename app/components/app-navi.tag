@@ -8,12 +8,12 @@
     <div class="navbar-brand"> <a href="/groups"><img id="logo" alt="Logo" src="/images/app_icon.png" ></a>  { title }</div>
 
     <ul class="nav navbar-nav pull-xs-right">
-      <li class={ nav-item: true, active: parent.selectedId === url }>
+      <!-- <li class={ nav-item: true, active: parent.selectedId === url }>
         <a class="nav-icon nav-link" onclick={ this.showSearch }><i class="fa fa-search fa-4"></i></a>
       </li>
       <li class={ nav-item: true, active: parent.selectedId === url }>
         <a class="nav-icon nav-link" onclick={ this.gotoSchedule }><i class="fa fa-calendar fa-4"></i></a>
-      </li>
+      </li> -->
 
       <li class={ nav-item: true } onclick={ this.update }>
         <div class="btn-group profile-container">

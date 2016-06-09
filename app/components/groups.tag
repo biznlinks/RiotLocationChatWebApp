@@ -162,6 +162,7 @@
 	}
 
 	.gray {
+		border: none;
 		background-color: #b5b5b5;
 	}
 

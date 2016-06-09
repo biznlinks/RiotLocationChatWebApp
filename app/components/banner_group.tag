@@ -2,7 +2,7 @@
 
 <div class="banner-container">
 	<div class="" align="center">
-		<div class="timer-container text-center">
+		<div class="background-image">
 		</div>
 
 		<div class="row group-info">
@@ -11,7 +11,7 @@
 				<div class="members text-muted">{ locale } • { containerTag.group.get('memberCount') } joined</div>
 				<div class="most-active-container">
 					<div each={ user in mostActive } class="most-active">
-						<img src={ API.getProfilePicture(user.get('user')) } class="img-circle most-active-picture">
+						<img src={ API.getProfilePicture(user) } class="img-circle most-active-picture">
 					</div>
 				</div>
 				<div class="group-desc">{ containerTag.group.get('description') }</div>
@@ -32,7 +32,8 @@
 
 	init() {
 		API.getActiveUsers(containerTag.group, 5).then(function(results) {
-			self.mostActive = results
+			self.mostActive = []
+			for (var i = 0; i < results.length; i++) self.mostActive.push(results[i].get('user'))
 			self.update()
 		})
 		API.getusercity(containerTag.group.get('location')).then(function(result) {
@@ -65,6 +66,9 @@
 			group: containerTag.group
 		},{
 			success: function(userGroup) {
+				if (self.mostActive.length < 5) self.mostActive.push(Parse.User.current())
+				else self.mostActive[5] = Parse.User.current()
+				self.update()
 			},
 			error: function(userGroup, error) {
 				console.error("Error saving UserGroup " + error.message)
@@ -81,9 +85,9 @@
 		margin-top: -57px;
 	}
 
-	.timer-container {
+	.background-image {
 		background-image: url('/images/annarbor.jpg');
-		height: 270px;
+		height: 220px;
 		background-size: cover;
     	background-repeat: no-repeat;
     	background-position: 50% 50%;

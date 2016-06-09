@@ -49,13 +49,12 @@
 
 	this.on('mount', function() {
 		$('#creategroupModal').on('shown.bs.modal', function() {
-			// There is something with BS modals that requires
-			// 'resize' event to be triggered to show the map
-			/*google.maps.event.trigger(self.map, 'resize')
-			self.map.setCenter(new google.maps.LatLng(USER_POSITION.latitude, USER_POSITION.longitude))
-			self.map.setZoom(10)*/
-		})
+			$('body').css('overflow', 'hidden')
+        	$('body').css('position', 'fixed')		})
 		$('#creategroupModal').on('hidden.bs.modal', function() {
+			$('body').css('overflow', 'scroll')
+        	$('body').css('position', 'relative')
+
 			self.isError         = false
 			self.error           = ''
 			self.address         = 'Change Location'
