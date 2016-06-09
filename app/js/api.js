@@ -204,6 +204,7 @@ getjoinedgroups: function(user) {
   var promise = new Parse.Promise();
   var query = new Parse.Query(Parse.Object.extend('UserGroup'));
   query.equalTo('user', user);
+  query.addDescending('createdAt');
 
   query.find().then(function(results) {
     promise.resolve(results);
