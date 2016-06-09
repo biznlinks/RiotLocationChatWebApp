@@ -184,7 +184,7 @@ constructQuestionsForTopic: function(topic){
 
   return promise;
 },
-getallgroups: function(type=null) {
+getallgroups: function(type) {
   loader.trigger('start');
   var promise = new Parse.Promise();
   var query = new Parse.Query(Parse.Object.extend('Group'));
