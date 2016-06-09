@@ -13,16 +13,24 @@
 		</div>
 		<div class="joined">
 			<div class="row">
-				<div class="col-sm-3 col-xs-4 tile" each={ group in joinedGroups } onclick={ this.chooseGroup(group.get('group')) }>
-					<div>
-						<img if={ typeof group.get('group').get('image')!='undefined' } src={ group.get('group').get('image').url() } class="image img-circle">
-						<img if={ typeof group.get('group').get('image')=='undefined' } src="" class="image gray img-circle">
-					</div>
-					<div class="name">
-						{ group.get('group').get('name').slice(0,20) }
-						<span if={ group.get('group').get('name').length > 20 }>...</span>
+				<div class="col-sm-1 col-xs-1 fa fa-chevron-left arrow" if={ joinedStart!=0 } onclick={ this.shiftLeft }></div>
+
+				<div class={col-sm-10: true, col-xs-10: true, col-sm-offset-1: joinedStart==0 || joinedGroups.length <= joinedLength, col-xs-offset-1: joinedStart==0 || joinedGroups.length <= joinedLength }>
+					<div class="row">
+						<div class="col-sm-3 col-xs-4 tile" each={ group in joinedGroups.slice(joinedStart, joinedEnd) } onclick={ this.chooseGroup(group.get('group')) }>
+							<div>
+								<img if={ typeof group.get('group').get('image')!='undefined' } src={ group.get('group').get('image').url() } class="image img-circle">
+								<img if={ typeof group.get('group').get('image')=='undefined' } src="" class="image gray img-circle">
+							</div>
+							<div class="name">
+								{ group.get('group').get('name').slice(0,20) }
+								<span if={ group.get('group').get('name').length > 20 }>...</span>
+							</div>
+						</div>
 					</div>
 				</div>
+
+				<div class="col-sm-1 col-xs-1 fa fa-chevron-right arrow" if={ joinedEnd < joinedGroups.length } onclick={ this.shiftRight }></div>
 			</div>
 		</div>
 
@@ -56,10 +64,17 @@
 
 
 <script>
-	var self = this
-	groupsTag = this
+	var self          = this
+	groupsTag         = this
+	self.joinedStart  = 0
+	self.joinedEnd    = 0
+	self.joinedLength = 0
 
 	this.on('mount', function() {
+		if ($(window).width() > 543) self.joinedLength = 4
+		else self.joinedLength = 3
+		self.joinedEnd = self.joinedStart + self.joinedLength
+
 		self.init()
 	})
 
@@ -88,6 +103,18 @@
 			riot.route(encodeURI(group.get('groupId')))
 			self.update()
 		}
+	}
+
+	shiftLeft() {
+		self.joinedEnd = self.joinedStart
+		self.joinedStart -= self.joinedLength
+		self.update()
+	}
+
+	shiftRight() {
+		self.joinedStart = self.joinedEnd
+		self.joinedEnd += self.joinedLength
+		self.update()
 	}
 </script>
 <style scoped>
@@ -135,7 +162,18 @@
 
 	.joined {
 		margin-top: 10px;
+		padding-bottom: 20px;
 		border-bottom: 1px solid #909090;
+	}
+
+	.arrow {
+		margin-top: 30px;
+	}
+
+	.tile {
+		vertical-align: top;
+		text-align: center;
+		display: inline-block;
 	}
 
 	.nearby li {
@@ -150,18 +188,13 @@
 		padding: 0;
 	}
 
-	.tile {
-		text-align: center;
-		margin-bottom: 15px;
-	}
-
 	.image-container {
 		text-align: center;
 	}
 
 	.image {
-		height: 50px;
-		width: 50px;
+		height: 60px;
+		width: 60px;
 		object-fit: cover;
 	}
 
