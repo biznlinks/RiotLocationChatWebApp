@@ -28,9 +28,9 @@
 
 				<div id="image-search" if={ chooseImage }>
 					<input type="text" placeholder="Search" name="imageQuery" onkeyup={ this.keyUp }>
-					<div class="image-grid row" if={ searchResults }>
-						<div class="col-sm-3 col-xs-3" each={ image in searchResults } onclick={ this.selectImage(image) }>
-							<img src={ image.thumbnailUrl } class="tile">
+					<div class="image-grid" if={ searchResults }>
+						<div class="image-container" each={ image in searchResults } onclick={ this.selectImage(image) } style="background-image: url('{ image.thumbnailUrl }')">
+							<!-- <img src={ image.thumbnailUrl } class="tile"> -->
 						</div>
 					</div>
 				</div>
@@ -246,7 +246,7 @@
 
 	searchImage() {
 		$.ajax({
-			url: 'https://bingapis.azure-api.net/api/v5/images/search?q='+self.imageQuery.value+'&count=8&offset=0&mkt=en-us&safeSearch=Moderate',
+			url: 'https://bingapis.azure-api.net/api/v5/images/search?q='+self.imageQuery.value+'&count=9&offset=0&mkt=en-us&safeSearch=Moderate',
 			headers: {"Ocp-Apim-Subscription-Key": "b7bef01565c343e492b34386142f0b68"}
 		}).then(function(data){
 			self.searchResults = data.value
@@ -391,21 +391,22 @@
 
 	.image-grid {
 		padding-top: 10px;
-		padding-bottom: 20px;
 		border-top: 1px solid #ddd;
 		border-bottom: 1px solid #ddd;
+		line-height: 1;
 	}
 
-	.tile {
-		height: 100px;
-		width: 100px;
-		margin-top: 15px;
+	.image-container {
+		height: 110px;
+		width: 28%;
+		background-size: cover;
+		margin: 5px;
+		display: inline-block;
 	}
 
 	@media screen and (max-width: 543px) {
-		.tile {
-			height: 70px;
-			width: 70px;
+		.image-container {
+			height: 80px;
 		}
 	}
 
