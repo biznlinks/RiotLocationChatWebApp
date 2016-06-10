@@ -18,7 +18,7 @@
 					<div class="row">
 						<div class="col-sm-3 col-xs-4 tile pointer" each={ group in joinedGroups.slice(joinedStart, joinedEnd) } onclick={ this.chooseGroup(group.get('group')) }>
 							<div>
-								<img src={ API.getGroupImage(group.get('group')) } class="image img-circle">
+								<img src={ API.getGroupImage(group.get('group')) } class="image-joined img-circle">
 							</div>
 							<div class="name">
 								{ group.get('group').get('name').slice(0,20) }
@@ -39,21 +39,12 @@
 			<ul>
 				<li each={ group in groups } onclick={ this.chooseGroup(group) }>
 					<div class="row pointer">
-<<<<<<< HEAD
 						<div class="col-sm-2 col-xs-3 image-container">
-							<img src={ API.getGroupImage(group) } class="image img-circle">
+							<img src={ API.getGroupImage(group) } class="image-nearby img-circle">
 						</div>
 						<div class="col-sm-10 col-xs-9 group-info">
 							<div class="name">{ group.get('name') }</div>
 							<div class="desc">{ group.get('description') }</div>
-=======
-							<img if={ typeof group.get('image')!='undefined' } src={ group.get('image').url() } class="image-nearby img-circle">
-							<img if={ typeof group.get('image')=='undefined' } src="" class="image-nearby gray img-circle">
-							<div class="info-box">
-								<div class="name">{ group.get('name') }</div>
-								<div class="desc">{ group.get('description') }</div>
-							</div>
->>>>>>> 0c3d6773a9e2ca05457a7ddb537c4a30cd0128d7
 						</div>
 					</div>
 				</li>
