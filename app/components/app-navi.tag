@@ -17,7 +17,7 @@
       </li>
       <li class={ nav-item: true, active: parent.selectedId === url }>
         <a class="nav-icon nav-link" onclick={ this.gotoSchedule }><i class="fa fa-calendar fa-4"></i></a>
-      </li> -->
+      </li>
 
       <li class={ nav-item: true } onclick={ this.update }>
         <div class="btn-group profile-container">
@@ -44,12 +44,20 @@
 
       <li class="nav-item">
         <div class="btn-group">
-          <div class="btn dropdown-toggle fa fa-ellipsis-h" data-toggle="dropdown" href="#">
-          </div>
+          <img class="btn dropdown-toggle ellipsis" data-toggle="dropdown" href="#" src="/images/ellipsis.png" if={containerTag.route!='posts'}>
+          <img class="btn dropdown-toggle ellipsis" data-toggle="dropdown" href="#" src="/images/ellipsis-w.png" if={containerTag.route=='posts'}>
           <ul class="dropdown-menu dropdown-menu-right">
-            <!-- dropdown menu links -->
-            <li class="dropdown-item" onclick={ this.gotoProfile }>
-              <a class="nav-link" href="#">Profile</a>
+            <li class="dropdown-item" if={ signupAvail } onclick={ this.showLogin }>
+              <a class="nav-link" href="#">Log In</a>
+            </li>
+            <li class="dropdown-item" if={ signupAvail } onclick={ this.showSignup }>
+              <a class="nav-link" href="#">Sign Up</a>
+            </li>
+            <li class="dropdown-item" if={ !signupAvail }>
+              <a class="nav-link" href="#" onclick={ this.gotoProfile }>Profile</a>
+            </li>
+            <li class="dropdown-item" if={ !signupAvail } onclick={ this.logout }>
+              <a class="nav-link" href="#">Logout</a>
             </li>
             <li class="dropdown-item" onclick={ this.sendfeedback }>
               <a class="nav-link" href="#">Feedback</a>
@@ -188,12 +196,16 @@
   }
 
   .nav-item {
-    color: white;
+    color: black;
   }
 
   .nav-icon {
     font-size: large;
-    color: white;
+    color: black;
+  }
+
+  .ellipsis {
+    padding: 0;
   }
 
   .profile-img{

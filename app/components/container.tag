@@ -71,7 +71,7 @@
     r('schedule',  topics )
     r('schedule/*', topicsfeed)
     r('profile', profile)
-    r(home) // `notfound` would be nicer!
+    r(home)
 
     function home(id) {
       id = decodeURI(id)
