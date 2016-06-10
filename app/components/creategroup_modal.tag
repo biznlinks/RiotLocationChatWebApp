@@ -14,8 +14,9 @@
 			<div if={!loading} class="modal-body">
 				<div id="info-form" if={ !chooseImage }>
 					<div class="groupinfo-container" id="info" if={ !chooseLocation }>
-						<div class="photo" onclick={ showImage }>
-							<div class="add-photo">Add Image</div>
+						<div onclick={ showImage }>
+							<div class="add-photo" if={ !selectedImage }>Add Image</div>
+							<img class="img-circle group-photo" if={ selectedImage } src={ selectedImage.thumbnailUrl }>
 						</div>
 						<div><input type="text" name="groupname" id="groupname" placeholder="New Group"></div>
 						<div><input type="text" name="desc" id="desc" placeholder="Short Description"></div>
@@ -26,12 +27,16 @@
 				</div>
 
 				<div id="image-search" if={ chooseImage }>
-					<input type="text" placeholder="Search">
+					<input type="text" placeholder="Search" name="imageQuery" onkeyup={ this.keyUp }>
+					<div class="image-grid row" if={ searchResults }>
+						<div class="col-sm-3 col-xs-3" each={ image in searchResults } onclick={ this.selectImage(image) }>
+							<img src={ image.thumbnailUrl } class="tile">
+						</div>
+					</div>
 				</div>
 
 				<div class="confirm-container" if={ !chooseLocation && !chooseImage }><button class="btn btn-default" onclick={ this.submitGroup }>Create</button></div>
 				<div class="confirm-container" if={ chooseLocation }><button class="btn btn-default" onclick={ this.closeMap }>OK</button></div>
-				<div class="confirm-container" if={ chooseImage }><button class="btn btn-default" onclick={ this.closeImage }>OK</button></div>
 				<div class="error text-warning" if={ isError }>{ error }</div>
 			</div>
 		</div>
@@ -48,6 +53,7 @@
 	self.chooseImage    = false
 
 	this.on('mount', function() {
+		console.log(self.chooseImage)
 		$('#creategroupModal').on('shown.bs.modal', function() {
 			$('body').css('overflow', 'hidden')
         	$('body').css('position', 'fixed')		})
@@ -69,7 +75,15 @@
 			}
 			self.update()
 		})
+
 	})
+
+	keyUp() {
+		clearTimeout(self.searchTimer)
+		if (self.imageQuery.value) {
+			self.searchTimer = setTimeout(self.searchImage, 1000)
+		}
+	}
 
 	initMap() {
 		self.gmap = new google.maps.Map(document.getElementById('map'), {
@@ -150,6 +164,8 @@
 			newGroup.save({
 				location: new Parse.GeoPoint(self.marker.position.lat(), self.marker.position.lng()),
 				name: self.groupname.value,
+				description: self.desc.value,
+				imageUrl: self.selectedImage ? self.selectedImage.contentUrl : undefined,
 				groupId: groupId,
 				memberCount: 1,
 				type: 'group'
@@ -206,6 +222,26 @@
 		}
 
 		return promise
+	}
+
+	searchImage() {
+		console.log(self.imageQuery.value)
+		$.ajax({
+			url: 'https://bingapis.azure-api.net/api/v5/images/search?q='+self.imageQuery.value+'&count=8&offset=0&mkt=en-us&safeSearch=Moderate',
+			headers: {"Ocp-Apim-Subscription-Key": "b7bef01565c343e492b34386142f0b68"}
+		}).then(function(data){
+			console.log(data)
+			self.searchResults = data.value
+			self.update()
+		})
+	}
+
+	selectImage(image) {
+		return function() {
+			self.selectedImage = image
+			self.update()
+			self.closeImage()
+		}
 	}
 
 	showMap() {
@@ -276,18 +312,20 @@
 		padding-bottom: 0;
 	}
 
-	.photo {
+	.add-photo {
+		margin: 0 auto;
 		height: 100px;
 		width: 100px;
+		padding-top: 35px;
 		-webkit-border-radius: 50%;
     	-moz-border-radius: 50%;
     	border-radius: 50%;
     	border:1px dashed #00BFFF;
-    	margin: 0 auto;
-    	padding-top: 35px;
-	}
-	.photo .add-photo {
 		color: #00BFFF;
+	}
+	.group-photo {
+		height: 100px;
+		width: 100px;
 	}
 
 	.groupinfo-container input {
@@ -326,6 +364,30 @@
 	.confirm-container {
 		margin-top: 10px;
 		margin-bottom: 10px;
+	}
+
+	.image-search input {
+		margin-bottom: 10px;
+	}
+
+	.image-grid {
+		padding-top: 10px;
+		padding-bottom: 20px;
+		border-top: 1px solid #ddd;
+		border-bottom: 1px solid #ddd;
+	}
+
+	.tile {
+		height: 100px;
+		width: 100px;
+		margin-top: 15px;
+	}
+
+	@media screen and (max-width: 543px) {
+		.tile {
+			height: 70px;
+			width: 70px;
+		}
 	}
 
 	@media screen and (min-height: 1000px) {
