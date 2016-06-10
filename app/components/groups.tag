@@ -27,9 +27,9 @@
 								</div>
 							</div>
 						</div>
-					</div>
 
-					<div class="col-sm-1 col-xs-1 fa fa-chevron-right arrow pointer" if={ joinedEnd < joinedGroups.length } onclick={ this.shiftRight }></div>
+						<div class="col-sm-1 col-xs-1 fa fa-chevron-right arrow pointer" if={ joinedEnd < joinedGroups.length } onclick={ this.shiftRight }></div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -41,12 +41,11 @@
 			<ul>
 				<li each={ group in groups } onclick={ this.chooseGroup(group) }>
 					<div class="row pointer">
-						<div class="col-sm-2 col-xs-3 image-container">
 							<img src={ API.getGroupImage(group) } class="image-nearby img-circle">
-						</div>
-						<div class="col-sm-10 col-xs-9 group-info">
-							<div class="name">{ group.get('name') }</div>
-							<div class="desc">{ group.get('description') }</div>
+							<div class="info-box">
+								<div class="name">{ group.get('name') }</div>
+								<div class="desc">{ group.get('description') }</div>
+							</div>
 						</div>
 					</div>
 				</li>
