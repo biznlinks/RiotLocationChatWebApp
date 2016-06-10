@@ -14,8 +14,11 @@
 						<img src={ API.getProfilePicture(user) } class="img-circle most-active-picture">
 					</div>
 				</div>
-				<div class="group-desc">{ containerTag.group.get('description') }</div>
-				<div class="join-group" if={ !joined } onclick={ this.submitJoin }>Join</div>
+				<div if={ !joined }>
+					<hr>
+					<div class="group-desc">{ containerTag.group.get('description') }</div>
+					<div class="join-group" onclick={ this.submitJoin }>Join</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -128,7 +131,6 @@
 
 	.most-active-container {
 		padding-bottom: 10px;
-		border-bottom: 1px solid #ddd;
 	}
 
 	.most-active {
@@ -159,6 +161,10 @@
 		-moz-user-select: none;
 		-ms-user-select: none;
 		user-select: none;
+	}
+
+	hr{
+		margin: auto 0;
 	}
 
 

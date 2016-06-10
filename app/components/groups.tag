@@ -28,7 +28,9 @@
 				<div class="col-sm-1 col-xs-1 fa fa-chevron-right arrow pointer" if={ joinedEnd < joinedGroups.length } onclick={ this.shiftRight }></div>
 			</div>
 		</div>
-		<hr>
+		<div if={ joinedGroups.length > 0 }>
+			<hr>
+		</div>
 		<div class="title">
 			<i>Nearby</i>
 		</div>
