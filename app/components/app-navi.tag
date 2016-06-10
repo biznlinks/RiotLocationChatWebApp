@@ -17,9 +17,9 @@
       </li>
       <li class={ nav-item: true, active: parent.selectedId === url }>
         <a class="nav-icon nav-link" onclick={ this.gotoSchedule }><i class="fa fa-calendar fa-4"></i></a>
-      </li>
+      </li> -->
 
-      <li class={ nav-item: true } onclick={ this.update }>
+      <li class={ nav-item: true } onclick={ this.update } if={containerTag.route=='groups'}>
         <div class="btn-group profile-container">
           <img src={ API.getCurrentUserProfilePicture() } class="img-circle dropdown-toggle profile-img pointer" data-toggle="dropdown"/>
           <ul class="dropdown-menu dropdown-menu-right">
@@ -40,27 +40,18 @@
             </li>
           </ul>
         </div>
-      </li> -->
+      </li>
 
-      <li class="nav-item">
+      <li class="nav-item" if={containerTag.route!='groups'}>
         <div class="btn-group">
           <img class="btn dropdown-toggle ellipsis" data-toggle="dropdown" href="#" src="/images/ellipsis.png" if={containerTag.route!='posts'}>
           <img class="btn dropdown-toggle ellipsis" data-toggle="dropdown" href="#" src="/images/ellipsis-w.png" if={containerTag.route=='posts'}>
           <ul class="dropdown-menu dropdown-menu-right">
-            <li class="dropdown-item" if={ signupAvail } onclick={ this.showLogin }>
-              <a class="nav-link" href="#">Log In</a>
+            <li class="dropdown-item" onclick={ this.showSearch }>
+              <a class="nav-link" href="#">Search</a>
             </li>
-            <li class="dropdown-item" if={ signupAvail } onclick={ this.showSignup }>
-              <a class="nav-link" href="#">Sign Up</a>
-            </li>
-            <li class="dropdown-item" if={ !signupAvail }>
-              <a class="nav-link" href="#" onclick={ this.gotoProfile }>Profile</a>
-            </li>
-            <li class="dropdown-item" if={ !signupAvail } onclick={ this.logout }>
-              <a class="nav-link" href="#">Logout</a>
-            </li>
-            <li class="dropdown-item" onclick={ this.sendfeedback }>
-              <a class="nav-link" href="#">Feedback</a>
+            <li class="dropdown-item" onclick={ this.showGroupInfo }>
+              <a class="nav-link" href="#">Group Info</a>
             </li>
           </ul>
         </div>
@@ -125,6 +116,11 @@
     $('#searchModal').modal('show')
   }
 
+  showGroupInfo() {
+    riot.route('group/' + containerTag.group.get('groupId'))
+    self.update()
+  }
+
   gotoSchedule() {
     riot.route('schedule')
     self.update()
@@ -169,7 +165,7 @@
 
   .navbar-nongradient {
     background: white;
-    box-shadow: 0px 5px 7px #888888;
+    box-shadow: 0px -3px 12px #888888;
   }
 
   .navbar{

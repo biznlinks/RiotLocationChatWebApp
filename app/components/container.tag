@@ -39,6 +39,7 @@
         <postdetail if={ route=="postdetail" }></postdetail>
         <profile name="profile" if={ route=="profile" }></profile>
         <groups name="groups" if={ route=="groups" }></groups>
+        <groupinfo name="groupinfo" if={ route=="groupinfo"}></groupinfo>
       </div>
 
       <topicsfeed if={ route=="topicsfeed" }></topicsfeed>
@@ -65,6 +66,7 @@
     var r = riot.route.create()
     r('#',       home       )
     r('groups',  groups)
+    r('group/*', groupinfo)
     r('post/*', postdetail)
     r('topics',  topics )
     r('live/*',  live )
@@ -98,6 +100,35 @@
       })
       self.tags.groups.init()
       self.toTop()
+    }
+    function groupinfo(id) {
+      if (!self.group) {
+        API.fetchOne('Group', 'groupId', id).then(function(results) {
+          self.group = results
+          self.track('groupinfo')
+          self.update({
+            title: self.group.get('name'),
+            body: "",
+            route: "groupinfo",
+            selectedId: null
+          })
+          self.tags.groupinfo.init()
+          self.toTop()
+        }, function(err) {
+          console.log('notfound')
+          return null
+        })
+      } else {
+        self.track('groupinfo')
+        self.update({
+          title: self.group.get('name'),
+          body: "",
+          route: "groupinfo",
+          selectedId: null
+        })
+        self.tags.groupinfo.init()
+        self.toTop()
+      }
     }
     function feed() {
       self.track('feed')

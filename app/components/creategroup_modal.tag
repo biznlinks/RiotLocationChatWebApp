@@ -219,7 +219,7 @@
 
 	generateGroupId() {
 		var promise = new Parse.Promise()
-		var groupId = self.groupname.value.toLowerCase()
+		var groupId = self.groupname.value.toLowerCase().trim()
 		groupId     = groupId.replace(new RegExp(' ','g'), '-')
 
 		randomGroupId()
