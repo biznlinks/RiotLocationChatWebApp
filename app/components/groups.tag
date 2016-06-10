@@ -1,5 +1,4 @@
 <groups>
-
 <div class="outer-container">
 	<!-- <div class="search-container row">
 		<div class="col-sm-8 col-sm-offset-2">
@@ -19,7 +18,7 @@
 					<div class="row">
 						<div class="col-sm-3 col-xs-4 tile pointer" each={ group in joinedGroups.slice(joinedStart, joinedEnd) } onclick={ this.chooseGroup(group.get('group')) }>
 							<div>
-								<img src={ API.getGroupImage(group.get('group')) } class="image img-circle">
+								<img src={ API.getGroupImage(group.get('group')) } class="image-joined img-circle">
 							</div>
 							<div class="name">
 								{ group.get('group').get('name').slice(0,20) }
@@ -40,12 +39,11 @@
 			<ul>
 				<li each={ group in groups } onclick={ this.chooseGroup(group) }>
 					<div class="row pointer">
-						<div class="col-sm-2 col-xs-3 image-container">
-							<img src={ API.getGroupImage(group) } class="image img-circle">
-						</div>
-						<div class="col-sm-10 col-xs-9 group-info">
-							<div class="name">{ group.get('name') }</div>
-							<div class="desc">{ group.get('description') }</div>
+							<img src={ API.getGroupImage(group) } class="image-nearby img-circle">
+							<div class="info-box">
+								<div class="name">{ group.get('name') }</div>
+								<div class="desc">{ group.get('description') }</div>
+							</div>
 						</div>
 					</div>
 				</li>
@@ -54,9 +52,15 @@
 	</div>
 
 	<button class="btn mfb-component--br" name="submit" onclick={ showCreateModal }>
-		<svg style="width:24px;height:24px" viewBox="0 0 24 24">
-		    <path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" stroke="white" stroke-width="2" fill="none"/>
-		</svg>
+		<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
+    <title>Shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <polygon id="Shape" fill="#FFFFFF" points="20 11.4285714 11.4285714 11.4285714 11.4285714 20 8.57142857 20 8.57142857 11.4285714 0 11.4285714 0 8.57142857 8.57142857 8.57142857 8.57142857 0 11.4285714 0 11.4285714 8.57142857 20 8.57142857"></polygon>
+    </g>
+</svg>
 	</button>
 </div>
 
@@ -200,10 +204,17 @@
 		text-align: center;
 	}
 
-	.image {
-		height: 60px;
-		width: 60px;
+	.image-joined {
+		height: 70px;
+		width: 70px;
 		object-fit: cover;
+	}
+
+	.image-nearby {
+		height: 70px;
+		width: 70px;
+		object-fit: cover;
+		margin: auto 10px;
 	}
 
 	.gray {
@@ -216,6 +227,11 @@
 		margin-top: 0;
 		font-size: large;
 		color: #555;
+	}
+
+	.info-box{
+		display: inline-block;
+		vertical-align: middle;
 	}
 
 	.name {

@@ -63,8 +63,10 @@
 		$('#loginModal').on('show.bs.modal', function() {
 	    	self.track()
 
-	    	$('body').css('overflow', 'hidden')
-        	$('body').css('position', 'fixed')
+	    	if ($(window).width() <= 544) {
+	          $('body').css('overflow', 'hidden')
+	          $('body').css('position', 'fixed')
+	        } 
 		})
 
 		$('#loginModal').on('hidden.bs.modal', function () {
