@@ -77,8 +77,10 @@
         if (self.parent.route == "topicsfeed")
           self.topic = topicsfeedtag.topicName
 
-        $('body').css('overflow', 'hidden')
-        $('body').css('position', 'fixed')
+        if ($(window).width() <= 544) {
+          $('body').css('overflow', 'hidden')
+          $('body').css('position', 'fixed')
+        } 
 
         self.update()
       })

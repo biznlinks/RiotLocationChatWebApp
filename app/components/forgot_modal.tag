@@ -41,8 +41,10 @@
 
 	this.on('mount', function() {
 		$('#forgotModal').on('shown.bs.modal', function() {
-			$('body').css('overflow', 'hidden')
-        	$('body').css('position', 'fixed')
+			if ($(window).width() <= 544) {
+	          $('body').css('overflow', 'hidden')
+	          $('body').css('position', 'fixed')
+	        } 
 		})
 		$('#forgotModal').on('hidden.bs.modal', function () {
 			self.isError     = false
