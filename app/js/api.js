@@ -269,6 +269,20 @@ getUserGroups: function(user) {
     console.error("failed to query user's groups: " + JSON.stringify(err));
   });
   return promise;
+},
+getGroupImage: function(group) {
+  if (!group.get('image')){
+      if (group.get('imageUrl')){
+        return group.get('imageUrl');
+      }
+      return '/images/default_image.jpg';
+
+    }else {
+      image = group.get('image').url();
+      if (image){
+        return image;
+      }
+    }
 }
 
 };

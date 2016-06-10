@@ -56,10 +56,7 @@
 		}
 
 		self.memberCount = containerTag.group.get('memberCount')
-		if (containerTag.group.get('image')) {
-			bgUrl = containerTag.group.get('image').url()
-			$('#background').css("background-image", "url('" + bgUrl + "')")
-		} else $('#background').css("background-image", "url('/images/default_image.jpg')")
+		$('#background').css("background-image", "url('" + API.getGroupImage(containerTag.group) + "')")
 		self.update()
 	}
 
