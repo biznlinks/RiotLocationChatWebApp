@@ -29,7 +29,7 @@
 			self.postsTag.update({posts:results, loading:false})
 
 			self.latestUpdate = new Date()
-			setInterval(function() {
+			self.checkUpdate = setInterval(function() {
 				self.checkNewPosts()
 			}, 15000)
 		})

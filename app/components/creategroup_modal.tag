@@ -23,14 +23,14 @@
 					</div>
 
 					<div id="map" class="hide"></div>
-					<div class="address text-muted" onclick={ this.showMap }>{ address }</div>
+					<div class="address" onclick={ this.showMap }>{ address }</div>
 				</div>
 
 				<div id="image-search" if={ chooseImage }>
 					<input type="text" placeholder="Search" name="imageQuery" onkeyup={ this.keyUp }>
-					<div class="image-grid row" if={ searchResults }>
-						<div class="col-sm-3 col-xs-3" each={ image in searchResults } onclick={ this.selectImage(image) }>
-							<img src={ image.thumbnailUrl } class="tile">
+					<div class="image-grid" if={ searchResults }>
+						<div class="image-container" each={ image in searchResults } onclick={ this.selectImage(image) } style="background-image: url('{ image.thumbnailUrl }')">
+							<!-- <img src={ image.thumbnailUrl } class="tile"> -->
 						</div>
 					</div>
 				</div>
@@ -46,15 +46,18 @@
 
 <script>
 	var self            = this
-	self.address        = 'Change Location'
+	self.address        = ''
 	self.isError        = false
 	self.error          = ''
 	self.chooseLocation = false
 	self.chooseImage    = false
 
 	this.on('mount', function() {
-		console.log(self.chooseImage)
+		self.initMap()
+		self.getStreetAddress({lat: USER_POSITION.latitude, lng: USER_POSITION.longitude})
+
 		$('#creategroupModal').on('shown.bs.modal', function() {
+			self.initMap()
 			if ($(window).width() <= 544) {
 	          $('body').css('overflow', 'hidden')
 	          $('body').css('position', 'fixed')
@@ -63,19 +66,16 @@
 		$('#creategroupModal').on('hidden.bs.modal', function() {
 			$('body').css('overflow', 'scroll')
         	$('body').css('position', 'relative')
+        	self.closeImage()
 
 			self.isError         = false
 			self.error           = ''
-			self.address         = 'Change Location'
+			self.address         = self.getStreetAddress({lat: USER_POSITION.latitude, lng: USER_POSITION.longitude})
 			self.groupname.value = ''
 
 			self.chooseLocation  = false
 			self.closeMap()
-			self.gmap            = null
-			if (self.marker) {
-				self.marker.setPosition(null)
-				self.groupCircle.setCenter(null)
-			}
+
 			self.update()
 		})
 
@@ -91,15 +91,15 @@
 	initMap() {
 		self.gmap = new google.maps.Map(document.getElementById('map'), {
 			center: {lat: USER_POSITION.latitude, lng: USER_POSITION.longitude},
-          	zoom: 13
-		})
-		self.userMarker = new google.maps.Marker({
-			map: self.gmap,
-			position: {lat: USER_POSITION.latitude, lng: USER_POSITION.longitude},
-			icon: '/images/marker.png'
+          	zoom: 13,
+          	disableDefaultUI: true,
+          	zoomControl: true,
+          	styles: [{ featureType: "poi", elementType: "labels", stylers: [{ visibility: "off" }]},
+          		{ featureType: "transit", elementType: "labels", stylers: [{ visibility: "off" }]}]
 		})
 		self.marker = new google.maps.Marker({
 			map: self.gmap,
+			position: {lat: USER_POSITION.latitude, lng: USER_POSITION.longitude},
 			icon: '/images/marker-filled.png'
 		})
 		self.groupCircle = new google.maps.Circle({
@@ -109,6 +109,7 @@
 			fillColor: '#A9A9C3',
 			fillOpacity: 0.3,
 			map: self.gmap,
+			center: {lat: USER_POSITION.latitude, lng: USER_POSITION.longitude},
 			radius: 1609,
 			clickable: false
 		})
@@ -117,12 +118,6 @@
 		self.gmap.addListener('click', function(e) {
 			self.marker.setPosition(e.latLng)
 			self.gmap.panTo(e.latLng)
-			self.getStreetAddress(e.latLng)
-			self.groupCircle.setCenter(self.marker.position)
-		})
-
-		self.userMarker.addListener('click', function(e) {
-			self.marker.setPosition(self.userMarker.position)
 			self.getStreetAddress(e.latLng)
 			self.groupCircle.setCenter(self.marker.position)
 		})
@@ -152,11 +147,6 @@
 			self.error   = "Groups' names must be at least 3-character long"
 			self.update()
 			return null
-		} else if (!self.marker.position) {
-			self.isError = true
-			self.error   = "Choose group's position on the map"
-			self.update()
-			return null
 		}
 
 		self.generateGroupId().then(function(results) {
@@ -181,15 +171,42 @@
 						group: group
 					}, {
 						success: function(userGroup) {
-							$('#creategroupModal').modal('hide')
-							containerTag.group = group
-							riot.route(encodeURI(group.get('groupId')))
-							self.update()
+
 						}, error: function(userGroup, error) {
 							self.isError = true
 							self.error = error.message
 							self.update()
 						}
+					})
+
+					var newPostContent = 'created ' + group.get('name')
+					newPostContent += (group.get('description')) ? ', ' + group.get('description') : ''
+					var PostObject = Parse.Object.extend('Post')
+					var newPost = new PostObject()
+					newPost.save({
+						author: Parse.User.current(),
+						group: group,
+						content: newPostContent,
+						newsFeedViewsBy: [],
+						answerCount: 0,
+						wannaknowCount: 0,
+						anonymous: false
+					}, {
+						success: function(post) {
+							var Wannaknow = Parse.Object.extend('WannaKnow')
+					        var wannaknow = new Wannaknow()
+					        wannaknow.save({
+					          post: post,
+					          user: Parse.User.current()
+					      	}, {
+					      		success: function(wannaknow) {
+					      			$('#creategroupModal').modal('hide')
+									containerTag.group = group
+									riot.route(encodeURI(group.get('groupId')))
+									self.update()
+					      		}
+					      	})
+					    }
 					})
 				}, error: function(group, error) {
 					self.isError = true
@@ -228,12 +245,10 @@
 	}
 
 	searchImage() {
-		console.log(self.imageQuery.value)
 		$.ajax({
-			url: 'https://bingapis.azure-api.net/api/v5/images/search?q='+self.imageQuery.value+'&count=8&offset=0&mkt=en-us&safeSearch=Moderate',
+			url: 'https://bingapis.azure-api.net/api/v5/images/search?q='+self.imageQuery.value+'&count=9&offset=0&mkt=en-us&safeSearch=Moderate',
 			headers: {"Ocp-Apim-Subscription-Key": "b7bef01565c343e492b34386142f0b68"}
 		}).then(function(data){
-			console.log(data)
 			self.searchResults = data.value
 			self.update()
 		})
@@ -261,8 +276,8 @@
 				$('#map').animate({height: height}, {
 					duration: 500,
 					complete: function() {
-						if (self.gmap == null)
-							self.initMap()
+						google.maps.event.trigger(self.gmap, 'resize')
+						self.gmap.panTo(self.marker.position)
 					}
 				}).removeClass('hide')
 			}
@@ -362,6 +377,7 @@
 
 	.address {
 		margin-top: 20px;
+		color: #00BFFF;
 	}
 
 	.confirm-container {
@@ -375,21 +391,22 @@
 
 	.image-grid {
 		padding-top: 10px;
-		padding-bottom: 20px;
 		border-top: 1px solid #ddd;
 		border-bottom: 1px solid #ddd;
+		line-height: 1;
 	}
 
-	.tile {
-		height: 100px;
-		width: 100px;
-		margin-top: 15px;
+	.image-container {
+		height: 110px;
+		width: 28%;
+		background-size: cover;
+		margin: 5px;
+		display: inline-block;
 	}
 
 	@media screen and (max-width: 543px) {
-		.tile {
-			height: 70px;
-			width: 70px;
+		.image-container {
+			height: 80px;
 		}
 	}
 

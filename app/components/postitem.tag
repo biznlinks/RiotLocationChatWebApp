@@ -93,6 +93,10 @@
 	self.anonymous      = false
 
 	this.on('mount', function() {
+		self.init()
+	})
+
+	init() {
 		if (this.post.get('answerCount')>0)
 			API.getanswersforpost(this.post).then(function(answers){
 				self.answers = answers
@@ -115,7 +119,7 @@
 			error: function(error) {
 			}
 		})
-	})
+	}
 
 	getAuthorName() {
 		if (this.post.get('anonymous'))
@@ -267,10 +271,8 @@
 	}
 
 	.post-content{
-		font-size: 20px;
-		color: #424242;
-		margin-top: 15px;
-		margin-bottom: 20px;
+		font-size: 14px;
+		margin-top: 10px;
 	}
 	.postauthor{
 		margin-bottom: 5px;
@@ -282,8 +284,8 @@
 		font-size: smaller;
 	}
 	.profile {
-		width: 40px;
-		height: 40px;
+		width: 30px;
+		height: 30px;
 		margin-right: 10px;
 	}
 
@@ -388,6 +390,14 @@
 		padding: .375rem;
 		padding-left: .8rem;
 		border: none;
+	}
+
+	.card-block{
+		padding: 1rem;
+	}
+
+	.card {
+		margin-bottom: .6rem;
 	}
 
 	textarea {

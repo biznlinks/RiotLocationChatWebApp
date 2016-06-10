@@ -107,12 +107,12 @@
 	}
 
 	.group-name {
-		font-size: x-large;
-		font-weight: bolder;
+		font-size: 20px;
 	}
 
 	.members {
-		margin-bottom: 10px;
+		font-size: 14px;
+		margin: 5px auto;
 	}
 
 	.join-group {
@@ -120,7 +120,7 @@
 		padding: 8px 15px;
 		font-size: large;
 		color: white;
-		background: #6794ff;
+		background: #4e83ff;
 		-webkit-border-radius: 5px;
     	-moz-border-radius: 5px;
     	border-radius: 5px;
@@ -144,7 +144,7 @@
 
 	.group-desc {
 		padding: 10px;
-		font-size: large;
+		font-size: 14px;
 	}
 
 	.inline {

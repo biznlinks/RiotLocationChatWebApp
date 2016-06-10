@@ -187,8 +187,7 @@
 <style scoped>
   :scope {
     display: block;
-    font-family: sans-serif;
-    color: #666;
+    font-family: 'Roboto', sans-serif;
 
 
   }

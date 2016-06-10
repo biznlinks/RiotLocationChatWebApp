@@ -135,7 +135,8 @@
   }
 
   .navbar-nongradient {
-    background: rgba(0,0,0,0.9);
+    background: white;
+    box-shadow: 0px 5px 7px #888888;
   }
 
   .navbar{
