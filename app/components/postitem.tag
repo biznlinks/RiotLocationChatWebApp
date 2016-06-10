@@ -93,6 +93,10 @@
 	self.anonymous      = false
 
 	this.on('mount', function() {
+		self.init()
+	})
+
+	init() {
 		if (this.post.get('answerCount')>0)
 			API.getanswersforpost(this.post).then(function(answers){
 				self.answers = answers
@@ -115,7 +119,7 @@
 			error: function(error) {
 			}
 		})
-	})
+	}
 
 	getAuthorName() {
 		if (this.post.get('anonymous'))

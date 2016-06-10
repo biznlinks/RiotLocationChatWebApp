@@ -80,7 +80,7 @@
         if ($(window).width() <= 544) {
           $('body').css('overflow', 'hidden')
           $('body').css('position', 'fixed')
-        } 
+        }
 
         self.update()
       })
@@ -152,8 +152,6 @@
       post.set("wannaknowCount",0)
       post.set("topic", self.topic)
       post.set("anonymous", self.anonymous)
-
-      post.set("university","umich")
       post.set("group", containerTag.group)
 
       post.save().then(function(){
