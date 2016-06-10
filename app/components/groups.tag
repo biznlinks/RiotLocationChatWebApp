@@ -7,28 +7,30 @@
 	</div> -->
 
 	<div class="groups-container">
-		<div class="title">
-			<i>Joined</i>
-		</div>
-		<div class="joined">
-			<div class="row">
-				<div class="col-sm-1 col-xs-1 fa fa-chevron-left arrow pointer" if={ joinedStart!=0 } onclick={ this.shiftLeft }></div>
+		<div if={ joinedGroups.length > 0 }>
+			<div class="title">
+				<i>Joined</i>
+			</div>
+			<div class="joined">
+				<div class="row">
+					<div class="col-sm-1 col-xs-1 fa fa-chevron-left arrow pointer" if={ joinedStart!=0 } onclick={ this.shiftLeft }></div>
 
-				<div class={col-sm-10: true, col-xs-10: true, col-sm-offset-1: joinedStart==0 || joinedGroups.length <= joinedLength, col-xs-offset-1: joinedStart==0 || joinedGroups.length <= joinedLength }>
-					<div class="row">
-						<div class="col-sm-3 col-xs-4 tile pointer" each={ group in joinedGroups.slice(joinedStart, joinedEnd) } onclick={ this.chooseGroup(group.get('group')) }>
-							<div>
-								<img src={ API.getGroupImage(group.get('group')) } class="image-joined img-circle">
-							</div>
-							<div class="name">
-								{ group.get('group').get('name').slice(0,20) }
-								<span if={ group.get('group').get('name').length > 20 }>...</span>
+					<div class={col-sm-10: true, col-xs-10: true, col-sm-offset-1: joinedStart==0 || joinedGroups.length <= joinedLength, col-xs-offset-1: joinedStart==0 || joinedGroups.length <= joinedLength }>
+						<div class="row">
+							<div class="col-sm-3 col-xs-4 tile pointer" each={ group in joinedGroups.slice(joinedStart, joinedEnd) } onclick={ this.chooseGroup(group.get('group')) }>
+								<div>
+									<img src={ API.getGroupImage(group.get('group')) } class="image-joined img-circle">
+								</div>
+								<div class="name">
+									{ group.get('group').get('name').slice(0,20) }
+									<span if={ group.get('group').get('name').length > 20 }>...</span>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 
-				<div class="col-sm-1 col-xs-1 fa fa-chevron-right arrow pointer" if={ joinedEnd < joinedGroups.length } onclick={ this.shiftRight }></div>
+					<div class="col-sm-1 col-xs-1 fa fa-chevron-right arrow pointer" if={ joinedEnd < joinedGroups.length } onclick={ this.shiftRight }></div>
+				</div>
 			</div>
 		</div>
 
