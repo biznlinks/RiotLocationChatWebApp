@@ -5,12 +5,13 @@
 
 		<!-- Modal content -->
 		<div class="modal-content">
+			<div class="header modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+
 			<div if={loading} class="modal-body text-xs-center">
 				<i class="fa fa-spinner fa-spin fa-3x fa-fw margin-bottom"></i>
 				<span class="sr-only">Loading...</span>
 			</div>
 
-			<div class="header modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
 			<div if={!loading} class="modal-body">
 				<div id="info-form" if={ !chooseImage }>
 					<div class="groupinfo-container" id="info" if={ !chooseLocation }>
@@ -51,6 +52,7 @@
 	self.error          = ''
 	self.chooseLocation = false
 	self.chooseImage    = false
+	self.loading        =false
 
 	this.on('mount', function() {
 		self.initMap()
@@ -149,6 +151,9 @@
 			return null
 		}
 
+		self.loading = true
+		self.update()
+
 		self.generateGroupId().then(function(results) {
 			var groupId = results
 
@@ -200,6 +205,7 @@
 					          user: Parse.User.current()
 					      	}, {
 					      		success: function(wannaknow) {
+					      			self.loading = false
 					      			$('#creategroupModal').modal('hide')
 									containerTag.group = group
 									riot.route(encodeURI(group.get('groupId')))
