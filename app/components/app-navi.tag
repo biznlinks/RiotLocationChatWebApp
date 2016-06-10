@@ -5,7 +5,11 @@
     &#9776;
   </button> -->
   <div class="navbar-toggleable-xs" id="exCollapsingNavbar2">
-    <div class="navbar-brand"> <a href="/groups"><img id="logo" alt="Logo" src="/images/app_icon.png" ></a>  { title }</div>
+    <div class="navbar-brand">
+      <a href="/groups"><img id="logo" alt="Logo" src="/images/app_icon.png" ></a>
+      <span if={ containerTag.route!='groups' }>{ title }</span>
+      <span if={ containerTag.route=='groups' }>{ USER_LOCALE }</span>
+    </div>
 
     <ul class="nav navbar-nav pull-xs-right">
       <!-- <li class={ nav-item: true, active: parent.selectedId === url }>
@@ -30,6 +34,22 @@
             </li>
             <li class="dropdown-item" if={ !signupAvail } onclick={ this.logout }>
               <a class="nav-link" href="#">Logout</a>
+            </li>
+            <li class="dropdown-item" onclick={ this.sendfeedback }>
+              <a class="nav-link" href="#">Feedback</a>
+            </li>
+          </ul>
+        </div>
+      </li> -->
+
+      <li class="nav-item">
+        <div class="btn-group">
+          <div class="btn dropdown-toggle fa fa-ellipsis-h" data-toggle="dropdown" href="#">
+          </div>
+          <ul class="dropdown-menu dropdown-menu-right">
+            <!-- dropdown menu links -->
+            <li class="dropdown-item" onclick={ this.gotoProfile }>
+              <a class="nav-link" href="#">Profile</a>
             </li>
             <li class="dropdown-item" onclick={ this.sendfeedback }>
               <a class="nav-link" href="#">Feedback</a>
@@ -127,6 +147,11 @@
     color: #666;
   }
 
+  .dropdown-toggle::after {
+      border: none;
+      content: none;
+  }
+
   .navbar-gradient {
     background: -webkit-linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0));
     background: -o-linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0));
@@ -160,6 +185,10 @@
   .navbar-nav .nav-link {
     padding-top: .1rem;
     padding-bottom: 0;
+  }
+
+  .nav-item {
+    color: white;
   }
 
   .nav-icon {
