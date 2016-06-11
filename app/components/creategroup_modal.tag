@@ -83,12 +83,14 @@
 
         	self.closeImage()
 			self.searchResults    = undefined
+			self.selectedImage    = undefined
 			self.imageQuery.value = ''
 
 			self.isError         = false
 			self.error           = ''
 			self.address         = self.getStreetAddress({lat: USER_POSITION.latitude, lng: USER_POSITION.longitude})
 			self.groupname.value = ''
+			self.desc.value      = ''
 
 			self.chooseLocation  = false
 			self.closeMap()
