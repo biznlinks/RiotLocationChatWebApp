@@ -230,7 +230,7 @@
 						}
 					})
 
-					var newPostContent = 'created ' + group.get('name')
+					var newPostContent = 'Welcome to ' + group.get('name')
 					newPostContent += (group.get('description')) ? ', ' + group.get('description') : ''
 					var PostObject = Parse.Object.extend('Post')
 					var newPost = new PostObject()
