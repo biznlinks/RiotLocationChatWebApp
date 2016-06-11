@@ -29,9 +29,21 @@
 
 				<div id="image-search" if={ chooseImage }>
 					<input type="text" placeholder="Search" name="imageQuery" onkeyup={ this.keyUp }>
-					<div class="image-grid" if={ searchResults }>
+					<div class="image-grid" if={ searchResults && searchResults.length > 0 }>
 						<div class="image-container" each={ image in searchResults } onclick={ this.selectImage(image) } style="background-image: url('{ image.thumbnailUrl }')">
 							<!-- <img src={ image.thumbnailUrl } class="tile"> -->
+						</div>
+					</div>
+					<!-- <div class="uploaded-image" if={ uploadedImageUrl } >
+						<label for="imageFile" style="background-image: url('{uploadedImageUrl}')"></label>
+						<input name="imageFile" id="imageFile" type="file" style="visibility: hidden; position: absolute;"></input>
+					</div> -->
+					<div class="options" if={ !searchResults || searchResults.length == 0 }>
+						<div>Search for your group's image</div>
+						or
+						<div>
+							<label for="imageFile"><span class="btn btn-primary">Upload your image</span></label>
+							<input name="imageFile" id="imageFile" type="file" style="visibility: hidden; position: absolute;"></input>
 						</div>
 					</div>
 				</div>
@@ -68,7 +80,10 @@
 		$('#creategroupModal').on('hidden.bs.modal', function() {
 			$('body').css('overflow', 'scroll')
         	$('body').css('position', 'relative')
+
         	self.closeImage()
+			self.searchResults    = undefined
+			self.imageQuery.value = ''
 
 			self.isError         = false
 			self.error           = ''
@@ -81,6 +96,35 @@
 			self.update()
 		})
 
+		$(document).on('change', '#imageFile', function() {
+			var file = $('#imageFile')[0].files[0]
+			var serverUrl = 'https://api.parse.com/1/files/' + file.name;
+
+			var image = new Image
+			image.onload = function() {
+				if (image.width >= 640) {
+					$.ajax({
+				        type: "POST",
+				        beforeSend: function(request) {
+				        	request.setRequestHeader("X-Parse-Application-Id", 'YDTZ5PlTlCy5pkxIUSd2S0RWareDqoaSqbnmNX11');
+				        	request.setRequestHeader("X-Parse-REST-API-Key", 'TkCtS0607l5lfgiO65FbNc5zudsLcADDwPcQS1Va');
+				        	request.setRequestHeader("Content-Type", file.type);
+				        },
+				        url: serverUrl,
+				        data: file,
+				        processData: false,
+				        contentType: false,
+				        success: function(data) {
+				        	self.selectedImage = {thumbnailUrl: data.url, contentUrl: data.url}
+				        	self.closeImage()
+				        },
+				        error: function(data) {
+				        }
+				    });
+				}
+			}
+			image.src = URL.createObjectURL(file)
+		})
 	})
 
 	keyUp() {
@@ -391,8 +435,24 @@
 		margin-bottom: 10px;
 	}
 
-	.image-search input {
+	.options {
+		padding-top: 70px;
+		padding-bottom: 50px;
+		text-align: center;
+		font-size: 26px;
+		font-weight: 600;
+		color: #bbb;
+	}
+
+	#image-search input {
 		margin-bottom: 10px;
+		text-align: center;
+		font-size: large;
+		border: none;
+	}
+
+	#image-search input:focus {
+		outline: none;
 	}
 
 	.image-grid {
@@ -408,6 +468,11 @@
 		background-size: cover;
 		margin: 5px;
 		display: inline-block;
+	}
+
+	.uploaded-image label {
+		width: 100%;
+		height: 300px;
 	}
 
 	@media screen and (max-width: 543px) {
