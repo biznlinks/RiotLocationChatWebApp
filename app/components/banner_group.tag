@@ -14,8 +14,11 @@
 						<img src={ API.getProfilePicture(user) } class="img-circle most-active-picture">
 					</div>
 				</div>
-				<div class="group-desc">{ containerTag.group.get('description') }</div>
-				<div class="join-group" if={ !joined } onclick={ this.submitJoin }>Join</div>
+				<div if={ !joined }>
+					<hr>
+					<div class="group-desc">{ containerTag.group.get('description') }</div>
+					<div class="join-group" onclick={ this.submitJoin }>Join</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -107,12 +110,12 @@
 	}
 
 	.group-name {
-		font-size: x-large;
-		font-weight: bolder;
+		font-size: 20px;
 	}
 
 	.members {
-		margin-bottom: 10px;
+		font-size: 14px;
+		margin: 5px auto;
 	}
 
 	.join-group {
@@ -120,7 +123,7 @@
 		padding: 8px 15px;
 		font-size: large;
 		color: white;
-		background: #6794ff;
+		background: #4e83ff;
 		-webkit-border-radius: 5px;
     	-moz-border-radius: 5px;
     	border-radius: 5px;
@@ -128,7 +131,6 @@
 
 	.most-active-container {
 		padding-bottom: 10px;
-		border-bottom: 1px solid #ddd;
 	}
 
 	.most-active {
@@ -144,7 +146,7 @@
 
 	.group-desc {
 		padding: 10px;
-		font-size: large;
+		font-size: 14px;
 	}
 
 	.inline {
@@ -159,6 +161,10 @@
 		-moz-user-select: none;
 		-ms-user-select: none;
 		user-select: none;
+	}
+
+	hr{
+		margin: auto 0;
 	}
 
 
