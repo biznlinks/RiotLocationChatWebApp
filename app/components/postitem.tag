@@ -15,11 +15,10 @@
 				</div>
 
 				<p class="post-content" name="content">{this.getContent()}</p>
+			</div
 
-
-
-			</div>
 			<!-- <a onclick={this.showSignup}> -->
+			<!--
 			<div class="pointer row">
 				<div class="col-xs-5 text-muted infodiv">
 					<div class='answercount' if={post.get('answerCount') >= 0} >{post.get('answerCount')} Repl<span if={post.get('answerCount')!=1}>ies</span><span if={ post.get('answerCount') == 1 }>y</span>
@@ -27,9 +26,10 @@
 
 					<div class='wannaknow text-muted' onclick={ this.submitWannaknow }>
 						<!-- <img width="23px" src="/images/wannaknow_gray@2x.png">  -->
+						<!--
 						<i class={ fa: true, fa-heart-o: !wannaknown, fa-heart: wannaknown } name="wannaknowButton" aria-hidden="true"></i>
 						<!-- {post.get('wannaknowCount')} -->
-						{ wannaknowCount }
+						<!--{ wannaknowCount }
 					</div>
 				</div>
 
@@ -40,6 +40,7 @@
 				</div>
 			</div>
 		</div>
+
 		<hr if={post.get('answerCount')>0}/>
 		<div class="row">
 			<div class="col-xs-12" >
@@ -52,7 +53,6 @@
 				</div>
 			</div>
 		</div>
-
 
 		<div class="reply-container">
 			<hr/>
@@ -68,7 +68,7 @@
 				Sending your reply ...
 			</div>
 		</div>
-
+		-->
 
 		<!-- <ul class="list-group list-group-flush">
 			<li class="list-group-item"><input class="comment-input" type="text" placeholder="Answer" /></li>
@@ -393,7 +393,7 @@
 	}
 
 	.card-block{
-		padding: 1rem;
+		padding-bottom: 0;
 	}
 
 	.card {

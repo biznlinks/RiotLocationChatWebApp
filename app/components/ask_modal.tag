@@ -34,7 +34,7 @@
 
             <div class="post-container">
               <div class="info-btns">
-                <textarea rows="3" autofocus id="searchField" name="searchField" placeholder="Post about { containerTag.group.get('name') }" class="searchbox"></textarea>
+                <textarea rows="3" autofocus id="searchField" name="searchField" placeholder="Add reply" class="searchbox"></textarea>
                 <div class="text-muted" id="topic" if={ topic!='' }>#{topic}</div>
 
               </div>
