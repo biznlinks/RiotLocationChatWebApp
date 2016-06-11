@@ -179,7 +179,7 @@
   }
 
   .navbar-brand {
-    color: white;
+    /*color: white;*/
   }
 
   .nav {
