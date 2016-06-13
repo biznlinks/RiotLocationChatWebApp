@@ -158,7 +158,7 @@ getallposts: function(limit){
   var promise = new Parse.Promise();
   var query = new Parse.Query(Post);
   query.equalTo('group', containerTag.group);
-  query.descending('updatedAt');
+  query.ascending('createdAt');
   query.include('author');
   query.limit(limit);
   query.find().then(function(results) {
@@ -204,7 +204,7 @@ getjoinedgroups: function(user) {
   var promise = new Parse.Promise();
   var query = new Parse.Query(Parse.Object.extend('UserGroup'));
   query.equalTo('user', user);
-  query.addDescending('createdAt');
+  query.descending('createdAt');
 
   query.find().then(function(results) {
     promise.resolve(results);
@@ -249,7 +249,7 @@ getActiveUsers: function(group, limit) {
   var query = new Parse.Query(Parse.Object.extend('UserGroup'));
   query.limit(limit);
   query.equalTo('group', group);
-  query.addDescending('createdAt');
+  query.descending('createdAt');
   query.find().then(function(results) {
     promise.resolve(results);
   },
