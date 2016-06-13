@@ -1,5 +1,4 @@
 <postitem>
-	<div class="card">
 		<div class="card-block pointer">
 
 			<div class="" onclick={ this.goToPost }>
@@ -74,10 +73,6 @@
 			<li class="list-group-item"><input class="comment-input" type="text" placeholder="Answer" /></li>
 		</ul>
 	-->
-</div>
-
-
-
 </div>
 
 

@@ -107,6 +107,7 @@
 	.group-info {
 		background-color: white;
 		padding: 10px;
+		border-bottom: 10px solid #EEEEEE;
 	}
 
 	.group-name {

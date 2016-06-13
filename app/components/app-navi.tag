@@ -6,7 +6,8 @@
   </button> -->
   <div class="navbar-toggleable-xs" id="exCollapsingNavbar2">
     <div class="navbar-brand">
-      <a href="/groups"><img id="logo" alt="Logo" src="/images/app_icon.png" ></a>
+      <a if={ containerTag.route!='groups' } href="/groups"><img id="arrow" alt="Logo" src="/images/back.png" ></a>
+      <a if={ containerTag.route=='groups' } href="/groups"><img id="logo" alt="Logo" src="/images/app_icon.png" ></a>
       <span if={ containerTag.route!='groups' }>{ title }</span>
       <span if={ containerTag.route=='groups' }>{ USER_LOCALE }</span>
     </div>
@@ -228,7 +229,10 @@
   #logo {
     height: 35px;
     display: inline-block;
+  }
 
+  #arrow {
+    height: 25px;
   }
 
 

@@ -32,8 +32,8 @@
 
 	.group-info {
 		margin-top: 5px;
-		background-color: white;
 		padding: 10px;
+		border-bottom: 1px solid #ccc;
 	}
 
 	.group-name {

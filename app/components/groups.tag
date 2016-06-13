@@ -38,11 +38,10 @@
 			<ul>
 				<li each={ group in groups } onclick={ this.chooseGroup(group) }>
 					<div class="pointer">
-							<img src={ API.getGroupImage(group) } class="image-nearby img-circle">
-							<div class="info-box">
-								<div class="group-title">{ group.get('name') }</div>
-								<div class="desc">{ group.get('description') }</div>
-							</div>
+						<img src={ API.getGroupImage(group) } class="image-nearby img-circle">
+						<div class="info-box">
+							<div class="group-title">{ group.get('name') }</div>
+							<div class="desc">{ group.get('description') }</div>
 						</div>
 					</div>
 				</li>
@@ -122,7 +121,9 @@
 
 	.outer-container {
 		background-color: white;
-		padding: 10px;
+		padding-top: 10px;
+		padding-left: 10px;
+		padding-right: 10px;
 		margin-top: 50px;
 	}
 
@@ -181,9 +182,7 @@
 	}
 
 	.nearby li {
-		padding-top: 20px;
 		padding-bottom: 20px;
-		border-bottom: 1px solid #ccc;
 	}
 
 	.nearby ul {
@@ -223,6 +222,10 @@
 		display: inline-block;
 		vertical-align: middle;
 		width: calc(100% - 100px);
+		display: inline-block; 
+		border-bottom: 1px solid #ccc; 
+		padding-top: 20px;
+		padding-bottom: 20px;
 	}
 
 	.group-title {
