@@ -69,7 +69,7 @@
 	submitJoin() {
 		if (Parse.User.current().get('type') == 'dummy') {
 			$('#signupModal').modal('show')
-			signupTag.update({joinGroup: true})
+			signupTag.update({needSignup: true, caller: this})
 			return null
 		}
 

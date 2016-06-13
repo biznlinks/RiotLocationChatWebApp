@@ -55,12 +55,12 @@
 </div>
 
 <script>
-	var self       = this
-	loginTag       = this
-	self.joinGroup = opts.joinGroup
-	self.ask       = opts.ask
-	self.isError   = false
-	self.error     = ""
+	var self        = this
+	loginTag        = this
+	self.needSignup = opts.needSignup
+	self.caller     = opts.caller
+	self.isError    = false
+	self.error      = ""
 
 	this.on('mount', function(){
 		$('#loginModal').on('show.bs.modal', function() {
@@ -147,10 +147,8 @@
 
 	loginSuccess() {
 		$('#loginModal').modal('hide')
-		if (self.joinGroup) {
-			bannerTag.trigger('signedUp')
-		} else if (self.ask) {
-			newpostTag.trigger('signedUp')
+		if (self.needSignup) {
+			self.caller.trigger('signedUp')
 		} else {
 			riot.route('')
 		    window.location.reload()

@@ -79,6 +79,11 @@
 		self.init()
 	})
 
+	this.on('signedUp', function() {
+		console.log('called')
+		self.showCreateModal()
+	})
+
 	init() {
 		containerTag.group = null
 		API.getjoinedgroups(Parse.User.current()).then(function(joinedGroups) {
@@ -95,6 +100,12 @@
 	}
 
 	showCreateModal() {
+		if (Parse.User.current().get('type')=='dummy') {
+			$('#signupModal').modal('show')
+			signupTag.update({needSignup: true, caller: this})
+			return null
+		}
+
 		$('#creategroupModal').modal('show')
 	}
 

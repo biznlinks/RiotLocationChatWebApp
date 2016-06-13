@@ -21,7 +21,7 @@
   showAskModal() {
     if (Parse.User.current().get('type') == 'dummy') {
       $('#signupModal').modal('show')
-      signupTag.update({ask: true})
+      signupTag.update({needSignup: true, caller: this})
       return null
     }
 

@@ -8,7 +8,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<div class="updated text-primary" if={ stayUpdated }>Let us keep you updated</div>
+				<div class="updated text-muted" if={ needSignup }>You need to sign up first</div>
 				<div class="facebook-option">
 					<button class="btn btn-default btn-primary" onclick={ this.submitFacebook }>
 						<i class="fa fa-facebook-f" id="facebook-logo"></i> Log in with Facebook
@@ -51,8 +51,8 @@
 	var self         = this
 	signupTag        = this
 	self.stayUpdated = opts.stayUpdated
-	self.joinGroup   = opts.joinGroup
-	self.ask         = opts.ask
+	self.needSignup  = opts.needSignup
+	self.caller      = opts.caller
 	self.isError     = false
 	self.error       = ""
 
@@ -154,7 +154,7 @@
 	showLogin(){
 		$('#signupModal').modal('hide')
 		$('#loginModal').modal('show')
-		loginTag.update({joinGroup: self.joinGroup, ask: self.ask})
+		loginTag.update({needSignup: self.needSignup, caller: self.caller})
 	}
 
 	checkValidity() {
@@ -172,10 +172,8 @@
 
 	signupSuccess() {
 		$('#signupModal').modal('hide')
-		if (self.joinGroup) {
-			bannerTag.trigger('signedUp')
-		} else if (self.ask) {
-			newpostTag.trigger('signedUp')
+		if (self.needSignup) {
+			self.caller.trigger('signedUp')
 		} else {
 			riot.route('')
 		    window.location.reload()
