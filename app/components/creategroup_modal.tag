@@ -64,7 +64,9 @@
 	self.error          = ''
 	self.chooseLocation = false
 	self.chooseImage    = false
-	self.loading        =false
+	self.loading        = false
+
+	creategroupTag = this
 
 	this.on('mount', function() {
 		self.initMap()
@@ -98,35 +100,7 @@
 			self.update()
 		})
 
-		$(document).on('change', '#imageFile', function() {
-			var file = $('#imageFile')[0].files[0]
-			var serverUrl = 'https://api.parse.com/1/files/' + file.name;
-
-			var image = new Image
-			image.onload = function() {
-				if (image.width >= 640) {
-					$.ajax({
-				        type: "POST",
-				        beforeSend: function(request) {
-				        	request.setRequestHeader("X-Parse-Application-Id", 'YDTZ5PlTlCy5pkxIUSd2S0RWareDqoaSqbnmNX11');
-				        	request.setRequestHeader("X-Parse-REST-API-Key", 'TkCtS0607l5lfgiO65FbNc5zudsLcADDwPcQS1Va');
-				        	request.setRequestHeader("Content-Type", file.type);
-				        },
-				        url: serverUrl,
-				        data: file,
-				        processData: false,
-				        contentType: false,
-				        success: function(data) {
-				        	self.selectedImage = {thumbnailUrl: data.url, contentUrl: data.url}
-				        	self.closeImage()
-				        },
-				        error: function(data) {
-				        }
-				    });
-				}
-			}
-			image.src = URL.createObjectURL(file)
-		})
+		$(document).on('change', '#imageFile', self.uploadImage)
 	})
 
 	keyUp() {
@@ -134,6 +108,42 @@
 		if (self.imageQuery.value) {
 			self.searchTimer = setTimeout(self.searchImage, 1000)
 		}
+	}
+
+	uploadImage() {
+		var file = $('#imageFile')[0].files[0]
+		var serverUrl = 'https://api.parse.com/1/files/' + file.name;
+
+		self.loading = true
+		self.update()
+
+		var image = new Image
+		image.onload = function() {
+			if (image.width >= 640) {
+				$.ajax({
+			        type: "POST",
+			        beforeSend: function(request) {
+			        	request.setRequestHeader("X-Parse-Application-Id", 'YDTZ5PlTlCy5pkxIUSd2S0RWareDqoaSqbnmNX11');
+			        	request.setRequestHeader("X-Parse-REST-API-Key", 'TkCtS0607l5lfgiO65FbNc5zudsLcADDwPcQS1Va');
+			        	request.setRequestHeader("Content-Type", file.type);
+			        },
+			        url: serverUrl,
+			        data: file,
+			        processData: false,
+			        contentType: false,
+			        success: function(data) {
+			        	self.selectedImage = {thumbnailUrl: data.url, contentUrl: data.url}
+			        	self.loading = false
+			        	self.chooseImage = false
+						self.update()
+						self.showInfo()
+			        },
+			        error: function(data) {
+			        }
+			    });
+			}
+		}
+		image.src = URL.createObjectURL(file)
 	}
 
 	initMap() {
@@ -369,6 +379,10 @@
 				$('#info-form').slideDown({duration: 500})
 			}
 		})
+	}
+
+	showInfo() {
+		$('#info-form').slideDown({duration: 500})
 	}
 </script>
 
