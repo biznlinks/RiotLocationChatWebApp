@@ -12,7 +12,7 @@
 			<div class="modal-body">
 				<div id="ajax-example">
 					<div class="">
-						<textarea name="searchField" id="searchField" oninput={onkeyup} placeholder="Ask ICTD!" class="searchbox" onfocus={this.searchonfocus} autofocus></textarea>
+						<textarea name="searchField" id="searchField" oninput={onkeyup} placeholder="Whats on your mind?" class="searchbox" onfocus={this.searchonfocus} autofocus></textarea>
 					</div>
 
 					<div show={ filtered.length } class="card">
