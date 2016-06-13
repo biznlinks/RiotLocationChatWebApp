@@ -11,12 +11,23 @@
 </div> -->
 
 <script>
-  var self = this
-  self.anonymous = false
+  var self   = this
+  newpostTag = this
+
+  this.on('signedUp', function() {
+    self.showAskModal()
+  })
 
   showAskModal() {
+    if (Parse.User.current().get('type') == 'dummy') {
+      $('#signupModal').modal('show')
+      signupTag.update({ask: true})
+      return null
+    }
+
     $('#askModal').modal('show')
   }
+
 </script>
 
 <style scoped>
