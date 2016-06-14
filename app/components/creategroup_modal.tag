@@ -403,10 +403,10 @@
 	}
 
 	rotateRight() {
-		self.cropper.rotate(45)
+		self.cropper.rotate(90)
 	}
 	rotateLeft() {
-		self.cropper.rotate(-45)
+		self.cropper.rotate(-90)
 	}
 </script>
 
