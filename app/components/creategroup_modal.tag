@@ -102,10 +102,10 @@
 			self.groupname.value = ''
 			self.desc.value      = ''
 
-        	self.screen = 'INFO'
-			self.showInfo()
-
+			self.screen = 'INFO'
 			self.update()
+
+			self.showInfo()
 		})
 
 		$(document).on('change', '#imageFile', self.handleUploadedImage)
