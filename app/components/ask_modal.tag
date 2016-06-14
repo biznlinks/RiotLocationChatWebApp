@@ -65,6 +65,9 @@
 
     this.on('mount', function(){
       $('#askModal').on('shown.bs.modal', function() {
+        $(document).bind("touchmove", function(e){
+            e.preventDefault();
+        });
         if ($(window).width() >= 544) {
           $('#searchField').focus()
         } else {
@@ -77,23 +80,16 @@
         if (self.parent.route == "topicsfeed")
           self.topic = topicsfeedtag.topicName
 
-        if ($(window).width() <= 544) {
-          $('body').css('overflow', 'hidden')
-          $('body').css('position', 'fixed')
-        }
-
         self.update()
       })
       $('#askModal').on('hidden.bs.modal', function() {
+        $(document).unbind('touchmove');
         self.isError           = false
         self.error             = ""
         self.loading           = false
         self.searchField.value = ""
         self.topic             = ""
         self.handle.value      = ""
-
-        $('body').css('overflow', 'scroll')
-        $('body').css('position', 'relative')
       })
     })
 

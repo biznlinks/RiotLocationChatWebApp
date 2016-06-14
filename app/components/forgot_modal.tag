@@ -41,18 +41,15 @@
 
 	this.on('mount', function() {
 		$('#forgotModal').on('shown.bs.modal', function() {
-			if ($(window).width() <= 544) {
-	          $('body').css('overflow', 'hidden')
-	          $('body').css('position', 'fixed')
-	        } 
+			$(document).bind("touchmove", function(e){
+			    e.preventDefault();
+			});
 		})
 		$('#forgotModal').on('hidden.bs.modal', function () {
+			$(document).unbind('touchmove');
 			self.isError     = false
 			self.error       = ""
 			self.email.value = ""
-
-			$('body').css('overflow', 'scroll')
-        	$('body').css('position', 'relative')
 
 			self.update()
 		})

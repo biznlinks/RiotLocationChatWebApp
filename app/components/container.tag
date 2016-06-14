@@ -32,18 +32,17 @@
     <signupsuccess name="signupSuccess"></signupsuccess>
 
     <banner if={ route=="posts" }></banner>
-    <div class="">
-      <div class="main col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2 text-center">
-        <feed if={ route=="posts" }></feed>
-        <topics if={ route=="schedule" || route=="live" }></topics>
-        <postdetail if={ route=="postdetail" }></postdetail>
-        <profile name="profile" if={ route=="profile" }></profile>
-        <groups name="groups" if={ route=="groups" }></groups>
-        <groupinfo name="groupinfo" if={ route=="groupinfo"}></groupinfo>
-      </div>
 
-      <topicsfeed if={ route=="topicsfeed" }></topicsfeed>
+    <div class="main col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2 text-center">
+      <feed if={ route=="posts" }></feed>
+      <topics if={ route=="schedule" || route=="live" }></topics>
+      <postdetail if={ route=="postdetail" }></postdetail>
+      <profile name="profile" if={ route=="profile" }></profile>
+      <groups name="groups" if={ route=="groups" }></groups>
+      <groupinfo name="groupinfo" if={ route=="groupinfo"}></groupinfo>
     </div>
+
+    <topicsfeed if={ route=="topicsfeed" }></topicsfeed>
 
     <!-- /.row -->
   </div>
@@ -226,6 +225,7 @@
   .main {
     padding-right: 0px;
     padding-left: 0px;
+    max-width: 700px;
   }
 
   .card {

@@ -120,10 +120,7 @@
 <style scoped>
 
 	.outer-container {
-		background-color: white;
 		padding-top: 10px;
-		padding-left: 10px;
-		padding-right: 10px;
 		margin-top: 50px;
 	}
 
@@ -196,14 +193,14 @@
 	}
 
 	.image-joined {
-		height: 70px;
-		width: 70px;
+		height: 60px;
+		width: 60px;
 		object-fit: cover;
 	}
 
 	.image-nearby {
-		height: 70px;
-		width: 70px;
+		height: 60px;
+		width: 60px;
 		object-fit: cover;
 		margin: auto 10px;
 	}

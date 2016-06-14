@@ -57,23 +57,20 @@
 		self.stayUpdated = false
 
 		$('#signupModal').on('shown.bs.modal', function() {
-	    	self.track()
-	    	if ($(window).width() <= 544) {
-	          $('body').css('overflow', 'hidden')
-	          $('body').css('position', 'fixed')
-	        }
+	    	$(document).bind("touchmove", function(e){
+			    e.preventDefault();
+			});
+			self.track()
 		})
 
 		$('#signupModal').on('hidden.bs.modal', function () {
+			$(document).unbind('touchmove');
 			self.isError        = false
 			self.error          = ""
 			self.email.value    = ""
 			self.password.value = ""
 			self.fullname.value = ""
 			self.stayUpdated    = false
-
-			$('body').css('overflow', 'scroll')
-        	$('body').css('position', 'relative')
 
 			self.update()
 		})
