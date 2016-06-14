@@ -7,48 +7,8 @@
 	</div> -->
 
 	<div class="groups-container">
-		<div id="groups-map"></div>
-
-		<div if={ joinedGroups.length > 0 }>
-			<div class="title">
-				<i>Joined</i>
-			</div>
-			<div class="row">
-				<div class="col-sm-1 col-xs-1 fa fa-chevron-left arrow pointer" if={ joinedStart!=0 } onclick={ this.shiftLeft }></div>
-				<div style="padding: 0 -1rem;" class={col-sm-10: true, col-xs-10: true, col-sm-offset-1: joinedStart==0 || joinedGroups.length <= joinedLength, col-xs-offset-1: joinedStart==0 || joinedGroups.length <= joinedLength }>
-					<div class="row">
-						<div class="col-sm-3 col-xs-4 tile pointer" each={ group in joinedGroups.slice(joinedStart, joinedEnd) } onclick={ this.chooseGroup(group.get('group')) }>
-							<img src={ API.getGroupImage(group.get('group')) } class="image-joined img-circle">
-							<div class="group-title">
-								{ group.get('group').get('name').slice(0,20) }
-								<span if={ group.get('group').get('name').length > 20 }>...</span>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-sm-1 col-xs-1 fa fa-chevron-right arrow pointer" if={ joinedEnd < joinedGroups.length } onclick={ this.shiftRight }></div>
-			</div>
-		</div>
-		<div if={ joinedGroups.length > 0 }>
-			<hr>
-		</div>
-		<div class="title">
-			<i>Nearby</i>
-		</div>
-		<div class="nearby">
-			<ul>
-				<li each={ group in groups } onclick={ this.chooseGroup(group) }>
-					<div class="pointer">
-						<img src={ API.getGroupImage(group) } class="image-nearby img-circle">
-						<div class="info-box">
-							<div class="group-title">{ group.get('name') }</div>
-							<div class="desc">{ group.get('description') }</div>
-						</div>
-					</div>
-				</li>
-			</ul>
-		</div>
+		<groupsmap name="groupsmap"></groupsmap>
+		<groupslist name="groupslist"></groupslist>
 	</div>
 
 	<button class="btn mfb-component--br" name="submit" onclick={ showCreateModal }>
@@ -90,106 +50,24 @@
 						if (group.id == self.joinedGroups[i].get('group').id) return false
 					return true
 				})
-				self.initMap()
+
+				self.tags.groupsmap.update({joinedGroups: self.joinedGroups, groups: self.groups})
+				self.tags.groupsmap.initMap()
+				self.tags.groupslist.update({joinedGroups: self.joinedGroups, groups: self.groups})
 				self.update()
 			})
 		})
-	}
-
-	initMap() {
-		self.gmap = new google.maps.Map(document.getElementById('groups-map'), {
-			center: {lat: USER_POSITION.latitude, lng: USER_POSITION.longitude},
-          	zoom: 13,
-          	disableDefaultUI: true,
-          	zoomControl: true,
-          	styles: [{ featureType: "poi", elementType: "labels", stylers: [{ visibility: "off" }]},
-          		{ featureType: "transit", elementType: "labels", stylers: [{ visibility: "off" }]}]
-		})
-		self.markers = []
-		self.infoWindows = []
-		for (var i = 0; i < self.joinedGroups.length; i++) {
-			var groupLocation = {lat: self.joinedGroups[i].get('group').get('location').latitude,
-				lng: self.joinedGroups[i].get('group').get('location').longitude}
-			self.markers.push(new google.maps.Marker({
-				map: self.gmap,
-				position: groupLocation,
-				title: self.joinedGroups[i].get('group').get('name'),
-				//icon: '/images/marker-joined.png'
-			}))
-			self.infoWindows.push(new google.maps.InfoWindow({
-				content: self.joinedGroups[i].get('group').get('name'),
-			}))
-		}
-		for (var i = 0; i < self.groups.length; i++) {
-			var groupLocation = {lat: self.groups[i].get('location').latitude,
-				lng: self.groups[i].get('location').longitude}
-			self.markers.push(new google.maps.Marker({
-				map: self.gmap,
-				position: groupLocation,
-				title: self.groups[i].get('name'),
-				//icon: '/images/marker-nearby.png'
-			}))
-		}
-
-		$('#groups-map').css('height', 350)
 	}
 
 	showCreateModal() {
 		$('#creategroupModal').modal('show')
 	}
 
-	chooseGroup(group) {
-		return function() {
-			containerTag.group = group
-			riot.route(encodeURI(group.get('groupId')))
-			self.update()
-		}
-	}
-
-	shiftLeft() {
-		self.joinedEnd = self.joinedStart
-		self.joinedStart -= self.joinedLength
-		self.update()
-	}
-
-	shiftRight() {
-		self.joinedStart = self.joinedEnd
-		self.joinedEnd += self.joinedLength
-		self.update()
-	}
 </script>
 <style scoped>
 
 	.outer-container {
 		margin-top: 50px;
-	}
-
-	#map {
-		width: 100%;
-	}
-
-	.user-locale {
-		text-align: center;
-	}
-
-	.search-container {
-		text-align: center;
-		margin-top: 25px;
-	}
-
-	.search-groups {
-		resize: none;
-		text-align: center;
-		font-size: large;
-		padding: 7px 0;
-		width: 100%;
-		-webkit-border-radius: 25px;
-    	-moz-border-radius: 25px;
-    	border-radius: 25px;
-	}
-
-	.search-groups:focus {
-		outline: none;
 	}
 
 	.groups-container {
@@ -314,16 +192,6 @@
 		color: white;
 		font-size: 1.6em;
 		box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
-	}
-
-	.pointer:hover {
-		cursor: pointer;
-		-webkit-touch-callout: none;
-		-webkit-user-select: none;
-		-khtml-user-select: none;
-		-moz-user-select: none;
-		-ms-user-select: none;
-		user-select: none;
 	}
 
 </style>
