@@ -73,10 +73,12 @@
 	.image {
 		width: 100px;
 		height: 100px;
+		object-fit: cover;
 	}
 
 	.info {
 		display: inline-block;
+		padding-left: 10px;
 	}
 
 	.name {

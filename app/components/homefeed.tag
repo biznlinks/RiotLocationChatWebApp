@@ -57,7 +57,7 @@
 	}
 
 	updateFeed() {
-		for (var i = 0; i < self.updatedPosts.length; i++) self.currentPosts.unshift(self.updatedPosts[i])
+		for (var i = 0; i < self.updatedPosts.length; i++) self.currentPosts.push(self.updatedPosts[i])
 		console.log(self.currentPosts)
 		self.postsTag.update({posts: self.currentPosts, loading: false})
 		self.latestUpdate = new Date()
