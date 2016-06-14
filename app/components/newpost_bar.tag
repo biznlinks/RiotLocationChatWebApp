@@ -14,17 +14,7 @@
   var self   = this
   newpostTag = this
 
-  this.on('signedUp', function() {
-    self.showAskModal()
-  })
-
   showAskModal() {
-    if (Parse.User.current().get('type') == 'dummy') {
-      $('#signupModal').modal('show')
-      signupTag.update({needSignup: true, caller: this})
-      return null
-    }
-
     $('#askModal').modal('show')
   }
 

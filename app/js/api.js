@@ -284,5 +284,4 @@ getGroupImage: function(group) {
       }
     }
 }
-
 };
