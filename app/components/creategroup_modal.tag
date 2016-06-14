@@ -53,8 +53,9 @@
 
 				<div id="image-edit-container" if={ screen == 'IMAGE-EDIT'}>
 					<img id="image-edit" src={ selectedImage.contentUrl }>
-					<button class="btn btn-default" onclick={ this.rotateLeft }>R.Left</button>
-					<button class="btn btn-default" onclick={ this.rotateRight }>R.Right</button>
+					<button class="btn btn-default fa fa-rotate-left" onclick={ this.rotate(-90) }></button>
+					<button class="btn btn-default fa fa-rotate-right" onclick={ this.rotate(90) }></button>
+					<button class="btn btn-default" onclick={ this.cropAndUpload }>OK</button>
 				</div>
 
 				<div class="error text-warning" if={ isError }>{ error }</div>
@@ -88,9 +89,9 @@
 			$('body').css('overflow', 'scroll')
         	$('body').css('position', 'relative')
 
-        	self.screen = 'INFO'
-
+			self.closeMap()
         	self.closeImage()
+
 			self.searchResults    = undefined
 			self.selectedImage    = undefined
 			self.imageQuery.value = ''
@@ -101,12 +102,13 @@
 			self.groupname.value = ''
 			self.desc.value      = ''
 
-			self.closeMap()
+        	self.screen = 'INFO'
+			self.showInfo()
 
 			self.update()
 		})
 
-		$(document).on('change', '#imageFile', self.uploadImage)
+		$(document).on('change', '#imageFile', self.handleUploadedImage)
 	})
 
 	keyUp() {
@@ -116,8 +118,17 @@
 		}
 	}
 
-	uploadImage() {
+	handleUploadedImage() {
 		var file = $('#imageFile')[0].files[0]
+
+		self.screen = 'IMAGE-EDIT'
+		self.update()
+		$('#image-edit').attr('src', URL.createObjectURL(file))
+		self.createCropper()
+		self.closeImage()
+	}
+
+	uploadImage(file) {
 		var serverUrl = 'https://api.parse.com/1/files/' + file.name;
 
 		self.loading = true
@@ -140,7 +151,7 @@
 			        success: function(data) {
 			        	self.selectedImage = {thumbnailUrl: data.url, contentUrl: data.url}
 			        	self.loading = false
-			        	self.chooseImage = false
+			        	self.screen = 'INFO'
 						self.update()
 						self.showInfo()
 			        },
@@ -402,11 +413,17 @@
 		})
 	}
 
-	rotateRight() {
-		self.cropper.rotate(90)
+	rotate(deg) {
+		return function() {
+			self.cropper.rotate(deg)
+		}
 	}
-	rotateLeft() {
-		self.cropper.rotate(-90)
+	cropAndUpload() {
+		self.cropper.getCroppedCanvas({
+			height: 400
+		}).toBlob(function(blob) {
+			self.uploadImage(blob)
+		})
 	}
 </script>
 
