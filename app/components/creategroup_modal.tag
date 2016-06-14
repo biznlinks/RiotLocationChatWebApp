@@ -79,15 +79,13 @@
 		self.getStreetAddress({lat: USER_POSITION.latitude, lng: USER_POSITION.longitude})
 
 		$('#creategroupModal').on('shown.bs.modal', function() {
+			$(document).bind("touchmove", function(e){
+			    e.preventDefault();
+			});
 			self.initMap()
-			if ($(window).width() <= 544) {
-	          $('body').css('overflow', 'hidden')
-	          $('body').css('position', 'fixed')
-	        }
 		})
 		$('#creategroupModal').on('hidden.bs.modal', function() {
-			$('body').css('overflow', 'scroll')
-        	$('body').css('position', 'relative')
+			$(document).unbind('touchmove');
 
 			self.closeMap()
         	self.closeImage()

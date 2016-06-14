@@ -67,10 +67,6 @@
 <style scoped>
 
 	.outer-container {
-		background-color: white;
-		padding-top: 10px;
-		padding-left: 10px;
-		padding-right: 10px;
 		margin-top: 50px;
 	}
 

@@ -75,7 +75,8 @@
 	}
 
 	.title {
-		padding: 5px 10px;
+		padding: 10px 10px;
+		padding-top: 20px;
 	}
 
 	.arrow {
@@ -111,14 +112,14 @@
 	}
 
 	.image-joined {
-		height: 70px;
-		width: 70px;
+		height: 60px;
+		width: 60px;
 		object-fit: cover;
 	}
 
 	.image-nearby {
-		height: 70px;
-		width: 70px;
+		height: 60px;
+		width: 60px;
 		object-fit: cover;
 		margin: auto 10px;
 	}
