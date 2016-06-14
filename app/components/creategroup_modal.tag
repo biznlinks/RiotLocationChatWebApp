@@ -396,6 +396,7 @@
 	createCropper() {
 		var image = document.getElementById('image-edit')
 		self.cropper = new Cropper(image, {
+			viewMode: 3,
 			aspectRatio: 16/9,
 			cropBoxResizable: false
 		})
