@@ -11,12 +11,13 @@
 </div> -->
 
 <script>
-  var self = this
-  self.anonymous = false
+  var self   = this
+  newpostTag = this
 
   showAskModal() {
     $('#askModal').modal('show')
   }
+
 </script>
 
 <style scoped>

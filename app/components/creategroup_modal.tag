@@ -13,8 +13,8 @@
 			</div>
 
 			<div if={!loading} class="modal-body">
-				<div id="info-form" if={ !chooseImage }>
-					<div class="groupinfo-container" id="info" if={ !chooseLocation }>
+				<div id="info-form" if={ screen == 'INFO' }>
+					<div class="groupinfo-container" id="info">
 						<div onclick={ showImage }>
 							<div class="add-photo" if={ !selectedImage }>Add Image</div>
 							<img class="img-circle group-photo" if={ selectedImage } src={ selectedImage.thumbnailUrl }>
@@ -25,9 +25,12 @@
 
 					<div id="map" class="hide"></div>
 					<div class="address" onclick={ this.showMap }>{ address }</div>
+
+					<div class="confirm-container" if={ !chooseLocation }><button class="btn btn-default" onclick={ this.submitGroup }>Create</button></div>
+					<div class="confirm-container" if={ chooseLocation }><button class="btn btn-default" onclick={ this.closeMap }>OK</button></div>
 				</div>
 
-				<div id="image-search" if={ chooseImage }>
+				<div id="image-search" if={ screen == 'IMAGE-SEARCH'}>
 					<input type="text" placeholder="Search" name="imageQuery" onkeyup={ this.keyUp }>
 					<div class="image-grid" if={ searchResults && searchResults.length > 0 }>
 						<div class="image-container" each={ image in searchResults } onclick={ this.selectImage(image) } style="background-image: url('{ image.thumbnailUrl }')">
@@ -48,8 +51,13 @@
 					</div>
 				</div>
 
-				<div class="confirm-container" if={ !chooseLocation && !chooseImage }><button class="btn btn-default" onclick={ this.submitGroup }>Create</button></div>
-				<div class="confirm-container" if={ chooseLocation }><button class="btn btn-default" onclick={ this.closeMap }>OK</button></div>
+				<div id="image-edit-container" if={ screen == 'IMAGE-EDIT'}>
+					<img id="image-edit" src={ selectedImage.contentUrl }>
+					<button class="btn btn-default fa fa-rotate-left" onclick={ this.rotate(-90) }></button>
+					<button class="btn btn-default fa fa-rotate-right" onclick={ this.rotate(90) }></button>
+					<button class="btn btn-default" onclick={ this.cropAndUpload }>OK</button>
+				</div>
+
 				<div class="error text-warning" if={ isError }>{ error }</div>
 			</div>
 		</div>
@@ -58,13 +66,11 @@
 </div>
 
 <script>
-	var self            = this
-	self.address        = ''
-	self.isError        = false
-	self.error          = ''
-	self.chooseLocation = false
-	self.chooseImage    = false
-	self.loading        = false
+	var self     = this
+	self.address = ''
+	self.isError = false
+	self.error   = ''
+	self.screen  = 'INFO'
 
 	creategroupTag = this
 
@@ -80,7 +86,10 @@
 		})
 		$('#creategroupModal').on('hidden.bs.modal', function() {
 			$(document).unbind('touchmove');
+
+			self.closeMap()
         	self.closeImage()
+
 			self.searchResults    = undefined
 			self.selectedImage    = undefined
 			self.imageQuery.value = ''
@@ -91,13 +100,13 @@
 			self.groupname.value = ''
 			self.desc.value      = ''
 
-			self.chooseLocation  = false
-			self.closeMap()
-
+			self.screen = 'INFO'
 			self.update()
+
+			self.showInfo()
 		})
 
-		$(document).on('change', '#imageFile', self.uploadImage)
+		$(document).on('change', '#imageFile', self.handleUploadedImage)
 	})
 
 	keyUp() {
@@ -107,8 +116,17 @@
 		}
 	}
 
-	uploadImage() {
+	handleUploadedImage() {
 		var file = $('#imageFile')[0].files[0]
+
+		self.screen = 'IMAGE-EDIT'
+		self.update()
+		$('#image-edit').attr('src', URL.createObjectURL(file))
+		self.createCropper()
+		self.closeImage()
+	}
+
+	uploadImage(file) {
 		var serverUrl = 'https://api.parse.com/1/files/' + file.name;
 
 		self.loading = true
@@ -131,7 +149,7 @@
 			        success: function(data) {
 			        	self.selectedImage = {thumbnailUrl: data.url, contentUrl: data.url}
 			        	self.loading = false
-			        	self.chooseImage = false
+			        	self.screen = 'INFO'
 						self.update()
 						self.showInfo()
 			        },
@@ -292,10 +310,10 @@
 			query.find({
 				success: function(groups) {
 					if (groups.length == 0) promise.resolve(tempGroupId)
-					else randomGroupId()
+					else randomGroupId().then(function(results) { promise.resolve(results) })
 				},
 				error: function(error) {
-					randomGroupId()
+					randomGroupId().then(function(results) { promise.resolve(results) })
 				}
 			})
 		}
@@ -316,7 +334,9 @@
 	selectImage(image) {
 		return function() {
 			self.selectedImage = image
+			self.screen = 'IMAGE-EDIT'
 			self.update()
+			self.createCropper()
 			self.closeImage()
 		}
 	}
@@ -359,7 +379,7 @@
 		$('#info-form').slideUp({
 			duration: 500,
 			complete: function() {
-				self.chooseImage = true
+				self.screen = 'IMAGE-SEARCH'
 				self.update()
 				$('#image-search').slideUp({duration: 0})
 				$('#image-search').slideDown({duration: 500})
@@ -371,7 +391,7 @@
 		$('#image-search').slideUp({
 			duration:500,
 			complete: function() {
-				self.chooseImage = false
+				self.screen = 'INFO'
 				self.update()
 				$('#info-form').slideDown({duration: 500})
 			}
@@ -380,6 +400,28 @@
 
 	showInfo() {
 		$('#info-form').slideDown({duration: 500})
+	}
+
+	createCropper() {
+		var image = document.getElementById('image-edit')
+		self.cropper = new Cropper(image, {
+			viewMode: 3,
+			aspectRatio: 16/9,
+			cropBoxResizable: false
+		})
+	}
+
+	rotate(deg) {
+		return function() {
+			self.cropper.rotate(deg)
+		}
+	}
+	cropAndUpload() {
+		self.cropper.getCroppedCanvas({
+			height: 400
+		}).toBlob(function(blob) {
+			self.uploadImage(blob)
+		})
 	}
 </script>
 
@@ -484,6 +526,11 @@
 	}
 
 	.uploaded-image label {
+		width: 100%;
+		height: 300px;
+	}
+
+	#image-edit {
 		width: 100%;
 		height: 300px;
 	}

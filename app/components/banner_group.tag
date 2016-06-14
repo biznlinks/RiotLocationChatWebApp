@@ -25,13 +25,16 @@
 </div>
 
 <script>
-	var self = this
-	self.joined = false
-	self.locale = ''
+	var self         = this
+	bannerTag        = this
+	self.joined      = false
+	self.locale      = ''
 	self.memberCount = 0
 
 	this.on('mount', function() {
 		self.init()
+
+		self.on('signedUp', self.submitJoin)
 	})
 
 	init() {
@@ -64,6 +67,12 @@
 	}
 
 	submitJoin() {
+		if (Parse.User.current().get('type') == 'dummy') {
+			$('#signupModal').modal('show')
+			signupTag.update({needSignup: true, caller: this})
+			return null
+		}
+
 		self.joined = true
 		self.memberCount++
 		self.update()

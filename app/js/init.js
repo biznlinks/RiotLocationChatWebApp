@@ -34,6 +34,7 @@ function riotMount() {
     }
   })
 
+  window.Cropper
 
 
  if (!Parse.User.current()) {
