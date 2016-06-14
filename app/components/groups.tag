@@ -106,6 +106,7 @@
           		{ featureType: "transit", elementType: "labels", stylers: [{ visibility: "off" }]}]
 		})
 		self.markers = []
+		self.infoWindows = []
 		for (var i = 0; i < self.joinedGroups.length; i++) {
 			var groupLocation = {lat: self.joinedGroups[i].get('group').get('location').latitude,
 				lng: self.joinedGroups[i].get('group').get('location').longitude}
@@ -113,7 +114,10 @@
 				map: self.gmap,
 				position: groupLocation,
 				title: self.joinedGroups[i].get('group').get('name'),
-				icon: '/images/marker-joined.png'
+				//icon: '/images/marker-joined.png'
+			}))
+			self.infoWindows.push(new google.maps.InfoWindow({
+				content: self.joinedGroups[i].get('group').get('name'),
 			}))
 		}
 		for (var i = 0; i < self.groups.length; i++) {
@@ -123,7 +127,7 @@
 				map: self.gmap,
 				position: groupLocation,
 				title: self.groups[i].get('name'),
-				icon: '/images/marker-nearby.png'
+				//icon: '/images/marker-nearby.png'
 			}))
 		}
 
