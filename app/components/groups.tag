@@ -227,6 +227,10 @@
 		padding-bottom: 20px;
 	}
 
+	.nearby li:last-child .info-box{
+    	border: none; 
+	}
+
 	.nearby ul {
 		list-style: none;
 		margin-bottom: 0;
