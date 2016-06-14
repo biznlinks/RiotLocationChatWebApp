@@ -1,7 +1,7 @@
 <postitem>
 		<div class="card-block pointer">
 
-			<div class="" onclick={ this.goToPost }>
+			<div class="">
 
 				<div class='postauthor text-muted'>
 					<img if={ !post.get('anonymous') } src = "{ API.getProfilePicture(post.get('author')) }" class = "profile img-circle">
