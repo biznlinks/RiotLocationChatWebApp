@@ -137,6 +137,7 @@
 		-webkit-border-radius: 5px;
     	-moz-border-radius: 5px;
     	border-radius: 5px;
+    	max-width: 200px;
 	}
 
 	.most-active-container {

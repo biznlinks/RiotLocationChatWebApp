@@ -161,7 +161,6 @@
 <style scoped>
 
 	.outer-container {
-		padding-top: 10px;
 		margin-top: 50px;
 	}
 
@@ -202,7 +201,8 @@
 	}
 
 	.title {
-		padding: 5px 10px;
+		padding: 10px 10px;
+		padding-top: 20px;
 	}
 
 	.arrow {

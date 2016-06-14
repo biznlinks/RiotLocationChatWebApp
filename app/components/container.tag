@@ -33,7 +33,7 @@
 
     <banner if={ route=="posts" }></banner>
 
-    <div class="main col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2 text-center">
+    <div class="main text-center">
       <feed if={ route=="posts" }></feed>
       <topics if={ route=="schedule" || route=="live" }></topics>
       <postdetail if={ route=="postdetail" }></postdetail>
@@ -225,7 +225,9 @@
   .main {
     padding-right: 0px;
     padding-left: 0px;
-    max-width: 700px;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 700px; /* or 950px */
   }
 
   .card {
