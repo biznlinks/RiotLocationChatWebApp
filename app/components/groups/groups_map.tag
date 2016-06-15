@@ -61,6 +61,13 @@
 			}))
 		}
 
+		self.userMarker = new google.maps.Marker({
+			map: self.gmap,
+			position: {lat: USER_POSITION.latitude, lng: USER_POSITION.longitude},
+			icon: '/images/marker-user.png',
+			zIndex: 1000
+		})
+
 		$('#groups-map').css('height', 300)
 	}
 
