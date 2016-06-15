@@ -17,6 +17,10 @@
 	self.joinedGroups = opts.joinedGroups
 	self.groups       = opts.groups
 
+	this.on('mount', function() {
+
+	})
+
 	initMap() {
 		self.gmap = new google.maps.Map(document.getElementById('groups-map'), {
 			center: {lat: USER_POSITION.latitude, lng: USER_POSITION.longitude},
@@ -57,6 +61,11 @@
 		}
 
 		$('#groups-map').css('height', 300)
+	}
+
+	resetMap() {
+		self.gmap.setCenter({lat: USER_POSITION.latitude, lng: USER_POSITION.longitude})
+		self.gmap.setZoom(13)
 	}
 
 </script>
