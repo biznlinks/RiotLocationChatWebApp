@@ -32,7 +32,7 @@ function getGeoLocation(callback){
   }
 }
 
-res = {
+var res = {
   country_code: "US",
   country_name: "United States",
   region_code: "CA",
