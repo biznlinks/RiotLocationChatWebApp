@@ -56,7 +56,7 @@
 			}))
 		}
 
-		$('#groups-map').css('height', 350)
+		$('#groups-map').css('height', 300)
 	}
 
 </script>
@@ -79,6 +79,13 @@
 	.info {
 		display: inline-block;
 		padding-left: 10px;
+
+		vertical-align: middle;
+		width: calc(100% - 100px);
+		display: inline-block;
+		border-bottom: 1px solid #ccc;
+		padding-top: 20px;
+		padding-bottom: 20px;
 	}
 
 	.name {
