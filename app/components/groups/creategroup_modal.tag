@@ -88,6 +88,7 @@
 
 					self.closeMap()
 					self.closeImage()
+					if (self.cropper) self.cropper.destroy()
 
 					self.searchResults    = undefined
 					self.selectedImage    = undefined
@@ -242,6 +243,7 @@
 					location: new Parse.GeoPoint(self.marker.position.lat(), self.marker.position.lng()),
 					name: self.groupname.value,
 					description: self.desc.value,
+					creator: Parse.User.current(),
 					imageUrl: self.selectedImage ? self.selectedImage.contentUrl : undefined,
 					groupId: groupId,
 					memberCount: 1,
