@@ -2,9 +2,9 @@
 
 <div class="map-container">
 	<div id="groups-map"></div>
-	<div class="group-info" if={ selectedGroup }>
+	<div class="group-info" if={ selectedGroup } onclick={ gotoGroup }>
 		<img class="image" src={ API.getGroupImage(selectedGroup) }>
-		<div class="info" onclick={ gotoGroup }>
+		<div class="info">
 			<div class="name">{ selectedGroup.get('name') }</div>
 			<div class="desc">{ selectedGroup.get('description') }</div>
 		</div>
