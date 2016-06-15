@@ -28,6 +28,7 @@
     <ask name="askModal"></ask>
     <search name="searchModal"></search>
     <creategroup name="creategroupModal"></creategroup>
+    <editgroup name="editgroupModal"></editgroup>
 
     <banner if={ route=="posts" }></banner>
 
