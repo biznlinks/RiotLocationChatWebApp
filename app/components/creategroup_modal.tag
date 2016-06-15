@@ -37,10 +37,7 @@
 							<!-- <img src={ image.thumbnailUrl } class="tile"> -->
 						</div>
 					</div>
-					<!-- <div class="uploaded-image" if={ uploadedImageUrl } >
-						<label for="imageFile" style="background-image: url('{uploadedImageUrl}')"></label>
-						<input name="imageFile" id="imageFile" type="file" style="visibility: hidden; position: absolute;"></input>
-					</div> -->
+
 					<div class="options" if={ !searchResults || searchResults.length == 0 }>
 						<div>Search for your group's image</div>
 						or
@@ -82,7 +79,8 @@
 			$(document).bind("touchmove", function(e){
 			    e.preventDefault();
 			});
-			self.initMap()
+			self.resetMap()
+			self.getStreetAddress({lat: USER_POSITION.latitude, lng: USER_POSITION.longitude})
 		})
 		$('#creategroupModal').on('hidden.bs.modal', function() {
 			$(document).unbind('touchmove');
@@ -194,6 +192,13 @@
 			self.getStreetAddress(e.latLng)
 			self.groupCircle.setCenter(self.marker.position)
 		})
+	}
+
+	resetMap() {
+		self.gmap.setCenter({lat: USER_POSITION.latitude, lng: USER_POSITION.longitude})
+		self.gmap.setZoom(13)
+		self.marker.setPosition({lat: USER_POSITION.latitude, lng: USER_POSITION.longitude})
+		self.groupCircle.setCenter({lat: USER_POSITION.latitude, lng: USER_POSITION.longitude})
 	}
 
 	getStreetAddress(position) {
