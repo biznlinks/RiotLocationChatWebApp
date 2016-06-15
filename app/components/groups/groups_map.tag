@@ -4,7 +4,7 @@
 	<div id="groups-map"></div>
 	<div class="group-info" if={ selectedGroup }>
 		<img class="image" src={ API.getGroupImage(selectedGroup) }>
-		<div class="info">
+		<div class="info" onclick={ gotoGroup }>
 			<div class="name">{ selectedGroup.get('name') }</div>
 			<div class="desc">{ selectedGroup.get('description') }</div>
 		</div>
@@ -13,9 +13,10 @@
 
 
 <script>
-	var self          = this
-	self.joinedGroups = opts.joinedGroups
-	self.groups       = opts.groups
+	var self           = this
+	self.joinedGroups  = opts.joinedGroups
+	self.groups        = opts.groups
+	self.selectedGroup = undefined
 
 	this.on('mount', function() {
 
@@ -71,6 +72,13 @@
 	resetMap() {
 		self.gmap.setCenter({lat: USER_POSITION.latitude, lng: USER_POSITION.longitude})
 		self.gmap.setZoom(13)
+	}
+
+	gotoGroup() {
+		containerTag.group = self.selectedGroup
+		riot.route(encodeURI(self.selectedGroup.get('groupId')))
+		self.selectedGroup = undefined
+		self.update()
 	}
 
 </script>

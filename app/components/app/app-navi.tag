@@ -80,6 +80,14 @@
   var r = riot.route.create()
   r(highlightCurrent)
 
+  this.on('mount', function() {
+    $(document).bind('scroll', function() {
+      $('[data-toggle="dropdown"]').parent().removeClass('open')
+    })
+    $(document).bind('touchmove', function() {
+      $('[data-toggle="dropdown"]').parent().removeClass('open')
+    })
+  })
 
   function highlightCurrent(id) {
     self.selectedId = id
