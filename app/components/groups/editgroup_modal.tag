@@ -338,7 +338,6 @@
 				aspectRatio: 16/9,
 				cropBoxResizable: false
 			})
-			console.log(self.cropper)
 		}
 
 		rotate(deg) {
