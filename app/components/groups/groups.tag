@@ -63,7 +63,7 @@
 <style scoped>
 
 	.outer-container {
-		margin-top: 50px;
+		margin-top: 60px;
 	}
 
 	.groups-container {
