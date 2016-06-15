@@ -8,8 +8,10 @@
 		</div>
 		<div if={!loading}>
 			<div id="group-pic" if={ !uploadedFile } style="background-image: url('{ API.getGroupImage(containerTag.group) }')">
-				<label for="change-group-pic" class="edit-button btn btn-primary fa fa-pencil"></label>
-				<input id="change-group-pic" type="file" style="visibility: hidden; position: absolute;"></input>
+				<div if={ containerTag.group.get('image') == undefined && containerTag.group.get('imageUrl') == undefined }>
+					<label for="change-group-pic" class="edit-button btn btn-primary fa fa-pencil"></label>
+					<input id="change-group-pic" type="file" style="visibility: hidden; position: absolute;"></input>
+				</div>
 			</div>
 			<div if={ uploadedFile }>
 				<img id="uploaded-image" src={ URL.createObjectURL(uploadedFile) }>
