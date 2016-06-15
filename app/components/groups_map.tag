@@ -76,7 +76,8 @@
 	}
 
 	.group-info {
-		padding: 5px;
+		padding: 10px;
+		background-color: #eeeeee;
 	}
 
 	.image {
@@ -90,9 +91,8 @@
 		padding-left: 10px;
 
 		vertical-align: middle;
-		width: calc(100% - 100px);
+		width: calc(100% - 110px);
 		display: inline-block;
-		border-bottom: 1px solid #ccc;
 		padding-top: 20px;
 		padding-bottom: 20px;
 	}
