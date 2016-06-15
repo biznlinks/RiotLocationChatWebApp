@@ -24,15 +24,8 @@
 <script>
 	var self          = this
 	groupsTag         = this
-	self.joinedStart  = 0
-	self.joinedEnd    = 0
-	self.joinedLength = 0
 
 	this.on('mount', function() {
-		if ($(window).width() > 543) self.joinedLength = 4
-		else self.joinedLength = 3
-		self.joinedEnd = self.joinedStart + self.joinedLength
-
 		self.init()
 	})
 
@@ -102,7 +95,7 @@
 	}
 
 	.nearby li:last-child .info-box{
-    	border: none; 
+    	border: none;
 	}
 
 	.nearby ul {
