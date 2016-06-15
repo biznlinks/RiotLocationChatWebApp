@@ -72,7 +72,9 @@
 	creategroupTag = this
 
 	this.on('mount', function() {
-		self.initMap()
+		$(document).ready(function(){
+			self.initMap()
+		})
 		self.getStreetAddress({lat: USER_POSITION.latitude, lng: USER_POSITION.longitude})
 
 		$('#creategroupModal').on('shown.bs.modal', function() {
