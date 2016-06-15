@@ -98,10 +98,10 @@
 	}
 
 	.name {
-		font-size: 20px;
+		font-size: 18px;
 	}
 	.desc {
-		font-size: 16px;
+		font-size: 14px;
 	}
 </style>
 </groupsmap>
