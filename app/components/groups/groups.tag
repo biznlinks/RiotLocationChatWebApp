@@ -13,10 +13,6 @@
 
 	<button class="btn mfb-component--br" name="submit" onclick={ showCreateModal }>
 		<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 3.8.3 (29802) - http://www.bohemiancoding.com/sketch -->
-    <title>Shape</title>
-    <desc>Created with Sketch.</desc>
-    <defs></defs>
     <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <polygon id="Shape" fill="#FFFFFF" points="20 11.4285714 11.4285714 11.4285714 11.4285714 20 8.57142857 20 8.57142857 11.4285714 0 11.4285714 0 8.57142857 8.57142857 8.57142857 8.57142857 0 11.4285714 0 11.4285714 8.57142857 20 8.57142857"></polygon>
     </g>
@@ -72,6 +68,100 @@
 
 	.groups-container {
 		margin-top: 20px;
+	}
+
+	.row > * {
+		padding: 0;
+	}
+
+	.title {
+		padding: 10px 10px;
+		padding-top: 20px;
+	}
+
+	.arrow {
+		padding-top: 30px;
+		padding-bottom: 70px;
+	}
+
+	.fa-chevron-right {
+		text-align: center;
+	}
+	.fa-chevron-left {
+		text-align: center;
+	}
+
+	.tile {
+		vertical-align: top;
+		text-align: center;
+		display: inline-block;
+	}
+
+	.nearby li {
+		padding-bottom: 20px;
+	}
+
+	.nearby li:last-child .info-box{
+    	border: none; 
+	}
+
+	.nearby ul {
+		list-style: none;
+		margin-bottom: 0;
+		padding: 0;
+	}
+
+	.image-container {
+		text-align: center;
+	}
+
+	.image-joined {
+		height: 60px;
+		width: 60px;
+		object-fit: cover;
+	}
+
+	.image-nearby {
+		height: 60px;
+		width: 60px;
+		object-fit: cover;
+		margin: auto 10px;
+	}
+
+	.gray {
+		border: none;
+		background-image: url('/images/default_image.jpg');
+		background-size: cover;
+	}
+
+	.nearby .group-title {
+		margin-top: 0;
+	}
+
+	.info-box{
+		display: inline-block;
+		vertical-align: middle;
+		width: calc(100% - 100px);
+		display: inline-block;
+		border-bottom: 1px solid #ccc;
+		padding-top: 20px;
+		padding-bottom: 20px;
+	}
+
+	.group-title {
+		margin-top: 10px;
+		font-size: 14px;
+		font-weight: 500;
+	}
+
+	.desc{
+		font-size: 12px;
+	}
+
+	@media (max-width: 480px) {
+		.group-title > * {
+			font-size: 12px;
+		}
 	}
 
 	.mfb-component--br {

@@ -158,10 +158,6 @@
 		.group-title > * {
 			font-size: 12px;
 		}
-
-		.desc{
-
-		}
 	}
 
 	.pointer:hover {
