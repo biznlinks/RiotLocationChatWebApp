@@ -97,7 +97,6 @@
       self.topic             = ""
       self.searchField.value = ""
       self.update()
-      console.log(self.searchField)
     }
 
 

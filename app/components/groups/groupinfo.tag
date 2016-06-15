@@ -108,6 +108,7 @@
 		}).toBlob(function(blob) {
 			self.uploadImage(blob)
 		})
+		self.cropper.destroy()
 	}
 
 </script>
