@@ -2,9 +2,9 @@
 
 <div class="map-container">
 	<div id="groups-map"></div>
-	<div class="group-info" if={ selectedGroup }>
+	<div class="group-info" if={ selectedGroup } onclick={ gotoGroup }>
 		<img class="image" src={ API.getGroupImage(selectedGroup) }>
-		<div class="info" onclick={ gotoGroup }>
+		<div class="info">
 			<div class="name">{ selectedGroup.get('name') }</div>
 			<div class="desc">{ selectedGroup.get('description') }</div>
 		</div>
@@ -61,12 +61,20 @@
 			}))
 		}
 
+		self.userMarker = new google.maps.Marker({
+			map: self.gmap,
+			position: {lat: USER_POSITION.latitude, lng: USER_POSITION.longitude},
+			icon: '/images/marker-user.png',
+			zIndex: 1000
+		})
+
 		if ($(window).width() >= 540) {
 			$('#groups-map').css('height', 400)
 		}
 		else{
 			$('#groups-map').css('height', 200)
 		}
+
 	}
 
 	resetMap() {
