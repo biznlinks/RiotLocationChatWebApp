@@ -28,15 +28,12 @@
     <ask name="askModal"></ask>
     <search name="searchModal"></search>
     <creategroup name="creategroupModal"></creategroup>
-    <loginsuccess name="loginSuccess"></loginsuccess>
-    <signupsuccess name="signupSuccess"></signupsuccess>
 
     <banner if={ route=="posts" }></banner>
 
     <div class="main text-center">
       <feed if={ route=="posts" }></feed>
       <topics if={ route=="schedule" || route=="live" }></topics>
-      <postdetail if={ route=="postdetail" }></postdetail>
       <profile name="profile" if={ route=="profile" }></profile>
       <groups name="groups" if={ route=="groups" }></groups>
       <groupinfo name="groupinfo" if={ route=="groupinfo"}></groupinfo>
@@ -66,7 +63,6 @@
     r('#',       home       )
     r('groups',  groups)
     r('group/*', groupinfo)
-    r('post/*', postdetail)
     r('topics',  topics )
     r('live/*',  live )
     r('schedule',  topics )
@@ -139,18 +135,6 @@
       })
       self.tags.banner.init()
       self.tags.feed.init()
-      self.toTop()
-    }
-    function postdetail(id) {
-      self.track('postdetail')
-      self.update({
-        title: "SOPHUS",
-        body: "",
-        selectedId: id,
-        route: "postdetail"
-      })
-      self.tags.postdetail.update({postid: id})
-      self.tags.postdetail.init()
       self.toTop()
     }
     function topics() {
