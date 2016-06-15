@@ -105,7 +105,7 @@
 					self.showInfo()
 				})
 			})
-			
+
 
 			$(document).on('change', '#imageFile', self.handleUploadedImage)
 		})
@@ -128,7 +128,7 @@
 		}
 
 		uploadImage(file) {
-			var serverUrl = 'https://api.parse.com/1/files/' + file.name;
+			var serverUrl = 'https://api.parse.com/1/files/' + file.name
 
 			self.loading = true
 			self.update()
