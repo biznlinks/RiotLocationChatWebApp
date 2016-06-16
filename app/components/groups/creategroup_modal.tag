@@ -131,38 +131,18 @@
 		}
 
 		uploadImage(file) {
-			var serverUrl = 'https://api.parse.com/1/files/' + file.name
-
 			self.loading = true
 			self.update()
 
-			var image = new Image
-			image.onload = function() {
-				if (image.width >= 640) {
-					$.ajax({
-						type: "POST",
-						beforeSend: function(request) {
-							request.setRequestHeader("X-Parse-Application-Id", 'YDTZ5PlTlCy5pkxIUSd2S0RWareDqoaSqbnmNX11');
-							request.setRequestHeader("X-Parse-REST-API-Key", 'TkCtS0607l5lfgiO65FbNc5zudsLcADDwPcQS1Va');
-							request.setRequestHeader("Content-Type", file.type);
-						},
-						url: serverUrl,
-						data: file,
-						processData: false,
-						contentType: false,
-						success: function(data) {
-							self.selectedImage = {thumbnailUrl: data.url, contentUrl: data.url}
-							self.loading = false
-							self.screen = 'INFO'
-							self.update()
-							self.showInfo()
-						},
-						error: function(data) {
-						}
-					});
+			API.uploadImage(file).then(function(result) {
+				if (result) {
+					self.selectedImage = {thumbnailUrl: result, contentUrl: result}
+					self.loading       = false
+					self.screen        = 'INFO'
+					self.update()
+					self.showInfo()
 				}
-			}
-			image.src = URL.createObjectURL(file)
+			})
 		}
 
 		initMap() {
