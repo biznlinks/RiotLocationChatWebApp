@@ -33,9 +33,10 @@
 					<div id="image-search" if={ screen == 'IMAGE-SEARCH'}>
 						<input type="text" placeholder="Search" name="imageQuery" onkeyup={ this.keyUp }>
 						<div class="image-grid" if={ searchResults && searchResults.length > 0 }>
-							<div class="image-container" each={ image in searchResults } onclick={ this.selectImage(image) } style="background-image: url('{ image.thumbnailUrl }')">
-								<!-- <img src={ image.thumbnailUrl } class="tile"> -->
+							<div class={ fa:true, fa-chevron-left:searchStart != 0, arrows:true } onclick={ this.shift(-1) }></div>
+							<div class="image-container" each={ image in searchResults.slice(searchStart, searchEnd) } onclick={ this.selectImage(image) } style="background-image: url('{ image.thumbnailUrl }')">
 							</div>
+							<div class={ fa:true, fa-chevron-right:searchEnd < searchResults.length, arrows:true } onclick={ this.shift(1) }></div>
 						</div>
 
 						<div class="options" if={ !searchResults || searchResults.length == 0 }>
@@ -251,21 +252,29 @@
 			})
 		}
 
-		searchImage() {
-			$.ajax({
-				url: 'https://bingapis.azure-api.net/api/v5/images/search?q='+self.imageQuery.value+'&count=9&offset=0&mkt=en-us&safeSearch=Moderate',
-				headers: {"Ocp-Apim-Subscription-Key": "b7bef01565c343e492b34386142f0b68"}
-			}).then(function(data){
-				/*self.searchResults = data.value
-				self.update()*/
+		searchImage(offset) {
+			if (!offset) {				// This is when the function is called from click event
+				offset             = 0
 				self.searchResults = []
-				console.log(data.value)
+				self.searchStart   = 0
+				self.searchEnd     = 3
+				self.update()
+			}
+
+			console.log(offset)
+
+			API.searchImage(self.imageQuery.value, 9, offset).then(function(data) {
+				offset += 10
 				data.value.forEach(function(image, index) {
 					API.checkCORS(image.contentUrl).then(function (result) {
 						if (result) {
 							self.searchResults.push({thumbnailUrl: image.thumbnailUrl, contentUrl: result})
 						}
 						self.update()
+
+						if (index == 8) {
+							if (self.searchResults.length < 9) self.searchImage(offset)
+						}
 					})
 				})
 			})
@@ -340,6 +349,23 @@
 
 		showInfo() {
 			$('#info-form').slideDown({duration: 500})
+		}
+
+		shift(direction) {
+			return function() {
+			switch(direction) {
+				case -1:
+					self.searchEnd   = self.searchStart
+					self.searchStart -= 3
+					self.update()
+					break
+				case 1:
+					self.searchStart = self.searchEnd
+					self.searchEnd   += 3
+					self.update()
+					break
+			}
+			}
 		}
 
 		createCropper() {
@@ -458,9 +484,15 @@
 			line-height: 1;
 		}
 
+		.arrows {
+			width: 5%;
+			vertical-align: top;
+			margin-top: 50px;
+		}
+
 		.image-container {
 			height: 110px;
-			width: 28%;
+			width: 25%;
 			background-size: cover;
 			margin: 5px;
 			display: inline-block;

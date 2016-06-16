@@ -284,6 +284,18 @@ getGroupImage: function(group) {
       }
     }
 },
+searchImage: function(query, count, offset) {
+  var promise = new Parse.Promise();
+
+  $.ajax({
+    url: 'https://bingapis.azure-api.net/api/v5/images/search?q='+query+'&count='+count+'&offset='+offset+'&mkt=en-us&safeSearch=Moderate',
+    headers: {"Ocp-Apim-Subscription-Key": "b7bef01565c343e492b34386142f0b68"}
+  }).then(function(data){
+    promise.resolve(data);
+  });
+
+  return promise;
+},
 checkCORS: function(url) {
   var promise = new Parse.Promise()
 
@@ -315,9 +327,12 @@ checkCORS: function(url) {
     var url = (window.URL || window.webkitURL).createObjectURL(blob);
     promise.resolve(url);
   }
+  xhr.onerror = function(err) {
+    promise.resolve(false);
+  }
 
   xhr.send();
 
-  return promise
+  return promise;
 }
 };
