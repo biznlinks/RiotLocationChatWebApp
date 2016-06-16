@@ -27,8 +27,8 @@
     <forgot name="forgotModal"></forgot>
     <ask name="askModal"></ask>
     <search name="searchModal"></search>
-    <creategroup name="creategroupModal"></creategroup>
-    <editgroup name="editgroupModal"></editgroup>
+    <creategroup name="creategroupModal" if={ route=='groups' }></creategroup>
+    <editgroup name="editgroupModal" if={ route=='groupinfo' }></editgroup>
 
     <banner if={ route=="posts" }></banner>
 

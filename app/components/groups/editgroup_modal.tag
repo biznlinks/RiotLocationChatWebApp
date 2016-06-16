@@ -23,7 +23,11 @@
 							<div><input type="text" name="desc" id="desc" placeholder="Short Description"></div>
 						</div>
 
-						<div id="map" class="hide"></div>
+						<div id="map-container" class="hide">
+							<input id="place-input" type="text" placeholder="Search for place"/>
+							<div id="map"></div>
+						</div>
+
 						<div class="address" onclick={ this.showMap }>{ address }</div>
 
 						<div class="confirm-container" if={ !chooseLocation }><button class="btn btn-default" onclick={ this.submitGroup }>Edit</button></div>
@@ -155,6 +159,11 @@
 				styles: [{ featureType: "poi", elementType: "labels", stylers: [{ visibility: "off" }]},
 				{ featureType: "transit", elementType: "labels", stylers: [{ visibility: "off" }]}]
 			})
+
+			// pac is place autocomplete
+			self.pac = new google.maps.places.Autocomplete(document.getElementById('place-input'))
+			self.pac.bindTo('bounds', self.gmap)
+
 			self.marker = new google.maps.Marker({
 				map: self.gmap,
 				position: {lat: containerTag.group.get('location').latitude, lng: containerTag.group.get('location').longitude},
@@ -179,6 +188,20 @@
 				self.getStreetAddress(e.latLng)
 				self.groupCircle.setCenter(self.marker.position)
 			})
+
+			self.pac.addListener('place_changed', function() {
+				var place = self.pac.getPlace()
+				if (!place.geometry) return false
+
+				self.gmap.setCenter(place.geometry.location)
+				self.gmap.setZoom(15)
+				self.marker.setPosition(place.geometry.location)
+				self.groupCircle.setCenter(place.geometry.location)
+				self.address = place.name
+				self.update()
+			})
+
+			$('#map-container').slideUp({duration:0})
 		}
 
 		resetMap() {
@@ -277,11 +300,9 @@
 				duration: 500,
 				complete: function() {
 					self.chooseLocation = true
-					self.address = self.address == 'Change Location' ? '' : self.address
 					self.update()
 
-					var height = $(window).height() >= 1000 ? 500 : 300
-					$('#map').animate({height: height}, {
+					$('#map-container').slideDown({
 						duration: 500,
 						complete: function() {
 							google.maps.event.trigger(self.gmap, 'resize')
@@ -293,7 +314,7 @@
 		}
 
 		closeMap() {
-			$('#map').animate({height: 0},{
+			$('#map').slideUp({
 				duration: 500,
 				complete: function() {
 					if (self.address == '') self.address = 'Change Location'
@@ -418,13 +439,16 @@
 			width: 100%
 		}
 
+		#map-container {
+			height: 350px;
+		}
+
 		#map {
 			margin-top: 20px;
 			margin-bottom: 20px;
 		}
 
-		#map.hide {
-			height: 0;
+		.hide #map {
 			margin: 0;
 		}
 
