@@ -29,10 +29,11 @@
     <search name="searchModal"></search>
     <creategroup name="creategroupModal"></creategroup>
 
-    <banner if={ route=="posts" }></banner>
+    <banner if={ route=="posts" || route=="tweets" }></banner>
 
     <div class="main text-center">
       <feed if={ route=="posts" }></feed>
+      <tweetfeed if={ route=="tweets" }></tweetfeed>
       <topics if={ route=="schedule" || route=="live" }></topics>
       <profile name="profile" if={ route=="profile" }></profile>
       <groups name="groups" if={ route=="groups" }></groups>
@@ -70,16 +71,19 @@
     r('profile', profile)
     r(home)
 
-    function home(id) {
+    function home(id, subpage) {
       id = decodeURI(id)
       if (id == '' || id == 'groups') {
         groups()
-      } else if (self.group) {
-        feed()
-      } else {
+      }  else {
         API.fetchOne('Group', 'groupId', id).then(function(results) {
           self.group = results
-          feed()
+            if (subpage==="tweets"){
+              showtweets()
+              console.log("showing tweets");
+            } else {
+              feed()
+            }
         }, function(err) {
           console.log('notfound')
         })
@@ -135,6 +139,18 @@
       })
       self.tags.banner.init()
       self.tags.feed.init()
+      self.toTop()
+    }
+    function showtweets(){
+      self.track('tweets')
+      self.update({
+        title: "",
+        body:  "This is the tweetfeed!",
+        route: "tweets",
+        selectedId: null
+      })
+      self.tags.banner.init()
+      self.tags.tweetfeed.init()
       self.toTop()
     }
     function topics() {
