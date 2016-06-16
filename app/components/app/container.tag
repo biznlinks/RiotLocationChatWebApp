@@ -209,9 +209,6 @@
   .main {
     padding-right: 0px;
     padding-left: 0px;
-    margin-right: auto;
-    margin-left: auto;
-    max-width: 700px; /* or 950px */
   }
 
   .card {
