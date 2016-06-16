@@ -315,9 +315,7 @@ checkCORS: function(url) {
     var url = (window.URL || window.webkitURL).createObjectURL(blob);
     promise.resolve(url);
   }
-  xhr.onerror = function() {
-    promise.resolve(false);
-  }
+
   xhr.send();
 
   return promise
