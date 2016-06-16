@@ -255,10 +255,10 @@
 		searchImage(offset) {
 			if (!offset) {				// This is when the function is called from click event
 				offset             = 0
-				self.searchResults = []
 				self.searchStart   = 0
 				self.searchEnd     = 3
 				self.update()
+				self.searchResults = []
 			}
 
 			console.log(offset)
@@ -353,18 +353,18 @@
 
 		shift(direction) {
 			return function() {
-			switch(direction) {
-				case -1:
-					self.searchEnd   = self.searchStart
-					self.searchStart -= 3
-					self.update()
-					break
-				case 1:
-					self.searchStart = self.searchEnd
-					self.searchEnd   += 3
-					self.update()
-					break
-			}
+				switch(direction) {
+					case -1:
+						self.searchEnd   = self.searchStart
+						self.searchStart -= 3
+						self.update()
+						break
+					case 1:
+						self.searchStart = self.searchEnd
+						self.searchEnd   += 3
+						self.update()
+						break
+				}
 			}
 		}
 
