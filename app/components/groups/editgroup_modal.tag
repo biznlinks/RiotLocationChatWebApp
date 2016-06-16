@@ -314,7 +314,7 @@
 		}
 
 		closeMap() {
-			$('#map').slideUp({
+			$('#map-container').slideUp({
 				duration: 500,
 				complete: function() {
 					if (self.address == '') self.address = 'Change Location'
