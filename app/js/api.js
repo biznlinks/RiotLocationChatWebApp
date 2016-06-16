@@ -283,5 +283,43 @@ getGroupImage: function(group) {
         return image;
       }
     }
+},
+checkCORS: function(url) {
+  var promise = new Parse.Promise()
+
+  var createCORSRequest = function(method, url) {
+    var xhr = new XMLHttpRequest();
+    xhr.responseType = 'arraybuffer';
+    if ("withCredentials" in xhr) {
+      // XHR for Chrome/Firefox/Opera/Safari.
+      xhr.open(method, url, true);
+    } else if (typeof XDomainRequest != "undefined") {
+      // XDomainRequest for IE.
+      xhr = new XDomainRequest();
+      xhr.open(method, url);
+    } else {
+      // CORS not supported.
+      xhr = null;
+    }
+    return xhr;
+  };
+
+  var xhr = createCORSRequest('GET', url);
+  if (!xhr) {
+    console.log('cannot create XHR');
+    promise.resolve(false);
+  }
+
+  xhr.onload = function() {
+    var blob = new Blob([xhr.response], {type: 'image/png'});
+    var url = (window.URL || window.webkitURL).createObjectURL(blob);
+    promise.resolve(url);
+  }
+  xhr.onerror = function() {
+    promise.resolve(false);
+  }
+  xhr.send();
+
+  return promise
 }
 };

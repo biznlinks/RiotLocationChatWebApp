@@ -256,8 +256,18 @@
 				url: 'https://bingapis.azure-api.net/api/v5/images/search?q='+self.imageQuery.value+'&count=9&offset=0&mkt=en-us&safeSearch=Moderate',
 				headers: {"Ocp-Apim-Subscription-Key": "b7bef01565c343e492b34386142f0b68"}
 			}).then(function(data){
-				self.searchResults = data.value
-				self.update()
+				/*self.searchResults = data.value
+				self.update()*/
+				self.searchResults = []
+				console.log(data.value)
+				data.value.forEach(function(image, index) {
+					API.checkCORS(image.contentUrl).then(function (result) {
+						if (result) {
+							self.searchResults.push({thumbnailUrl: image.thumbnailUrl, contentUrl: result})
+						}
+						self.update()
+					})
+				})
 			})
 		}
 
@@ -336,7 +346,8 @@
 			self.cropper = new Cropper(document.getElementById('imageEdit-edit'), {
 				viewMode: 3,
 				aspectRatio: 16/9,
-				cropBoxResizable: false
+				cropBoxResizable: false,
+				checkCrossOrigin: false
 			})
 		}
 
