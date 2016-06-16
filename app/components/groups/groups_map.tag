@@ -68,7 +68,13 @@
 			zIndex: 1000
 		})
 
-		$('#groups-map').css('height', 300)
+		if ($(window).width() >= 540) {
+			$('#groups-map').css('height', 400)
+		}
+		else{
+			$('#groups-map').css('height', 200)
+		}
+
 	}
 
 	resetMap() {

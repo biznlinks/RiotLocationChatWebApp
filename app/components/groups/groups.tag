@@ -1,5 +1,39 @@
 <groups>
-<div class="outer-container">
+<groupsmap name="groupsmap"></groupsmap>
+
+<!-- Button trigger modal -->
+<br>
+<button type="button" class="btn btn-primary btn-lg center-block" data-toggle="modal" data-target="#myModal">
+  Modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <img src="images/logo.png" style="width: 70%">
+      </div>
+      <div class="modal-body">
+        Welcome to Sophus, the local group discovery platform that tells you what is happening right now near you. Join interest groups and discover what people like you are up to nearby. <br><br> 
+        Sophus is currently in beta and an invite only platform. Please be nice to people as we aim to create a community of helpful people that can openly discuss local matters with friends and locals. <br><br>
+        Finally, since we are a location based service we need your location to show you groups and events near you.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary center-block" data-dismiss="modal">Allow locations</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="outer-container" style="
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 700px;">
 	<!-- <div class="search-container row">
 		<div class="col-sm-8 col-sm-offset-2">
 			<textarea placeholder="Search Groups" class="search-groups" rows="1"></textarea>
@@ -7,7 +41,6 @@
 	</div> -->
 
 	<div class="groups-container">
-		<groupsmap name="groupsmap"></groupsmap>
 		<groupslist name="groupslist"></groupslist>
 	</div>
 
