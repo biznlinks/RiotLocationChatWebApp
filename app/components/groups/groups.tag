@@ -19,8 +19,7 @@
       </div>
       <div class="modal-body">
         Welcome to Sophus, the local group discovery platform that tells you what is happening right now near you. Join interest groups and discover what people like you are up to nearby. <br><br> 
-        Sophus is currently in beta and an invite only platform. Please be nice to people as we aim to create a community of helpful people that can openly discuss local matters with friends and locals. <br><br>
-        Finally, since we are a location based service we need your location to show you groups and events near you.
+        To show you what's happening near you please allow location services. (Otherwise you'll see what's happening around our office in San Francisco).
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary center-block" data-dismiss="modal">Allow locations</button>
@@ -87,11 +86,6 @@
 
 </script>
 <style scoped>
-
-	.outer-container {
-		margin-top: 60px;
-	}
-
 	.groups-container {
 		margin-top: 20px;
 	}
