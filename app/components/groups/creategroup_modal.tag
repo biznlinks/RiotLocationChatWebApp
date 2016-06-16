@@ -496,6 +496,7 @@
 		.group-photo {
 			height: 100px;
 			width: 100px;
+			object-fit: cover;
 		}
 
 		.groupinfo-container input {
