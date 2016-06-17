@@ -1,12 +1,6 @@
 <groups>
 <groupsmap name="groupsmap"></groupsmap>
 
-<!-- Button trigger modal -->
-<br>
-<button type="button" class="btn btn-primary btn-lg center-block" data-toggle="modal" data-target="#myModal">
-  Modal
-</button>
-
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -38,7 +32,7 @@
 			<textarea placeholder="Search Groups" class="search-groups" rows="1"></textarea>
 		</div>
 	</div> -->
-
+	<h1 class="text-center">#Motorcycles</h1>
 	<div class="groups-container">
 		<groupslist name="groupslist"></groupslist>
 	</div>

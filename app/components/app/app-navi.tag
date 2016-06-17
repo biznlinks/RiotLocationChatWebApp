@@ -31,13 +31,16 @@
               <a class="nav-link" href="#">Sign Up</a>
             </li>
             <li class="dropdown-item" if={ !signupAvail }>
-              <a class="nav-link" href="#" onclick={ this.gotoProfile }>Profile</a>
+              <a class="nav-link" href="#" onclick={ this.gotoProfile }>Notifications</a>
             </li>
-            <li class="dropdown-item" if={ !signupAvail } onclick={ this.logout }>
-              <a class="nav-link" href="#">Logout</a>
+            <li class="dropdown-item" if={ !signupAvail }>
+              <a class="nav-link" href="#" onclick={ this.gotoProfile }>Profile</a>
             </li>
             <li class="dropdown-item" onclick={ this.sendfeedback }>
               <a class="nav-link" href="#">Feedback</a>
+            </li>
+            <li class="dropdown-item" if={ !signupAvail } onclick={ this.logout }>
+              <a class="nav-link" href="#">Logout</a>
             </li>
           </ul>
         </div>

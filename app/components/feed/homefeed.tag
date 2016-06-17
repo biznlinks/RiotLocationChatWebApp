@@ -77,7 +77,8 @@
 </script>
 <style scoped>
 	.postfeed{
-	margin-top: 15px;
+	margin: 15px auto;
+	max-width: 700px;
 	}
 
 	.update-feed {

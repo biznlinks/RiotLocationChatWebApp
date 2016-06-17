@@ -26,7 +26,7 @@
 						<div id="map" class="hide"></div>
 						<div class="address" onclick={ this.showMap }>{ address }</div>
 
-						<div class="confirm-container" if={ !chooseLocation }><button class="btn btn-default" onclick={ this.submitGroup }>Create</button></div>
+						<div class="confirm-container" if={ !chooseLocation }><button class="btn btn-primary" onclick={ this.submitGroup }>Create</button></div>
 						<div class="confirm-container" if={ chooseLocation }><button class="btn btn-default" onclick={ this.closeMap }>OK</button></div>
 					</div>
 
@@ -41,7 +41,7 @@
 						<div class="options" if={ !searchResults || searchResults.length == 0 }>
 							<div>Search for your group's image</div>
 							or
-							<div>
+							<div style="padding-top: 1em">
 								<label for="imageFile"><span class="btn btn-primary">Upload your image</span></label>
 								<input name="imageFile" id="imageFile" type="file" style="visibility: hidden; position: absolute;"></input>
 							</div>
@@ -500,8 +500,7 @@
 		}
 
 		.options {
-			padding-top: 70px;
-			padding-bottom: 50px;
+			padding-top: 30px;
 			text-align: center;
 			font-size: 26px;
 			font-weight: 600;

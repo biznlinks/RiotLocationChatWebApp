@@ -101,7 +101,7 @@
 
 <style scoped>
 	.cs-loader {
-	  color: #CCCCCC;
+	  color: lightgray;
 	  text-align: center;
 	  padding-top: 200px; 
 	}
@@ -206,8 +206,14 @@
 	}
 
 	.group-info {
-		padding: 10px;
+		padding: 10px 25%;
 		background-color: #eeeeee;
+	}
+
+	@media (max-width: 480px) {
+		.group-info {
+			padding: 0;
+		}
 	}
 
 	.image {
