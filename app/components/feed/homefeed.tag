@@ -1,5 +1,5 @@
 <feed>
-
+<div class="feed-background">
 	<div class="postfeed">
 		<postbar></postbar>
 
@@ -9,6 +9,7 @@
 
 		<posts name="homeFeedPosts"></posts>
 	</div>
+</div>
 
 <script>
 	var self         = this
