@@ -117,7 +117,7 @@
       } else {
         self.track('groupinfo')
         self.update({
-          title: self.group.get('name'),
+          title: "",
           body: "",
           route: "groupinfo",
           selectedId: null
