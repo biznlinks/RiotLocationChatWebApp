@@ -1,5 +1,5 @@
 <feed>
-<div class="feed-background">
+<div class="feed-background" style="overflow-y: auto; height: 600px;">
 	<div class="postfeed">
 		<postbar></postbar>
 

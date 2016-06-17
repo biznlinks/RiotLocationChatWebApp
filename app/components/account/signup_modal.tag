@@ -97,6 +97,7 @@
 			user.set('firstName', userFirstname)
 			user.set('lastName', userLastname)
 			user.set("type", "actual")
+			user.set("profileImageURL", undefined)
 			user.set("needsWelcome", true)
 			user.save(null, {
 				success: function(user) {

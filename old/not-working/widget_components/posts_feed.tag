@@ -1,5 +1,5 @@
 <posts>
-<div class="feed-background" style="height: 100%; width: 100%; background-color: red">
+<div class="feed-background">
 	<div style="background-color: white; padding-bottom: 20px;" if={loading}>
 		<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...
 	</div>
