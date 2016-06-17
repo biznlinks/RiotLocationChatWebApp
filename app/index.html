@@ -26,6 +26,10 @@
         /*padding-top: 70px;*/
         /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
       }
+
+      .pac-container {
+        z-index: 1000000 !important;
+      }
     </style>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -72,7 +76,6 @@
 
 
               <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-              <link rel="stylesheet" href="css/animate.css">
               <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.7.2/cropper.css">
 
               <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.7.2/cropper.js"></script>
@@ -116,6 +119,7 @@
               <script src="/components/groups/groups_list.tag" type="riot/tag"></script>
               <script src="/components/groups/groupinfo.tag" type="riot/tag"></script>
               <script src="/components/groups/creategroup_modal.tag" type="riot/tag"></script>
+              <script src="/components/groups/editgroup_modal.tag" type="riot/tag"></script>
 
               <script src = "/js/initparse.js"></script>
               <script src = "/js/init.js"></script>

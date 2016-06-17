@@ -27,7 +27,8 @@
     <forgot name="forgotModal"></forgot>
     <ask name="askModal"></ask>
     <search name="searchModal"></search>
-    <creategroup name="creategroupModal"></creategroup>
+    <creategroup name="creategroupModal" if={ route=='groups' }></creategroup>
+    <editgroup name="editgroupModal" if={ route=='groupinfo' }></editgroup>
 
     <banner if={ route=="posts" }></banner>
 
@@ -102,7 +103,7 @@
           self.group = results
           self.track('groupinfo')
           self.update({
-            title: self.group.get('name'),
+            title: "",
             body: "",
             route: "groupinfo",
             selectedId: null
@@ -116,7 +117,7 @@
       } else {
         self.track('groupinfo')
         self.update({
-          title: self.group.get('name'),
+          title: "",
           body: "",
           route: "groupinfo",
           selectedId: null

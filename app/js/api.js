@@ -283,5 +283,123 @@ getGroupImage: function(group) {
         return image;
       }
     }
+},
+uploadImage: function(file) {
+  var promise = new Parse.Promise();
+
+  var serverUrl = 'https://api.parse.com/1/files/' + file.name;
+  var image = new Image;
+  image.onload = function() {
+    if (image.width >= 640) {
+      $.ajax({
+        type: "POST",
+        beforeSend: function(request) {
+          request.setRequestHeader("X-Parse-Application-Id", 'YDTZ5PlTlCy5pkxIUSd2S0RWareDqoaSqbnmNX11');
+          request.setRequestHeader("X-Parse-REST-API-Key", 'TkCtS0607l5lfgiO65FbNc5zudsLcADDwPcQS1Va');
+          request.setRequestHeader("Content-Type", file.type);
+        },
+        url: serverUrl,
+        data: file,
+        processData: false,
+        contentType: false,
+        success: function(data) {
+          promise.resolve(data.url);
+        },
+        error: function(data) {
+          promise.resolve(false);
+        }
+      });
+    }
+  };
+  image.src = URL.createObjectURL(file);
+
+  return promise;
+},
+resizeImage: function(file) {
+  var promise = new Parse.Promise();
+
+  var MAX_WIDTH = 400;
+  var MAX_HEIGHT = 225;
+  var image = new Image;
+  image.onload = function() {
+    var canvas = document.createElement('canvas');
+    var ctx = canvas.getContext('2d');
+    ctx.drawImage(image, 0, 0);
+
+    var width = image.width;
+    var height = image.height;
+    if (width > height) {
+      if (width > MAX_WIDTH) {
+        height *= MAX_WIDTH / width;
+        width = MAX_WIDTH;
+      }
+    } else {
+      if (height > MAX_HEIGHT) {
+        width *= MAX_HEIGHT / height;
+        height = MAX_HEIGHT;
+      }
+    }
+    canvas.width = width;
+    canvas.height = height;
+    var ctx = canvas.getContext("2d");
+    ctx.drawImage(image, 0, 0, width, height);
+    canvas.toBlob(function(blob) {
+      promise.resolve(blob);
+    });
+  }
+  image.src = URL.createObjectURL(file);
+
+  return promise;
+},
+searchImage: function(query, count, offset) {
+  var promise = new Parse.Promise();
+
+  $.ajax({
+    url: 'https://bingapis.azure-api.net/api/v5/images/search?q='+query+'&count='+count+'&offset='+offset+'&mkt=en-us&safeSearch=Moderate',
+    headers: {"Ocp-Apim-Subscription-Key": "b7bef01565c343e492b34386142f0b68"}
+  }).then(function(data){
+    promise.resolve(data);
+  });
+
+  return promise;
+},
+checkCORS: function(url) {
+  var promise = new Parse.Promise()
+
+  var createCORSRequest = function(method, url) {
+    var xhr = new XMLHttpRequest();
+    xhr.responseType = 'arraybuffer';
+    if ("withCredentials" in xhr) {
+      // XHR for Chrome/Firefox/Opera/Safari.
+      xhr.open(method, url, true);
+    } else if (typeof XDomainRequest != "undefined") {
+      // XDomainRequest for IE.
+      xhr = new XDomainRequest();
+      xhr.open(method, url);
+    } else {
+      // CORS not supported.
+      xhr = null;
+    }
+    return xhr;
+  };
+
+  var xhr = createCORSRequest('GET', url);
+  if (!xhr) {
+    console.log('cannot create XHR');
+    promise.resolve(false);
+  }
+
+  xhr.onload = function() {
+    var blob = new Blob([xhr.response], {type: 'image/png'});
+    var url = (window.URL || window.webkitURL).createObjectURL(blob);
+    promise.resolve(url);
+  }
+  xhr.onerror = function(err) {
+    promise.resolve(false);
+  }
+
+  xhr.send();
+
+  return promise;
 }
 };
