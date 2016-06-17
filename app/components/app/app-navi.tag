@@ -6,7 +6,7 @@
   </button> -->
   <div class="navbar-toggleable-xs" id="exCollapsingNavbar2">
     <div class="navbar-brand">
-      <a if={ containerTag.route!='groups' } href="/groups"><img id="arrow" alt="Logo" src="/images/back.png" ></a>
+      <a if={ containerTag.route!='groups' } class={pointer:true, fa:true, fa-chevron-left: true, black:!home } onclick={ goBack }><!-- <img id="arrow" alt="Logo" src="/images/back.png" > --></a>
       <a if={ containerTag.route=='groups' } href="/groups"><img id="logo" alt="Logo" src="/images/app_icon.png" ></a>
       <span if={ containerTag.route!='groups' }>{ title }</span>
       <span if={ containerTag.route=='groups' }>{ USER_LOCALE }</span>
@@ -31,13 +31,16 @@
               <a class="nav-link" href="#">Sign Up</a>
             </li>
             <li class="dropdown-item" if={ !signupAvail }>
-              <a class="nav-link" href="#" onclick={ this.gotoProfile }>Profile</a>
+              <a class="nav-link" href="#" onclick={ this.gotoProfile }>Notifications</a>
             </li>
-            <li class="dropdown-item" if={ !signupAvail } onclick={ this.logout }>
-              <a class="nav-link" href="#">Logout</a>
+            <li class="dropdown-item" if={ !signupAvail }>
+              <a class="nav-link" href="#" onclick={ this.gotoProfile }>Profile</a>
             </li>
             <li class="dropdown-item" onclick={ this.sendfeedback }>
               <a class="nav-link" href="#">Feedback</a>
+            </li>
+            <li class="dropdown-item" if={ !signupAvail } onclick={ this.logout }>
+              <a class="nav-link" href="#">Logout</a>
             </li>
           </ul>
         </div>
@@ -140,6 +143,10 @@
     self.update()
   }
 
+  goBack() {
+    window.history.back()
+  }
+
   logout() {
     Parse.User.logOut()
     self.update()
@@ -187,8 +194,9 @@
     border-radius: 0;
   }
 
-  .navbar-brand {
-    /*color: white;*/
+  .navbar-brand a {
+    color: white;
+    text-decoration: none;
   }
 
   .nav {
@@ -232,6 +240,10 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+  }
+
+  .black {
+    color: black !important;
   }
 
   #logo {

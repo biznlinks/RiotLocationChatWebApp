@@ -1,13 +1,39 @@
 <groups>
-<div class="outer-container">
+<groupsmap name="groupsmap"></groupsmap>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <img src="images/logo.png" style="width: 70%">
+      </div>
+      <div class="modal-body">
+        Welcome to Sophus, the local group discovery platform that tells you what is happening right now near you. Join interest groups and discover what people like you are up to nearby. <br><br> 
+        To show you what's happening near you please allow location services. (Otherwise you'll see what's happening around our office in San Francisco).
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary center-block" data-dismiss="modal">Allow locations</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="outer-container" style="
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 700px;">
 	<!-- <div class="search-container row">
 		<div class="col-sm-8 col-sm-offset-2">
 			<textarea placeholder="Search Groups" class="search-groups" rows="1"></textarea>
 		</div>
 	</div> -->
-
+	<h3 style="text-align: center; padding-top: 1em;">#Yoga</h3>
 	<div class="groups-container">
-		<groupsmap name="groupsmap"></groupsmap>
 		<groupslist name="groupslist"></groupslist>
 	</div>
 
@@ -54,11 +80,6 @@
 
 </script>
 <style scoped>
-
-	.outer-container {
-		margin-top: 60px;
-	}
-
 	.groups-container {
 		margin-top: 20px;
 	}

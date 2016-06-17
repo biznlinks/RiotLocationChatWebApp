@@ -1,7 +1,17 @@
 <groupsmap>
-
 <div class="map-container">
-	<div id="groups-map"></div>
+	
+	<div id="groups-map">
+		<div class="cs-loader" if={loading}>
+			<label>	●</label>
+			<label>	●</label>
+			<label>	●</label>
+			<label>	●</label>
+			<label>	●</label>
+			<label>	●</label>
+		</div>
+	</div>
+
 	<div class="group-info" if={ selectedGroup } onclick={ gotoGroup }>
 		<img class="image" src={ API.getGroupImage(selectedGroup) }>
 		<div class="info">
@@ -19,7 +29,8 @@
 	self.selectedGroup = undefined
 
 	this.on('mount', function() {
-
+		self.loading = true
+		self.update()
 	})
 
 	initMap() {
@@ -68,13 +79,10 @@
 			zIndex: 1000
 		})
 
-		if ($(window).width() >= 540) {
-			$('#groups-map').css('height', 400)
-		}
-		else{
-			$('#groups-map').css('height', 200)
-		}
-
+		google.maps.event.addListenerOnce(self.gmap, 'idle', function(){
+		    self.loading = false
+		    self.update()
+		});
 	}
 
 	resetMap() {
@@ -92,13 +100,120 @@
 </script>
 
 <style scoped>
+	.cs-loader {
+	  color: lightgray;
+	  text-align: center;
+	  padding-top: 200px; 
+	}
+
+	@media (max-width: 480px) {
+		.cs-loader {
+			padding-top: 100px; 
+		}
+	}
+
+	.cs-loader label {
+	  font-size: 20px;
+	  opacity: 0;
+	  display:inline-block;
+	}
+
+	@keyframes lol {
+	  0% {
+	    opacity: 0;
+	    transform: translateX(-300px);
+	  }
+	  33% {
+	    opacity: 1;
+	    transform: translateX(0px);
+	  }
+	  66% {
+	    opacity: 1;
+	    transform: translateX(0px);
+	  }
+	  100% {
+	    opacity: 0;
+	    transform: translateX(300px);
+	  }
+	}
+
+	@-webkit-keyframes lol {
+	  0% {
+	    opacity: 0;
+	    -webkit-transform: translateX(-300px);
+	  }
+	  33% {
+	    opacity: 1;
+	    -webkit-transform: translateX(0px);
+	  }
+	  66% {
+	    opacity: 1;
+	    -webkit-transform: translateX(0px);
+	  }
+	  100% {
+	    opacity: 0;
+	    -webkit-transform: translateX(300px);
+	  }
+	}
+
+	.cs-loader label:nth-child(6) {
+	  -webkit-animation: lol 3s infinite ease-in-out;
+	  animation: lol 3s infinite ease-in-out;
+	}
+
+	.cs-loader label:nth-child(5) {
+	  -webkit-animation: lol 3s 100ms infinite ease-in-out;
+	  animation: lol 3s 100ms infinite ease-in-out;
+	}
+
+	.cs-loader label:nth-child(4) {
+	  -webkit-animation: lol 3s 200ms infinite ease-in-out;
+	  animation: lol 3s 200ms infinite ease-in-out;
+	}
+
+	.cs-loader label:nth-child(3) {
+	  -webkit-animation: lol 3s 300ms infinite ease-in-out;
+	  animation: lol 3s 300ms infinite ease-in-out;
+	}
+
+	.cs-loader label:nth-child(2) {
+	  -webkit-animation: lol 3s 400ms infinite ease-in-out;
+	  animation: lol 3s 400ms infinite ease-in-out;
+	}
+
+	.cs-loader label:nth-child(1) {
+	  -webkit-animation: lol 3s 500ms infinite ease-in-out;
+	  animation: lol 3s 500ms infinite ease-in-out;
+	}
+
+
+	.map-container{
+		margin-top: 60px;
+	}
+
+	#groups-map{
+		height: 400px;
+	}
+
+	@media (max-width: 480px) {
+		#groups-map{
+			height: 200px;
+		}
+	}
+
 	#map {
 		width: 100%;
 	}
 
 	.group-info {
-		padding: 10px;
+		padding: 10px 25%;
 		background-color: #eeeeee;
+	}
+
+	@media (max-width: 480px) {
+		.group-info {
+			padding: 0;
+		}
 	}
 
 	.image {

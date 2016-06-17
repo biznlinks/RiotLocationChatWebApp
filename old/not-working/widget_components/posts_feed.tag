@@ -1,5 +1,6 @@
 <posts>
-	<div if={loading}>
+<div class="feed-background">
+	<div style="background-color: white; padding-bottom: 20px;" if={loading}>
 		<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...
 	</div>
 	<div if={this.posts.length==0 }>
@@ -13,6 +14,7 @@
 		</div>
 
 	</div>
+</div>
 
 
 <script>

@@ -19,7 +19,7 @@
 <container>
   <app-navi name="appNavi"></app-navi>
   <!-- Page Content -->
-  <div class="">
+  <div>
     <!-- <h1>{ title }</h1> -->
 
     <signup name="signupModal"></signup>
@@ -27,7 +27,9 @@
     <forgot name="forgotModal"></forgot>
     <ask name="askModal"></ask>
     <search name="searchModal"></search>
-    <creategroup name="creategroupModal"></creategroup>
+    <creategroup name="creategroupModal" if={ route=='groups' }></creategroup>
+    <editgroup name="editgroupModal" if={ route=='groupinfo' }></editgroup>
+    <editprofile name="editprofileModal" if={ route=='profile' }></editprofile>
 
     <banner if={ route=="posts" || route=="tweets" }></banner>
 
@@ -106,7 +108,7 @@
           self.group = results
           self.track('groupinfo')
           self.update({
-            title: self.group.get('name'),
+            title: "",
             body: "",
             route: "groupinfo",
             selectedId: null
@@ -120,7 +122,7 @@
       } else {
         self.track('groupinfo')
         self.update({
-          title: self.group.get('name'),
+          title: "",
           body: "",
           route: "groupinfo",
           selectedId: null
@@ -225,9 +227,6 @@
   .main {
     padding-right: 0px;
     padding-left: 0px;
-    margin-right: auto;
-    margin-left: auto;
-    max-width: 700px; /* or 950px */
   }
 
   .card {

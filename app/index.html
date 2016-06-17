@@ -19,14 +19,16 @@
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
 
-
-
     <!-- Custom CSS -->
     <style type="text/css" src="css/styles.css"></style>
     <style>
       body {
         /*padding-top: 70px;*/
         /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+      }
+
+      .pac-container {
+        z-index: 1000000 !important;
       }
     </style>
 
@@ -74,7 +76,6 @@
 
 
               <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-              <link rel="stylesheet" href="css/animate.css">
               <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.7.2/cropper.css">
 
               <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/0.7.2/cropper.js"></script>
@@ -113,12 +114,15 @@
               <script src="/components/account/login_modal.tag" type="riot/tag"></script>
               <script src="/components/account/forgot_modal.tag" type="riot/tag"></script>
               <script src="/components/profile/profile.tag" type="riot/tag"></script>
+              <script src="/components/profile/editprofile_modal.tag" type="riot/tag"></script>
               <script src="/components/profile/answers_inprofile.tag" type="riot/tag"></script>
               <script src="/components/groups/groups.tag" type="riot/tag"></script>
               <script src="/components/groups/groups_map.tag" type="riot/tag"></script>
               <script src="/components/groups/groups_list.tag" type="riot/tag"></script>
               <script src="/components/groups/groupinfo.tag" type="riot/tag"></script>
               <script src="/components/groups/creategroup_modal.tag" type="riot/tag"></script>
+              <script src="/components/groups/editgroup_modal.tag" type="riot/tag"></script>
+              <script src="/components/groups/image_search.tag" type="riot/tag"></script>
 
               <script src = "/js/initparse.js"></script>
               <script src = "/js/init.js"></script>

@@ -1,6 +1,6 @@
-<creategroup>
+<editgroup>
 
-	<div id="creategroupModal" class="modal fade" role="dialog">
+	<div id="editgroupModal" class="modal fade" role="dialog">
 		<div class="modal-dialog">
 
 			<!-- Modal content -->
@@ -32,7 +32,7 @@
 
 						<div class="address" onclick={ this.showMap }>{ address }</div>
 
-						<div class="confirm-container" if={ !chooseLocation }><button class="btn btn-primary" onclick={ this.submitGroup }>Create</button></div>
+						<div class="confirm-container" if={ !chooseLocation }><button class="btn btn-default" onclick={ this.submitGroup }>Edit</button></div>
 						<div class="confirm-container" if={ chooseLocation }><button class="btn btn-default" onclick={ this.closeMap }>OK</button></div>
 					</div>
 
@@ -52,21 +52,23 @@
 		self.error   = ''
 		self.info    = true
 
-		creategroupTag = this
+		editgroupTag = this
 
-		this.on('mount', function() {
+		init() {
 			$(document).ready(function(){
 				self.initMap()
-				self.getStreetAddress({lat: USER_POSITION.latitude, lng: USER_POSITION.longitude})
 
-				$('#creategroupModal').on('shown.bs.modal', function() {
+				$('#editgroupModal').on('shown.bs.modal', function() {
 					$(document).bind("touchmove", function(e){
 						e.preventDefault();
 					});
 					self.resetMap()
-					self.getStreetAddress({lat: USER_POSITION.latitude, lng: USER_POSITION.longitude})
+					self.selectedImage = {contentUrl: containerTag.group.get('imageUrl'), thumbnailUrl: containerTag.group.get('imageUrl')}
+					self.groupname.value = containerTag.group.get('name')
+					self.desc.value = containerTag.group.get('description')
+					self.getStreetAddress({lat: containerTag.group.get('location').latitude, lng: containerTag.group.get('location').longitude})
 				})
-				$('#creategroupModal').on('hidden.bs.modal', function() {
+				$('#editgroupModal').on('hidden.bs.modal', function() {
 					$(document).unbind('touchmove');
 
 					self.closeMap()
@@ -80,7 +82,7 @@
 					self.error           = ''
 					self.groupname.value = ''
 					self.desc.value      = ''
-					self.selectedImage   = undefined
+					self.selectedImage    = undefined
 					self.update()
 				})
 
@@ -88,11 +90,14 @@
 					self.groupCircle.setRadius(self.slider.value / 10 * 1609)
 				})
 			})
-		})
+
+
+			$(document).on('change', '#imageFile-edit', self.handleUploadedImage)
+		}
 
 		initMap() {
 			self.gmap = new google.maps.Map(document.getElementById('map'), {
-				center: {lat: USER_POSITION.latitude, lng: USER_POSITION.longitude},
+				center: {lat: containerTag.group.get('location').latitude, lng: containerTag.group.get('location').longitude},
 				zoom: 13,
 				disableDefaultUI: true,
 				zoomControl: true,
@@ -106,7 +111,7 @@
 
 			self.marker = new google.maps.Marker({
 				map: self.gmap,
-				position: {lat: USER_POSITION.latitude, lng: USER_POSITION.longitude},
+				position: {lat: containerTag.group.get('location').latitude, lng: containerTag.group.get('location').longitude},
 				icon: '/images/marker-filled.png'
 			})
 			self.groupCircle = new google.maps.Circle({
@@ -116,7 +121,7 @@
 				fillColor: '#A9A9C3',
 				fillOpacity: 0.3,
 				map: self.gmap,
-				center: {lat: USER_POSITION.latitude, lng: USER_POSITION.longitude},
+				center: {lat: containerTag.group.get('location').latitude, lng: containerTag.group.get('location').longitude},
 				radius: 1609,
 				clickable: false
 			})
@@ -182,102 +187,20 @@
 			self.loading = true
 			self.update()
 
-			self.generateGroupId().then(function(results) {
-				var groupId = results
+			var group = containerTag.group
+			group.set('name', self.groupname.value)
+			group.set('description', self.desc.value)
+			group.set('imageUrl', self.selectedImage ? self.selectedImage.contentUrl : undefined)
+			group.set('location', new Parse.GeoPoint(self.marker.position.lat(), self.marker.position.lng()))
+			group.set('radius', self.groupCircle.radius)
 
-				var GroupObject = Parse.Object.extend('Group')
-				var newGroup    = new GroupObject()
-				newGroup.save({
-					location: new Parse.GeoPoint(self.marker.position.lat(), self.marker.position.lng()),
-					name: self.groupname.value,
-					description: self.desc.value,
-					creator: Parse.User.current(),
-					imageUrl: self.selectedImage ? self.selectedImage.contentUrl : undefined,
-					groupId: groupId,
-					radius: self.groupCircle.radius,
-					memberCount: 1,
-					type: 'group'
-				},{
-					success: function(group) {
-						var UserGroupObject = Parse.Object.extend('UserGroup')
-						var newUserGroup = new UserGroupObject()
-						newUserGroup.save({
-							user: Parse.User.current(),
-							group: group
-						}, {
-							success: function(userGroup) {
-
-							}, error: function(userGroup, error) {
-								self.isError = true
-								self.error = error.message
-								self.update()
-							}
-						})
-
-						var newPostContent = 'Welcome to ' + group.get('name')
-						newPostContent += (group.get('description')) ? ', ' + group.get('description') : ''
-						var PostObject = Parse.Object.extend('Post')
-						var newPost = new PostObject()
-						newPost.save({
-							author: Parse.User.current(),
-							group: group,
-							content: newPostContent,
-							newsFeedViewsBy: [],
-							answerCount: 0,
-							wannaknowCount: 0,
-							anonymous: false
-						}, {
-							success: function(post) {
-								var Wannaknow = Parse.Object.extend('WannaKnow')
-								var wannaknow = new Wannaknow()
-								wannaknow.save({
-									post: post,
-									user: Parse.User.current()
-								}, {
-									success: function(wannaknow) {
-										self.loading = false
-										$('#creategroupModal').modal('hide')
-										containerTag.group = group
-										riot.route(encodeURI(group.get('groupId')))
-										self.update()
-									}
-								})
-							}
-						})
-					}, error: function(group, error) {
-						self.isError = true
-						self.error = error.message
-						self.update()
-					}
-				})
+			group.save(null, {
+				success: function(group) {
+					self.loading = false
+					$('#editgroupModal').modal('hide')
+					groupinfoTag.update()
+				}, error: function(group, error) {}
 			})
-		}
-
-		generateGroupId() {
-			var promise = new Parse.Promise()
-			var groupId = self.groupname.value.toLowerCase().trim()
-			groupId     = groupId.replace(new RegExp(' ','g'), '-')
-
-			randomGroupId()
-
-			function randomGroupId() {
-				var randomId    = Math.round(Math.random() * 999 + 1)
-				var tempGroupId = groupId + '-' + randomId
-				var GroupObject = Parse.Object.extend('Group')
-				var query       = new Parse.Query(GroupObject)
-				query.equalTo('groupId', tempGroupId)
-				query.find({
-					success: function(groups) {
-						if (groups.length == 0) promise.resolve(tempGroupId)
-							else randomGroupId().then(function(results) { promise.resolve(results) })
-						},
-					error: function(error) {
-						randomGroupId().then(function(results) { promise.resolve(results) })
-					}
-				})
-			}
-
-			return promise
 		}
 
 		showMap() {
@@ -344,7 +267,6 @@
 	</script>
 
 	<style scoped>
-
 		:scope {
 			text-align: center;
 		}
@@ -355,7 +277,7 @@
 		}
 
 		.header .fa-chevron-left {
-			padding-top: 5px;
+			padding-top: 3px;
 		}
 
 		.add-photo {
@@ -417,9 +339,9 @@
 			margin-bottom: 10px;
 		}
 
-<<<<<<< HEAD
 		.options {
-			padding-top: 30px;
+			padding-top: 70px;
+			padding-bottom: 50px;
 			text-align: center;
 			font-size: 26px;
 			font-weight: 600;
@@ -463,13 +385,11 @@
 			height: 300px;
 		}
 
-		#image-edit {
+		#imageEdit-edit {
 			width: 100%;
 			height: 300px;
 		}
 
-=======
->>>>>>> 6b3529950bdf6b26d5c88cc0646bf0054aaca1b9
 		@media screen and (max-width: 543px) {
 			.image-container {
 				height: 80px;
@@ -487,4 +407,4 @@
 			}
 		}
 	</style>
-</creategroup>
+</editgroup>

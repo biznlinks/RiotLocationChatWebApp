@@ -7,17 +7,10 @@
 			<span class="sr-only">Loading...</span>
 		</div>
 		<div if={!loading}>
-			<div id="group-pic" if={ !uploadedFile } style="background-image: url('{ API.getGroupImage(containerTag.group) }')">
-				<div if={ containerTag.group.get('image') == undefined && containerTag.group.get('imageUrl') == undefined }>
-					<label for="change-group-pic" class="edit-button btn btn-primary fa fa-pencil"></label>
-					<input id="change-group-pic" type="file" style="visibility: hidden; position: absolute;"></input>
+			<div id="group-pic" style="background-image: url('{ API.getGroupImage(containerTag.group) }')">
+				<div if={ containerTag.group.get('image') == undefined && containerTag.group.get('creator').id == Parse.User.current().id }>
+					<button class="edit-button btn btn-primary fa fa-pencil" onclick={ showEditGroup }></button>
 				</div>
-			</div>
-			<div if={ uploadedFile }>
-				<img id="uploaded-image" src={ URL.createObjectURL(uploadedFile) }>
-				<button class="btn btn-default fa fa-rotate-left" onclick={ this.rotate(-90) }></button>
-				<button class="btn btn-default fa fa-rotate-right" onclick={ this.rotate(90) }></button>
-				<button class="btn btn-default" onclick={ this.cropAndUpload }>OK</button>
 			</div>
 		</div>
 		<div class="group-name">{ containerTag.group.get('name') }</div>
@@ -28,11 +21,12 @@
 
 
 <script>
-	var self = this
-	self.locale = ''
+	var self     = this
+	groupinfoTag = this
+	self.locale  = ''
 
 	this.on('mount', function() {
-		$(document).on('change', '#change-group-pic', self.handleUpload)
+		editgroupTag.init()
 	})
 
 	init() {
@@ -42,73 +36,8 @@
 		})
 	}
 
-	handleUpload() {
-		self.uploadedFile = $('#change-group-pic')[0].files[0]
-		self.update()
-
-		self.createCropper()
-	}
-
-	uploadImage(file) {
-		var serverUrl = 'https://api.parse.com/1/files/' + file.name
-
-		self.loading = true
-		self.update()
-
-		var image = new Image
-			image.onload = function() {
-				if (image.width >= 640) {
-					$.ajax({
-						type: "POST",
-						beforeSend: function(request) {
-							request.setRequestHeader("X-Parse-Application-Id", 'YDTZ5PlTlCy5pkxIUSd2S0RWareDqoaSqbnmNX11');
-							request.setRequestHeader("X-Parse-REST-API-Key", 'TkCtS0607l5lfgiO65FbNc5zudsLcADDwPcQS1Va');
-							request.setRequestHeader("Content-Type", file.type);
-						},
-						url: serverUrl,
-						data: file,
-						processData: false,
-						contentType: false,
-						success: function(data) {
-							containerTag.group.set('imageUrl', data.url)
-							containerTag.group.save(null, {
-								success: function(group) {
-									self.loading = false
-									self.uploadedFile = undefined
-									self.update()
-								}, error: function(group, error) {}
-							})
-
-						},
-						error: function(data) {
-						}
-					});
-				}
-			}
-			image.src = URL.createObjectURL(file)
-	}
-
-	createCropper() {
-		var image = document.getElementById('uploaded-image')
-		self.cropper = new Cropper(image, {
-			viewMode: 3,
-			aspectRatio: 16/9,
-			cropBoxResizable: false
-		})
-	}
-
-	rotate(deg) {
-		return function() {
-			self.cropper.rotate(deg)
-		}
-	}
-	cropAndUpload() {
-		self.cropper.getCroppedCanvas({
-			height: 400
-		}).toBlob(function(blob) {
-			self.uploadImage(blob)
-		})
-		self.cropper.destroy()
+	showEditGroup() {
+		$('#editgroupModal').modal('show')
 	}
 
 </script>
@@ -127,7 +56,7 @@
 	#group-pic {
 		width: 100%;
 		height:300px;
-		object-fit: cover;
+		background-size: cover;
 		background-position: 50% 30%;
 		position: relative;
 	}

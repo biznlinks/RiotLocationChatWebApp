@@ -54,7 +54,7 @@ getGeoLocation(function(){
 });
 
 
-window.Cropper
+window.Cropper;
 
 
 if (!Parse.User.current()) {

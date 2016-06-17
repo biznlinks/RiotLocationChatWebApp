@@ -1,5 +1,5 @@
 <feed>
-
+<div id="feed-background" style="overflow-y: hidden; height: 600px;" onmouseover={ enableScroll } onmouseout={ disableScroll }>
 	<div class="postfeed">
 		<postbar></postbar>
 
@@ -9,6 +9,7 @@
 
 		<posts name="homeFeedPosts"></posts>
 	</div>
+</div>
 
 <script>
 	var self         = this
@@ -18,6 +19,14 @@
 	self.newPost     = false
 
 	self.postsTag = this.tags.homeFeedPosts
+
+
+	this.on('mount', function() {
+		askModalTag.on("posted", function(){
+			self.init()
+		})
+		self.init()
+	})
 
 	init(){
 		self.newPost = false
@@ -34,13 +43,6 @@
 			}, 15000)
 		})
 	}
-
-	this.on('mount', function() {
-		askModalTag.on("posted", function(){
-			self.init()
-		})
-		self.init()
-	})
 
 	checkNewPosts() {
 		API.getallposts(20).then(function(results){
@@ -65,6 +67,17 @@
 		self.update()
 	}
 
+	enableScroll() {
+		console.log('called')
+		$('body').css('overflow', 'hidden')
+		$('#feed-background').css('overflow-y', 'auto')
+	}
+
+	disableScroll() {
+		$('#feed-background').css('overflow-y', 'hidden')
+		$('body').css('overflow', 'auto')
+	}
+
 	onsearchclick(){
 		askModalTag.show()
 	}
@@ -77,7 +90,8 @@
 </script>
 <style scoped>
 	.postfeed{
-	margin-top: 15px;
+	margin: 15px auto;
+	max-width: 700px;
 	}
 
 	.update-feed {

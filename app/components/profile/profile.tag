@@ -11,7 +11,7 @@
 					<div class="about info-item">{ Parse.User.current().get('about') }</div>
 
 					<div class="info-item">
-						<button class="btn btn-sm" onclick={ this.toggleEdit }>Edit Profile</button>
+						<button class="btn btn-sm" onclick={ this.showEdit }>Edit Profile</button>
 					</div>
 				</div>
 
@@ -56,6 +56,7 @@
 
 <script>
 	var self     = this
+	profileTag   = this
 	self.edit    = false
 	self.postTab = true
 	self.posts   = []
@@ -99,6 +100,10 @@
 		// Focus on name's input and set cursor at beginning
 		self.name.setSelectionRange(0, 0)
 		self.name.focus()
+	}
+
+	showEdit() {
+		$('#editprofileModal').modal('show')
 	}
 
 	toggleTab() {
