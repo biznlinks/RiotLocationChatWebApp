@@ -56,7 +56,7 @@
 	#group-pic {
 		width: 100%;
 		height:300px;
-		object-fit: cover;
+		background-size: cover;
 		background-position: 50% 30%;
 		position: relative;
 	}
