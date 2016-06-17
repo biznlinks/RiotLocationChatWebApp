@@ -14,11 +14,13 @@
 				</div>
 
 				<div id="info" if={!loading}>
-					<img src={ API.getCurrentUserProfilePicture() } class="img-circle profile-image" onclick={ this.showImageSearch } if={ !selectedImage }>
-					<img src={ selectedImage.thumbnailUrl } class="img-circle profile-image" onclick={ this.showImageSearch } if={ selectedImage }>
-					<input type="text" name="fullname" placeholder="What's your name?"></input>
-					<input type="text" name="about" placeholder="Tell us something about yourself"></input>
-					<button class="btn btn-default" onclick={ submitEdit }>Edit</button>
+					<div class="profile-image-container">
+						<img src={ API.getCurrentUserProfilePicture() } class="img-circle profile-image" onclick={ this.showImageSearch } if={ !selectedImage }>
+						<img src={ selectedImage.thumbnailUrl } class="img-circle profile-image" onclick={ this.showImageSearch } if={ selectedImage }>
+					</div>
+					<input type="text" name="fullname" id="fullname" placeholder="What's your name?" class="form-control"></input>
+					<input type="text" name="about" id="about" placeholder="Tell us something about yourself" class="form-control"></input>
+					<button class="edit-btn btn btn-default" onclick={ submitEdit }>Edit</button>
 				</div>
 
 				<imagesearch></imagesearch>
@@ -101,9 +103,32 @@
 </script>
 
 <style scoped>
+	:scope {
+		text-align: center;
+	}
+
 	.profile-image {
 		width: 100px;
 		height: 100px;
+	}
+
+	#info input {
+		text-align: left;
+		margin-top: 10px;
+		border: none;
+		border-bottom: 1px dashed #bbb;
+	}
+
+	#info input:focus {
+		outline: none;
+	}
+
+	#fullname {
+		font-size: x-large;
+	}
+
+	.edit-btn {
+		margin-top: 10px;
 	}
 </style>
 </editprofile>
