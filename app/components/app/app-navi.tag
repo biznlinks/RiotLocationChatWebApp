@@ -6,7 +6,7 @@
   </button> -->
   <div class="navbar-toggleable-xs" id="exCollapsingNavbar2">
     <div class="navbar-brand">
-      <a if={ containerTag.route!='groups' } href="/groups"><img id="arrow" alt="Logo" src="/images/back.png" ></a>
+      <a if={ containerTag.route!='groups' } class={pointer:true, fa:true, fa-chevron-left: true, black:!home } onclick={ goBack }><!-- <img id="arrow" alt="Logo" src="/images/back.png" > --></a>
       <a if={ containerTag.route=='groups' } href="/groups"><img id="logo" alt="Logo" src="/images/app_icon.png" ></a>
       <span if={ containerTag.route!='groups' }>{ title }</span>
       <span if={ containerTag.route=='groups' }>{ USER_LOCALE }</span>
@@ -140,6 +140,10 @@
     self.update()
   }
 
+  goBack() {
+    window.history.back()
+  }
+
   logout() {
     Parse.User.logOut()
     self.update()
@@ -187,8 +191,9 @@
     border-radius: 0;
   }
 
-  .navbar-brand {
-    /*color: white;*/
+  .navbar-brand a {
+    color: white;
+    text-decoration: none;
   }
 
   .nav {
@@ -232,6 +237,10 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+  }
+
+  .black {
+    color: black !important;
   }
 
   #logo {
