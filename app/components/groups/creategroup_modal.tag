@@ -27,6 +27,7 @@
 						<div id="map-container" class="hide">
 							<input id="place-input" type="text" placeholder="Search for place"/>
 							<div id="map"></div>
+							<input name="slider" type="range" value="10"></input>
 						</div>
 
 						<div class="address" onclick={ this.showMap }>{ address }</div>
@@ -69,7 +70,7 @@
 					$(document).unbind('touchmove');
 
 					self.closeMap()
-					imagesearchTag.hide()
+					self.tags.imagesearch.hide()
 
 					self.info = true
 					self.update()
@@ -81,6 +82,10 @@
 					self.desc.value      = ''
 					self.selectedImage   = undefined
 					self.update()
+				})
+
+				self.slider.addEventListener('input', function() {
+					self.groupCircle.setRadius(self.slider.value / 10 * 1609)
 				})
 			})
 		})
@@ -144,6 +149,8 @@
 			self.gmap.setZoom(13)
 			self.marker.setPosition({lat: USER_POSITION.latitude, lng: USER_POSITION.longitude})
 			self.groupCircle.setCenter({lat: USER_POSITION.latitude, lng: USER_POSITION.longitude})
+			self.groupCircle.setRadius(1609)
+			self.slider.value = 10
 		}
 
 		getStreetAddress(position) {
@@ -187,6 +194,7 @@
 					creator: Parse.User.current(),
 					imageUrl: self.selectedImage ? self.selectedImage.contentUrl : undefined,
 					groupId: groupId,
+					radius: self.groupCircle.radius,
 					memberCount: 1,
 					type: 'group'
 				},{
@@ -305,11 +313,11 @@
 		}
 
 		showImageSearch() {
-			imagesearchTag.update({callback: self.returnImageSearch})
+			self.tags.imagesearch.update({callback: self.returnImageSearch})
 			$('#info-form').slideUp({
 				duration: 500,
 				complete: function() {
-					imagesearchTag.show()
+					self.tags.imagesearch.show()
 					self.info = false
 					self.update()
 				}
@@ -327,7 +335,7 @@
 		}
 
 		back() {
-			imagesearchTag.hide().then(function() {
+			self.tags.imagesearch.hide().then(function() {
 				$('#info-form').slideDown({duration: 500})
 				self.info = true
 				self.update()
@@ -387,7 +395,7 @@
 		}
 
 		#map-container {
-			height: 350px;
+			height: 400px;
 		}
 
 		#map {
