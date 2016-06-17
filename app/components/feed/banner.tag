@@ -25,7 +25,7 @@
 			</div>
 		</div>
 		<div class="row">
-			<p><a onclick={showfeed}> Discuss </a> | <a onclick={showtweets}> Tweets </a> </p>
+			<p if={containerTag.group.get('type')==='event'}><a onclick={showfeed}> Discuss </a> | <a onclick={showtweets}> Tweets </a> </p>
 		</div>
 	</div>
 </div>
