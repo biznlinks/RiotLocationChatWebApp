@@ -5,7 +5,8 @@
 
 			<!-- Modal content -->
 			<div class="modal-content">
-				<div class="header modal-header"><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+				<div class="header modal-header" if={ screen=='INFO' }><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+				<div class="header modal-header" if={ screen!='INFO' }><button type="button" class="close fa fa-chevron-left" onclick={ this.back }></button></div>
 
 				<div if={loading} class="modal-body text-xs-center">
 					<i class="fa fa-spinner fa-spin fa-3x fa-fw margin-bottom"></i>
@@ -119,7 +120,7 @@
 		keyUp() {
 			clearTimeout(self.searchTimer)
 			if (self.imageQuery.value) {
-				self.searchTimer = setTimeout(self.searchImage, 1000)
+				self.searchTimer = setTimeout(self.searchImage, 500)
 			}
 		}
 
@@ -345,8 +346,6 @@
 				self.searchResults = []
 			}
 
-			console.log(offset)
-
 			API.searchImage(self.imageQuery.value, 9, offset).then(function(data) {
 				offset += 10
 				data.value.forEach(function(image, index) {
@@ -431,6 +430,22 @@
 
 		showInfo() {
 			$('#info-form').slideDown({duration: 500})
+		}
+
+		back() {
+			self.searchResults    = undefined
+			self.selectedImage    = undefined
+			self.imageQuery.value = ''
+			switch(self.screen) {
+				case 'IMAGE-SEARCH':
+					self.closeImage()
+					break
+				case 'IMAGE-EDIT':
+					self.screen = 'INFO'
+					self.update()
+					self.showInfo()
+					break
+			}
 		}
 
 		shift(direction) {
