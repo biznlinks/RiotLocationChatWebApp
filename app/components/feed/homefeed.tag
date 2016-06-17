@@ -1,5 +1,5 @@
 <feed>
-<div id="feed-background" style="overflow-y: hidden; height: 600px;" onmouseover={ enableScroll } onmouseout={ disableScroll }>
+<div id="feed-background" onmouseover={ enableScroll } onmouseout={ disableScroll }>
 	<div class="postfeed">
 		<postbar></postbar>
 
@@ -89,6 +89,11 @@
 
 </script>
 <style scoped>
+	#feed-background {
+		height: 600px;
+		overflow-y: hidden;
+	}
+
 	.postfeed{
 	margin: 15px auto;
 	max-width: 700px;
@@ -100,6 +105,12 @@
 		background-color: #039be5;
 		color: white;
 		font-size: large;
+	}
+
+	@media screen and (max-width: 550px) {
+		#feed-background {
+			overflow-y: auto;
+		}
 	}
 </style>
 </feed>

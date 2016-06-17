@@ -166,9 +166,10 @@
 		$('#image-search-container').slideUp({duration: 0})
 		$('#image-edit-container').slideUp({duration: 0})
 
-		self.searchResults    = []
+		self.searchResults    = undefined
 		self.selectedImage    = undefined
 		self.imageQuery.value = ''
+		if (self.cropper) self.cropper.destroy()
 		self.update()
 
 		return promise
