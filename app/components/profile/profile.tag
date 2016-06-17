@@ -56,6 +56,7 @@
 
 <script>
 	var self     = this
+	profileTag   = this
 	self.edit    = false
 	self.postTab = true
 	self.posts   = []
