@@ -29,6 +29,7 @@
     <search name="searchModal"></search>
     <creategroup name="creategroupModal" if={ route=='groups' }></creategroup>
     <editgroup name="editgroupModal" if={ route=='groupinfo' }></editgroup>
+    <editprofile name="editprofileModal" if={ route=='profile' }></editprofile>
 
     <banner if={ route=="posts" }></banner>
 

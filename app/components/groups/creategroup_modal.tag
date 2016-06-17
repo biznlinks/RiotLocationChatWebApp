@@ -5,8 +5,8 @@
 
 			<!-- Modal content -->
 			<div class="modal-content">
-				<div class="header modal-header" if={ screen=='INFO' }><button type="button" class="close" data-dismiss="modal">&times;</button></div>
-				<div class="header modal-header" if={ screen!='INFO' }><button type="button" class="close fa fa-chevron-left" onclick={ this.back }></button></div>
+				<div class="header modal-header" if={ info }><button type="button" class="close" data-dismiss="modal">&times;</button></div>
+				<div class="header modal-header" if={ !info }><button type="button" class="close fa fa-chevron-left" onclick={ this.back }></button></div>
 
 				<div if={loading} class="modal-body text-xs-center">
 					<i class="fa fa-spinner fa-spin fa-3x fa-fw margin-bottom"></i>
@@ -14,9 +14,9 @@
 				</div>
 
 				<div if={!loading} class="modal-body">
-					<div id="info-form" if={ screen == 'INFO' }>
+					<div id="info-form">
 						<div class="groupinfo-container" id="info">
-							<div onclick={ showImage }>
+							<div onclick={ showImageSearch }>
 								<div class="add-photo" if={ !selectedImage }>Add Image</div>
 								<img class="img-circle group-photo" if={ selectedImage } src={ selectedImage.thumbnailUrl }>
 							</div>
@@ -35,31 +35,7 @@
 						<div class="confirm-container" if={ chooseLocation }><button class="btn btn-default" onclick={ this.closeMap }>OK</button></div>
 					</div>
 
-					<div id="image-search" if={ screen == 'IMAGE-SEARCH'}>
-						<input type="text" placeholder="Search" name="imageQuery" onkeyup={ this.keyUp }>
-						<div class="image-grid" if={ searchResults && searchResults.length > 0 }>
-							<div class={ fa:true, fa-chevron-left:searchStart != 0, arrows:true } onclick={ this.shift(-1) }></div>
-							<div class="image-container" each={ image in searchResults.slice(searchStart, searchEnd) } onclick={ this.selectImage(image) } style="background-image: url('{ image.thumbnailUrl }')">
-							</div>
-							<div class={ fa:true, fa-chevron-right:searchEnd < searchResults.length, arrows:true } onclick={ this.shift(1) }></div>
-						</div>
-
-						<div class="options" if={ !searchResults || searchResults.length == 0 }>
-							<div>Search for your group's image</div>
-							or
-							<div>
-								<label for="imageFile"><span class="btn btn-primary">Upload your image</span></label>
-								<input name="imageFile" id="imageFile" type="file" style="visibility: hidden; position: absolute;"></input>
-							</div>
-						</div>
-					</div>
-
-					<div id="image-edit-container" if={ screen == 'IMAGE-EDIT'}>
-						<img id="image-edit" src={ selectedImage.contentUrl }>
-						<button class="btn btn-default fa fa-rotate-left" onclick={ this.rotate(-90) }></button>
-						<button class="btn btn-default fa fa-rotate-right" onclick={ this.rotate(90) }></button>
-						<button class="btn btn-default" onclick={ this.cropAndUpload }>OK</button>
-					</div>
+					<imagesearch></imagesearch>
 
 					<div class="error text-warning" if={ isError }>{ error }</div>
 				</div>
@@ -73,7 +49,7 @@
 		self.address = ''
 		self.isError = false
 		self.error   = ''
-		self.screen  = 'INFO'
+		self.info    = true
 
 		creategroupTag = this
 
@@ -93,62 +69,21 @@
 					$(document).unbind('touchmove');
 
 					self.closeMap()
-					self.closeImage()
-					if (self.cropper) self.cropper.destroy()
+					imagesearchTag.hide()
 
-					self.searchResults    = undefined
-					self.selectedImage    = undefined
-					self.imageQuery.value = ''
+					self.info = true
+					self.update()
 
+					self.showInfo()
 					self.isError         = false
 					self.error           = ''
-					self.address         = self.getStreetAddress({lat: USER_POSITION.latitude, lng: USER_POSITION.longitude})
 					self.groupname.value = ''
 					self.desc.value      = ''
-
-					self.screen = 'INFO'
+					self.selectedImage   = undefined
 					self.update()
-
-					self.showInfo()
 				})
 			})
-
-
-			$(document).on('change', '#imageFile', self.handleUploadedImage)
 		})
-
-		keyUp() {
-			clearTimeout(self.searchTimer)
-			if (self.imageQuery.value) {
-				self.searchTimer = setTimeout(self.searchImage, 500)
-			}
-		}
-
-		handleUploadedImage() {
-			var file = $('#imageFile')[0].files[0]
-
-			self.screen = 'IMAGE-EDIT'
-			//$('#image-edit').attr('src', URL.createObjectURL(file))
-			self.selectedImage = {contentUrl: URL.createObjectURL(file), thumbnailUrl: URL.createObjectURL(file)}
-			self.update()
-			self.createCropper()
-			self.closeImage()
-		}
-
-		uploadImage(file) {
-			self.loading = true
-			self.update()
-
-			API.uploadImage(file).then(function(result) {
-				if (result) {
-					self.selectedImage = {thumbnailUrl: result, contentUrl: result}
-					self.loading       = false
-					self.screen        = 'INFO'
-					self.update()
-					self.showInfo()
-				}
-			})
-		}
 
 		initMap() {
 			self.gmap = new google.maps.Map(document.getElementById('map'), {
@@ -337,42 +272,6 @@
 			return promise
 		}
 
-		searchImage(offset) {
-			if (!offset) {				// This is when the function is called from click event
-				offset             = 0
-				self.searchStart   = 0
-				self.searchEnd     = 3
-				self.update()
-				self.searchResults = []
-			}
-
-			API.searchImage(self.imageQuery.value, 9, offset).then(function(data) {
-				offset += 10
-				data.value.forEach(function(image, index) {
-					API.checkCORS(image.contentUrl).then(function (result) {
-						if (result) {
-							self.searchResults.push({thumbnailUrl: image.thumbnailUrl, contentUrl: result})
-						}
-						self.update()
-
-						if (index == 8) {
-							if (self.searchResults.length < 9) self.searchImage(offset)
-						}
-					})
-				})
-			})
-		}
-
-		selectImage(image) {
-			return function() {
-				self.selectedImage = image
-				self.screen = 'IMAGE-EDIT'
-				self.update()
-				self.createCropper()
-				self.closeImage()
-			}
-		}
-
 		showMap() {
 			if (self.chooseLocation) return null;
 
@@ -405,27 +304,22 @@
 			}).addClass('hide')
 		}
 
-		showImage() {
+		showImageSearch() {
+			imagesearchTag.update({callback: self.returnImageSearch})
 			$('#info-form').slideUp({
 				duration: 500,
 				complete: function() {
-					self.screen = 'IMAGE-SEARCH'
+					imagesearchTag.show()
+					self.info = false
 					self.update()
-					$('#image-search').slideUp({duration: 0})
-					$('#image-search').slideDown({duration: 500})
 				}
 			})
 		}
 
-		closeImage() {
-			$('#image-search').slideUp({
-				duration:500,
-				complete: function() {
-					self.screen = 'INFO'
-					self.update()
-					$('#info-form').slideDown({duration: 500})
-				}
-			})
+		returnImageSearch(result) {
+			self.selectedImage = result
+			self.update()
+			self.back()
 		}
 
 		showInfo() {
@@ -433,58 +327,11 @@
 		}
 
 		back() {
-			self.searchResults    = undefined
-			self.selectedImage    = undefined
-			self.imageQuery.value = ''
-			switch(self.screen) {
-				case 'IMAGE-SEARCH':
-					self.closeImage()
-					break
-				case 'IMAGE-EDIT':
-					self.screen = 'INFO'
-					self.update()
-					self.showInfo()
-					break
-			}
-		}
-
-		shift(direction) {
-			return function() {
-				switch(direction) {
-					case -1:
-						self.searchEnd   = self.searchStart
-						self.searchStart -= 3
-						self.update()
-						break
-					case 1:
-						self.searchStart = self.searchEnd
-						self.searchEnd   += 3
-						self.update()
-						break
-				}
-			}
-		}
-
-		createCropper() {
-			self.cropper = new Cropper(document.getElementById('image-edit'), {
-				viewMode: 3,
-				aspectRatio: 16/9,
-				cropBoxResizable: false
+			imagesearchTag.hide().then(function() {
+				$('#info-form').slideDown({duration: 500})
+				self.info = true
+				self.update()
 			})
-		}
-
-		rotate(deg) {
-			return function() {
-				self.cropper.rotate(deg)
-			}
-		}
-		cropAndUpload() {
-			self.cropper.getCroppedCanvas({
-				height: 400
-			}).toBlob(function(blob) {
-				self.uploadImage(blob)
-			})
-			self.cropper.destroy()
 		}
 	</script>
 
@@ -500,7 +347,7 @@
 		}
 
 		.header .fa-chevron-left {
-			padding-top: 3px;
+			padding-top: 5px;
 		}
 
 		.add-photo {
@@ -560,57 +407,6 @@
 		.confirm-container {
 			margin-top: 10px;
 			margin-bottom: 10px;
-		}
-
-		.options {
-			padding-top: 70px;
-			padding-bottom: 50px;
-			text-align: center;
-			font-size: 26px;
-			font-weight: 600;
-			color: #bbb;
-		}
-
-		#image-search input {
-			margin-bottom: 10px;
-			text-align: center;
-			font-size: large;
-			border: none;
-		}
-
-		#image-search input:focus {
-			outline: none;
-		}
-
-		.image-grid {
-			padding-top: 10px;
-			border-top: 1px solid #ddd;
-			border-bottom: 1px solid #ddd;
-			line-height: 1;
-		}
-
-		.arrows {
-			width: 5%;
-			vertical-align: top;
-			margin-top: 50px;
-		}
-
-		.image-container {
-			height: 110px;
-			width: 25%;
-			background-size: cover;
-			margin: 5px;
-			display: inline-block;
-		}
-
-		.uploaded-image label {
-			width: 100%;
-			height: 300px;
-		}
-
-		#image-edit {
-			width: 100%;
-			height: 300px;
 		}
 
 		@media screen and (max-width: 543px) {
