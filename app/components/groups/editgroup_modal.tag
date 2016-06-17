@@ -420,6 +420,10 @@
 			padding-bottom: 0;
 		}
 
+		.header .fa-chevron-left {
+			padding-top: 3px;
+		}
+
 		.add-photo {
 			margin: 0 auto;
 			height: 100px;
