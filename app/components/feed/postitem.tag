@@ -13,7 +13,7 @@
 				</div>
 
 				<p class="post-content" name="content">{this.getContent()}</p>
-				<div id="image-container">
+				<div id="image-container" if={ post.get('imageURL') }>
 					<img id="post-image" src={ post.get('imageURL') }>
 				</div>
 			</div

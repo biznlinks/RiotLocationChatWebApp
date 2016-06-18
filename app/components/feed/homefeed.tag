@@ -41,6 +41,8 @@
 				self.checkNewPosts()
 			}, 15000)
 		})
+
+		window.scrollTo(0,document.body.scrollHeight)
 	}
 
 	checkNewPosts() {
