@@ -144,7 +144,8 @@
   }
 
   goBack() {
-    window.history.back()
+    // window.history.back()
+    riot.route('/')
   }
 
   logout() {

@@ -189,7 +189,7 @@
 				var GroupObject = Parse.Object.extend('Group')
 				var newGroup    = new GroupObject()
 				var groupType = "group";
-				if (self.groupname.value.indexOf("event")>= 0) 
+				if (self.groupname.value.toLowerCase().indexOf("event")>= 0) 
 					groupType = "event";
 
 				newGroup.save({

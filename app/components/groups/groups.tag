@@ -32,7 +32,7 @@
 			<textarea placeholder="Search Groups" class="search-groups" rows="1"></textarea>
 		</div>
 	</div> -->
-	<h3 style="text-align: center; padding-top: 1em;">#Yoga</h3>
+	<!-- <h3 style="text-align: center; padding-top: 1em;">#Yoga</h3> -->
 	<div class="groups-container">
 		<groupslist name="groupslist"></groupslist>
 	</div>
