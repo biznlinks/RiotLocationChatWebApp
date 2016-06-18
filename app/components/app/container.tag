@@ -141,7 +141,7 @@
       })
       self.tags.banner.init()
       self.tags.feed.init()
-      self.toTop()
+      //self.toTop()
     }
     function showtweets(){
       self.track('tweets')
