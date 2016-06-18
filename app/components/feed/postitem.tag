@@ -14,6 +14,9 @@
 				</div>
 
 				<p class="post-content" name="content">{this.getContent()}</p>
+				<div id="image-container">
+					<img src={ post.get('imageURL') }>
+				</div>
 			</div
 
 			<!-- <a onclick={this.showSignup}> -->

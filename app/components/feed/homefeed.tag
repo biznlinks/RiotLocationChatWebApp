@@ -68,7 +68,6 @@
 	}
 
 	enableScroll() {
-		console.log('called')
 		$('body').css('overflow', 'hidden')
 		$('#feed-background').css('overflow-y', 'auto')
 	}
