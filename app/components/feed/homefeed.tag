@@ -1,5 +1,5 @@
 <feed>
-<div class="feed-background" style="overflow-y: auto; height: 600px;">
+<div class="feed-background">
 	<div class="postfeed">
 		<postbar></postbar>
 
@@ -19,6 +19,8 @@
 	self.newPost     = false
 
 	self.postsTag = this.tags.homeFeedPosts
+
+
 
 	init(){
 		self.newPost = false
@@ -77,9 +79,16 @@
 
 </script>
 <style scoped>
+	.feed-background{
+		overflow-y: auto;
+		height: 600px;
+		background-color: #fafafa;
+	}
 	.postfeed{
 	margin: 15px auto;
 	max-width: 700px;
+	border-radius: 8px;
+	background-color: white;
 	}
 
 	.update-feed {

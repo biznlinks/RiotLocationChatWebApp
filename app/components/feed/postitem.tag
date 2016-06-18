@@ -3,7 +3,7 @@
 
 			<div class="">
 
-				<div class='postauthor text-muted'>
+				<div class='postauthor'>
 					<img if={ !post.get('anonymous') } src = "{ API.getProfilePicture(post.get('author')) }" class = "profile img-circle">
 					<img if={ post.get('anonymous') } src="/images/default_profile.png" class="profile img-circle">
 					<span class="author">{this.getAuthorName()}</span> <br/>
@@ -274,6 +274,8 @@
 	}
 	.author {
 		padding-right: 8px;
+		font-weight: 600;
+		color: #2b2d31;
 	}
 	.author-about{
 		font-size: smaller;
@@ -281,7 +283,7 @@
 	.profile {
 		width: 30px;
 		height: 30px;
-		margin-right: 10px;
+		margin-right: 6px;
 	}
 
 	.wannaknow{
