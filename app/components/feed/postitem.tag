@@ -6,12 +6,10 @@
 				<div class='postauthor'>
 					<img if={ !post.get('anonymous') } src = "{ API.getProfilePicture(post.get('author')) }" class = "profile img-circle">
 					<img if={ post.get('anonymous') } src="/images/default_profile.png" class="profile img-circle">
-					<span class="author">{this.getAuthorName()}</span>
-					<span class="time">{ this.getTime() }</span><br/>
-					<!-- <span class='author-about text-muted'>{post.get('author').get('about')}</span></span> -->
-
-
-					<!-- <h4 class="card-title">{getAuthorName(post)}</h4> -->
+					<div style="display: inline-block;">
+					<div class="author">{this.getAuthorName()}</div>
+					<div class="time">{ this.getTime() }</div>
+					</div>
 				</div>
 
 				<p class="post-content" name="content">{this.getContent()}</p>
@@ -291,6 +289,10 @@
 		padding-right: 8px;
 		font-weight: 600;
 		color: #2b2d31;
+	}
+	.time{
+		font-size: 12px;
+		color: #93969d;
 	}
 	.author-about{
 		font-size: smaller;
