@@ -20,7 +20,6 @@
 
 	self.postsTag = this.tags.homeFeedPosts
 
-
 	this.on('mount', function() {
 		askModalTag.on("posted", function(){
 			self.init()
@@ -91,11 +90,13 @@
 	#feed-background {
 		height: 600px;
 		overflow-y: hidden;
+		background-color: #fafafa;
 	}
-
 	.postfeed{
 	margin: 15px auto;
 	max-width: 700px;
+	border-radius: 8px;
+	background-color: white;
 	}
 
 	.update-feed {
