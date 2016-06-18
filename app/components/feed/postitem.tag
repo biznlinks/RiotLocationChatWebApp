@@ -280,10 +280,12 @@
 
 	.post-content{
 		font-size: 14px;
-		margin-top: 10px;
+		margin-top: 8px;
+		margin-bottom: 0px;
+		padding-left: 40px;
 	}
-	.postauthor{
-		margin-bottom: 5px;
+	.postauthor img{
+		vertical-align: text-bottom;
 	}
 	.author {
 		padding-right: 8px;
@@ -298,9 +300,10 @@
 		font-size: smaller;
 	}
 	.profile {
-		width: 30px;
-		height: 30px;
+		width: 35px;
+		height: 35px;
 		margin-right: 6px;
+		border-radius: 4px;
 	}
 
 	.wannaknow{
@@ -414,7 +417,7 @@
 	}
 
 	.card-block{
-		padding-bottom: 0;
+		padding: 16px;
 	}
 
 	.card {
