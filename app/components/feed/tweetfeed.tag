@@ -7,12 +7,13 @@
 			Update feed
 		</div>
 
-		<div each={tweets} name="tweet">
-			<div class="card-block pointer">
-			<p class="post-content" name="content">{text}</p>
+		<div if={ !loading }>
+			<div class="postitem" each={ tweet in tweets }>
+				<tweetitem tweet={tweet} />
 			</div>
 		</div>
 	</div>
+
 
 <script>
 	var self         = this
@@ -23,8 +24,8 @@
 		var keywords = "" || containerTag.group.get('keywords')
 		var lat = containerTag.group.get('location').latitude
 		var long = containerTag.group.get('location').longitude
-
-		$.getJSON("https://sophus-web.herokuapp.com/tweets?lat="+lat+"&long="+long+"&callback=?", function(data){
+		var keywords = containerTag.group.get('keywords') || ""
+		$.getJSON("https://sophus-web.herokuapp.com/tweets?q="+keywords+"&lat="+lat+"&long="+long+"&callback=?", function(data){
 			console.log(data);
 			self.tweets = data.statuses
 			self.update()
