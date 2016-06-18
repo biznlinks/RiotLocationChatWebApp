@@ -1,5 +1,5 @@
 <feed>
-<div class="feed-background">
+<div id="feed-background" onmouseover={ enableScroll } onmouseout={ disableScroll }>
 	<div class="postfeed">
 		<postbar></postbar>
 
@@ -20,7 +20,12 @@
 
 	self.postsTag = this.tags.homeFeedPosts
 
-
+	this.on('mount', function() {
+		askModalTag.on("posted", function(){
+			self.init()
+		})
+		self.init()
+	})
 
 	init(){
 		self.newPost = false
@@ -37,13 +42,6 @@
 			}, 15000)
 		})
 	}
-
-	this.on('mount', function() {
-		askModalTag.on("posted", function(){
-			self.init()
-		})
-		self.init()
-	})
 
 	checkNewPosts() {
 		API.getallposts(20).then(function(results){
@@ -68,6 +66,17 @@
 		self.update()
 	}
 
+	enableScroll() {
+		console.log('called')
+		$('body').css('overflow', 'hidden')
+		$('#feed-background').css('overflow-y', 'auto')
+	}
+
+	disableScroll() {
+		$('#feed-background').css('overflow-y', 'hidden')
+		$('body').css('overflow', 'auto')
+	}
+
 	onsearchclick(){
 		askModalTag.show()
 	}
@@ -79,9 +88,9 @@
 
 </script>
 <style scoped>
-	.feed-background{
-		overflow-y: auto;
+	#feed-background {
 		height: 600px;
+		overflow-y: hidden;
 		background-color: #fafafa;
 	}
 	.postfeed{
@@ -97,6 +106,12 @@
 		background-color: #039be5;
 		color: white;
 		font-size: large;
+	}
+
+	@media screen and (max-width: 550px) {
+		#feed-background {
+			overflow-y: auto;
+		}
 	}
 </style>
 </feed>
