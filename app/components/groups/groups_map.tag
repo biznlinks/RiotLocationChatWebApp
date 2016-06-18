@@ -64,7 +64,7 @@
 				map: self.gmap,
 				position: groupLocation,
 				title: self.groups[i].get('name'),
-				group: self.groups[i]
+				group: self.groups[i],
 				//icon: '/images/marker-nearby.png'
 			}).addListener('click', function() {
 				self.selectedGroup = this.group

@@ -1,5 +1,5 @@
 <feed>
-<div id="feed-background" style="overflow-y: hidden; height: 600px;" onmouseover={ enableScroll } onmouseout={ disableScroll }>
+<div id="feed-background" onmouseover={ enableScroll } onmouseout={ disableScroll }>
 	<div class="postfeed">
 		<postbar></postbar>
 
@@ -19,7 +19,6 @@
 	self.newPost     = false
 
 	self.postsTag = this.tags.homeFeedPosts
-
 
 	this.on('mount', function() {
 		askModalTag.on("posted", function(){
@@ -68,7 +67,6 @@
 	}
 
 	enableScroll() {
-		console.log('called')
 		$('body').css('overflow', 'hidden')
 		$('#feed-background').css('overflow-y', 'auto')
 	}
@@ -89,9 +87,16 @@
 
 </script>
 <style scoped>
+	#feed-background {
+		height: 600px;
+		overflow-y: hidden;
+		background-color: #fafafa;
+	}
 	.postfeed{
 	margin: 15px auto;
 	max-width: 700px;
+	border-radius: 8px;
+	background-color: white;
 	}
 
 	.update-feed {
@@ -100,6 +105,12 @@
 		background-color: #039be5;
 		color: white;
 		font-size: large;
+	}
+
+	@media screen and (max-width: 550px) {
+		#feed-background {
+			overflow-y: auto;
+		}
 	}
 </style>
 </feed>

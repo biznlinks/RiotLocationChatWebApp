@@ -40,6 +40,13 @@
               </div>
             </div>
 
+            <div if={chosenImage}>
+            <img id="chosen-image" src={ URL.createObjectURL(chosenImage) }>
+            </div>
+
+            <label for="post-image" class="btn btn-primary">Upload an image</label>
+            <input type="file" id="post-image" style="display:none;">
+
             <div class="go text-xs-center">
               <button type="button" class="btn btn-primary go-btn" onclick={createQuestion}>Post</button>
               <div class="error text-warning" if={ isError }>{ error }</div>
@@ -90,7 +97,11 @@
         self.searchField.value = ""
         self.topic             = ""
         self.handle.value      = ""
+        self.chosenImage       = undefined
+        self.update()
       })
+
+      $(document).on('change', '#post-image', self.handleUpload)
     })
 
     init(){
@@ -99,6 +110,10 @@
       self.update()
     }
 
+    handleUpload() {
+      self.chosenImage = $('#post-image')[0].files[0]
+      self.update()
+    }
 
     show(){
       $('#askModal').modal('show')
@@ -157,10 +172,7 @@
           user: Parse.User.current()
         },{
           success: function(post) {
-            self.loading=false
-            homefeedTag.init()
-            self.hide()
-            self.init()
+
             //self.trigger('posted')
           },
           error: function(post, error) {
@@ -168,6 +180,16 @@
             self.error = error.message
             self.update()
           }
+        })
+      })
+
+      if (self.chosenImage) API.uploadImage(self.chosenImage).then(function(result) {
+        post.set("imageURL", result)
+        post.save().then(function() {
+          self.loading=false
+          homefeedTag.init()
+          self.hide()
+          self.init()
         })
       })
     }
@@ -216,6 +238,13 @@
 
     .searchbox:focus {
       outline: none;
+    }
+
+    #chosen-image {
+      max-height: 100px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
     }
 
     #topic {
