@@ -18,8 +18,14 @@
 					<hr>
 					<div class="group-desc">{ containerTag.group.get('description') }</div>
 					<div class="join-group" onclick={ this.submitJoin }>Join</div>
+
+					
 				</div>
+
 			</div>
+		</div>
+		<div class="row">
+			<p if={containerTag.group.get('type')==='event'}><a onclick={showfeed}> Discuss </a> | <a onclick={showtweets}> Tweets </a> </p>
 		</div>
 	</div>
 </div>
@@ -36,6 +42,13 @@
 
 		self.on('signedUp', self.submitJoin)
 	})
+
+	showfeed(){
+		riot.route(containerTag.group.get('groupId'))
+	}
+	showtweets(){
+		riot.route(containerTag.group.get('groupId')+'/tweets')
+	}
 
 	init() {
 		API.getActiveUsers(containerTag.group, 5).then(function(results) {
