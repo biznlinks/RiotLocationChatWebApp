@@ -98,6 +98,7 @@
         self.topic             = ""
         self.handle.value      = ""
         self.chosenImage       = undefined
+        self.update()
       })
 
       $(document).on('change', '#post-image', self.handleUpload)
@@ -240,8 +241,10 @@
     }
 
     #chosen-image {
-      width: 60%;
-      height: 100px;
+      max-height: 100px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
     }
 
     #topic {

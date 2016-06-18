@@ -6,7 +6,8 @@
 				<div class='postauthor'>
 					<img if={ !post.get('anonymous') } src = "{ API.getProfilePicture(post.get('author')) }" class = "profile img-circle">
 					<img if={ post.get('anonymous') } src="/images/default_profile.png" class="profile img-circle">
-					<span class="author">{this.getAuthorName()}</span> <br/>
+					<span class="author">{this.getAuthorName()}</span>
+					<span class="time">{ this.getTime() }</span><br/>
 					<!-- <span class='author-about text-muted'>{post.get('author').get('about')}</span></span> -->
 
 
@@ -15,7 +16,7 @@
 
 				<p class="post-content" name="content">{this.getContent()}</p>
 				<div id="image-container">
-					<img src={ post.get('imageURL') }>
+					<img id="post-image" src={ post.get('imageURL') }>
 				</div>
 			</div
 
@@ -131,6 +132,17 @@
 		var replacedContent = content.replace(regex, "<a href='$1' target='_blank'>$1</a>")
 		self.content.innerHTML = replacedContent
 		return self.post.get('content')
+	}
+	getTime() {
+		var t = Date.parse(new Date()) - Date.parse(self.post.get('createdAt'))
+		var days = Math.floor( t/(1000*60*60*24) )
+		if (days) return days == 1 ? days + ' day ago' : days + ' days ago'
+		var hours = Math.floor( (t/(1000*60*60)) % 24 )
+		if (hours) return hours == 1 ? hours + ' hour ago' : hours + ' hours ago'
+		var minutes = Math.floor( (t/1000/60) % 60 )
+		if (minutes) return minutes == 1 ? minutes + ' minute ago' : minutes + ' minutes ago'
+		var seconds = Math.floor( (t/1000) % 60 )
+		if (seconds) return seconds == 1 ? seconds + ' second ago' : seconds + ' seconds ago'
 	}
 
 	submitWannaknow(){
@@ -329,6 +341,13 @@
 
 	.submit:hover {
 		color: #004784;
+	}
+
+	#post-image {
+		max-height: 400px;
+		-webkit-border-radius: 5px;
+    	-moz-border-radius: 5px;
+    	border-radius: 5px;
 	}
 
 	.topic {
