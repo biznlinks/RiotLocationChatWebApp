@@ -22,6 +22,7 @@
 							</div>
 							<div><input type="text" name="groupname" id="groupname" placeholder="New Group"></div>
 							<div><input type="text" name="desc" id="desc" placeholder="Short Description"></div>
+							<div><input type="text" name="keywords" id="keywords" placeholder="Keywords"></div>
 						</div>
 
 						<div id="map-container" class="hide">
@@ -187,16 +188,21 @@
 
 				var GroupObject = Parse.Object.extend('Group')
 				var newGroup    = new GroupObject()
+				var groupType = "group";
+				if (self.groupname.value.indexOf("event")>= 0) 
+					groupType = "event";
+
 				newGroup.save({
 					location: new Parse.GeoPoint(self.marker.position.lat(), self.marker.position.lng()),
 					name: self.groupname.value,
 					description: self.desc.value,
+					keywords: self.keywords.value,
 					creator: Parse.User.current(),
 					imageUrl: self.selectedImage ? self.selectedImage.contentUrl : undefined,
 					groupId: groupId,
 					radius: self.groupCircle.radius,
 					memberCount: 1,
-					type: 'group'
+					type: groupType
 				},{
 					success: function(group) {
 						var UserGroupObject = Parse.Object.extend('UserGroup')
