@@ -1,7 +1,7 @@
 <tweetfeed>
 
 	<div class="postfeed">
-		<postbar></postbar>
+		<!-- <postbar></postbar> -->
 
 		<div class="update-feed" if={ newPost } onclick={ this.updateFeed }>
 			Update feed

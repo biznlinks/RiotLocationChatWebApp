@@ -144,8 +144,13 @@
   }
 
   goBack() {
-    // window.history.back()
-    riot.route('/')
+    
+    if (containerTag.route=='posts')
+      riot.route('/')
+    else if (containerTag.route=='groupinfo')
+      riot.route(containerTag.group.get('groupId'))
+    else 
+      window.history.back()
   }
 
   logout() {
