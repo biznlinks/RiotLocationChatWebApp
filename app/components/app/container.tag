@@ -80,13 +80,12 @@
         groups()
       }  else {
         API.fetchOne('Group', 'groupId', id).then(function(results) {
-            self.group = results
-              if (subpage==="tweets"){
-                showtweets()
-                console.log("showing tweets");
-              } else {
-                feed()
-              }
+          self.group = results
+          if (subpage==="tweets"){
+            showtweets()
+            console.log("showing tweets")
+          } else {
+            feed()
           }
         }, function(err) {
           console.log('notfound')
