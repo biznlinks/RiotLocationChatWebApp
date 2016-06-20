@@ -8,7 +8,6 @@
 	<div if={this.posts.length==0 && profile==true} class="zero-post">
 		No posts yet
 	</div>
-	</div>
 	<div if={ !loading }>
 		<div class="postitem" each={ post in posts }>
 			<postitem post={post}></postitem>

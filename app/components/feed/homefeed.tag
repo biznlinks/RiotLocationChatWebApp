@@ -91,7 +91,7 @@
 <style scoped>
 	#feed-background {
 		height: 600px;
-		overflow-y: hidden;
+		overflow-y: auto;
 		background-color: #fafafa;
 	}
 	.postfeed{
@@ -107,12 +107,6 @@
 		background-color: #039be5;
 		color: white;
 		font-size: large;
-	}
-
-	@media screen and (max-width: 550px) {
-		#feed-background {
-			overflow-y: auto;
-		}
 	}
 </style>
 </feed>

@@ -7,8 +7,8 @@
 					<img if={ !post.get('anonymous') } src = "{ API.getProfilePicture(post.get('author')) }" class = "profile img-circle">
 					<img if={ post.get('anonymous') } src="/images/default_profile.png" class="profile img-circle">
 					<div style="display: inline-block;">
-					<div class="author">{this.getAuthorName()}</div>
-					<div class="time">{ this.getTime() }</div>
+						<div class="author">{this.getAuthorName()}</div>
+						<div class="time">{ this.getTime() }</div>
 					</div>
 				</div>
 
@@ -75,7 +75,7 @@
 			<li class="list-group-item"><input class="comment-input" type="text" placeholder="Answer" /></li>
 		</ul>
 	-->
-</div>
+	</div>
 
 
 
