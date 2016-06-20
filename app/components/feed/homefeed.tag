@@ -1,5 +1,5 @@
 <feed>
-<div id="feed-background" onmouseover={ enableScroll } onmouseout={ disableScroll }>
+<div id="feed-background"  }>
 	<div class="postfeed">
 		<postbar></postbar>
 
@@ -42,7 +42,7 @@
 			}, 15000)
 		})
 
-		window.scrollTo(0,document.body.scrollHeight)
+		// window.scrollTo(0,document.body.scrollHeight)
 	}
 
 	checkNewPosts() {

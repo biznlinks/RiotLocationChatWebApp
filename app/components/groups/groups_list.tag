@@ -2,7 +2,7 @@
 
 <div if={ joinedGroups.length > 0 }>
 	<div class="title">
-		<i>Joined</i>
+		Joined
 	</div>
 	<div class="row">
 		<div class="col-sm-1 col-xs-1 fa fa-chevron-left arrow pointer" if={ joinedStart!=0 } onclick={ this.shiftLeft }></div>
@@ -25,7 +25,7 @@
 	<hr>
 </div>
 <div class="title">
-	<i>Nearby</i>
+	Nearby
 </div>
 <div class="nearby">
 	<ul>
