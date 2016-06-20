@@ -67,6 +67,7 @@
 					self.groupname.value = containerTag.group.get('name')
 					self.desc.value = containerTag.group.get('description')
 					self.getStreetAddress({lat: containerTag.group.get('location').latitude, lng: containerTag.group.get('location').longitude})
+					self.slider.value = containerTag.group.get('radius') / 1609 * 10
 				})
 				$('#editgroupModal').on('hidden.bs.modal', function() {
 					$(document).unbind('touchmove');
@@ -104,6 +105,7 @@
 				styles: [{ featureType: "poi", elementType: "labels", stylers: [{ visibility: "off" }]},
 				{ featureType: "transit", elementType: "labels", stylers: [{ visibility: "off" }]}]
 			})
+			console.log(containerTag.group.get('location'))
 
 			// pac is place autocomplete
 			self.pac = new google.maps.places.Autocomplete(document.getElementById('place-input'))
@@ -122,7 +124,7 @@
 				fillOpacity: 0.3,
 				map: self.gmap,
 				center: {lat: containerTag.group.get('location').latitude, lng: containerTag.group.get('location').longitude},
-				radius: 1609,
+				radius: containerTag.group.get('radius'),
 				clickable: false
 			})
 			self.service = new google.maps.places.PlacesService(self.gmap);
@@ -150,12 +152,12 @@
 		}
 
 		resetMap() {
-			self.gmap.setCenter({lat: USER_POSITION.latitude, lng: USER_POSITION.longitude})
+			self.gmap.setCenter({lat: containerTag.group.get('location').latitude, lng: containerTag.group.get('location').longitude})
 			self.gmap.setZoom(13)
-			self.marker.setPosition({lat: USER_POSITION.latitude, lng: USER_POSITION.longitude})
-			self.groupCircle.setCenter({lat: USER_POSITION.latitude, lng: USER_POSITION.longitude})
-			self.groupCircle.setRadius(1609)
-			self.slider.value = 10
+			self.marker.setPosition({lat: containerTag.group.get('location').latitude, lng: containerTag.group.get('location').longitude})
+			self.groupCircle.setCenter({lat: containerTag.group.get('location').latitude, lng: containerTag.group.get('location').longitude})
+			self.groupCircle.setRadius(containerTag.group.get('radius'))
+			self.slider.value = containerTag.group.get('radius') / 1609 * 10
 		}
 
 		getStreetAddress(position) {
