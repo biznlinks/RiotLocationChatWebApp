@@ -10,12 +10,20 @@
 						<div class="author">{this.getAuthorName()}</div>
 						<div class="time">{ this.getTime() }</div>
 					</div>
-					<div class="fa fa-pencil edit" onclick={ showEdit } if={ Parse.User.current().id == post.get('author').id }></div>
+
+					<div class="options">
+						<div class="fa fa-ellipsis-h dropdown-toggle" data-toggle="dropdown"></div>
+						<ul class="dropdown-menu dropdown-menu-right">
+							<li class="options-item" if={ Parse.User.current().id == post.get('author').id } onclick={ showEdit }>Edit</li>
+							<li class="options-item" if={ Parse.User.current().id == post.get('author').id } onclick={ deletePost }>Delete</li>
+							<li class="options-item">Report</li>
+						</ul>
+					</div>
 				</div>
 
 				<p class="post-content" name="content" if={!edit}>{this.getContent()}</p>
 				<div class="edit-box" if={edit}>
-					<textarea class="post-content" name="editcontent" rows="1"></textarea>
+					<textarea class="post-content edit-input" name="editcontent" rows="1"></textarea>
 					<div class="btn-container">
 						<button class="edit-btn btn btn-default" onclick={ submitEdit }>Edit</button>
 					</div>
@@ -261,6 +269,11 @@
 		self.editcontent.focus()
 	}
 
+	deletePost() {
+		deletepostTag.update({post: self.post})
+		$('#deletepostModal').modal('show')
+	}
+
 	goToPost(e){
 		e = e || event;
 		var el = e.target || e.srcElement;
@@ -311,10 +324,17 @@
 		vertical-align: text-bottom;
 	}
 
-	.edit {
+	.options {
 		position: absolute;
 		top: 0;
 		right: 0;
+	}
+
+	.options-item {
+		padding: 2px 10px;
+	}
+	.options-item:hover {
+		background-color: #eee;
 	}
 
 	.btn-container {
@@ -471,6 +491,11 @@
 
 	.card {
 		margin-bottom: .6rem;
+	}
+
+	.dropdown-toggle::after {
+		border: none;
+		content: none;
 	}
 
 	textarea {

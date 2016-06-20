@@ -26,6 +26,7 @@
     <login name="loginModal"></login>
     <forgot name="forgotModal"></forgot>
     <ask name="askModal"></ask>
+    <deletepost name="deletepostModal"></deletepost>
     <search name="searchModal"></search>
     <creategroup name="creategroupModal" if={ route=='groups' }></creategroup>
     <deletegroup name="deletegroupModal" if={ route=='groupinfo' }></deletegroup>
