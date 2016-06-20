@@ -19,7 +19,7 @@
 					<div class="group-desc">{ containerTag.group.get('description') }</div>
 					<div class="join-group" onclick={ this.submitJoin }>Join</div>
 
-					
+
 				</div>
 
 			</div>
@@ -62,11 +62,14 @@
 		})
 
 		if (groupsTag.joinedGroups) {
-			if (groupsTag.groups.indexOf(containerTag.group) > -1) self.joined = false
-			else self.joined = true
+			self.joined = true
+			for (var i = 0; i < groupsTag.groups.length; i++) {
+				if (groupsTag.groups[i].id == containerTag.group.id)
+					self.joined = false
+			}
 			self.update()
 		} else {
-			API.getUserGroups(Parse.User.current()).then(function(groups) {
+			API.getjoinedgroups(Parse.User.current()).then(function(groups) {
 				groups = groups.filter(function(group) { return group.get('group').id == containerTag.group.id })
 				if (groups.length == 0) self.joined = false
 				else self.joined = true

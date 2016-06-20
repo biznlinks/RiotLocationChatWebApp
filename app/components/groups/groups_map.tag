@@ -44,7 +44,6 @@
 		})
 		self.markers = []
 		for (var i = 0; i < self.joinedGroups.length; i++) {
-			console.log(self.joinedGroups[i].get('group'))
 			var groupLocation = {lat: self.joinedGroups[i].get('group').get('location').latitude,
 				lng: self.joinedGroups[i].get('group').get('location').longitude}
 			self.markers.push(new google.maps.Marker({
