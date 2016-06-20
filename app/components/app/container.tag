@@ -80,7 +80,6 @@
         groups()
       }  else {
         API.fetchOne('Group', 'groupId', id).then(function(results) {
-          if (!results.get('deleted')) {
             self.group = results
               if (subpage==="tweets"){
                 showtweets()
@@ -88,9 +87,6 @@
               } else {
                 feed()
               }
-          } else {
-            //not found
-            console.log('notfound')
           }
         }, function(err) {
           console.log('notfound')

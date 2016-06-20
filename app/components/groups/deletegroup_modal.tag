@@ -23,7 +23,10 @@
 	var self = this
 
 	deleteGroup() {
-		containerTag.group.save({deleted: true}, {
+		containerTag.group.save({
+			deleted: true,
+			groupId: ''
+		}, {
 			success: function(group) {
 				$('#deletegroupModal').modal('hide')
 				riot.route('/')
