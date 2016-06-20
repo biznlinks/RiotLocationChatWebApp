@@ -1,6 +1,6 @@
 <groupsmap>
 <div class="map-container">
-	
+
 	<div id="groups-map">
 		<div class="cs-loader" if={loading}>
 			<label>	●</label>
@@ -44,6 +44,7 @@
 		})
 		self.markers = []
 		for (var i = 0; i < self.joinedGroups.length; i++) {
+			console.log(self.joinedGroups[i].get('group'))
 			var groupLocation = {lat: self.joinedGroups[i].get('group').get('location').latitude,
 				lng: self.joinedGroups[i].get('group').get('location').longitude}
 			self.markers.push(new google.maps.Marker({
@@ -103,12 +104,12 @@
 	.cs-loader {
 	  color: lightgray;
 	  text-align: center;
-	  padding-top: 200px; 
+	  padding-top: 200px;
 	}
 
 	@media (max-width: 480px) {
 		.cs-loader {
-			padding-top: 100px; 
+			padding-top: 100px;
 		}
 	}
 

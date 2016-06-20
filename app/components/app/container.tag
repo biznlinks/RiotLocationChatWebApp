@@ -28,6 +28,7 @@
     <ask name="askModal"></ask>
     <search name="searchModal"></search>
     <creategroup name="creategroupModal" if={ route=='groups' }></creategroup>
+    <deletegroup name="deletegroupModal" if={ route=='groupinfo' }></deletegroup>
     <editgroup name="editgroupModal" if={ route=='groupinfo' }></editgroup>
     <editprofile name="editprofileModal" if={ route=='profile' }></editprofile>
 
@@ -79,13 +80,18 @@
         groups()
       }  else {
         API.fetchOne('Group', 'groupId', id).then(function(results) {
-          self.group = results
-            if (subpage==="tweets"){
-              showtweets()
-              console.log("showing tweets");
-            } else {
-              feed()
-            }
+          if (!results.get('deleted')) {
+            self.group = results
+              if (subpage==="tweets"){
+                showtweets()
+                console.log("showing tweets");
+              } else {
+                feed()
+              }
+          } else {
+            //not found
+            console.log('notfound')
+          }
         }, function(err) {
           console.log('notfound')
         })

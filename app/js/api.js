@@ -189,6 +189,7 @@ getallgroups: function(type) {
   var promise = new Parse.Promise();
   var query = new Parse.Query(Parse.Object.extend('Group'));
   if (type) query.equalTo("type", type);
+  query.notEqualTo('deleted', true);
   query.find().then(function(results) {
     loader.trigger('done');
     results = results.filter(function(event) { return API.distance(event.get('location'), USER_POSITION) <= 1600; });
@@ -203,10 +204,12 @@ getallgroups: function(type) {
 getjoinedgroups: function(user) {
   var promise = new Parse.Promise();
   var query = new Parse.Query(Parse.Object.extend('UserGroup'));
+  query.include('group');
   query.equalTo('user', user);
   query.descending('createdAt');
 
   query.find().then(function(results) {
+    results = results.filter(function(result) { return !result.get('group').get('deleted')})
     promise.resolve(results);
   }, function(err) {
     console.error("failed to query joined groups: " + JSON.stringify(err));
@@ -366,24 +369,7 @@ searchImage: function(query, count, offset) {
 checkCORS: function(url) {
   var promise = new Parse.Promise()
 
-  var createCORSRequest = function(method, url) {
-    var xhr = new XMLHttpRequest();
-    xhr.responseType = 'arraybuffer';
-    if ("withCredentials" in xhr) {
-      // XHR for Chrome/Firefox/Opera/Safari.
-      xhr.open(method, url, true);
-    } else if (typeof XDomainRequest != "undefined") {
-      // XDomainRequest for IE.
-      xhr = new XDomainRequest();
-      xhr.open(method, url);
-    } else {
-      // CORS not supported.
-      xhr = null;
-    }
-    return xhr;
-  };
-
-  var xhr = createCORSRequest('GET', url);
+  var xhr = API.createCORSRequest('GET', url);
   if (!xhr) {
     console.log('cannot create XHR');
     promise.resolve(false);
@@ -401,5 +387,21 @@ checkCORS: function(url) {
   xhr.send();
 
   return promise;
+},
+createCORSRequest: function(method, url) {
+  var xhr = new XMLHttpRequest();
+  xhr.responseType = 'arraybuffer';
+  if ("withCredentials" in xhr) {
+    // XHR for Chrome/Firefox/Opera/Safari.
+    xhr.open(method, url, true);
+  } else if (typeof XDomainRequest != "undefined") {
+    // XDomainRequest for IE.
+    xhr = new XDomainRequest();
+    xhr.open(method, url);
+  } else {
+    // CORS not supported.
+    xhr = null;
+  }
+  return xhr;
 }
 };
