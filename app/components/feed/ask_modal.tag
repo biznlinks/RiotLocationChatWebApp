@@ -172,7 +172,6 @@
           user: Parse.User.current()
         },{
           success: function(post) {
-
             //self.trigger('posted')
           },
           error: function(post, error) {
@@ -183,15 +182,22 @@
         })
       })
 
-      if (self.chosenImage) API.uploadImage(self.chosenImage).then(function(result) {
-        post.set("imageURL", result)
-        post.save().then(function() {
-          self.loading=false
-          homefeedTag.init()
-          self.hide()
-          self.init()
+      if (self.chosenImage) {
+        API.uploadImage(self.chosenImage).then(function(result) {
+          post.set("imageURL", result)
+          post.save().then(function() {
+            self.loading=false
+            homefeedTag.init()
+            self.hide()
+            self.init()
+          })
         })
-      })
+      } else {
+        self.loading=false
+        homefeedTag.init()
+        self.hide()
+        self.init()
+      }
     }
 
   </script>

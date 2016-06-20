@@ -12,7 +12,7 @@
 					</div>
 
 					<div class="options">
-						<div class="fa fa-ellipsis-h dropdown-toggle" data-toggle="dropdown"></div>
+						<div class="toggler fa fa-ellipsis-h dropdown-toggle" data-toggle="dropdown"></div>
 						<ul class="dropdown-menu dropdown-menu-right">
 							<li class="options-item" if={ Parse.User.current().id == post.get('author').id } onclick={ showEdit }>Edit</li>
 							<li class="options-item" if={ Parse.User.current().id == post.get('author').id } onclick={ deletePost }>Delete</li>
@@ -25,7 +25,7 @@
 				<div class="edit-box" if={edit}>
 					<textarea class="post-content edit-input" name="editcontent" rows="1"></textarea>
 					<div class="btn-container">
-						<button class="edit-btn btn btn-default" onclick={ submitEdit }>Edit</button>
+						<button class="edit-btn btn btn-default" onclick={ submitEdit }>Done</button>
 					</div>
 				</div>
 				<div id="image-container" if={ post.get('imageURL') }>
@@ -328,6 +328,11 @@
 		position: absolute;
 		top: 0;
 		right: 0;
+	}
+
+	.toggler {
+		font-size: 16px;
+		color: #e2e2e2;
 	}
 
 	.options-item {
