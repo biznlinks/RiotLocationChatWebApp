@@ -184,6 +184,7 @@
 
 	.time-stamp {
 		font-size: small;
+		color: #888;
 	}
 
 	.group-pic {
