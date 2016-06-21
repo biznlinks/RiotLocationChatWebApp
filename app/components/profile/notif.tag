@@ -6,7 +6,12 @@
 		<div class="not-seen">
 			<div class="notif" each={ notification in notSeens } onclick={ gotoGroup(notification.group) }>
 				<img class="group-pic" src={ API.getGroupImage(notification.group) }>
-				{notification.count} new post<span if={notification.count!=1}>s</span> in <b>{notification.group.get('name')}</b>
+				<span if={ notification.count > 1 }>
+					{notification.count} new posts in <b>{notification.group.get('name')}</b>
+				</span>
+				<span if={notification.count == 1}>
+					<b>{notification.from.get('firstName')}</b> posted in <b>{notification.group.get('name')}</b>: "{ notification.post.get('content').slice(0,25) } <span if={notification.post.get('content').length > 25}>...</span>"
+				</span>
 			</div>
 		</div>
 		<div class="seen">
@@ -81,7 +86,6 @@
 		seenQuery.include('post.group')
 		seenQuery.include('pushedFrom')
 		seenQuery.limit(20)
-		seenQuery.descending('createdAt')
 		seenQuery.find().then(function(results) {
 			self.fortesting = results
 			var mapCount = new Map()
