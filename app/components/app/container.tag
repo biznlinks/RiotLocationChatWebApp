@@ -40,6 +40,7 @@
       <tweetfeed if={ route=="tweets" }></tweetfeed>
       <topics if={ route=="schedule" || route=="live" }></topics>
       <profile name="profile" if={ route=="profile" }></profile>
+      <notif name="notif" if={ route=='notif' }></notif>
       <groups name="groups" if={ route=="groups" }></groups>
       <groupinfo name="groupinfo" if={ route=="groupinfo"}></groupinfo>
     </div>
@@ -73,6 +74,7 @@
     r('schedule',  topics )
     r('schedule/*', topicsfeed)
     r('profile', profile)
+    r('notif', notif)
     r(home)
 
     function home(id, subpage) {
@@ -200,6 +202,17 @@
         body: "",
         selectedId: null,
         route: "profile"
+      })
+      self.toTop()
+    }
+    function notif() {
+      self.track('notif')
+      self.tags.notif.init()
+      self.update({
+        title: "NOTIFICATION",
+        body: "",
+        selectedId: null,
+        route: "notif"
       })
       self.toTop()
     }
