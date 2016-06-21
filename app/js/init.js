@@ -46,11 +46,12 @@ var res = {
 }
 
 USER_POSITION = {latitude: parseFloat(res.latitude), longitude: parseFloat(res.longitude)};
-USER_LOCALE = res.city  ;
+USER_LOCALE = res.city;
 riotMount();
 
 getGeoLocation(function(){
   riot.update();
+  groupsmapTag.trigger('locationChanged');
 });
 
 
