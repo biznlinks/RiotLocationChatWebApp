@@ -342,22 +342,22 @@ resizeImage: function(file) {
 
   return promise;
 },
-searchImage: function(query, count, offset) {
+searchImage: function(query) {
   var promise = new Parse.Promise();
 
   $.ajax({
-    url: 'https://bingapis.azure-api.net/api/v5/images/search?q='+query+'&count='+count+'&offset='+offset+'&mkt=en-us&safeSearch=Moderate',
-    headers: {"Ocp-Apim-Subscription-Key": "263fb08988754947b2abef3051115cac"}
+    url: 'http://sophus-web.herokuapp.com/search/' + query
   }).then(function(data){
-    promise.resolve(data);
+    promise.resolve(data.results);
   });
 
   return promise;
 },
-checkCORS: function(url) {
+getImageThroughProxy: function(image) {
   var promise = new Parse.Promise()
 
-  var xhr = API.createCORSRequest('GET', url);
+  var url = image.MediaUrl
+  var xhr = API.createCORSRequest('GET', 'http://sophus-web.herokuapp.com/proxy/' + encodeURIComponent(url));
   if (!xhr) {
     console.log('cannot create XHR');
     promise.resolve(false);
@@ -366,14 +366,13 @@ checkCORS: function(url) {
   xhr.onload = function() {
     var blob = new Blob([xhr.response], {type: 'image/png'});
     var url = (window.URL || window.webkitURL).createObjectURL(blob);
-    promise.resolve(url);
+    promise.resolve({contentUrl: url, thumbnailUrl: image.Thumbnail.MediaUrl});
   }
   xhr.onerror = function(err) {
     promise.resolve(false);
   }
 
   xhr.send();
-
   return promise;
 },
 createCORSRequest: function(method, url) {
