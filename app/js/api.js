@@ -294,7 +294,7 @@ uploadImage: function(file) {
         processData: false,
         contentType: false,
         success: function(data) {
-          promise.resolve(data.url);
+          promise.resolve(data.url.replace("http", "https"));
         },
         error: function(data) {
           promise.resolve(false);
