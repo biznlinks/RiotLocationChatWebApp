@@ -6,23 +6,31 @@
 		<div class="not-seen">
 			<div class="notif" each={ notification in notSeens } onclick={ gotoGroup(notification.group) }>
 				<img class="group-pic" src={ API.getGroupImage(notification.group) }>
-				<span if={ notification.count > 1 }>
-					{notification.count} new posts in <b>{notification.group.get('name')}</b>
-				</span>
-				<span if={notification.count == 1}>
-					<b>{notification.from.get('firstName')}</b> posted in <b>{notification.group.get('name')}</b>: "{ notification.post.get('content').slice(0,25) } <span if={notification.post.get('content').length > 25}>...</span>"
-				</span>
+				<div class="content">
+					<div if={ notification.count > 1 }>
+						{notification.count} new posts in <b>{notification.group.get('name')}</b>
+					</div>
+					<div if={notification.count == 1}>
+						<b>{notification.from.get('firstName')}</b> posted in <b>{notification.group.get('name')}</b>: "{ notification.post.get('content').slice(0,25) } <span if={notification.post.get('content').length > 25}>...</span>"
+					</div>
+
+					<div class="time-stamp">{ this.getTime(notification.post) }</div>
+				</div>
 			</div>
 		</div>
 		<div class="seen">
 			<div class="notif" each={ notification in seens } onclick={ gotoGroup(notification.group) }>
 				<img class="group-pic" src={ API.getGroupImage(notification.group) }>
-				<span if={ notification.count > 1 }>
-					{notification.count} new posts in <b>{notification.group.get('name')}</b>
-				</span>
-				<span if={notification.count == 1}>
-					<b>{notification.from.get('firstName')}</b> posted in <b>{notification.group.get('name')}</b>: "{ notification.post.get('content').slice(0,25) } <span if={notification.post.get('content').length > 25}>...</span>"
-				</span>
+				<div class="content">
+					<div if={ notification.count > 1 }>
+						{notification.count} new posts in <b>{notification.group.get('name')}</b>
+					</div>
+					<div if={notification.count == 1}>
+						<b>{notification.from.get('firstName')}</b> posted in <b>{notification.group.get('name')}</b>: "{ notification.post.get('content').slice(0,25) } <span if={notification.post.get('content').length > 25}>...</span>"
+					</div>
+
+					<div class="time-stamp">{ this.getTime(notification.post) }</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -76,6 +84,9 @@
 					group: value.notif.get('post').get('group')
 				})
 			})
+			self.notSeens.sort(function(a,b) {
+				return Date.parse(a.post.get('createdAt')) - Date.parse(b.post.get('createdAt'))
+			})
 			self.update()
 		})
 
@@ -113,8 +124,23 @@
 					group: value.notif.get('post').get('group')
 				})
 			})
+			self.seens.sort(function(a,b) {
+				return Date.parse(a.post.get('createdAt')) - Date.parse(b.post.get('createdAt'))
+			})
 			self.update()
 		})
+	}
+
+	getTime(post) {
+		var t = Date.parse(new Date()) - Date.parse(post.get('createdAt'))
+		var days = Math.floor( t/(1000*60*60*24) )
+		if (days) return days == 1 ? days + ' day ago' : days + ' days ago'
+		var hours = Math.floor( (t/(1000*60*60)) % 24 )
+		if (hours) return hours == 1 ? hours + ' hour ago' : hours + ' hours ago'
+		var minutes = Math.floor( (t/1000/60) % 60 )
+		if (minutes) return minutes == 1 ? minutes + ' minute ago' : minutes + ' minutes ago'
+		var seconds = Math.floor( (t/1000) % 60 )
+		if (seconds) return seconds == 1 ? seconds + ' second ago' : seconds + ' seconds ago'
 	}
 
 	gotoGroup(group) {
@@ -152,11 +178,20 @@
 		background-color: #f8f8f8;
 	}
 
+	.content {
+		display: inline-block;
+	}
+
+	.time-stamp {
+		font-size: small;
+	}
+
 	.group-pic {
-		height: 40px;
-		width: 40px;
+		height: 50px;
+		width: 50px;
 		object-fit: cover;
 		margin-right: 10px;
+		vertical-align: top;
 	}
 </style>
 </notif>
