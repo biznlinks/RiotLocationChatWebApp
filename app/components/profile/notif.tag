@@ -12,7 +12,12 @@
 		<div class="seen">
 			<div class="notif" each={ notification in seens } onclick={ gotoGroup(notification.group) }>
 				<img class="group-pic" src={ API.getGroupImage(notification.group) }>
-				{notification.count} new post<span if={notification.count!=1}>s</span> in <b>{notification.group.get('name')}</b>
+				<span if={ notification.count > 1 }>
+					{notification.count} new posts in <b>{notification.group.get('name')}</b>
+				</span>
+				<span if={notification.count == 1}>
+					<b>{notification.from.get('firstName')}</b> posted in <b>{notification.group.get('name')}</b>: "{ notification.post.get('content').slice(0,25) } <span if={notification.post.get('content').length > 25}>...</span>"
+				</span>
 			</div>
 		</div>
 	</div>
@@ -36,44 +41,75 @@
 		notseenQuery.equalTo('pushedTo', Parse.User.current())
 		notseenQuery.equalTo('seen', false)
 		notseenQuery.include('post')
+		notseenQuery.include('post.group')
+		notseenQuery.include('pushedFrom')
 		notseenQuery.find().then(function(results) {
 			var mapCount = new Map()
 			for (var i = 0; i < results.length; i++) {
-				if (!mapCount.get(results[i].get('post').get('group').id)) mapCount.set(results[i].get('post').get('group').id, 1)
-				else mapCount.set(results[i].get('post').get('group').id, mapCount.get(results[i].get('post').get('group').id) + 1)
+				if (!mapCount.get(results[i].get('post').get('group').id)) {
+					mapCount.set(results[i].get('post').get('group').id, {
+						count: 1,
+						notif: results[i]
+					})
+				} else {
+					var value = mapCount.get(results[i].get('post').get('group').id)
+					mapCount.set(results[i].get('post').get('group').id, {
+						count: value.count + 1,
+						notif: Date.parse(results[i].get('createdAt')) > Date.parse(value.notif.get('createdAt')) ? results[i] : value.notif
+					})
+				}
 
 				results[i].save({seen: true})
 			}
 
 			self.notSeens = []
 			mapCount.forEach(function(value, key) {
-				API.fetchOne('Group', 'objectId', key).then(function(result) {
-					self.notSeens.push({group: result, count: value})
-					if (self.notSeens.length == mapCount.size) self.update()
+				self.notSeens.push({
+					count: value.count,
+					from: value.notif.get('pushedFrom'),
+					post: value.notif.get('post'),
+					group: value.notif.get('post').get('group')
 				})
 			})
+			self.update()
 		})
 
 		var seenQuery = new Parse.Query(Notifications)
 		seenQuery.equalTo('pushedTo', Parse.User.current())
 		seenQuery.equalTo('seen', true)
 		seenQuery.include('post')
+		seenQuery.include('post.group')
+		seenQuery.include('pushedFrom')
 		seenQuery.limit(20)
 		seenQuery.descending('createdAt')
 		seenQuery.find().then(function(results) {
+			self.fortesting = results
 			var mapCount = new Map()
 			for (var i = 0; i < results.length; i++) {
-				if (!mapCount.get(results[i].get('post').get('group').id)) mapCount.set(results[i].get('post').get('group').id, 1)
-				else mapCount.set(results[i].get('post').get('group').id, mapCount.get(results[i].get('post').get('group').id) + 1)
+				if (!mapCount.get(results[i].get('post').get('group').id)) {
+					mapCount.set(results[i].get('post').get('group').id, {
+						count: 1,
+						notif: results[i]
+					})
+				} else {
+					var value = mapCount.get(results[i].get('post').get('group').id)
+					mapCount.set(results[i].get('post').get('group').id, {
+						count: value.count + 1,
+						notif: Date.parse(results[i].get('createdAt')) > Date.parse(value.notif.get('createdAt')) ? results[i] : value.notif
+					})
+				}
 			}
 
 			self.seens = []
 			mapCount.forEach(function(value, key) {
-				API.fetchOne('Group', 'objectId', key).then(function(result) {
-					self.seens.push({group: result, count: value})
-					if (self.seens.length == mapCount.size) self.update()
+				self.seens.push({
+					count: value.count,
+					from: value.notif.get('pushedFrom'),
+					post: value.notif.get('post'),
+					group: value.notif.get('post').get('group')
 				})
 			})
+			self.update()
 		})
 	}
 
