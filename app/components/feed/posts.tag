@@ -69,6 +69,9 @@
 			display: block;
 			margin: 5px;
 		}
+		div.postitem:last-child {
+			padding-bottom: 16px;
+		}
 
 
 		@media (min-width: 480px) {

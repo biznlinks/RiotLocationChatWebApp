@@ -282,7 +282,7 @@
 		font-size: 14px;
 		margin-top: 8px;
 		margin-bottom: 0px;
-		padding-left: 40px;
+		padding-left: 45px;
 	}
 	.postauthor img{
 		vertical-align: text-bottom;
@@ -417,7 +417,7 @@
 	}
 
 	.card-block{
-		padding: 16px;
+		padding-bottom: 0px;
 	}
 
 	.card {

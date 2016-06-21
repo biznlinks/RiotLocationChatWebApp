@@ -356,7 +356,7 @@ searchImage: function(query, count, offset) {
 
   $.ajax({
     url: 'https://bingapis.azure-api.net/api/v5/images/search?q='+query+'&count='+count+'&offset='+offset+'&mkt=en-us&safeSearch=Moderate',
-    headers: {"Ocp-Apim-Subscription-Key": "b7bef01565c343e492b34386142f0b68"}
+    headers: {"Ocp-Apim-Subscription-Key": "263fb08988754947b2abef3051115cac"}
   }).then(function(data){
     promise.resolve(data);
   });

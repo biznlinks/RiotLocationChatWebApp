@@ -129,7 +129,8 @@
 	.group-info {
 		background-color: white;
 		padding: 10px;
-		border-bottom: 10px solid #fafafa;
+		margin-bottom: 5px;
+		box-shadow: 0 2px 5px #cccccc;
 	}
 
 	.group-name {
