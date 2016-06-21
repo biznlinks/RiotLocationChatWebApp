@@ -36,7 +36,9 @@
 	})
 
 	this.on('locationChanged', function() {
+		groupsTag.init()
 		self.resetMap()
+		console.log(USER_POSITION)
 	})
 
 	this.on('groupsUpdated', function() {
