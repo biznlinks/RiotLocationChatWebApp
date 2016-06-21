@@ -1,6 +1,6 @@
 <groupsmap>
 <div class="map-container">
-	
+
 	<div id="groups-map">
 		<div class="cs-loader" if={loading}>
 			<label>	●</label>
@@ -103,12 +103,12 @@
 	.cs-loader {
 	  color: lightgray;
 	  text-align: center;
-	  padding-top: 200px; 
+	  padding-top: 200px;
 	}
 
 	@media (max-width: 480px) {
 		.cs-loader {
-			padding-top: 100px; 
+			padding-top: 100px;
 		}
 	}
 

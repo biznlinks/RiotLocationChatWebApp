@@ -83,7 +83,7 @@
 					self.update()
 
 					if (index == 8) {
-						if (self.searchResults.length < 9) self.searchImage(offset)
+						if (self.searchResults.length < 3) self.searchImage(offset)
 					}
 				})
 			})
@@ -131,6 +131,7 @@
 		}
 	}
 	cropAndUpload() {
+		console.log(self.cropper)
 		self.cropper.getCroppedCanvas({
 			width: 800
 		}).toBlob(function(blob) {

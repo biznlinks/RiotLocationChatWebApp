@@ -189,7 +189,7 @@
 				var GroupObject = Parse.Object.extend('Group')
 				var newGroup    = new GroupObject()
 				var groupType = "group";
-				if (self.groupname.value.toLowerCase().indexOf("event")>= 0) 
+				if (self.groupname.value.toLowerCase().indexOf("event")>= 0)
 					groupType = "event";
 
 				newGroup.save({
@@ -202,7 +202,8 @@
 					groupId: groupId,
 					radius: self.groupCircle.radius,
 					memberCount: 1,
-					type: groupType
+					type: groupType,
+					deleted: false
 				},{
 					success: function(group) {
 						var UserGroupObject = Parse.Object.extend('UserGroup')

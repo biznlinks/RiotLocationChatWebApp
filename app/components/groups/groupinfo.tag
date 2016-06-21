@@ -8,8 +8,9 @@
 		</div>
 		<div if={!loading}>
 			<div id="group-pic" style="background-image: url('{ API.getGroupImage(containerTag.group) }')">
-				<div if={ containerTag.group.get('image') == undefined && containerTag.group.get('creator').id == Parse.User.current().id }>
-					<button class="edit-button btn btn-primary fa fa-pencil" onclick={ showEditGroup }></button>
+				<div class="edit-button" if={ containerTag.group.get('creator').id == Parse.User.current().id }>
+					<button class="btn btn-primary fa fa-pencil" onclick={ showEditGroup }></button>
+					<button class="btn btn-danger fa fa-times" onclick={ showDeleteGroup }></button>
 				</div>
 			</div>
 		</div>
@@ -38,6 +39,10 @@
 
 	showEditGroup() {
 		$('#editgroupModal').modal('show')
+	}
+
+	showDeleteGroup() {
+		$('#deletegroupModal').modal('show')
 	}
 
 </script>

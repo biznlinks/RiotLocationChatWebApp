@@ -1,18 +1,33 @@
 <postitem>
-		<div class="card-block pointer">
+		<div class="card-block">
 
 			<div class="">
 
-				<div class='postauthor'>
+				<div class='postauthor pointer'>
 					<img if={ !post.get('anonymous') } src = "{ API.getProfilePicture(post.get('author')) }" class = "profile img-circle">
 					<img if={ post.get('anonymous') } src="/images/default_profile.png" class="profile img-circle">
 					<div style="display: inline-block;">
 						<div class="author">{this.getAuthorName()}</div>
 						<div class="time">{ this.getTime() }</div>
 					</div>
+
+					<div class="options">
+						<div class="toggler fa fa-ellipsis-h dropdown-toggle" data-toggle="dropdown"></div>
+						<ul class="dropdown-menu dropdown-menu-right">
+							<li class="options-item" if={ Parse.User.current().id == post.get('author').id } onclick={ showEdit }>Edit</li>
+							<li class="options-item" if={ Parse.User.current().id == post.get('author').id } onclick={ deletePost }>Delete</li>
+							<li class="options-item">Report</li>
+						</ul>
+					</div>
 				</div>
 
-				<p class="post-content" name="content">{this.getContent()}</p>
+				<p class="post-content" name="content" if={!edit}>{this.getContent()}</p>
+				<div class="edit-box" if={edit}>
+					<textarea class="post-content edit-input" name="editcontent" rows="1"></textarea>
+					<div class="btn-container">
+						<button class="edit-btn btn btn-default" onclick={ submitEdit }>Done</button>
+					</div>
+				</div>
 				<div id="image-container" if={ post.get('imageURL') }>
 					<img id="post-image" src={ post.get('imageURL') }>
 				</div>
@@ -88,6 +103,7 @@
 	self.wannaknown     = false
 	self.submitButton   = false
 	self.anonymous      = false
+	self.edit           = false
 
 	this.on('mount', function() {
 		self.init()
@@ -220,6 +236,17 @@
 		}
 	}
 
+	submitEdit() {
+		self.post.save({
+			content: self.editcontent.value
+		},{
+			success: function(post) {
+				self.edit = false
+				self.update()
+			}, error: function(post, error) {}
+		})
+	}
+
 	onInput() {
 		if (self.answerbox.value.length >= 3) {
 			self.submitButton = true
@@ -233,6 +260,18 @@
 	toggleAnonymous() {
 		self.anonymous = !self.anonymous
 		self.update()
+	}
+
+	showEdit() {
+		self.edit              = true
+		self.editcontent.value = self.post.get('content')
+		self.update()
+		self.editcontent.focus()
+	}
+
+	deletePost() {
+		deletepostTag.update({post: self.post})
+		$('#deletepostModal').modal('show')
 	}
 
 	goToPost(e){
@@ -278,15 +317,50 @@
 		margin-bottom: 1rem;
 	}
 
+	.postauthor {
+		position: relative;
+	}
+	.postauthor img{
+		vertical-align: text-bottom;
+	}
+
+	.options {
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
+
+	.toggler {
+		font-size: 16px;
+		color: #e2e2e2;
+	}
+
+	.options-item {
+		padding: 2px 10px;
+	}
+	.options-item:hover {
+		background-color: #eee;
+	}
+
+	.btn-container {
+		text-align: right;
+	}
+
+	.edit-btn {
+		font-size: 14px;
+		padding: 3px 10px;
+	}
+
 	.post-content{
 		font-size: 14px;
 		margin-top: 8px;
 		margin-bottom: 0px;
 		padding-left: 45px;
 	}
-	.postauthor img{
-		vertical-align: text-bottom;
+	.post-content:focus {
+		outline: none;
 	}
+
 	.author {
 		padding-right: 8px;
 		font-weight: 600;
@@ -422,6 +496,11 @@
 
 	.card {
 		margin-bottom: .6rem;
+	}
+
+	.dropdown-toggle::after {
+		border: none;
+		content: none;
 	}
 
 	textarea {

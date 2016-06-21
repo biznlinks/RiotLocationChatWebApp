@@ -31,7 +31,7 @@
               <a class="nav-link" href="#">Sign Up</a>
             </li>
             <li class="dropdown-item" if={ !signupAvail }>
-              <a class="nav-link" href="#" onclick={ this.gotoProfile }>Notifications</a>
+              <a class="nav-link" href="#" onclick={ this.gotoNotification }>Notifications</a>
             </li>
             <li class="dropdown-item" if={ !signupAvail }>
               <a class="nav-link" href="#" onclick={ this.gotoProfile }>Profile</a>
@@ -143,13 +143,18 @@
     self.update()
   }
 
+  gotoNotification() {
+    riot.route('notif')
+    self.update()
+  }
+
   goBack() {
-    
+
     if (containerTag.route=='posts')
       riot.route('/')
     else if (containerTag.route=='groupinfo')
       riot.route(containerTag.group.get('groupId'))
-    else 
+    else
       window.history.back()
   }
 

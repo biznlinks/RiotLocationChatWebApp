@@ -12,7 +12,7 @@
         <img src="images/logo.png" style="width: 70%">
       </div>
       <div class="modal-body">
-        Welcome to Sophus, the local group discovery platform that tells you what is happening right now near you. Join interest groups and discover what people like you are up to nearby. <br><br> 
+        Welcome to Sophus, the local group discovery platform that tells you what is happening right now near you. Join interest groups and discover what people like you are up to nearby. <br><br>
         To show you what's happening near you please allow location services. (Otherwise you'll see what's happening around our office in San Francisco).
       </div>
       <div class="modal-footer">
@@ -59,6 +59,7 @@
 		containerTag.group = null
 		API.getjoinedgroups(Parse.User.current()).then(function(joinedGroups) {
 			self.joinedGroups = joinedGroups
+			fortesting = joinedGroups
 			API.getallgroups().then(function(groups) {		//TODO Add another filter to get the groups in joinedGroups UserGroup object
 				self.groups = groups.filter(function(group) {
 					for (var i = 0; i < self.joinedGroups.length; i++)

@@ -26,8 +26,10 @@
     <login name="loginModal"></login>
     <forgot name="forgotModal"></forgot>
     <ask name="askModal"></ask>
+    <deletepost name="deletepostModal"></deletepost>
     <search name="searchModal"></search>
     <creategroup name="creategroupModal" if={ route=='groups' }></creategroup>
+    <deletegroup name="deletegroupModal" if={ route=='groupinfo' }></deletegroup>
     <editgroup name="editgroupModal" if={ route=='groupinfo' }></editgroup>
     <editprofile name="editprofileModal" if={ route=='profile' }></editprofile>
 
@@ -38,6 +40,7 @@
       <tweetfeed if={ route=="tweets" }></tweetfeed>
       <topics if={ route=="schedule" || route=="live" }></topics>
       <profile name="profile" if={ route=="profile" }></profile>
+      <notif name="notif" if={ route=='notif' }></notif>
       <groups name="groups" if={ route=="groups" }></groups>
       <groupinfo name="groupinfo" if={ route=="groupinfo"}></groupinfo>
     </div>
@@ -71,6 +74,7 @@
     r('schedule',  topics )
     r('schedule/*', topicsfeed)
     r('profile', profile)
+    r('notif', notif)
     r(home)
 
     function home(id, subpage) {
@@ -80,12 +84,12 @@
       }  else {
         API.fetchOne('Group', 'groupId', id).then(function(results) {
           self.group = results
-            if (subpage==="tweets"){
-              showtweets()
-              console.log("showing tweets");
-            } else {
-              feed()
-            }
+          if (subpage==="tweets"){
+            showtweets()
+            console.log("showing tweets")
+          } else {
+            feed()
+          }
         }, function(err) {
           console.log('notfound')
         })
@@ -198,6 +202,17 @@
         body: "",
         selectedId: null,
         route: "profile"
+      })
+      self.toTop()
+    }
+    function notif() {
+      self.track('notif')
+      self.tags.notif.init()
+      self.update({
+        title: "NOTIFICATION",
+        body: "",
+        selectedId: null,
+        route: "notif"
       })
       self.toTop()
     }
