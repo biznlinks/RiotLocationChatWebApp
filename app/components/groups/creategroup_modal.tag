@@ -195,6 +195,7 @@
 				newGroup.save({
 					location: new Parse.GeoPoint(self.marker.position.lat(), self.marker.position.lng()),
 					name: self.groupname.value,
+					lowerName: self.groupname.value.toLowerCase(),
 					description: self.desc.value,
 					keywords: self.keywords.value,
 					creator: Parse.User.current(),

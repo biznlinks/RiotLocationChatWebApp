@@ -24,24 +24,24 @@
 
 <script>
 	var self           = this
+	groupsmapTag       = this
 	self.joinedGroups  = opts.joinedGroups
 	self.groups        = opts.groups
 	self.selectedGroup = undefined
 
 	this.on('mount', function() {
 		self.loading = true
+		self.initMap()
 		self.update()
 	})
 
-	initMap() {
-		self.gmap = new google.maps.Map(document.getElementById('groups-map'), {
-			center: {lat: USER_POSITION.latitude, lng: USER_POSITION.longitude},
-          	zoom: 13,
-          	disableDefaultUI: true,
-          	zoomControl: true,
-          	styles: [{ featureType: "poi", elementType: "labels", stylers: [{ visibility: "off" }]},
-          		{ featureType: "transit", elementType: "labels", stylers: [{ visibility: "off" }]}]
-		})
+	this.on('locationChanged', function() {
+		groupsTag.sortGroupsByDistance()
+		self.resetMap()
+		console.log(USER_POSITION)
+	})
+
+	this.on('groupsUpdated', function() {
 		self.markers = []
 		for (var i = 0; i < self.joinedGroups.length; i++) {
 			var groupLocation = {lat: self.joinedGroups[i].get('group').get('location').latitude,
@@ -71,6 +71,17 @@
 				self.update()
 			}))
 		}
+	})
+
+	initMap() {
+		self.gmap = new google.maps.Map(document.getElementById('groups-map'), {
+			center: {lat: USER_POSITION.latitude, lng: USER_POSITION.longitude},
+          	zoom: 13,
+          	disableDefaultUI: true,
+          	zoomControl: true,
+          	styles: [{ featureType: "poi", elementType: "labels", stylers: [{ visibility: "off" }]},
+          		{ featureType: "transit", elementType: "labels", stylers: [{ visibility: "off" }]}]
+		})
 
 		self.userMarker = new google.maps.Marker({
 			map: self.gmap,
@@ -86,8 +97,11 @@
 	}
 
 	resetMap() {
-		self.gmap.setCenter({lat: USER_POSITION.latitude, lng: USER_POSITION.longitude})
-		self.gmap.setZoom(13)
+		if (self.gmap) {
+			self.gmap.setCenter({lat: USER_POSITION.latitude, lng: USER_POSITION.longitude})
+			self.gmap.setZoom(13)
+			self.userMarker.setPosition({lat: USER_POSITION.latitude, lng: USER_POSITION.longitude})
+		}
 	}
 
 	gotoGroup() {

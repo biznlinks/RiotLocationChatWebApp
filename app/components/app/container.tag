@@ -68,6 +68,7 @@
     var r = riot.route.create()
     r('#',       home       )
     r('groups',  groups)
+    r('/search/*', groups)
     r('group/*', groupinfo)
     r('topics',  topics )
     r('live/*',  live )
@@ -95,12 +96,13 @@
         })
       }
     }
-    function groups() {
+    function groups(id) {
       self.track('home')
       self.update({
         title: USER_LOCALE,
         body: "",
         route: "groups",
+        filter: id ? decodeURI(id) : undefined,
         selectedId: null
       })
       self.tags.groups.init()

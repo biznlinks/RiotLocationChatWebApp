@@ -48,11 +48,11 @@
 
 
 <script>
-	var self          = this
-	groupsTag         = this
+	var self    = this
+	groupsTag   = this
+	self.filter = opts.filter
 
 	this.on('mount', function() {
-		self.init()
 	})
 
 	init() {
@@ -60,7 +60,7 @@
 		API.getjoinedgroups(Parse.User.current()).then(function(joinedGroups) {
 			self.joinedGroups = joinedGroups
 			fortesting = joinedGroups
-			API.getallgroups().then(function(groups) {		//TODO Add another filter to get the groups in joinedGroups UserGroup object
+			API.getallgroups(null, self.filter).then(function(groups) {		//TODO Add another filter to get the groups in joinedGroups UserGroup object
 				self.groups = groups.filter(function(group) {
 					for (var i = 0; i < self.joinedGroups.length; i++)
 						if (group.id == self.joinedGroups[i].get('group').id) return false
@@ -68,12 +68,19 @@
 				})
 
 				self.tags.groupsmap.update({joinedGroups: self.joinedGroups, groups: self.groups})
-				self.tags.groupsmap.initMap()
+				self.tags.groupsmap.trigger('groupsUpdated')
 				self.tags.groupslist.update({joinedGroups: self.joinedGroups, groups: self.groups})
 				self.tags.groupslist.createSwiper()
 				self.update()
 			})
 		})
+	}
+
+	sortGroupsByDistance() {
+		if (self.groups) {
+			self.groups.sort(API.comparedistance)
+			self.update()
+		}
 	}
 
 	showCreateModal() {

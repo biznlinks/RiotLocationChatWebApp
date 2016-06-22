@@ -73,20 +73,17 @@
 			self.searchResults = []
 		}
 
-		API.searchImage(self.imageQuery.value, 9, offset).then(function(data) {
-			offset += 10
-			data.value.forEach(function(image, index) {
-				API.checkCORS(image.contentUrl).then(function (result) {
+		API.searchImage(self.imageQuery.value).then(function(data) {
+			console.log(data)
+			// Just get 9 images for now, the query returns 10
+			for (var i = 0; i < 9; i++) {
+				API.getImageThroughProxy(data[i]).then(function (result) {
 					if (result) {
-						self.searchResults.push({thumbnailUrl: image.thumbnailUrl, contentUrl: result})
+						self.searchResults.push(result)
 					}
 					self.update()
-
-					if (index == 8) {
-						if (self.searchResults.length < 3) self.searchImage(offset)
-					}
 				})
-			})
+			}
 		})
 	}
 
