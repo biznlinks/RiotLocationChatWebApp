@@ -70,6 +70,7 @@
 				self.tags.groupsmap.update({joinedGroups: self.joinedGroups, groups: self.groups})
 				self.tags.groupsmap.initMap()
 				self.tags.groupslist.update({joinedGroups: self.joinedGroups, groups: self.groups})
+				self.tags.groupslist.createSwiper()
 				self.update()
 			})
 		})

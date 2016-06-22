@@ -5,82 +5,19 @@
 		Joined
 	</div>
 
-<style type="text/css">
-.swiper-container {
-        width: 100%;
-        height: 300px;
-        margin: 20px auto;
-    }
-    .swiper-slide {
-        text-align: center;
-        font-size: 18px;
-        background: #fff;
-        
-        /* Center slide text vertically */
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: -webkit-flex;
-        display: flex;
-        -webkit-box-pack: center;
-        -ms-flex-pack: center;
-        -webkit-justify-content: center;
-        justify-content: center;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        -webkit-align-items: center;
-        align-items: center;
-    }
-</style>
-
-<!-- Swiper -->
-    <div class="swiper-container">
-        <div class="swiper-wrapper">
-            <div class="swiper-slide">Slide 1</div>
-            <div class="swiper-slide">Slide 2</div>
-            <div class="swiper-slide">Slide 3</div>
-            <div class="swiper-slide">Slide 4</div>
-            <div class="swiper-slide">Slide 5</div>
-            <div class="swiper-slide">Slide 6</div>
-            <div class="swiper-slide">Slide 7</div>
-            <div class="swiper-slide">Slide 8</div>
-            <div class="swiper-slide">Slide 9</div>
-            <div class="swiper-slide">Slide 10</div>
-        </div>
-        <!-- Add Pagination -->
-        <div class="swiper-pagination"></div>
-    </div>
-
-    <!-- Swiper JS -->
-    <script src="../dist/js/swiper.min.js"></script>
-
-    <!-- Initialize Swiper -->
-    <script>
-    var swiper = new Swiper('.swiper-container', {
-        pagination: '.swiper-pagination',
-        slidesPerView: 3,
-        paginationClickable: true,
-        spaceBetween: 30,
-        freeMode: true
-    });
-    </script>
-
-
-	<div class="row">
-		<div class="col-sm-1 col-xs-1 fa fa-chevron-left arrow pointer" if={ joinedStart!=0 } onclick={ this.shiftLeft }></div>
-		<div style="padding: 0 -1rem;" class={col-sm-10: true, col-xs-10: true, col-sm-offset-1: joinedStart==0 || joinedGroups.length <= joinedLength, col-xs-offset-1: joinedStart==0 || joinedGroups.length <= joinedLength }>
-			<div class="row">
-				<div class="col-sm-3 col-xs-4 tile pointer" each={ group in joinedGroups.slice(joinedStart, joinedEnd) } onclick={ this.chooseGroup(group.get('group')) }>
-					<img src={ API.getGroupImage(group.get('group')) } class="image-joined img-circle">
+	<!-- Swiper -->
+	<div class="swiper-container">
+	    <div class="swiper-wrapper">
+	        <div class="swiper-slide" each={ group in joinedGroups} onclick={ this.chooseGroup(group.get('group')) }>
+					<img src={ API.getGroupImage(group.get('group')) } class="image-joined">
 					<div class="group-title">
 						{ group.get('group').get('name').slice(0,20) }
 						<span if={ group.get('group').get('name').length > 20 }>...</span>
 					</div>
 				</div>
-			</div>
-		</div>
-
-		<div class="col-sm-1 col-xs-1 fa fa-chevron-right arrow pointer" if={ joinedEnd < joinedGroups.length } onclick={ this.shiftRight }></div>
+	    </div>
 	</div>
+
 </div>
 <div if={ joinedGroups.length > 0 }>
 	<hr>
@@ -107,15 +44,17 @@
 	var self = this
 	self.joinedGroups = opts.joinedGroups
 	self.groups = opts.groups
-	self.joinedStart  = 0
-	self.joinedEnd    = 0
-	self.joinedLength = 0
 
 	this.on('mount', function() {
-		if ($(window).width() > 543) self.joinedLength = 4
-		else self.joinedLength = 3
-		self.joinedEnd = self.joinedStart + self.joinedLength
 	})
+
+	createSwiper() {
+		var swiper = new Swiper('.swiper-container', {
+	        slidesPerView: 2.1,
+	        spaceBetween: 20,
+	        freeMode: true
+	    });
+	}
 
 	chooseGroup(group) {
 		return function() {
@@ -144,6 +83,8 @@
 	}
 
 	.title {
+		font-size: 18px;
+		font-weight: lighter;
 		padding: 10px 10px;
 		padding-top: 20px;
 	}
@@ -167,6 +108,7 @@
 	}
 
 	.nearby li {
+		padding-top: 20px;
 		padding-bottom: 20px;
 	}
 
@@ -181,9 +123,8 @@
 	}
 
 	.image-joined {
-		height: 60px;
-		width: 60px;
-		object-fit: cover;
+		width: 100%;
+		height: calc(100% - 30px);
 	}
 
 	.image-nearby {
@@ -238,6 +179,27 @@
 		-ms-user-select: none;
 		user-select: none;
 	}
+
+	.swiper-container {
+		height: initial;
+        margin: 20px auto;
+    }
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        
+        /* Center slide text vertically */
+        
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
 
 </style>
 </groupslist>

@@ -126,7 +126,7 @@
 		background-size: cover;
     	background-repeat: no-repeat;
     	background-position: 50% 50%;
-		height: 220px;
+		height: 160px;
 	}
 
 	.group-info {
