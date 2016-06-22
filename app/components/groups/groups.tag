@@ -53,10 +53,10 @@
 	self.filter = opts.filter
 
 	this.on('mount', function() {
-		self.init()
 	})
 
 	init() {
+		console.log('called with query ' + self.filter)
 		containerTag.group = null
 		API.getjoinedgroups(Parse.User.current()).then(function(joinedGroups) {
 			self.joinedGroups = joinedGroups
@@ -74,6 +74,13 @@
 				self.update()
 			})
 		})
+	}
+
+	sortGroupsByDistance() {
+		if (self.groups) {
+			self.groups.sort(API.comparedistance)
+			self.update()
+		}
 	}
 
 	showCreateModal() {

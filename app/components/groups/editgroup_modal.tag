@@ -191,6 +191,7 @@
 
 			var group = containerTag.group
 			group.set('name', self.groupname.value)
+			group.set('lowerName', self.groupname.value.toLowerCase())
 			group.set('description', self.desc.value)
 			group.set('imageUrl', self.selectedImage ? self.selectedImage.contentUrl : undefined)
 			group.set('location', new Parse.GeoPoint(self.marker.position.lat(), self.marker.position.lng()))

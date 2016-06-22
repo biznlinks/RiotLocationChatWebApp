@@ -36,7 +36,7 @@
 	})
 
 	this.on('locationChanged', function() {
-		groupsTag.init()
+		groupsTag.sortGroupsByDistance()
 		self.resetMap()
 		console.log(USER_POSITION)
 	})

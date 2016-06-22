@@ -189,9 +189,7 @@ getallgroups: function(type, filter) {
   var promise = new Parse.Promise();
   var query = new Parse.Query(Parse.Object.extend('Group'));
   if (type) query.equalTo("type", type);
-  if (filter) {
-    query.contains('name', filter);
-  }
+  if (filter) query.contains('lowerName', filter.toLowerCase());
   query.notEqualTo('deleted', true);
   query.find().then(function(results) {
     loader.trigger('done');
