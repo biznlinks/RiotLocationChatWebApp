@@ -56,7 +56,6 @@
 	})
 
 	init() {
-		console.log('called with query ' + self.filter)
 		containerTag.group = null
 		API.getjoinedgroups(Parse.User.current()).then(function(joinedGroups) {
 			self.joinedGroups = joinedGroups

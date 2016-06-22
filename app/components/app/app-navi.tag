@@ -22,6 +22,7 @@
 
       <li class={ nav-item: true } onclick={ this.update } if={containerTag.route=='groups'}>
         <div class="btn-group profile-container">
+          <div class="notif-indicator" if={ notif && !signupAvail}></div>
           <img src={ API.getCurrentUserProfilePicture() } class="img-circle dropdown-toggle profile-img pointer" data-toggle="dropdown"/>
           <ul class="dropdown-menu dropdown-menu-right">
             <li class="dropdown-item" if={ signupAvail } onclick={ this.showLogin }>
@@ -90,11 +91,25 @@
     $(document).bind('touchmove', function() {
       $('[data-toggle="dropdown"]').parent().removeClass('open')
     })
+
+    self.notifCheck = setInterval(self.checkNotification, 30000);
   })
 
   function highlightCurrent(id) {
     self.selectedId = id
     self.update()
+  }
+
+  checkNotification() {
+    var Notifications = Parse.Object.extend('Notifications')
+    var query = new Parse.Query(Notifications)
+    query.equalTo('pushedTo', Parse.User.current())
+    query.equalTo('seen', false)
+    query.first().then(function(notif) {
+      if (notif) self.notif = true
+      else self.notif = false
+      self.update()
+    })
   }
 
   sendfeedback(){
@@ -144,6 +159,7 @@
   }
 
   gotoNotification() {
+    self.notif = false
     riot.route('notif')
     self.update()
   }
@@ -176,6 +192,22 @@
     /*padding: 1em;*/
     /*text-align: center;*/
     color: #666;
+  }
+
+  .profile-container {
+    position: relative;
+  }
+
+  .notif-indicator {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #47FF4A;
+    width: 7px;
+    height: 7px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
   }
 
   .dropdown-toggle::after {

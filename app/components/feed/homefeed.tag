@@ -1,5 +1,5 @@
 <feed>
-<div id="feed-background"  }>
+<div id="feed-background">
 	<div class="postfeed">
 		<postbar></postbar>
 
