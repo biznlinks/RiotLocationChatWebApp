@@ -289,26 +289,24 @@ uploadImage: function(file) {
   var serverUrl = 'https://api.parse.com/1/files/' + file.name;
   var image = new Image;
   image.onload = function() {
-    if (image.width >= 640) {
-      $.ajax({
-        type: "POST",
-        beforeSend: function(request) {
-          request.setRequestHeader("X-Parse-Application-Id", 'YDTZ5PlTlCy5pkxIUSd2S0RWareDqoaSqbnmNX11');
-          request.setRequestHeader("X-Parse-REST-API-Key", 'TkCtS0607l5lfgiO65FbNc5zudsLcADDwPcQS1Va');
-          request.setRequestHeader("Content-Type", file.type);
-        },
-        url: serverUrl,
-        data: file,
-        processData: false,
-        contentType: false,
-        success: function(data) {
-          promise.resolve(data.url.replace("http", "https"));
-        },
-        error: function(data) {
-          promise.resolve(false);
-        }
-      });
-    }
+    $.ajax({
+      type: "POST",
+      beforeSend: function(request) {
+        request.setRequestHeader("X-Parse-Application-Id", 'YDTZ5PlTlCy5pkxIUSd2S0RWareDqoaSqbnmNX11');
+        request.setRequestHeader("X-Parse-REST-API-Key", 'TkCtS0607l5lfgiO65FbNc5zudsLcADDwPcQS1Va');
+        request.setRequestHeader("Content-Type", file.type);
+      },
+      url: serverUrl,
+      data: file,
+      processData: false,
+      contentType: false,
+      success: function(data) {
+        promise.resolve(data.url.replace("http", "https"));
+      },
+      error: function(data) {
+        promise.resolve(false);
+      }
+    });
   };
   image.src = URL.createObjectURL(file);
 

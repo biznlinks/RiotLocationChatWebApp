@@ -16,7 +16,7 @@
 		</div>
 
 		<div class="options" if={ !searchResults || searchResults.length == 0 }>
-			<div>Search for your group's image</div>
+			<div>Search for image</div>
 			or
 			<div>
 				<label for="imageFile"><span class="btn btn-primary">Upload your image</span></label>
@@ -138,10 +138,8 @@
 			var thumbnailUrl = undefined
 
 			API.uploadImage(blob).then(function(result) {
-				console.log(blob)
 				if (result) {
 					imageUrl = result
-					console.log('fullsize')
 					if (thumbnailUrl) {
 						self.loading = false
 						self.callback({contentUrl: imageUrl, thumbnailUrl: thumbnailUrl})
@@ -150,7 +148,6 @@
 			})
 
 			API.resizeImage(blob).then(function(resized) {
-				console.log(resized)
 				API.uploadImage(resized).then(function(result) {
 					thumbnailUrl = result
 					console.log('thumbnail')

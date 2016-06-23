@@ -9,7 +9,7 @@
 	<div class="swiper-container">
 	    <div class="swiper-wrapper">
 	        <div class="swiper-slide" each={ group in joinedGroups} onclick={ this.chooseGroup(group.get('group')) }>
-					<img src={ API.getGroupThumbnail(group.get('group')) } class="image-joined">
+					<img src={ API.getGroupImage(group.get('group')) } class="image-joined">
 					<div class="group-title">
 						{ group.get('group').get('name').slice(0,20) }
 						<span if={ group.get('group').get('name').length > 20 }>...</span>
