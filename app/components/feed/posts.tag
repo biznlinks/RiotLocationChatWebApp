@@ -1,6 +1,7 @@
 <posts>
-	<div if={loading}>
-		<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...
+	<div if={loading} class="loader-container">
+		<i class="fa fa-spinner fa-spin fa-3x fa-fw margin-bottom"></i>
+		<span class="sr-only">Loading...</span>
 	</div>
 	<div if={this.posts.length==0 && profile!=true} class="zero-post">
 		Be the first to post
@@ -35,6 +36,10 @@
 			/*font-size: 24px;*/
 
 
+		}
+
+		.loader-container {
+			text-align: center;
 		}
 
 		.zero-post {
