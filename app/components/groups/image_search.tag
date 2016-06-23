@@ -134,10 +134,31 @@
 		}).toBlob(function(blob) {
 			self.loading = true
 			self.update()
+			var imageUrl     = undefined
+			var thumbnailUrl = undefined
+
 			API.uploadImage(blob).then(function(result) {
+				console.log(blob)
 				if (result) {
-					self.callback({contentUrl: result, thumbnailUrl: result})
+					imageUrl = result
+					console.log('fullsize')
+					if (thumbnailUrl) {
+						self.loading = false
+						self.callback({contentUrl: imageUrl, thumbnailUrl: thumbnailUrl})
+					}
 				}
+			})
+
+			API.resizeImage(blob).then(function(resized) {
+				console.log(resized)
+				API.uploadImage(resized).then(function(result) {
+					thumbnailUrl = result
+					console.log('thumbnail')
+					if (imageUrl) {
+						self.loading = false
+						self.callback({contentUrl: imageUrl, thumbnailUrl: thumbnailUrl})
+					}
+				})
 			})
 		})
 		self.cropper.destroy()

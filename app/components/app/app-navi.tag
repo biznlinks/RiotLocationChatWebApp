@@ -23,7 +23,7 @@
       <li class={ nav-item: true } onclick={ this.update } if={containerTag.route=='groups'}>
         <div class="btn-group profile-container">
           <div class="notif-indicator" if={ notif && !signupAvail}></div>
-          <img src={ API.getCurrentUserProfilePicture() } class="img-circle dropdown-toggle profile-img pointer" data-toggle="dropdown"/>
+          <img src={ API.getCurrentUserThumbnail() } class="img-circle dropdown-toggle profile-img pointer" data-toggle="dropdown"/>
           <ul class="dropdown-menu dropdown-menu-right">
             <li class="dropdown-item" if={ signupAvail } onclick={ this.showLogin }>
               <a class="nav-link" href="#">Log In</a>
@@ -47,7 +47,7 @@
         </div>
       </li>
 
-      <li class="nav-item" if={containerTag.route!='groups'}>
+      <li class="nav-item" if={containerTag.route=='posts'}>
         <div class="btn-group">
           <img class="btn dropdown-toggle ellipsis" data-toggle="dropdown" href="#" src="/images/ellipsis.png" if={containerTag.route!='posts'}>
           <img class="btn dropdown-toggle ellipsis" data-toggle="dropdown" href="#" src="/images/ellipsis-w.png" if={containerTag.route=='posts'}>

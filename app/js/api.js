@@ -35,24 +35,27 @@ API = {
     }
   },
 
+  getProfileThumbnail: function(user) {
+    if (user.get('thumbnailUrl')) return user.get('thumbnailUrl');
+    else return '/images/default_profile.png';
+  },
+
   getCurrentUserProfilePicture: function() {
     var user = Parse.User.current();
 
     if (!user || user.get('type') == 'dummy')
       return '/images/default_profile.png';
 
-    if (!user.get('profilePic')){
-      if (user.get('profileImageURL')){
-        return user.get('profileImageURL');
-      }
+    return getProfilePicture(user);
+  },
+
+  getCurrentUserThumbnail: function() {
+    var user = Parse.User.current();
+
+    if (!user || user.geT('type')=='dummy')
       return '/images/default_profile.png';
 
-    }else {
-      profilePic = user.get('profilePic').url();
-      if (profilePic){
-        return profilePic;
-      }
-    }
+    return getProfileThumbnail(user);
   },
 
   getObjectForTopic: function(topicTitle){
@@ -276,6 +279,10 @@ getGroupImage: function(group) {
       }
     }
 },
+getGroupThumbnail: function(group) {
+  if (group.get('thumbnailUrl')) return group.get('thumbnailUrl');
+  else return '/images/default_image.jpg';
+},
 uploadImage: function(file) {
   var promise = new Parse.Promise();
 
@@ -310,8 +317,8 @@ uploadImage: function(file) {
 resizeImage: function(file) {
   var promise = new Parse.Promise();
 
-  var MAX_WIDTH = 400;
-  var MAX_HEIGHT = 225;
+  var MAX_WIDTH = 150;
+  var MAX_HEIGHT = 150;
   var image = new Image;
   image.onload = function() {
     var canvas = document.createElement('canvas');

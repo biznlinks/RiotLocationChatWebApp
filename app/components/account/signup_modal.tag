@@ -6,41 +6,48 @@
 
 		<!-- Modal content -->
 		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<div class="updated text-muted" if={ needSignup }>You need to sign up first</div>
-				<div class="facebook-option">
-					<button class="btn btn-default btn-primary" onclick={ this.submitFacebook }>
-						<i class="fa fa-facebook-f" id="facebook-logo"></i> Log in with Facebook
-					</button>
-				</div>
+			<div class="modal-body" if={ loading }>
+				<i class="fa fa-spinner fa-spin fa-3x fa-fw margin-bottom"></i>
+				<span class="sr-only">Loading...</span>
 			</div>
-			<div class="divider">
-				<strong class="divider-title ng-binding">or</strong>
-			</div>
-			<div class="modal-body">
-				<form>
-					<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
-						<input type="text" class="form-control" name="fullname" placeholder="Full name" />
-					</div>
-					<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
-						<input type="text" class="form-control" name="email" placeholder="Email" />
-					</div>
-					<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
-						<input type="password" class="form-control" name="password" placeholder="Password" />
-					</div>
 
-					<br/>
-					<button class="btn btn-sm" name="submit" onclick={ this.submitSignup }>Join</button>
-					<div class="text-warning info" if={ isError }>{ error }</div>
-				</form>
-					<div class="info">
-						Already have an Account?
-						<div class="text-info pointer inline" onclick={ this.showLogin }>Log In</div>
+			<div if={!loading}>
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<!-- <div class="updated text-muted" if={ needSignup }>You need to sign up first</div> -->
+					<div class="facebook-option">
+						<button class="btn btn-default btn-primary" onclick={ this.submitFacebook }>
+							<i class="fa fa-facebook-f" id="facebook-logo"></i> Log in with Facebook
+						</button>
 					</div>
+				</div>
+				<div class="divider">
+					<strong class="divider-title ng-binding">or</strong>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+							<input type="text" class="form-control" name="fullname" placeholder="Full name" />
+						</div>
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-envelope-o fa-fw"></i></span>
+							<input type="text" class="form-control" name="email" placeholder="Email" />
+						</div>
+						<div class="input-group">
+							<span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+							<input type="password" class="form-control" name="password" placeholder="Password" />
+						</div>
+
+						<br/>
+						<button class="btn btn-sm" name="submit" onclick={ this.submitSignup }>Join</button>
+						<div class="text-warning info" if={ isError }>{ error }</div>
+					</form>
+						<div class="info">
+							Already have an Account?
+							<div class="text-info pointer inline" onclick={ this.showLogin }>Log In</div>
+						</div>
+				</div>
 			</div>
 		</div>
 
@@ -53,6 +60,7 @@
 	self.stayUpdated = opts.stayUpdated
 	self.needSignup  = opts.needSignup
 	self.caller      = opts.caller
+	self.loading     = false
 	self.isError     = false
 	self.error       = ""
 
@@ -83,6 +91,9 @@
 		if (self.checkValidity())
 			self.showError(self.checkValidity())
 		else {
+			self.loading = true
+			self.update()
+
 			var user          = Parse.User.current()
 			var userEmail     = self.email.value
 			var userPassword  = self.password.value
@@ -101,9 +112,13 @@
 			user.set("needsWelcome", true)
 			user.save(null, {
 				success: function(user) {
+					self.loading = false
 					self.signupSuccess()
 				},
 				error: function(user, error) {
+					self.loading = false
+					self.update()
+
 					self.isError = true
 					self.error   = error.message
 					self.update()
@@ -113,10 +128,14 @@
 	}
 
 	submitFacebook() {
+		self.loading = true
+		self.update()
+
 		Parse.User.logOut().then(function() {
 			Parse.FacebookUtils.logIn('public_profile, email', {
 				success: function(user) {
 					if (user.existed()) {
+						self.update()
 						self.signupSuccess()
 					} else {
 						FB.api('/me?fields=first_name, last_name, picture, email', function(response) {
@@ -130,9 +149,13 @@
 							Parse.User.current().set('type', 'actual')
 							Parse.User.current().save(null, {
 								success: function(user) {
+									self.loading = false
 									self.signupSuccess()
 								},
 								error: function(user, error) {
+									self.loading = false
+									self.update()
+
 									self.isError = true
 									self.error = error.message
 									self.update()
@@ -142,6 +165,9 @@
 					}
 				},
 				error: function(user, error) {
+					self.loading = false
+					self.update()
+
 					self.isError = true
 					self.error = error.message
 					self.update()

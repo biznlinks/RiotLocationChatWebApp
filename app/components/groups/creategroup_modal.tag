@@ -200,6 +200,7 @@
 					keywords: self.keywords.value,
 					creator: Parse.User.current(),
 					imageUrl: self.selectedImage ? self.selectedImage.contentUrl : undefined,
+					thumbnailUrl: self.selectedImage ? self.selectedImage.thumbnailUrl : undefined,
 					groupId: groupId,
 					radius: self.groupCircle.radius,
 					memberCount: 1,

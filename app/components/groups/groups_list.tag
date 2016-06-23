@@ -9,7 +9,7 @@
 	<div class="swiper-container">
 	    <div class="swiper-wrapper">
 	        <div class="swiper-slide" each={ group in joinedGroups} onclick={ this.chooseGroup(group.get('group')) }>
-					<img src={ API.getGroupImage(group.get('group')) } class="image-joined">
+					<img src={ API.getGroupThumbnail(group.get('group')) } class="image-joined">
 					<div class="group-title">
 						{ group.get('group').get('name').slice(0,20) }
 						<span if={ group.get('group').get('name').length > 20 }>...</span>
@@ -29,7 +29,7 @@
 	<ul>
 		<li each={ group in groups } onclick={ this.chooseGroup(group) }>
 			<div class="pointer">
-				<img src={ API.getGroupImage(group) } class="image-nearby img-circle">
+				<img src={ API.getGroupThumbnail(group) } class="image-nearby img-circle">
 				<div class="info-box">
 					<div class="group-title">{ group.get('name') }</div>
 					<div class="desc">{ group.get('description') }</div>
@@ -188,9 +188,9 @@
         text-align: center;
         font-size: 18px;
         background: #fff;
-        
+
         /* Center slide text vertically */
-        
+
         -webkit-box-pack: center;
         -ms-flex-pack: center;
         -webkit-justify-content: center;
