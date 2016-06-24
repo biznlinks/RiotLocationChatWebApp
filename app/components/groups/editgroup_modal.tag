@@ -194,6 +194,7 @@
 			group.set('lowerName', self.groupname.value.toLowerCase())
 			group.set('description', self.desc.value)
 			group.set('imageUrl', self.selectedImage ? self.selectedImage.contentUrl : undefined)
+			group.set('thumbnailUrl', self.selectedImage ? self.selectedImage.thumbnailUrl : undefined)
 			group.set('location', new Parse.GeoPoint(self.marker.position.lat(), self.marker.position.lng()))
 			group.set('radius', self.groupCircle.radius)
 

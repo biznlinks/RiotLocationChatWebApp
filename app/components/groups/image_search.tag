@@ -16,7 +16,7 @@
 		</div>
 
 		<div class="options" if={ !searchResults || searchResults.length == 0 }>
-			<div>Search for your group's image</div>
+			<div>Search for image</div>
 			or
 			<div>
 				<label for="imageFile"><span class="btn btn-primary">Upload your image</span></label>
@@ -134,10 +134,28 @@
 		}).toBlob(function(blob) {
 			self.loading = true
 			self.update()
+			var imageUrl     = undefined
+			var thumbnailUrl = undefined
+
 			API.uploadImage(blob).then(function(result) {
 				if (result) {
-					self.callback({contentUrl: result, thumbnailUrl: result})
+					imageUrl = result
+					if (thumbnailUrl) {
+						self.loading = false
+						self.callback({contentUrl: imageUrl, thumbnailUrl: thumbnailUrl})
+					}
 				}
+			})
+
+			API.resizeImage(blob).then(function(resized) {
+				API.uploadImage(resized).then(function(result) {
+					thumbnailUrl = result
+					console.log('thumbnail')
+					if (imageUrl) {
+						self.loading = false
+						self.callback({contentUrl: imageUrl, thumbnailUrl: thumbnailUrl})
+					}
+				})
 			})
 		})
 		self.cropper.destroy()

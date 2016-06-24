@@ -63,8 +63,10 @@
 		user.set('firstName', userFirstname)
 		user.set('lastName', userLastname)
 		user.set('about', self.about.value)
-		if (self.selectedImage)
+		if (self.selectedImage) {
 			user.set('profileImageURL', self.selectedImage.contentUrl)
+			user.set('thumbnailUrl', self.selectedImage.thumbnailUrl)
+		}
 		user.save(null, {
 			success: function(user) {
 				profileTag.update()

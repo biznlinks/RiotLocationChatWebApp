@@ -4,7 +4,7 @@
 			<div class="">
 
 				<div class='postauthor pointer'>
-					<img if={ !post.get('anonymous') } src = "{ API.getProfilePicture(post.get('author')) }" class = "profile img-circle">
+					<img if={ !post.get('anonymous') } src = "{ API.getProfileThumbnail(post.get('author')) }" class = "profile img-circle">
 					<img if={ post.get('anonymous') } src="/images/default_profile.png" class="profile img-circle">
 					<div style="display: inline-block;">
 						<div class="author">{this.getAuthorName()}</div>

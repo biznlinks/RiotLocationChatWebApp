@@ -35,24 +35,27 @@ API = {
     }
   },
 
+  getProfileThumbnail: function(user) {
+    if (user.get('thumbnailUrl')) return user.get('thumbnailUrl');
+    else return '/images/default_profile.png';
+  },
+
   getCurrentUserProfilePicture: function() {
     var user = Parse.User.current();
 
     if (!user || user.get('type') == 'dummy')
       return '/images/default_profile.png';
 
-    if (!user.get('profilePic')){
-      if (user.get('profileImageURL')){
-        return user.get('profileImageURL');
-      }
+    return getProfilePicture(user);
+  },
+
+  getCurrentUserThumbnail: function() {
+    var user = Parse.User.current();
+
+    if (!user || user.geT('type')=='dummy')
       return '/images/default_profile.png';
 
-    }else {
-      profilePic = user.get('profilePic').url();
-      if (profilePic){
-        return profilePic;
-      }
-    }
+    return getProfileThumbnail(user);
   },
 
   getObjectForTopic: function(topicTitle){
@@ -276,32 +279,34 @@ getGroupImage: function(group) {
       }
     }
 },
+getGroupThumbnail: function(group) {
+  if (group.get('thumbnailUrl')) return group.get('thumbnailUrl');
+  else return '/images/default_image.jpg';
+},
 uploadImage: function(file) {
   var promise = new Parse.Promise();
 
   var serverUrl = 'https://api.parse.com/1/files/' + file.name;
   var image = new Image;
   image.onload = function() {
-    if (image.width >= 640) {
-      $.ajax({
-        type: "POST",
-        beforeSend: function(request) {
-          request.setRequestHeader("X-Parse-Application-Id", 'YDTZ5PlTlCy5pkxIUSd2S0RWareDqoaSqbnmNX11');
-          request.setRequestHeader("X-Parse-REST-API-Key", 'TkCtS0607l5lfgiO65FbNc5zudsLcADDwPcQS1Va');
-          request.setRequestHeader("Content-Type", file.type);
-        },
-        url: serverUrl,
-        data: file,
-        processData: false,
-        contentType: false,
-        success: function(data) {
-          promise.resolve(data.url.replace("http", "https"));
-        },
-        error: function(data) {
-          promise.resolve(false);
-        }
-      });
-    }
+    $.ajax({
+      type: "POST",
+      beforeSend: function(request) {
+        request.setRequestHeader("X-Parse-Application-Id", 'YDTZ5PlTlCy5pkxIUSd2S0RWareDqoaSqbnmNX11');
+        request.setRequestHeader("X-Parse-REST-API-Key", 'TkCtS0607l5lfgiO65FbNc5zudsLcADDwPcQS1Va');
+        request.setRequestHeader("Content-Type", file.type);
+      },
+      url: serverUrl,
+      data: file,
+      processData: false,
+      contentType: false,
+      success: function(data) {
+        promise.resolve(data.url.replace("http", "https"));
+      },
+      error: function(data) {
+        promise.resolve(false);
+      }
+    });
   };
   image.src = URL.createObjectURL(file);
 
@@ -310,8 +315,8 @@ uploadImage: function(file) {
 resizeImage: function(file) {
   var promise = new Parse.Promise();
 
-  var MAX_WIDTH = 400;
-  var MAX_HEIGHT = 225;
+  var MAX_WIDTH = 150;
+  var MAX_HEIGHT = 150;
   var image = new Image;
   image.onload = function() {
     var canvas = document.createElement('canvas');
