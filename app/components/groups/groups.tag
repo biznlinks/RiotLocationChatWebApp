@@ -97,11 +97,6 @@
 		padding: 0;
 	}
 
-	.title {
-		padding: 10px 10px;
-		padding-top: 20px;
-	}
-
 	.arrow {
 		padding-top: 30px;
 		padding-bottom: 70px;
@@ -121,7 +116,7 @@
 	}
 
 	.nearby li {
-		padding-bottom: 20px;
+		padding-top: 10px;
 	}
 
 	.nearby li:last-child .info-box{

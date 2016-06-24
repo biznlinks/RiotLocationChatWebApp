@@ -1,6 +1,6 @@
 <profile>
 
-<div>
+<div id="outer-container" class="container">
 	<div class="info">
 		<div class="row">
 			<img class="profile-pic img-circle col-sm-3 col-xs-3" src="{ API.getCurrentUserProfilePicture() }">
@@ -168,6 +168,9 @@
 
 <style scoped>
 
+	#outer-container{
+		padding-top: 2rem;
+	}
 	.name {
 		color: #616161;
 		font-size: x-large;
