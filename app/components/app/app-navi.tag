@@ -6,10 +6,13 @@
   </button> -->
   <div class="navbar-toggleable-xs" id="exCollapsingNavbar2">
     <div class="navbar-brand">
-      <a if={ containerTag.route!='groups' } class={pointer:true, fa:true, fa-chevron-left: true, black:!home } onclick={ goBack }><!-- <img id="arrow" alt="Logo" src="/images/back.png" > --></a>
-      <a if={ containerTag.route=='groups' } href="/groups"><img id="logo" alt="Logo" src="/images/app_icon.png" ></a>
-      <span if={ containerTag.route!='groups' }>{ title }</span>
-      <span if={ containerTag.route=='groups' }>{ USER_LOCALE }</span>
+      <div class="detail-brand"><a if={ containerTag.route!='groups' } class={pointer:true, fa:true, fa-chevron-left: true, black:!home } onclick={ goBack }><!-- <img id="arrow" alt="Logo" src="/images/back.png" > --></a>      
+            <span if={ containerTag.route!='groups' }>{ title }</span>
+            </div>
+      <div class="home-brand">
+            <a if={ containerTag.route=='groups' } href="/groups"><img id="logo" alt="Logo" src="/images/app_icon.png" ></a>
+            <span if={ containerTag.route=='groups' }>{ USER_LOCALE }</span>
+            </div>
     </div>
 
     <ul class="nav navbar-nav pull-xs-right">
@@ -21,7 +24,7 @@
       </li> -->
 
       <li class={ nav-item: true } onclick={ this.update } if={containerTag.route=='groups'}>
-        <div class="btn-group profile-container">
+        <div class="btn-group profile-container home-brand">
           <div class="notif-indicator" if={ notif && !signupAvail}></div>
           <img src={ API.getCurrentUserThumbnail() } class="img-circle dropdown-toggle profile-img pointer" data-toggle="dropdown"/>
           <ul class="dropdown-menu dropdown-menu-right">
@@ -192,6 +195,11 @@
     /*padding: 1em;*/
     /*text-align: center;*/
     color: #666;
+  }
+
+  .home-brand {
+    margin-top: 10px;
+    margin-bottom: -5px;
   }
 
   .profile-container {
