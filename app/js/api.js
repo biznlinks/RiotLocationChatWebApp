@@ -352,7 +352,7 @@ searchImage: function(query) {
   var promise = new Parse.Promise();
 
   $.ajax({
-    url: 'http://sophus-web.herokuapp.com/search/' + query
+    url: '//sophus-web.herokuapp.com/search/' + query
   }).then(function(data){
     promise.resolve(data.results);
   });
