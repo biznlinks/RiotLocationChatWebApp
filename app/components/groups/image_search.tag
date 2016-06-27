@@ -8,14 +8,14 @@
 
 	<div id="image-search-container" if={ !loading }>
 		<input type="text" placeholder="Search" name="imageQuery" onkeyup={ this.keyUp }>
-		<div class="image-grid" if={ searchResults && searchResults.length > 0 }>
+		<div class="image-grid" if={ !searching && searchResults && searchResults.length > 0 }>
 			<div class={ fa:true, fa-chevron-left:searchStart != 0, arrows:true } onclick={ this.shift(-1) }></div>
 			<div class="image-container" each={ image in searchResults.slice(searchStart, searchEnd) } onclick={ this.selectImage(image) } style="background-image: url('{ image.thumbnailUrl }')">
 			</div>
 			<div class={ fa:true, fa-chevron-right:searchEnd < searchResults.length, arrows:true } onclick={ this.shift(1) }></div>
 		</div>
 
-		<div class="options" if={ !searchResults || searchResults.length == 0 }>
+		<div class="options" if={ !searchResults || searchResults.length == 0 || searching }>
 			<div if={ searching }>
 				<i class="fa fa-spinner fa-spin fa-3x fa-fw margin-bottom"></i>
 				<span class="sr-only">Loading...</span>
@@ -74,14 +74,11 @@
 	}
 
 	searchImage(offset) {
-		if (!offset) {				// This is when the function is called from click event
-			offset             = 0
-			self.searchStart   = 0
-			self.searchEnd     = 3
-			self.searching     = true
-			self.update()
-			self.searchResults = []
-		}
+		self.searchStart   = 0
+		self.searchEnd     = 3
+		self.searching     = true
+		self.update()
+		self.searchResults = []
 
 		API.searchImage(self.imageQuery.value).then(function(data) {
 			// Just get 9 images for now, the query returns 10
