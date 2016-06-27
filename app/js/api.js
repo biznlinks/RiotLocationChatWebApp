@@ -390,7 +390,7 @@ getImageThroughProxy: function(image) {
 },
 checkCORS: function(url) {
   var promise = new Parse.Promise();
-  var xhr = API.createCORSRequest('GET', url.replace('http', 'https'));
+  var xhr = API.createCORSRequest('GET', url);
   if (!xhr) {
     console.log('cannot create XHR');
     promise.resolve(false);
