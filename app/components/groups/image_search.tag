@@ -74,12 +74,19 @@
 		}
 
 		API.searchImage(self.imageQuery.value).then(function(data) {
-			console.log(data)
-			// Just get 9 images for now, the query returns 10
+			/*// Just get 9 images for now, the query returns 10
 			for (var i = 0; i < 9; i++) {
 				API.getImageThroughProxy(data[i]).then(function (result) {
 					if (result) {
 						self.searchResults.push(result)
+					}
+					self.update()
+				})
+			}*/
+			for (var i = 0; i < data.length; i++) {
+				API.checkCORS(data[i].contentUrl).then(function (result) {
+					if (result) {
+						self.searchResults.push({thumbnailUrl: result, contentUrl: result})
 					}
 					self.update()
 				})
