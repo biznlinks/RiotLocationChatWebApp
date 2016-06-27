@@ -121,8 +121,12 @@
 		return function() {
 			self.selectedImage = image
 			self.update()
+
 			self.hideSearch().then(function(result) {
-				self.showEdit().then(function(result) { self.createCropper() })
+				self.showEdit().then(function(result) {
+					if (!self.cropper) self.createCropper()
+					else self.cropper.replace(self.selectedImage.contentUrl)
+				})
 			})
 		}
 	}
@@ -171,7 +175,6 @@
 				})
 			})
 		})
-		self.cropper.destroy()
 	}
 
 	show() {
@@ -198,7 +201,6 @@
 		self.searchResults    = undefined
 		self.selectedImage    = undefined
 		self.imageQuery.value = ''
-		if (self.cropper) self.cropper.destroy()
 		self.update()
 
 		return promise
@@ -236,7 +238,6 @@
 
 	hideEdit() {
 		var promise = new Parse.Promise()
-		self.cropper.destroy()
 		$('#image-edit-container').slideUp({
 			duration: 500,
 			complete: function() { promise.resolve(true) }
