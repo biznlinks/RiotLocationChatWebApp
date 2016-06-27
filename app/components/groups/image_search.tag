@@ -7,11 +7,12 @@
 	</div>
 
 	<div id="image-search-container" if={ !loading }>
-		<input type="text" placeholder="Search" name="imageQuery" onkeyup={ this.keyUp }>
+		<input type="text" placeholder="Search" name="imageQuery" oninput={ this.keyUp }>
 		<div class="image-grid" if={ !searching && searchResults && searchResults.length > 0 }>
 			<div class={ fa:true, fa-chevron-left:searchStart != 0, arrows:true } onclick={ this.shift(-1) }></div>
-			<div class="image-container" each={ image in searchResults.slice(searchStart, searchEnd) } onclick={ this.selectImage(image) } style="background-image: url('{ image.thumbnailUrl }')">
-			</div>
+			<!-- <div class="image-container" onload="fadeIn(e)" each={ image in searchResults.slice(searchStart, searchEnd) } onclick={ this.selectImage(image) } style="background-image: url('{ image.thumbnailUrl }')">
+			</div> -->
+			<img class="image-container" onload="fadeIn(this)" each={ image in searchResults.slice(searchStart, searchEnd) } onclick={ this.selectImage(image) } src={ image.thumbnailUrl }/>
 			<div class={ fa:true, fa-chevron-right:searchEnd < searchResults.length, arrows:true } onclick={ this.shift(1) }></div>
 		</div>
 
@@ -24,11 +25,12 @@
 			<div if={ !searching }>
 				<div>Search for image</div>
 				or
-				<div>
-					<label for="imageFile"><span class="btn btn-primary">Upload your image</span></label>
-					<input name="imageFile" id="imageFile" type="file" style="visibility: hidden; position: absolute;"></input>
-				</div>
 			</div>
+		</div>
+
+		<div class="upload-container">
+			<label for="imageFile"><span class="btn btn-primary">Upload your image</span></label>
+			<input name="imageFile" id="imageFile" type="file" style="visibility: hidden; position: absolute;"></input>
 		</div>
 	</div>
 
@@ -109,6 +111,10 @@
 					break
 			}
 		}
+	}
+
+	window.fadeIn = function(obj) {
+		$(obj).fadeIn({duration: 1000})
 	}
 
 	selectImage(image) {
@@ -274,7 +280,7 @@
 		width: 25%;
 		background-size: cover;
 		margin: 5px;
-		display: inline-block;
+		display: none;
 	}
 
 	.uploaded-image label {
@@ -289,11 +295,15 @@
 
 	.options {
 		padding-top: 70px;
-		padding-bottom: 50px;
+		padding-bottom: 10px;
 		text-align: center;
 		font-size: 26px;
 		font-weight: 600;
 		color: #bbb;
+	}
+
+	.upload-container {
+		padding-top: 20px;
 	}
 
 	@media screen and (max-width: 543px) {
