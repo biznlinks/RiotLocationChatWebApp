@@ -46,7 +46,7 @@ API = {
     if (!user || user.get('type') == 'dummy')
       return '/images/default_profile.png';
 
-    return getProfilePicture(user);
+    return API.getProfilePicture(user);
   },
 
   getCurrentUserThumbnail: function() {
@@ -55,7 +55,7 @@ API = {
     if (!user || user.geT('type')=='dummy')
       return '/images/default_profile.png';
 
-    return getProfileThumbnail(user);
+    return API.getProfileThumbnail(user);
   },
 
   getObjectForTopic: function(topicTitle){

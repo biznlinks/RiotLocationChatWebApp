@@ -3,7 +3,7 @@
 <div>
 	<div class="info">
 		<div class="row">
-			<img class="profile-pic img-circle col-sm-3 col-xs-3" src="{ API.getCurrentUserProfilePicture() }">
+			<img class="profile-pic img-circle col-sm-3 col-xs-3" src={ API.getCurrentUserProfilePicture() }>
 			<div class="detail inline col-sm-8 col-xs-8">
 				<div if={ !edit }>
 					<div class="name">{ this.getFullname() }</div>
