@@ -16,11 +16,18 @@
 		</div>
 
 		<div class="options" if={ !searchResults || searchResults.length == 0 }>
-			<div>Search for image</div>
-			or
-			<div>
-				<label for="imageFile"><span class="btn btn-primary">Upload your image</span></label>
-				<input name="imageFile" id="imageFile" type="file" style="visibility: hidden; position: absolute;"></input>
+			<div if={ searching }>
+				<i class="fa fa-spinner fa-spin fa-3x fa-fw margin-bottom"></i>
+				<span class="sr-only">Loading...</span>
+			</div>
+
+			<div if={ !searching }>
+				<div>Search for image</div>
+				or
+				<div>
+					<label for="imageFile"><span class="btn btn-primary">Upload your image</span></label>
+					<input name="imageFile" id="imageFile" type="file" style="visibility: hidden; position: absolute;"></input>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -37,6 +44,8 @@
 	var self       = this
 	imagesearchTag = this
 	self.callback  = opts.callback
+	self.searching = false
+	self.loading   = false
 
 
 	this.on('mount', function() {
@@ -69,24 +78,18 @@
 			offset             = 0
 			self.searchStart   = 0
 			self.searchEnd     = 3
+			self.searching     = true
 			self.update()
 			self.searchResults = []
 		}
 
 		API.searchImage(self.imageQuery.value).then(function(data) {
-			/*// Just get 9 images for now, the query returns 10
+			// Just get 9 images for now, the query returns 10
 			for (var i = 0; i < 9; i++) {
 				API.getImageThroughProxy(data[i]).then(function (result) {
 					if (result) {
 						self.searchResults.push(result)
-					}
-					self.update()
-				})
-			}*/
-			for (var i = 0; i < data.length; i++) {
-				API.checkCORS(data[i].contentUrl).then(function (result) {
-					if (result) {
-						self.searchResults.push({thumbnailUrl: result, contentUrl: result})
+						self.searching = false
 					}
 					self.update()
 				})

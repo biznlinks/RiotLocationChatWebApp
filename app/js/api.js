@@ -351,17 +351,10 @@ resizeImage: function(file) {
 searchImage: function(query) {
   var promise = new Parse.Promise();
 
-  /*$.ajax({
+  $.ajax({
     url: '//sophus-web.herokuapp.com/search/' + query
   }).then(function(data){
     promise.resolve(data.results);
-  });*/
-
-  $.ajax({
-    url: 'https://bingapis.azure-api.net/api/v5/images/search?q='+query+'&count=20&offset=0&mkt=en-us&safeSearch=Moderate',
-    headers: {"Ocp-Apim-Subscription-Key": "263fb08988754947b2abef3051115cac"}
-  }).then(function(data){
-    promise.resolve(data.value);
   });
 
   return promise;
@@ -386,27 +379,6 @@ getImageThroughProxy: function(image) {
   }
 
   xhr.send();
-  return promise;
-},
-checkCORS: function(url) {
-  var promise = new Parse.Promise();
-  var xhr = API.createCORSRequest('GET', url);
-  if (!xhr) {
-    console.log('cannot create XHR');
-    promise.resolve(false);
-  }
-
-  xhr.onload = function() {
-    var blob = new Blob([xhr.response], {type: 'image/png'});
-    var url = (window.URL || window.webkitURL).createObjectURL(blob);
-    promise.resolve(url);
-  }
-  xhr.onerror = function(err) {
-    promise.resolve(false);
-  }
-
-  xhr.send();
-
   return promise;
 },
 createCORSRequest: function(method, url) {
