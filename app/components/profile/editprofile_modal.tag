@@ -20,7 +20,7 @@
 					</div>
 					<input type="text" name="fullname" id="fullname" placeholder="What's your name?" class="form-control"></input>
 					<input type="text" name="about" id="about" placeholder="Tell us something about yourself" class="form-control"></input>
-					<button class="edit-btn btn btn-default" onclick={ submitEdit }>Edit</button>
+					<button class="edit-btn btn btn-primary" onclick={ submitEdit }>Done</button>
 				</div>
 
 				<imagesearch></imagesearch>
