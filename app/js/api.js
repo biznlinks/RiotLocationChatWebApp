@@ -352,7 +352,7 @@ searchImage: function(query) {
   var promise = new Parse.Promise();
 
   /*$.ajax({
-    url: 'http://sophus-web.herokuapp.com/search/' + query
+    url: '//sophus-web.herokuapp.com/search/' + query
   }).then(function(data){
     promise.resolve(data.results);
   });*/
@@ -370,7 +370,7 @@ getImageThroughProxy: function(image) {
   var promise = new Parse.Promise()
 
   var url = image.MediaUrl
-  var xhr = API.createCORSRequest('GET', 'http://sophus-web.herokuapp.com/proxy/' + encodeURIComponent(url));
+  var xhr = API.createCORSRequest('GET', '//sophus-web.herokuapp.com/proxy/' + encodeURIComponent(url));
   if (!xhr) {
     console.log('cannot create XHR');
     promise.resolve(false);

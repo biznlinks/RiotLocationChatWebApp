@@ -9,7 +9,7 @@
 	<div class="swiper-container">
 	    <div class="swiper-wrapper">
 	        <div class="swiper-slide" each={ group in joinedGroups} onclick={ this.chooseGroup(group.get('group')) }>
-					<img src={ API.getGroupImage(group.get('group')) } class="image-joined">
+					<img src={ API.getGroupThumbnail(group.get('group')) } class="image-joined">
 					<div class="group-title">
 						{ group.get('group').get('name').slice(0,20) }
 						<span if={ group.get('group').get('name').length > 20 }>...</span>
@@ -29,7 +29,7 @@
 	<ul>
 		<li each={ group in groups } onclick={ this.chooseGroup(group) }>
 			<div class="pointer">
-				<img src={ API.getGroupThumbnail(group) } class="image-nearby img-circle">
+				<img src={ API.getGroupImage(group) } class="image-nearby img-circle">
 				<div class="info-box">
 					<div class="group-title">{ group.get('name') }</div>
 					<div class="desc">{ group.get('description') }</div>
@@ -50,7 +50,7 @@
 
 	createSwiper() {
 		var swiper = new Swiper('.swiper-container', {
-	        slidesPerView: 2.1,
+	        slidesPerView: 3.5,
 	        spaceBetween: 20,
 	        freeMode: true
 	    });
@@ -85,8 +85,7 @@
 	.title {
 		font-size: 18px;
 		font-weight: lighter;
-		padding: 10px 10px;
-		padding-top: 20px;
+		padding-left: 10px;
 	}
 
 	.arrow {
@@ -108,8 +107,7 @@
 	}
 
 	.nearby li {
-		padding-top: 20px;
-		padding-bottom: 20px;
+		padding-top: 10px;
 	}
 
 	.nearby ul {
@@ -120,11 +118,6 @@
 
 	.image-container {
 		text-align: center;
-	}
-
-	.image-joined {
-		width: 100%;
-		height: calc(100% - 30px);
 	}
 
 	.image-nearby {
