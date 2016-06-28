@@ -86,11 +86,12 @@
 		self.update()
 		self.searchResults = []
 
-		API.searchImage(self.imageQuery.value).then(function(data) {
+		var query = self.imageQuery.value
+		API.searchImage(query).then(function(data) {
 			// Just get 9 images for now, the query returns 10
 			for (var i = 0; i < 9; i++) {
-				API.getImageThroughProxy(data[i]).then(function (result) {
-					if (result) {
+				API.getImageThroughProxy(data[i], query).then(function (result) {
+					if (result && result.query == self.imageQuery.value) {
 						self.searchResults.push(result)
 						self.searching = false
 					}

@@ -5,8 +5,8 @@
     &#9776;
     </button> -->
     <div class="navbar-toggleable-xs" id="exCollapsingNavbar2">
-        <div class="navbar-brand">
-            <a if={ containerTag.route!='groups' } class={pointer:true, fa:true, fa-chevron-left: true, black:!home } onclick={ goBack }><!-- <img id="arrow" alt="Logo" src="/images/back.png" > --></a>
+        <div class="navbar-brand" onclick={ goBack }>
+            <a if={ containerTag.route!='groups' } class={pointer:true, fa:true, fa-chevron-left: true, black:!home }><!-- <img id="arrow" alt="Logo" src="/images/back.png" > --></a>
             <span if={ containerTag.route!='groups' }>{ title }</span>
             <a if={ containerTag.route=='groups' } href="/groups"><img id="logo" alt="Logo" src="/images/app_icon.png" ></a>
             <span if={ containerTag.route=='groups' }>{ USER_LOCALE }</span>
@@ -170,6 +170,8 @@
       riot.route('/')
     else if (containerTag.route=='groupinfo')
       riot.route(containerTag.group.get('groupId'))
+    else if (containerTag.route=='groups')
+      return null
     else
       window.history.back()
   }
@@ -240,6 +242,10 @@
     -webkit-border-radius: 0;
     -moz-border-radius: 0;*/
     border-radius: 0;
+  }
+
+  .navbar-brand {
+    padding: 5px;
   }
 
   .navbar-brand a {
