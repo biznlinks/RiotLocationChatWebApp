@@ -424,7 +424,7 @@
 	}
 
 	#post-image {
-		max-height: 400px;
+		max-height: 200px;
 		-webkit-border-radius: 5px;
     	-moz-border-radius: 5px;
     	border-radius: 5px;
