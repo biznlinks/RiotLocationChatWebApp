@@ -25,7 +25,7 @@
 		var lat = containerTag.group.get('location').latitude
 		var long = containerTag.group.get('location').longitude
 		var keywords = containerTag.group.get('keywords') || ""
-		$.getJSON("https://sophus-web.herokuapp.com/tweets?q="+keywords+"&lat="+lat+"&long="+long+"&dist=10000km&callback=?", function(data){
+		$.getJSON("https://sophus.herokuapp.com/tweets?q="+keywords+"&lat="+lat+"&long="+long+"&dist=10000km&callback=?", function(data){
 			console.log(data);
 			self.tweets = data.statuses
 			self.update()

@@ -6,10 +6,10 @@
   </button> -->
   <div class="navbar-toggleable-xs" id="exCollapsingNavbar2">
     <div class="navbar-brand">
-      <div class="detail-brand"><a if={ containerTag.route!='groups' } class={pointer:true, fa:true, fa-chevron-left: true, black:!home } onclick={ goBack }><!-- <img id="arrow" alt="Logo" src="/images/back.png" > --></a>      
+      <div class=""><a if={ containerTag.route!='groups' } class={pointer:true, fa:true, fa-chevron-left: true, black:!home } onclick={ goBack }><!-- <img id="arrow" alt="Logo" src="/images/back.png" > --></a>
             <span if={ containerTag.route!='groups' }>{ title }</span>
             </div>
-      <div class="home-brand">
+      <div class="">
             <a if={ containerTag.route=='groups' } href="/groups"><img id="logo" alt="Logo" src="/images/app_icon.png" ></a>
             <span if={ containerTag.route=='groups' }>{ USER_LOCALE }</span>
             </div>
@@ -24,7 +24,7 @@
       </li> -->
 
       <li class={ nav-item: true } onclick={ this.update } if={containerTag.route=='groups'}>
-        <div class="btn-group profile-container home-brand">
+        <div class="btn-group profile-container ">
           <div class="notif-indicator" if={ notif && !signupAvail}></div>
           <img src={ API.getCurrentUserThumbnail() } class="img-circle dropdown-toggle profile-img pointer" data-toggle="dropdown"/>
           <ul class="dropdown-menu dropdown-menu-right">
@@ -275,6 +275,7 @@
   .profile-img{
     width: 30px;
     height: 30px;
+    object-fit: cover;
   }
 
   .dropdown-item {
