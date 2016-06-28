@@ -17,7 +17,7 @@
 </style>
 </loader>
 <container>
-  <app-navi name="appNavi"></app-navi>
+  <app-navi name="appNavi" if={ route != '' && !FIRST_TIME }></app-navi>
   <!-- Page Content -->
   <div>
     <!-- <h1>{ title }</h1> -->
@@ -58,7 +58,7 @@
     self.body    = ''
     self.group   = this.opts.group
 
-    self.route   = "home"
+    self.route   = ''
 
     this.on("mount", function(){
       $('#signupSuccess').hide()
@@ -109,6 +109,7 @@
       self.toTop()
     }
     function groupinfo(id) {
+      FIRST_TIME = false
       if (!self.group) {
         API.fetchOne('Group', 'groupId', id).then(function(results) {
           self.group = results
@@ -138,6 +139,7 @@
       }
     }
     function feed() {
+      FIRST_TIME = false
       self.track('feed')
       self.update({
         title: "",
@@ -150,6 +152,7 @@
       //self.toTop()
     }
     function showtweets(){
+      FIRST_TIME = false
       self.track('tweets')
       self.update({
         title: "",

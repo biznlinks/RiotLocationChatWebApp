@@ -1,65 +1,48 @@
 <groups>
-<groupsmap name="groupsmap"></groupsmap>
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        <img src="images/logo.png" style="width: 70%">
-      </div>
-      <div class="modal-body">
-        Welcome to Sophus, the local group discovery platform that tells you what is happening right now near you. Join interest groups and discover what people like you are up to nearby. <br><br>
-        To show you what's happening near you please allow location services. (Otherwise you'll see what's happening around our office in San Francisco).
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary center-block" data-dismiss="modal">Allow locations</button>
-      </div>
-    </div>
-  </div>
-</div>
+<landingloader if={FIRST_TIME && loading}></landingloader>
+<div if={!loading}>
+	<groupsmap name="groupsmap"></groupsmap>
 
-
-<div class="outer-container" style="
-    margin-right: auto;
-    margin-left: auto;
-    max-width: 700px;">
-	<!-- <div class="search-container row">
-		<div class="col-sm-8 col-sm-offset-2">
-			<textarea placeholder="Search Groups" class="search-groups" rows="1"></textarea>
+	<div class="outer-container" style="
+	    margin-right: auto;
+	    margin-left: auto;
+	    max-width: 700px;">
+		<!-- <div class="search-container row">
+			<div class="col-sm-8 col-sm-offset-2">
+				<textarea placeholder="Search Groups" class="search-groups" rows="1"></textarea>
+			</div>
+		</div> -->
+		<!-- <h3 style="text-align: center; padding-top: 1em;">#Yoga</h3> -->
+		<div class="groups-container">
+			<groupslist name="groupslist"></groupslist>
 		</div>
-	</div> -->
-	<!-- <h3 style="text-align: center; padding-top: 1em;">#Yoga</h3> -->
-	<div class="groups-container">
-		<groupslist name="groupslist"></groupslist>
+
+		<button class="btn mfb-component--br" name="submit" onclick={ showCreateModal }>
+			<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+	        <polygon id="Shape" fill="#FFFFFF" points="20 11.4285714 11.4285714 11.4285714 11.4285714 20 8.57142857 20 8.57142857 11.4285714 0 11.4285714 0 8.57142857 8.57142857 8.57142857 8.57142857 0 11.4285714 0 11.4285714 8.57142857 20 8.57142857"></polygon>
+	    </g>
+	</svg>
+		</button>
 	</div>
-
-	<button class="btn mfb-component--br" name="submit" onclick={ showCreateModal }>
-		<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <polygon id="Shape" fill="#FFFFFF" points="20 11.4285714 11.4285714 11.4285714 11.4285714 20 8.57142857 20 8.57142857 11.4285714 0 11.4285714 0 8.57142857 8.57142857 8.57142857 8.57142857 0 11.4285714 0 11.4285714 8.57142857 20 8.57142857"></polygon>
-    </g>
-</svg>
-	</button>
 </div>
-
 
 <script>
-	var self    = this
-	groupsTag   = this
-	self.filter = opts.filter
+	var self     = this
+	groupsTag    = this
+	self.filter  = opts.filter
+	self.loading = true
 
 	this.on('mount', function() {
 	})
 
 	init() {
+		var utime = new Date()
+
 		containerTag.group = null
 		API.getjoinedgroups(Parse.User.current()).then(function(joinedGroups) {
 			self.joinedGroups = joinedGroups
-			fortesting = joinedGroups
 			API.getallgroups(null, self.filter).then(function(groups) {		//TODO Add another filter to get the groups in joinedGroups UserGroup object
 				self.groups = groups.filter(function(group) {
 					for (var i = 0; i < self.joinedGroups.length; i++)
@@ -68,10 +51,20 @@
 				})
 
 				self.tags.groupsmap.update({joinedGroups: self.joinedGroups, groups: self.groups})
-				self.tags.groupsmap.trigger('groupsUpdated')
 				self.tags.groupslist.update({joinedGroups: self.joinedGroups, groups: self.groups})
+				self.loading = false
+
+				if (FIRST_TIME) {
+					setTimeout(function() {
+						FIRST_TIME = false
+						self.parent.update()
+						self.tags.groupsmap.trigger('groupsUpdated')
+						self.tags.groupslist.createSwiper()
+					}, Date.parse(utime) - Date.parse(new Date()) + 3000)
+				} else self.update()
+
+				self.tags.groupsmap.trigger('groupsUpdated')
 				self.tags.groupslist.createSwiper()
-				self.update()
 			})
 		})
 	}
