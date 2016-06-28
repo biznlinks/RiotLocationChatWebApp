@@ -378,6 +378,7 @@
 		height: 35px;
 		margin-right: 6px;
 		border-radius: 4px;
+		object-fit: cover;
 	}
 
 	.wannaknow{

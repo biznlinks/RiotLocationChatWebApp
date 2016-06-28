@@ -178,6 +178,7 @@
 
 	.profile-pic {
 		margin-top: 10px;
+		object-fit: cover;
 	}
 
 	.info-item {
