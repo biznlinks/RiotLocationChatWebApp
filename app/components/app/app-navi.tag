@@ -1,19 +1,16 @@
 <app-navi>
 
 <nav class={navbar-gradient: home, navbar-nongradient: !home, navbar: true, navbar-static-top: containerTag.route!='groups', navbar-fixed-top: containerTag.route=='groups'}>
-  <!-- <button class="navbar-toggler pull-xs-right hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
+    <!-- <button class="navbar-toggler pull-xs-right hidden-sm-up" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar2">
     &#9776;
-  </button> -->
-  <div class="navbar-toggleable-xs" id="exCollapsingNavbar2">
-    <div class="navbar-brand">
-      <div class=""><a if={ containerTag.route!='groups' } class={pointer:true, fa:true, fa-chevron-left: true, black:!home } onclick={ goBack }><!-- <img id="arrow" alt="Logo" src="/images/back.png" > --></a>
+    </button> -->
+    <div class="navbar-toggleable-xs" id="exCollapsingNavbar2">
+        <div class="navbar-brand">
+            <a if={ containerTag.route!='groups' } class={pointer:true, fa:true, fa-chevron-left: true, black:!home } onclick={ goBack }><!-- <img id="arrow" alt="Logo" src="/images/back.png" > --></a>
             <span if={ containerTag.route!='groups' }>{ title }</span>
-            </div>
-      <div class="">
             <a if={ containerTag.route=='groups' } href="/groups"><img id="logo" alt="Logo" src="/images/app_icon.png" ></a>
             <span if={ containerTag.route=='groups' }>{ USER_LOCALE }</span>
-            </div>
-    </div>
+        </div>
 
     <ul class="nav navbar-nav pull-xs-right">
       <!-- <li class={ nav-item: true, active: parent.selectedId === url }>
