@@ -6,7 +6,7 @@
   </button> -->
   <div class="navbar-toggleable-xs" id="exCollapsingNavbar2">
     <div class="navbar-brand">
-      <div class="detail-brand"><a if={ containerTag.route!='groups' } class={pointer:true, fa:true, fa-chevron-left: true, black:!home } onclick={ goBack }><!-- <img id="arrow" alt="Logo" src="/images/back.png" > --></a>      
+      <div class="detail-brand"><a if={ containerTag.route!='groups' } class={pointer:true, fa:true, fa-chevron-left: true, black:!home } onclick={ goBack }><!-- <img id="arrow" alt="Logo" src="/images/back.png" > --></a>
             <span if={ containerTag.route!='groups' }>{ title }</span>
             </div>
       <div class="home-brand">
@@ -275,6 +275,7 @@
   .profile-img{
     width: 30px;
     height: 30px;
+    object-fit: cover;
   }
 
   .dropdown-item {

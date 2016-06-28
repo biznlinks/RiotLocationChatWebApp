@@ -52,7 +52,7 @@ API = {
   getCurrentUserThumbnail: function() {
     var user = Parse.User.current();
 
-    if (!user || user.geT('type')=='dummy')
+    if (!user || user.get('type')=='dummy')
       return '/images/default_profile.png';
 
     return API.getProfileThumbnail(user);
