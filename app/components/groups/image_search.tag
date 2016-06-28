@@ -58,6 +58,10 @@
 		$(document).on('change', '#imageFile', self.handleUpload)
 	})
 
+	this.on('unmount', function() {
+		console.log('called')
+	})
+
 	handleUpload() {
 		var file = $('#imageFile')[0].files[0]
 		var image = {contentUrl: URL.createObjectURL(file), thumbnailUrl: URL.createObjectURL(file)}
@@ -145,7 +149,7 @@
 		}
 	}
 	cropAndUpload() {
-		console.log(self.cropper)
+		console.log(self.cropper.getCroppedCanvas({width: 200}))
 		self.cropper.getCroppedCanvas({
 			width: 800
 		}).toBlob(function(blob) {
@@ -167,7 +171,6 @@
 			API.resizeImage(blob).then(function(resized) {
 				API.uploadImage(resized).then(function(result) {
 					thumbnailUrl = result
-					console.log('thumbnail')
 					if (imageUrl) {
 						self.loading = false
 						self.callback({contentUrl: imageUrl, thumbnailUrl: thumbnailUrl})

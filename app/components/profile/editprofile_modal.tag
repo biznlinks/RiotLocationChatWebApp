@@ -44,7 +44,7 @@
 			self.update()
 		})
 		$('#editprofileModal').on('hidden.bs.modal', function() {
-			imagesearchTag.hide()
+			self.tags.imagesearch.hide()
 			self.selectedImage = undefined
 			self.info          = true
 			self.loading       = false
@@ -78,11 +78,11 @@
 	}
 
 	showImageSearch() {
-		imagesearchTag.update({callback: self.returnImageSearch})
+		self.tags.imagesearch.update({callback: self.returnImageSearch})
 		$('#info').slideUp({
 			duration: 500,
 			complete: function() {
-				imagesearchTag.show()
+				self.tags.imagesearch.show()
 				self.info = false
 				self.update()
 			}
@@ -96,7 +96,7 @@
 	}
 
 	back() {
-		imagesearchTag.hide().then(function() {
+		self.tags.imagesearch.hide().then(function() {
 			$('#info').slideDown({duration: 500})
 			self.info = true
 			self.update()
