@@ -11,7 +11,7 @@
 				<div class="members text-muted">{ locale } • { memberCount } joined</div>
 				<div class="most-active-container">
 					<div each={ user in mostActive } class="most-active">
-						<img src={ API.getProfilePicture(user) } class="img-circle most-active-picture">
+						<img src={ API.getProfileThumbnail(user) } class="img-circle most-active-picture">
 					</div>
 				</div>
 				<div if={ !joined }>
