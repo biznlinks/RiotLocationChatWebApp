@@ -10,7 +10,7 @@
 	    <div class="swiper-wrapper">
 	        <div class="swiper-slide" each={ group in joinedGroups} onclick={ this.chooseGroup(group.get('group')) }>
 					<img src={ API.getGroupThumbnail(group.get('group')) } class="image-joined">
-					<div class="group-title">
+					<div class="joined-title">
 						{ group.get('group').get('name').slice(0,20) }
 						<span if={ group.get('group').get('name').length > 20 }>...</span>
 					</div>
@@ -29,9 +29,9 @@
 	<ul>
 		<li each={ group in groups } onclick={ this.chooseGroup(group) }>
 			<div class="pointer">
-				<img src={ API.getGroupImage(group) } class="image-nearby img-circle">
+				<img src={ API.getGroupImage(group) } class="image-nearby">
 				<div class="info-box">
-					<div class="group-title">{ group.get('name') }</div>
+					<div class="nearby-title">{ group.get('name') }</div>
 					<div class="desc">{ group.get('description') }</div>
 				</div>
 			</div>
@@ -83,9 +83,18 @@
 	}
 
 	.title {
-		font-size: 18px;
+		font-size: 16px;
 		font-weight: lighter;
-		padding-left: 10px;
+		padding-left: 20px;
+	}
+
+	.joined-title {
+		font-size: 15px;
+		padding-top: 15px;
+	}
+
+	.nearby-title {
+		font-size: 15px;
 	}
 
 	.arrow {
@@ -106,10 +115,6 @@
 		display: inline-block;
 	}
 
-	.nearby li {
-		padding-top: 10px;
-	}
-
 	.nearby ul {
 		list-style: none;
 		margin-bottom: 0;
@@ -120,41 +125,10 @@
 		text-align: center;
 	}
 
-	.image-nearby {
-		height: 60px;
-		width: 60px;
-		object-fit: cover;
-		margin: auto 10px;
-	}
-
 	.gray {
 		border: none;
 		background-image: url('/images/default_image.jpg');
 		background-size: cover;
-	}
-
-	.nearby .group-title {
-		margin-top: 0;
-	}
-
-	.info-box{
-		display: inline-block;
-		vertical-align: middle;
-		width: calc(100% - 100px);
-		display: inline-block;
-		border-bottom: 1px solid #ccc;
-		padding-top: 20px;
-		padding-bottom: 20px;
-	}
-
-	.group-title {
-		margin-top: 10px;
-		font-size: 14px;
-		font-weight: 500;
-	}
-
-	.desc{
-		font-size: 12px;
 	}
 
 	@media (max-width: 480px) {

@@ -20,9 +20,10 @@
 								<div class="add-photo" if={ !selectedImage }>Add Image</div>
 								<img class="img-circle group-photo" if={ selectedImage } src={ selectedImage.thumbnailUrl }>
 							</div>
-							<div><input type="text" name="groupname" id="groupname" placeholder="New Group"></div>
-							<div><input type="text" name="desc" id="desc" placeholder="Short Description"></div>
+							<div><input type="text" name="groupname" id="groupname" placeholder="Group name"></div>
 							<div><input type="text" name="keywords" id="keywords" placeholder="Keywords"></div>
+							<textarea id="desc" class="form-control" placeholder="Short description" rows="3"></textarea>
+
 						</div>
 
 						<div id="map-container" class="hide">
@@ -392,16 +393,11 @@
 		}
 
 		#groupname {
-			font-size: x-large;
+			font-size: 20px;
 			width: 100%;
 		}
 		#groupname:focus, #desc:focus {
 			outline: none;
-		}
-
-		#desc {
-			font-size: large;
-			width: 100%
 		}
 
 		#map-container {
