@@ -64,6 +64,7 @@
 					$(document).bind("touchmove", function(e){
 						e.preventDefault();
 					});
+					$('#groupname').focus()
 					self.resetMap()
 					self.getStreetAddress({lat: USER_POSITION.latitude, lng: USER_POSITION.longitude})
 				})
