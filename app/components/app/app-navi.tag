@@ -49,8 +49,8 @@
 
       <li class="nav-item" if={containerTag.route=='posts'}>
         <div class="btn-group">
-          <img class="btn dropdown-toggle ellipsis" data-toggle="dropdown" href="#" src="/images/ellipsis.png" if={containerTag.route!='posts'}>
-          <img class="btn dropdown-toggle ellipsis" data-toggle="dropdown" href="#" src="/images/ellipsis-w.png" if={containerTag.route=='posts'}>
+          <img class="btn dropdown-toggle ellipsis" data-toggle="dropdown" href="#" src="/images/settings.png" if={containerTag.route!='posts'}>
+          <img class="btn dropdown-toggle ellipsis" data-toggle="dropdown" href="#" src="/images/settings-w.png" if={containerTag.route=='posts'}>
           <ul class="dropdown-menu dropdown-menu-right">
             <li class="dropdown-item" onclick={ this.showSearch }>
               <a class="nav-link" href="#">Search</a>
