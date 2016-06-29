@@ -126,7 +126,11 @@
 		query.equalTo('group', containerTag.group)
 		query.equalTo('user', Parse.User.current())
 		query.first().then(function(object) {
-			if (object) object.destroy()
+			if (object) {
+				object.destroy()
+				containerTag.group.set('memberCount', containerTag.group.get('memberCount') - 1)
+				containerTag.group.save()
+			}
 		})
 	}
 
