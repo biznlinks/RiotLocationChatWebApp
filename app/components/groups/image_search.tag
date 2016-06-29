@@ -1,44 +1,45 @@
 <imagesearch>
 
 <div id="outer-container">
-	<div if={loading} class="modal-body text-xs-center">
-		<i class="fa fa-spinner fa-spin fa-3x fa-fw margin-bottom"></i>
-		<span class="sr-only">Loading...</span>
-	</div>
 
-	<div id="image-search-container" if={ !loading }>
-		<input type="text" placeholder="Search" name="imageQuery" oninput={ this.keyUp }>
-		<div class="image-grid" if={ !searching && searchResults && searchResults.length > 0 }>
-			<div class={ fa:true, fa-chevron-left:searchStart != 0, arrows:true } onclick={ this.shift(-1) }></div>
-			<!-- <div class="image-container" onload="fadeIn(e)" each={ image in searchResults.slice(searchStart, searchEnd) } onclick={ this.selectImage(image) } style="background-image: url('{ image.thumbnailUrl }')">
-			</div> -->
-			<img class="image-container" onload="fadeIn(this)" each={ image in searchResults.slice(searchStart, searchEnd) } onclick={ this.selectImage(image) } src={ image.thumbnailUrl }/>
-			<div class={ fa:true, fa-chevron-right:searchEnd < searchResults.length, arrows:true } onclick={ this.shift(1) }></div>
-		</div>
+	<div id="image-search-container">
+		<loader if={ loading }></loader>
 
-		<div class="options" if={ !searchResults || searchResults.length == 0 || searching }>
-			<div if={ searching }>
-				<i class="fa fa-spinner fa-spin fa-3x fa-fw margin-bottom"></i>
-				<span class="sr-only">Loading...</span>
+		<div if={ !loading }>
+			<input type="text" placeholder="Search" name="imageQuery" oninput={ this.keyUp }>
+			<div class="image-grid" if={ !searching && searchResults && searchResults.length > 0 }>
+				<div class={ fa:true, fa-chevron-left:searchStart != 0, arrows:true } onclick={ this.shift(-1) }></div>
+				<!-- <div class="image-container" onload="fadeIn(e)" each={ image in searchResults.slice(searchStart, searchEnd) } onclick={ this.selectImage(image) } style="background-image: url('{ image.thumbnailUrl }')">
+				</div> -->
+				<img class="image-container" onload="fadeIn(this)" each={ image in searchResults.slice(searchStart, searchEnd) } onclick={ this.selectImage(image) } src={ image.Thumbnail.MediaUrl }/>
+				<div class={ fa:true, fa-chevron-right:searchEnd < searchResults.length, arrows:true } onclick={ this.shift(1) }></div>
 			</div>
 
-			<div if={ !searching }>
-				<div>Search for image</div>
-				or
-			</div>
-		</div>
+			<div class="options" if={ !searchResults || searchResults.length == 0 || searching }>
+				<loader if={ searching }></loader>
 
-		<div class="upload-container">
-			<label for="imageFile"><span class="btn btn-primary">Upload your image</span></label>
-			<input name="imageFile" id="imageFile" type="file" style="visibility: hidden; position: absolute;"></input>
+				<div if={ !searching }>
+					<div>Search for image</div>
+					or
+				</div>
+			</div>
+
+			<div class="upload-container">
+				<label for="imageFile"><span class="btn btn-primary">Upload your image</span></label>
+				<input name="imageFile" id="imageFile" type="file" style="visibility: hidden; position: absolute;"></input>
+			</div>
 		</div>
 	</div>
 
-	<div id="image-edit-container" if={ !loading }>
-		<img id="image-edit" src={ selectedImage.contentUrl }>
-		<button class="btn btn-default fa fa-rotate-left" onclick={ this.rotate(-90) }></button>
-		<button class="btn btn-default fa fa-rotate-right" onclick={ this.rotate(90) }></button>
-		<button class="btn btn-default" onclick={ this.cropAndUpload }>OK</button>
+	<div id="image-edit-container">
+		<loader if={ loading }></loader>
+
+		<div if={ !loading }>
+			<img id="image-edit" src={ selectedImage.contentUrl }>
+			<button class="btn btn-default fa fa-rotate-left" onclick={ this.rotate(-90) }></button>
+			<button class="btn btn-default fa fa-rotate-right" onclick={ this.rotate(90) }></button>
+			<button class="btn btn-default" onclick={ this.cropAndUpload }>OK</button>
+		</div>
 	</div>
 </div>
 
@@ -68,7 +69,10 @@
 		self.selectedImage = image
 		self.update()
 		self.hideSearch().then(function(result) {
-			self.showEdit().then(function(result) { self.createCropper() })
+			self.showEdit().then(function(result) {
+				if(!self.cropper) self.createCropper()
+				else self.cropper.replace(self.selectedImage.contentUrl)
+			})
 		})
 	}
 
@@ -88,16 +92,9 @@
 
 		var query = self.imageQuery.value
 		API.searchImage(query).then(function(data) {
-			// Just get 9 images for now, the query returns 10
-			for (var i = 0; i < 9; i++) {
-				API.getImageThroughProxy(data[i], query).then(function (result) {
-					if (result && result.query == self.imageQuery.value) {
-						self.searchResults.push(result)
-						self.searching = false
-					}
-					self.update()
-				})
-			}
+			self.searchResults = data
+			self.searching     = false
+			self.update()
 		})
 	}
 
@@ -124,13 +121,19 @@
 
 	selectImage(image) {
 		return function() {
-			self.selectedImage = image
+			self.loading = true
 			self.update()
+			API.getImageThroughProxy(image).then(function(data) {
+				self.selectedImage = data
+				self.update()
 
-			self.hideSearch().then(function(result) {
-				self.showEdit().then(function(result) {
-					if (!self.cropper) self.createCropper()
-					else self.cropper.replace(self.selectedImage.contentUrl)
+				self.hideSearch().then(function(result) {
+					self.loading = false
+					self.update()
+					self.showEdit().then(function(result) {
+						if (!self.cropper) self.createCropper()
+						else self.cropper.replace(self.selectedImage.contentUrl)
+					})
 				})
 			})
 		}
@@ -163,8 +166,8 @@
 				if (result) {
 					imageUrl = result
 					if (thumbnailUrl) {
-						self.loading = false
 						self.callback({contentUrl: imageUrl, thumbnailUrl: thumbnailUrl})
+						self.loading = false
 					}
 				}
 			})
@@ -173,8 +176,8 @@
 				API.uploadImage(resized).then(function(result) {
 					thumbnailUrl = result
 					if (imageUrl) {
-						self.loading = false
 						self.callback({contentUrl: imageUrl, thumbnailUrl: thumbnailUrl})
+						self.loading = false
 					}
 				})
 			})

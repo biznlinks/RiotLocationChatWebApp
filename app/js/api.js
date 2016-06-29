@@ -359,7 +359,7 @@ searchImage: function(query) {
 
   return promise;
 },
-getImageThroughProxy: function(image, query) {
+getImageThroughProxy: function(image) {
   var promise = new Parse.Promise()
 
   var url = image.MediaUrl
@@ -372,7 +372,7 @@ getImageThroughProxy: function(image, query) {
   xhr.onload = function() {
     var blob = new Blob([xhr.response], {type: 'image/png'});
     var url = (window.URL || window.webkitURL).createObjectURL(blob);
-    promise.resolve({contentUrl: url, thumbnailUrl: image.Thumbnail.MediaUrl, query: query});
+    promise.resolve({contentUrl: url, thumbnailUrl: image.Thumbnail.MediaUrl});
   }
   xhr.onerror = function(err) {
     promise.resolve(false);
