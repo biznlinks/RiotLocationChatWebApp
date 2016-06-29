@@ -92,7 +92,8 @@
       $('[data-toggle="dropdown"]').parent().removeClass('open')
     })
 
-    self.notifCheck = setInterval(self.checkNotification, 30000);
+    self.checkNotification()
+    self.notifCheck = setInterval(self.checkNotification, 30000)
   })
 
   function highlightCurrent(id) {
