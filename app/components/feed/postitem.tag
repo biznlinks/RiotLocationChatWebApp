@@ -28,8 +28,8 @@
 						<button class="edit-btn btn btn-default" onclick={ submitEdit }>Done</button>
 					</div>
 				</div>
-				<div id="image-container" if={ post.get('imageURL') }>
-					<img id="post-image" src={ post.get('imageURL') }>
+				<div class="image-container" if={ post.get('imageURL') }>
+					<img class="post-image" src={ post.get('imageURL') }>
 				</div>
 			</div
 
@@ -423,7 +423,8 @@
 		color: #004784;
 	}
 
-	#post-image {
+	.post-image {
+		padding-left: 45px;
 		max-width: 100%;
 		-webkit-border-radius: 5px;
     	-moz-border-radius: 5px;

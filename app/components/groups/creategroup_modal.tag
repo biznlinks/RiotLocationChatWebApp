@@ -426,7 +426,6 @@
 			margin-bottom: 10px;
 		}
 
-<<<<<<< HEAD
 		.options {
 			padding-top: 30px;
 			text-align: center;
@@ -477,8 +476,6 @@
 			height: 300px;
 		}
 
-=======
->>>>>>> 6b3529950bdf6b26d5c88cc0646bf0054aaca1b9
 		@media screen and (max-width: 543px) {
 			.image-container {
 				height: 80px;

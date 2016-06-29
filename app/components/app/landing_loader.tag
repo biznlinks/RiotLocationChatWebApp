@@ -26,7 +26,7 @@
   </svg>
   </div>
   <div id="footer">
-    <div id="logo"></div>Company
+    <div id="logo"></div>Sophus
   </div>
 </div>
 
@@ -38,7 +38,7 @@
 	var verticalSpacing = 50;
 
 	this.on('mount', function() {
-		var phrases = shuffleArray(["Feeding unicorns", "Grabbing tasks", "Collating conversations", "Reticulating splines", "Pondering emptiness", "Considering alternatives", "Shuffling bits", "Celebrating moments", "Generating phrases", "Simulating workflow", "Empowering humanity", "Being aspirational", "Doing the hokey pokey", "Bueller", "Cracking jokes", "Slacking off"]);
+		var phrases = ["", "Creating custom profile", "Drawing mapview", "Fetching recent content", "Searching location", "Creating awesome community"];
 		addPhrasesToDocument(phrases);
 		var start_time = new Date().getTime();
 		var upward_moving_group = document.getElementById("phrases");
@@ -144,8 +144,8 @@
   -webkit-align-items: center;
       -ms-flex-align: center;
           align-items: center;
-  background: -webkit-linear-gradient(bottom left, #fc737a 10%, #ff7c9d 65%, #ffc01a 125%);
-  background: linear-gradient(to top right, #fc737a 10%, #ff7c9d 65%, #ffc01a 125%);
+  background: -webkit-linear-gradient(bottom left, #1ca5e8 10%, #6fd9bb 65%, #5ebfca 125%);
+  background: linear-gradient(to top right, #1ca5e8 10%, #6fd9bb 65%, #5ebfca 125%);
   bottom: 0;
   display: -webkit-box;
   display: -webkit-flex;
@@ -734,10 +734,10 @@
     fill: white;
   }
   10% {
-    fill: #FF6D92;
+    fill: #5FD5B3;
   }
   100% {
-    fill: #FF6D92;
+    fill: #5FD5B3;
   }
 }
 
@@ -746,10 +746,10 @@
     fill: white;
   }
   10% {
-    fill: #FF6D92;
+    fill: #5FD5B3;
   }
   100% {
-    fill: #FF6D92;
+    fill: #5FD5B3;
   }
 }
 

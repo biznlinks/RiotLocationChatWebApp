@@ -35,6 +35,7 @@
 	self.loading = true
 
 	this.on('mount', function() {
+		
 	})
 
 	init() {
@@ -52,16 +53,19 @@
 
 				self.tags.groupsmap.update({joinedGroups: self.joinedGroups, groups: self.groups})
 				self.tags.groupslist.update({joinedGroups: self.joinedGroups, groups: self.groups})
-				self.loading = false
 
 				if (FIRST_TIME) {
 					setTimeout(function() {
+						self.loading = false
 						FIRST_TIME = false
 						self.parent.update()
 						self.tags.groupsmap.trigger('groupsUpdated')
 						self.tags.groupslist.createSwiper()
-					}, Date.parse(utime) - Date.parse(new Date()) + 3000)
-				} else self.update()
+					}, Date.parse(utime) - Date.parse(new Date()) + 5000)
+				} else {
+					self.loading = false
+					self.update()
+				}
 
 				self.tags.groupsmap.trigger('groupsUpdated')
 				self.tags.groupslist.createSwiper()
