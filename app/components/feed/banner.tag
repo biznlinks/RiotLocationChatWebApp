@@ -14,10 +14,11 @@
 						<img src={ API.getProfileThumbnail(user) } class="img-circle most-active-picture">
 					</div>
 				</div>
-				<div if={ !joined }>
+				<div>
 					<hr>
 					<div class="group-desc">{ containerTag.group.get('description') }</div>
-					<div class="join-group" onclick={ this.submitJoin }>Join</div>
+					<div class="join-group" onclick={ this.submitJoin } if={ !joined }>Follow</div>
+					<div class="join-group" onclick={ this.removeJoin } if={ joined }>Unfollow</div>
 
 
 				</div>
@@ -112,6 +113,20 @@
 				self.memberCount--
 				self.update()
 			}
+		})
+	}
+
+	removeJoin() {
+		self.joined = false
+		self.memberCount--
+		self.update()
+
+		var UserGroup = Parse.Object.extend('UserGroup')
+		var query     = new Parse.Query(UserGroup)
+		query.equalTo('group', containerTag.group)
+		query.equalTo('user', Parse.User.current())
+		query.first().then(function(object) {
+			if (object) object.destroy()
 		})
 	}
 
