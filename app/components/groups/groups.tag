@@ -125,6 +125,9 @@
 
 	.nearby li:last-child .info-box{
     	border: none;
+	}
+
+	.nearby li:last-child{
     	margin-bottom: 2rem;
 	}
 

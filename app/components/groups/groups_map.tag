@@ -70,7 +70,7 @@
 	initMap() {
 		self.gmap = new google.maps.Map(document.getElementById('groups-map'), {
 			center: {lat: USER_POSITION.latitude, lng: USER_POSITION.longitude},
-          	zoom: 13,
+          	zoom: 15,
           	disableDefaultUI: true,
           	zoomControl: true,
           	styles: [{ featureType: "poi", elementType: "labels", stylers: [{ visibility: "off" }]},
@@ -93,7 +93,7 @@
 	resetMap() {
 		if (self.gmap) {
 			self.gmap.setCenter({lat: USER_POSITION.latitude, lng: USER_POSITION.longitude})
-			self.gmap.setZoom(13)
+			self.gmap.setZoom(15)
 			self.userMarker.setPosition({lat: USER_POSITION.latitude, lng: USER_POSITION.longitude})
 		}
 	}
