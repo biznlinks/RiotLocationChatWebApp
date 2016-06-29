@@ -35,12 +35,6 @@
 		self.update()
 	})
 
-	this.on('locationChanged', function() {
-		groupsTag.sortGroupsByDistance()
-		self.resetMap()
-		console.log(USER_POSITION)
-	})
-
 	this.on('groupsUpdated', function() {
 		self.markers = []
 		for (var i = 0; i < self.joinedGroups.length; i++) {

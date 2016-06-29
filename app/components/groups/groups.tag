@@ -35,7 +35,14 @@
 	self.loading = true
 
 	this.on('mount', function() {
-		
+
+	})
+
+	this.on('locationChanged', function() {
+		self.sortGroupsByDistance()
+		self.tags.groupsmap.resetMap()
+		creategroupTag.getStreetAddress({lat: USER_POSITION.latitude, lng: USER_POSITION.longitude})
+		console.log(USER_POSITION)
 	})
 
 	init() {

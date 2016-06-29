@@ -51,7 +51,7 @@ riotMount();
 
 getGeoLocation(function(){
   riot.update();
-  groupsmapTag.trigger('locationChanged');
+  groupsTag.trigger('locationChanged');
 });
 
 window.Cropper;
