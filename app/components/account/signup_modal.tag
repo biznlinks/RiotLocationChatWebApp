@@ -185,7 +185,7 @@
 
 	checkValidity() {
 		if (!self.validateEmail(self.email.value)) return 1
-		if (self.password.value.length < 6) return 2
+		if (self.password.value.length < 4) return 2
 		if (self.password.value.length > 32) return 2
 		if (self.fullname.value.length < 1) return 3
 		return 0
@@ -213,7 +213,7 @@
 				self.error = "Email is not valid. Please enter a valid email"
 				break
 			case 2:
-				self.error = "Password should be from 6 to 32 characters of length"
+				self.error = "Password should be from 4 to 32 characters of length"
 				break
 			case 3:
 				self.error = "Fullname cannot be empty"

@@ -9,11 +9,7 @@
 			<div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
 				<div class="group-name">{ containerTag.group.get('name') }</div>
 				<div class="members text-muted">{ locale } • { memberCount } joined</div>
-				<div class="most-active-container">
-					<div each={ user in mostActive } class="most-active">
-						<img src={ API.getProfileThumbnail(user) } class="img-circle most-active-picture">
-					</div>
-				</div>
+				
 				<div>
 					<hr>
 					<div class="group-desc">{ containerTag.group.get('description') }</div>

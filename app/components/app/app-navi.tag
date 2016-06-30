@@ -6,7 +6,7 @@
     </button> -->
     <div class="navbar-toggleable-xs" id="exCollapsingNavbar2">
         <div class="navbar-brand" onclick={ goBack }>
-            <a if={ containerTag.route!='groups' } class={pointer:true, fa:true, fa-chevron-left: true, black:!home }><!-- <img id="arrow" alt="Logo" src="/images/back.png" > --></a>
+            <a if={ containerTag.route!='groups' } class={pointer:true, fa:true, fa-chevron-left: true }><!-- <img id="arrow" alt="Logo" src="/images/back.png" > --></a>
             <span if={ containerTag.route!='groups' }>{ title }</span>
             <a if={ containerTag.route=='groups' } href="/groups"><img id="logo" alt="Logo" src="/images/app_icon.png" ></a>
             <span if={ containerTag.route=='groups' }>{ USER_LOCALE }</span>
@@ -194,7 +194,7 @@
     /*margin-left: 50px;*/
     /*padding: 1em;*/
     /*text-align: center;*/
-    color: #666;
+    color: white;
   }
 
   .home-brand {
@@ -203,6 +203,8 @@
   }
 
   .profile-container {
+    border:1px solid white;
+    border-radius: 50%;
     position: relative;
   }
 
@@ -218,11 +220,6 @@
     border-radius: 50%;
   }
 
-  .dropdown-toggle::after {
-      border: none;
-      content: none;
-  }
-
   .navbar-gradient {
     background: -webkit-linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0));
     background: -o-linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0));
@@ -231,7 +228,7 @@
   }
 
   .navbar-nongradient {
-    background: white;
+    background: #2C3E50;
     box-shadow: 0px -3px 12px #888888;
   }
 
@@ -277,8 +274,8 @@
   }
 
   .profile-img{
-    width: 30px;
-    height: 30px;
+    width: 35px;
+    height: 35px;
     object-fit: cover;
   }
 
@@ -296,10 +293,6 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-  }
-
-  .black {
-    color: black !important;
   }
 
   #logo {

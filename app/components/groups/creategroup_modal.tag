@@ -388,7 +388,7 @@
 
 		.groupinfo-container input {
 			text-align: center;
-			margin-top: 15px;
+			margin-bottom: 15px;
 			border: none;
 		}
 

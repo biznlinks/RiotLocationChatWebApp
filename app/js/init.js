@@ -77,7 +77,7 @@ if (!Parse.User.current()) {
       user.set("type", "dummy")
 
       user.set("lastName", lizard[0])
-      user.set("profileImageURL", lizard[1])
+      //user.set("profileImageURL", lizard[1])
 
       user.save()
 

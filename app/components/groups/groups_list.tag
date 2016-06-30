@@ -31,7 +31,9 @@
 			<div class="pointer">
 				<img src={ API.getGroupImage(group) } class="image-nearby">
 				<div class="info-box">
-					<div class="nearby-title">{ group.get('name') }</div>
+					<div class="nearby-title">
+						{ group.get('name') }
+					</div>
 					<div class="desc">{ group.get('description') }</div>
 				</div>
 			</div>
@@ -95,6 +97,12 @@
 
 	.nearby-title {
 		font-size: 15px;
+		overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+	}
+
+	.desc {
+		overflow: hidden;
+		height: 74px;
 	}
 
 	.arrow {

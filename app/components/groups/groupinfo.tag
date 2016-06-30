@@ -53,8 +53,6 @@
 	}
 
 	.group-info {
-		margin-top: 5px;
-		padding: 10px;
 		border-bottom: 1px solid #ccc;
 	}
 
