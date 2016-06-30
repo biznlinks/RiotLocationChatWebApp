@@ -32,7 +32,7 @@
 
 						<div class="address" onclick={ this.showMap }>{ address }</div>
 
-						<div class="confirm-container" if={ !chooseLocation }><button class="btn btn-default" onclick={ this.submitGroup }>Edit</button></div>
+						<div class="confirm-container" if={ !chooseLocation }><button class="btn btn-primary" onclick={ this.submitGroup }>Done</button></div>
 						<div class="confirm-container" if={ chooseLocation }><button class="btn btn-default" onclick={ this.closeMap }>OK</button></div>
 					</div>
 
