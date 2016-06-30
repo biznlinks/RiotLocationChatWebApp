@@ -20,7 +20,7 @@
 								<div class="add-photo" if={ !selectedImage }>Add Image</div>
 								<img class="img-circle group-photo" if={ selectedImage } src={ selectedImage.thumbnailUrl }>
 							</div>
-							<div><input type="text" name="groupname" id="groupname" placeholder="Group name"></div>
+							<div><input type="text" name="groupname" id="groupname" placeholder="Group name" size="140" maxlength="140"></div>
 							<div><input type="text" name="keywords" id="keywords" placeholder="Keywords"></div>
 							<textarea id="desc" class="form-control" placeholder="Short description" rows="3"></textarea>
 
