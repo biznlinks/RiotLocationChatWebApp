@@ -83,6 +83,7 @@
 					self.error           = ''
 					self.groupname.value = ''
 					self.desc.value      = ''
+					self.keywords.value  = ''
 					self.selectedImage   = undefined
 					self.update()
 				})
