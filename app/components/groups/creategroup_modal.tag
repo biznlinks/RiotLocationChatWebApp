@@ -240,20 +240,20 @@
 							anonymous: false
 						}, {
 							success: function(post) {
-								var Wannaknow = Parse.Object.extend('WannaKnow')
-								var wannaknow = new Wannaknow()
-								wannaknow.save({
-									post: post,
-									user: Parse.User.current()
-								}, {
-									success: function(wannaknow) {
-										self.loading = false
-										$('#creategroupModal').modal('hide')
-										containerTag.group = group
-										riot.route(encodeURI(group.get('groupId')))
-										self.update()
-									}
-								})
+								// var Wannaknow = Parse.Object.extend('WannaKnow')
+								// var wannaknow = new Wannaknow()
+								// wannaknow.save({
+								// 	post: post,
+								// 	user: Parse.User.current()
+								// }, {
+								// 	success: function(wannaknow) {
+								// 		self.loading = false
+								// 		$('#creategroupModal').modal('hide')
+								// 		containerTag.group = group
+								// 		riot.route(encodeURI(group.get('groupId')))
+								// 		self.update()
+								// 	}
+								// })
 							}
 						})
 					}, error: function(group, error) {
