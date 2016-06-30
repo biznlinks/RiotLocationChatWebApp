@@ -198,7 +198,7 @@
 					name: self.groupname.value,
 					lowerName: self.groupname.value.toLowerCase(),
 					description: self.desc.value,
-					keywords: self.keywords.value,
+					keywords: self.keywords.value.toLowerCase(),
 					creator: Parse.User.current(),
 					imageUrl: self.selectedImage ? self.selectedImage.contentUrl : undefined,
 					thumbnailUrl: self.selectedImage ? self.selectedImage.thumbnailUrl : undefined,
