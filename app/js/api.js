@@ -190,10 +190,18 @@ constructQuestionsForTopic: function(topic){
 getallgroups: function(type, filter) {
   loader.trigger('start');
   var promise = new Parse.Promise();
-  var query = new Parse.Query(Parse.Object.extend('Group'));
-  if (type) query.equalTo("type", type);
-  if (filter) query.contains('lowerName', filter.toLowerCase());
-  query.notEqualTo('deleted', true);
+
+  var query1 = new Parse.Query(Parse.Object.extend('Group'));
+  if (type) query1.equalTo("type", type);
+  if (filter) query1.contains('lowerName', filter.toLowerCase());
+  query1.notEqualTo('deleted', true);
+
+  var query2 = new Parse.Query(Parse.Object.extend('Group'));
+  if (type) query2.equalTo("type", type);
+  if (filter) query2.contains('keywords', filter.toLowerCase());
+  query2.notEqualTo('deleted', true);
+
+  var query = new Parse.Query.or(query1, query2);
   query.find().then(function(results) {
     loader.trigger('done');
     results = results.filter(function(event) { return API.distance(event.get('location'), USER_POSITION) <= 1600; });

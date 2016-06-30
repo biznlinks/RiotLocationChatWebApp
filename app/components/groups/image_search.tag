@@ -79,7 +79,7 @@
 	keyUp() {
 		clearTimeout(self.searchTimer)
 		if (self.imageQuery.value) {
-			self.searchTimer = setTimeout(self.searchImage, 500)
+			self.searchTimer = setTimeout(self.searchImage, 700)
 		}
 	}
 
