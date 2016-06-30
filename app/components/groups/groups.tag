@@ -120,11 +120,12 @@
 	}
 
 	.nearby li {
-		padding-top: 10px;
+		padding-top: 24px;
 	}
 
 	.nearby li:last-child .info-box{
     	border: none;
+    	margin-bottom: 2rem;
 	}
 
 	.nearby ul {
@@ -138,14 +139,15 @@
 	}
 
 	.image-joined {
-		height: 60px;
-		width: 60px;
+		height: 80px;
+		width: 80px;
 		object-fit: cover;
+		border-radius: 50%;
 	}
 
 	.image-nearby {
-		height: 60px;
-		width: 60px;
+		height: 100px;
+		width: 100px;
 		object-fit: cover;
 		margin: auto 10px;
 	}
@@ -156,24 +158,18 @@
 		background-size: cover;
 	}
 
-	.nearby .group-title {
-		margin-top: 0;
-	}
-
 	.info-box{
 		display: inline-block;
 		vertical-align: middle;
-		width: calc(100% - 100px);
+		width: calc(100% - 140px);
 		display: inline-block;
 		border-bottom: 1px solid #ccc;
-		padding-top: 20px;
-		padding-bottom: 20px;
+		height: 100px;
 	}
 
 	.group-title {
 		margin-top: 10px;
-		font-size: 14px;
-		font-weight: 500;
+		font-size: 15px;
 	}
 
 	.desc{
