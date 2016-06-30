@@ -1,29 +1,26 @@
 <banner>
-
 <div class="banner-container">
-	<div class="" align="center">
-		<div class="background-image" id="background">
-		</div>
+	<div class="background-image" id="background">
+	</div>
 
-		<div class="row group-info">
-			<div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
-				<div class="group-name">{ containerTag.group.get('name') }</div>
-				<div class="members text-muted">{ locale } • { memberCount } joined</div>
-				
-				<div>
-					<hr>
-					<div class="group-desc">{ containerTag.group.get('description') }</div>
-					<div class="join-group" onclick={ this.submitJoin } if={ !joined }>Follow</div>
-					<div class="join-group" onclick={ this.removeJoin } if={ joined }>Unfollow</div>
+	<div class="row group-info">
+		<div class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+			<div class="group-name">{ containerTag.group.get('name') }</div>
+			<div class="members text-muted">{ locale } • { memberCount } joined</div>
+			
+			<div>
+				<hr>
+				<div class="group-desc">{ containerTag.group.get('description') }</div>
+				<div class="join-group" onclick={ this.submitJoin } if={ !joined }>Follow</div>
+				<div class="join-group" onclick={ this.removeJoin } if={ joined }>Unfollow</div>
 
-
-				</div>
 
 			</div>
+
 		</div>
-		<div class="row">
-			<p if={containerTag.group.get('type')==='event'}><a onclick={showfeed}> Discuss </a> | <a onclick={showtweets}> Tweets </a> </p>
-		</div>
+	</div>
+	<div class="row">
+		<p if={containerTag.group.get('type')==='event'}><a onclick={showfeed}> Discuss </a> | <a onclick={showtweets}> Tweets </a> </p>
 	</div>
 </div>
 
@@ -152,15 +149,18 @@
 	}
 
 	.group-name {
+		text-align: center;
 		font-size: 20px;
 	}
 
 	.members {
 		font-size: 14px;
-		margin: 5px auto;
+		margin-bottom: 10px;
+		text-align: center;
 	}
 
 	.join-group {
+		margin: 0 auto; 
 		text-align: center;
 		padding: 8px 15px;
 		font-size: large;
@@ -188,7 +188,7 @@
 	}
 
 	.group-desc {
-		padding: 10px;
+		padding: 16px 0;
 		font-size: 14px;
 	}
 
