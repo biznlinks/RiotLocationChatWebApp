@@ -8,11 +8,18 @@
 		<div if={ !loading }>
 			<input class="image-search-text" type="text" placeholder="Search Web Images" name="imageQuery" oninput={ this.keyUp }>
 			<div class="image-grid" if={ !searching && searchResults && searchResults.length > 0 }>
-				<div class={ fa:true, fa-chevron-left:searchStart != 0, arrows:true } onclick={ this.shift(-1) }></div>
-				<!-- <div class="image-container" onload="fadeIn(e)" each={ image in searchResults.slice(searchStart, searchEnd) } onclick={ this.selectImage(image) } style="background-image: url('{ image.thumbnailUrl }')">
-				</div> -->
+				<!-- <div class={ fa:true, fa-chevron-left:searchStart != 0, arrows:true } onclick={ this.shift(-1) }></div>
+				<div class="image-container" onload="fadeIn(e)" each={ image in searchResults.slice(searchStart, searchEnd) } onclick={ this.selectImage(image) } style="background-image: url('{ image.thumbnailUrl }')">
+				</div>
 				<img class="image-container" onload="fadeIn(this)" each={ image in searchResults.slice(searchStart, searchEnd) } onclick={ this.selectImage(image) } src={ image.Thumbnail.MediaUrl }/>
-				<div class={ fa:true, fa-chevron-right:searchEnd < searchResults.length, arrows:true } onclick={ this.shift(1) }></div>
+				<div class={ fa:true, fa-chevron-right:searchEnd < searchResults.length, arrows:true } onclick={ this.shift(1) }></div> -->
+				<div class="swiper-container">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide" each={ image in searchResults }>
+							<img class="search-results" src={ image.Thumbnail.MediaUrl } />
+						</div>
+					</div>
+				</div>
 			</div>
 
 			<div class="upload-container">
@@ -86,7 +93,16 @@
 			self.searchResults = data
 			self.searching     = false
 			self.update()
+			self.createSwiper()
 		})
+	}
+
+	createSwiper() {
+		var swiper = new Swiper('.swiper-container', {
+	        slidesPerView: 3.5,
+	        spaceBetween: 20,
+	        freeMode: true
+	    });
 	}
 
 	shift(direction) {
@@ -283,6 +299,11 @@
 		border-top: 1px solid #ddd;
 		border-bottom: 1px solid #ddd;
 		line-height: 1;
+	}
+
+	.search-results {
+		height: 110px;
+		object-fit: cover;
 	}
 
 	.arrows {
