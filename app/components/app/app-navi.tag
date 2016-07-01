@@ -57,8 +57,8 @@
             <li class="dropdown-item" onclick={ this.showShare }>
               <a class="nav-link" href="#">Share</a>
             </li>
-            <li class="dropdown-item" onclick={ this.showGroupInfo }>
-              <a class="nav-link" href="#">Group Info</a>
+            <li class="dropdown-item" if={ containerTag.group.get('creator').id == Parse.User.current().id } onclick={ this.showGroupInfo }>
+              <a class="nav-link" href="#">Edit Group</a>
             </li>
           </ul>
         </div>
