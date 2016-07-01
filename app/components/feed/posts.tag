@@ -25,8 +25,6 @@
 		self.loading      = false
 
 		this.on('postsLoaded', function() {
-			console.log('postsLoaded')
-
 			var WannaKnow = Parse.Object.extend('WannaKnow')
 			var query     = new Parse.Query(WannaKnow)
 			query.equalTo('user', Parse.User.current())

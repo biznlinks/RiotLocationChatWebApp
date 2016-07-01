@@ -255,6 +255,11 @@
 								// 		self.update()
 								// 	}
 								// })
+								self.loading = false
+								$('#creategroupModal').modal('hide')
+								containerTag.group = group
+								riot.route(encodeURI(group.get('groupId')))
+								self.update()
 							}
 						})
 					}, error: function(group, error) {
@@ -397,7 +402,7 @@
 		#groupname {
 			font-size: 20px;
 			width: 100%;
-			padding-top: 10px; 
+			padding-top: 10px;
 		}
 		#groupname:focus, #desc:focus {
 			outline: none;
