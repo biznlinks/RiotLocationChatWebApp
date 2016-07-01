@@ -54,6 +54,9 @@
             <!-- <li class="dropdown-item" onclick={ this.showSearch }>
               <a class="nav-link" href="#">Search</a>
             </li> -->
+            <li class="dropdown-item" onclick={ this.showShare }>
+              <a class="nav-link" href="#">Share</a>
+            </li>
             <li class="dropdown-item" onclick={ this.showGroupInfo }>
               <a class="nav-link" href="#">Group Info</a>
             </li>
@@ -141,6 +144,10 @@
 
   showSearch() {
     $('#searchModal').modal('show')
+  }
+
+  showShare() {
+    //add share code
   }
 
   showGroupInfo() {

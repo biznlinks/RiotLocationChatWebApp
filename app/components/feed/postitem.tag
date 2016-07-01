@@ -16,6 +16,7 @@
 						<ul class="dropdown-menu dropdown-menu-right">
 							<li class="options-item" if={ Parse.User.current().id == post.get('author').id } onclick={ showEdit }>Edit</li>
 							<li class="options-item" if={ Parse.User.current().id == post.get('author').id } onclick={ deletePost }>Delete</li>
+							<li class="options-item">Like</li>
 							<li class="options-item">Report</li>
 						</ul>
 					</div>
@@ -493,7 +494,7 @@
 	}
 
 	.card-block{
-		padding-bottom: 0px;
+		padding: 1rem;
 	}
 
 	.card {

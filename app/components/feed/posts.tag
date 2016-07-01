@@ -75,7 +75,7 @@
 			margin: 5px;
 		}
 		div.postitem:last-child {
-			padding-bottom: 16px;
+			margin-bottom: 16px;
 		}
 
 

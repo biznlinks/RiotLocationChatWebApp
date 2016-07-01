@@ -77,17 +77,19 @@
 	}
 
 	.group-name {
-		font-size: x-large;
-		font-weight: bolder;
+		padding-top: 16px; 
+		font-size: 20px;
+		text-align: center;
 	}
 
 	.members {
-		margin-bottom: 10px;
+		margin: 5px 0;
+		font-size: 14px;
 	}
 
 	.group-desc {
 		padding: 10px;
-		font-size: large;
+		font-size: 14px;
 	}
 </style>
 </groupinfo>
