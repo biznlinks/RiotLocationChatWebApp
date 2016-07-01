@@ -132,6 +132,7 @@
 
     createQuestion(){
       self.loading = true
+      self.update()
 
       var content = self.searchField.value
       if (content.length < 5) {
@@ -164,8 +165,25 @@
       post.set("anonymous", self.anonymous)
       post.set("group", containerTag.group)
 
-      post.save()
-      
+      if (self.chosenImage) {
+        API.uploadImage(self.chosenImage).then(function(result) {
+          post.set("imageURL", result)
+          post.save().then(function() {
+            self.loading=false
+            homefeedTag.init()
+            self.hide()
+            self.init()
+          })
+        })
+      } else {
+        post.save().then(function() {
+          self.loading=false
+          homefeedTag.init()
+          self.hide()
+          self.init()
+        })
+      }
+
       // .then(function(){
       //   var Wannaknow = Parse.Object.extend('WannaKnow')
       //   var wannaknow = new Wannaknow()
@@ -183,23 +201,6 @@
       //     }
       //   })
       // })
-
-      if (self.chosenImage) {
-        API.uploadImage(self.chosenImage).then(function(result) {
-          post.set("imageURL", result)
-          post.save().then(function() {
-            self.loading=false
-            homefeedTag.init()
-            self.hide()
-            self.init()
-          })
-        })
-      } else {
-        self.loading=false
-        homefeedTag.init()
-        self.hide()
-        self.init()
-      }
     }
 
   </script>
