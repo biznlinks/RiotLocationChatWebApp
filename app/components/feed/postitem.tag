@@ -11,8 +11,8 @@
 						<div class="time">{ this.getTime() }</div>
 					</div>
 
-					<div>
-						{ wannaknowCount } likes
+					<div if={ wannaknowCount > 0 }>
+						{ wannaknowCount } like<span if={ wannaknowCount!=1 }>s</span>
 					</div>
 
 					<div class="options">
