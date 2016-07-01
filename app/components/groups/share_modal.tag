@@ -30,9 +30,8 @@
 
 	fbShare() {
 		FB.ui({
-		    method: 'share',
-		    display: 'popup',
-		    href: window.location.href,
+		    method: 'send',
+		    link: window.location.href,
 		}, function(response){});
 	}
 </script>

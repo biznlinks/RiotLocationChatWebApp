@@ -40,7 +40,8 @@
 
 			query.find().then(function(results) {
 				self.wannaknows = results
-				for (var i = 0; i < self.posts.length; i++) self.tags.postitem[i].init()
+				if (Array.isArray(self.tags.postitem)) for (var i = 0; i < self.posts.length; i++) self.tags.postitem[i].init()
+				else if (self.tags.postitem) self.tags.postitem.init()
 				self.loading = false
 				self.update()
 			})
