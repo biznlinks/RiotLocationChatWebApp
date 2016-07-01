@@ -90,6 +90,10 @@
 		});
 	}
 
+	triggerResize() {
+		if (self.gmap) google.maps.event.trigger(self.gmap, 'resize')
+	}
+
 	resetMap() {
 		if (self.gmap) {
 			self.gmap.setCenter({lat: USER_POSITION.latitude, lng: USER_POSITION.longitude})

@@ -49,6 +49,7 @@
 		var utime = new Date()
 
 		containerTag.group = null
+		self.tags.groupsmap.triggerResize()
 		API.getjoinedgroups(Parse.User.current()).then(function(joinedGroups) {
 			self.joinedGroups = joinedGroups
 			API.getallgroups(null, self.filter).then(function(groups) {		//TODO Add another filter to get the groups in joinedGroups UserGroup object

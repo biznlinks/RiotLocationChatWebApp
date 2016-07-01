@@ -17,14 +17,35 @@
 
 
 	<script>
-		var self = this
-		postsTag = this
-		self.profile = opts.profile
-		this.posts = opts.posts
-		this.postsVisible = true
-		this.loading = false
+		var self          = this
+		postsTag          = this
+		self.profile      = opts.profile
+		self.posts        = opts.posts
+		self.postsVisible = true
+		self.loading      = false
 
+		this.on('postsLoaded', function() {
+			var WannaKnow = Parse.Object.extend('WannaKnow')
+			var query     = new Parse.Query(WannaKnow)
+			query.equalTo('user', Parse.User.current())
+			query.equalTo('post', self.posts[0])
 
+			for (var i = 1; i < self.posts.length; i++) {
+				var subQuery = new Parse.Query(WannaKnow)
+				subQuery.equalTo('user',Parse.User.current())
+				subQuery.equalTo('post', self.posts[i])
+
+				query = Parse.Query.or(query, subQuery)
+			}
+
+			query.find().then(function(results) {
+				self.wannaknows = results
+				if (Array.isArray(self.tags.postitem)) for (var i = 0; i < self.posts.length; i++) self.tags.postitem[i].init()
+				else if (self.tags.postitem) self.tags.postitem.init()
+				self.loading = false
+				self.update()
+			})
+		})
 
 
 	</script>
@@ -48,31 +69,6 @@
 			font-size: 30px;
 			font-weight: 600;
 			color: #bbb;
-		}
-
-
-		a {
-			display: block;
-			text-decoration: none;
-			width: 100%;
-			height: 100%;
-			/*line-height: 150px;*/
-			/*color: inherit;*/
-
-		}
-		a:hover {
-			background: #eee;
-			color: #000;
-			text-decoration: none;
-		}
-
-		ul {
-			padding: 10px;
-			list-style: none;
-		}
-		li {
-			display: block;
-			margin: 5px;
 		}
 		div.postitem:last-child {
 			margin-bottom: 16px;

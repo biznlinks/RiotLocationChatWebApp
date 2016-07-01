@@ -21,10 +21,6 @@
 	self.postsTag = this.tags.homeFeedPosts
 
 	this.on('mount', function() {
-		askModalTag.on("posted", function(){
-			self.init()
-		})
-		self.init()
 	})
 
 	init(){
@@ -34,10 +30,11 @@
 		//self.tags.search.init()
 		API.getallposts(20).then(function(results){
 			self.currentPosts = results
-			self.postsTag.update({posts:results, loading:false})
+			self.postsTag.update({posts:results})
+			self.postsTag.trigger('postsLoaded')
 
 			self.latestUpdate = new Date()
-			self.checkUpdate = setInterval(function() {
+			self.checkUpdate  = setInterval(function() {
 				self.checkNewPosts()
 			}, 15000)
 		})

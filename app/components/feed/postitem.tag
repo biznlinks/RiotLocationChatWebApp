@@ -11,12 +11,17 @@
 						<div class="time">{ this.getTime() }</div>
 					</div>
 
+					<div>
+						{ wannaknowCount } likes
+					</div>
+
 					<div class="options">
 						<div class="toggler fa fa-ellipsis-h dropdown-toggle" data-toggle="dropdown"></div>
 						<ul class="dropdown-menu dropdown-menu-right">
 							<li class="options-item" if={ Parse.User.current().id == post.get('author').id } onclick={ showEdit }>Edit</li>
 							<li class="options-item" if={ Parse.User.current().id == post.get('author').id } onclick={ deletePost }>Delete</li>
-							<li class="options-item">Like</li>
+							<li class="options-item" onclick={ submitWannaknow } if={ !wannaknown }>Like</li>
+							<li class="options-item" onclick={ submitWannaknow } if={ wannaknown }>Unlike</li>
 							<li class="options-item">Report</li>
 						</ul>
 					</div>
@@ -107,7 +112,6 @@
 	self.edit           = false
 
 	this.on('mount', function() {
-		self.init()
 	})
 
 	init() {
@@ -119,20 +123,13 @@
 
 		self.wannaknowCount = self.post.get('wannaknowCount')
 
-		// // THIS CODE NEEDS TO BE IN THE PARENT CONTAINER IF REQUIRED
-		// var WannaknowObject = Parse.Object.extend('WannaKnow')
-		// var query           = new Parse.Query(WannaknowObject)
-		// query.equalTo('post', self.post)
-		// query.equalTo('user', Parse.User.current())
-		// query.find({
-		// 	success: function(wannaknows) {
-		// 		if (wannaknows.length > 0)
-		// 			self.wannaknown = true
-		// 		self.update()
-		// 	},
-		// 	error: function(error) {
-		// 	}
-		// })
+		for (var i = 0; i < self.parent.wannaknows.length; i++) {
+			if (self.parent.wannaknows[i].get('post').id == self.post.id) {
+				self.wannaknown = true
+				self.update()
+				break
+			}
+		}
 	}
 
 	getAuthorName() {
