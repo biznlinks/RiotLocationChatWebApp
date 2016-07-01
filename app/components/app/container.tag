@@ -8,6 +8,7 @@
     <login name="loginModal"></login>
     <forgot name="forgotModal"></forgot>
     <ask name="askModal"></ask>
+    <share name="shareModal"></share>
     <deletepost name="deletepostModal"></deletepost>
     <search name="searchModal"></search>
     <creategroup name="creategroupModal" if={ route=='groups' }></creategroup>

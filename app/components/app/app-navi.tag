@@ -147,7 +147,7 @@
   }
 
   showShare() {
-    //add share code
+    $('#shareModal').modal('show')
   }
 
   showGroupInfo() {
