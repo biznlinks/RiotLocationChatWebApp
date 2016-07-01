@@ -452,8 +452,6 @@
 
 		.image-grid {
 			padding-top: 10px;
-			border-top: 1px solid #ddd;
-			border-bottom: 1px solid #ddd;
 			line-height: 1;
 		}
 

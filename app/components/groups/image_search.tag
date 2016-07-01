@@ -294,13 +294,6 @@
 		margin: 1rem 0;
 	}
 
-	.image-grid {
-		padding-top: 10px;
-		border-top: 1px solid #ddd;
-		border-bottom: 1px solid #ddd;
-		line-height: 1;
-	}
-
 	.search-results {
 		height: 110px;
 		object-fit: cover;

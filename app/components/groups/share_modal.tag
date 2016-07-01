@@ -42,7 +42,9 @@
 	}
 
 	.link-container {
+		text-align: left;
 		margin-bottom: 15px;
+		padding-bottom: 10px;
 	}
 
 	.link {
