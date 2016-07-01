@@ -29,19 +29,20 @@
 	this.on('mount', function() {
 		self.wannaknowCount = self.post.get('wannaknowCount')
 		// Check if user already followed this post
-		var WannaknowObject = Parse.Object.extend('WannaKnow')
-		var query           = new Parse.Query(WannaknowObject)
-		query.equalTo('post', self.post)
-		query.equalTo('user', Parse.User.current())
-		query.find({
-			success: function(wannaknows) {
-				if (wannaknows.length > 0)
-					self.wannaknown = true
-					self.update()
-			},
-			error: function(error) {
-			}
-		})
+		// THIS CODE NEEDS TO BE IN THE PARENT CONTAINER IF REQUIRED
+		// var WannaknowObject = Parse.Object.extend('WannaKnow')
+		// var query           = new Parse.Query(WannaknowObject)
+		// query.equalTo('post', self.post)
+		// query.equalTo('user', Parse.User.current())
+		// query.find({
+		// 	success: function(wannaknows) {
+		// 		if (wannaknows.length > 0)
+		// 			self.wannaknown = true
+		// 			self.update()
+		// 	},
+		// 	error: function(error) {
+		// 	}
+		// })
 	})
 
 	getAuthorName() {

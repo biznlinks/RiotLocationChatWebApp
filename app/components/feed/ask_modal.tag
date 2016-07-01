@@ -164,23 +164,25 @@
       post.set("anonymous", self.anonymous)
       post.set("group", containerTag.group)
 
-      post.save().then(function(){
-        var Wannaknow = Parse.Object.extend('WannaKnow')
-        var wannaknow = new Wannaknow()
-        wannaknow.save({
-          post: post,
-          user: Parse.User.current()
-        },{
-          success: function(post) {
-            //self.trigger('posted')
-          },
-          error: function(post, error) {
-            self.isError = true
-            self.error = error.message
-            self.update()
-          }
-        })
-      })
+      post.save()
+      
+      // .then(function(){
+      //   var Wannaknow = Parse.Object.extend('WannaKnow')
+      //   var wannaknow = new Wannaknow()
+      //   wannaknow.save({
+      //     post: post,
+      //     user: Parse.User.current()
+      //   },{
+      //     success: function(post) {
+      //       //self.trigger('posted')
+      //     },
+      //     error: function(post, error) {
+      //       self.isError = true
+      //       self.error = error.message
+      //       self.update()
+      //     }
+      //   })
+      // })
 
       if (self.chosenImage) {
         API.uploadImage(self.chosenImage).then(function(result) {
