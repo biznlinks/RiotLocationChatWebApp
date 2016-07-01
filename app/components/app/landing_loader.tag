@@ -38,7 +38,7 @@
 	var verticalSpacing = 50;
 
 	this.on('mount', function() {
-		var phrases = ["", "Creating custom profile", "Drawing mapview", "Fetching recent content", "Searching location", "Creating awesome community"];
+		var phrases = ["", "Creating custom profile", "Drawing mapview", "Fetching recent content", "Searching location", "Creating communities"];
 		addPhrasesToDocument(phrases);
 		var start_time = new Date().getTime();
 		var upward_moving_group = document.getElementById("phrases");
@@ -172,7 +172,6 @@
       -ms-flex-flow: column;
           flex-flow: column;
   height: 150px;
-  overflow: hidden;
   width: 260px;
 }
 

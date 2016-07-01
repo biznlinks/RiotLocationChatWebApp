@@ -20,7 +20,7 @@
 								<div class="add-photo" if={ !selectedImage }>Add Image</div>
 								<img class="img-circle group-photo" if={ selectedImage } src={ selectedImage.thumbnailUrl }>
 							</div>
-							<div><input type="text" name="groupname" id="groupname" placeholder="Group name" size="140" maxlength="140"></div>
+							<div><input type="text" name="groupname" id="groupname" placeholder="Group name" size="100" maxlength="140"></div>
 							<div><input type="text" name="keywords" id="keywords" placeholder="Keywords"></div>
 							<textarea id="desc" class="form-control" placeholder="Short description" rows="3"></textarea>
 
@@ -29,6 +29,7 @@
 						<div id="map-container" class="hide">
 							<input id="place-input" type="text" placeholder="Search for place"/>
 							<div id="map"></div>
+							<div>Discoverability Radius</div>
 							<input name="slider" type="range" value="10"></input>
 						</div>
 
@@ -396,6 +397,7 @@
 		#groupname {
 			font-size: 20px;
 			width: 100%;
+			padding-top: 10px; 
 		}
 		#groupname:focus, #desc:focus {
 			outline: none;
@@ -472,6 +474,10 @@
 		#image-edit {
 			width: 100%;
 			height: 300px;
+		}
+
+		.modal-body {
+			padding: 0 10px;
 		}
 
 		@media screen and (max-width: 543px) {

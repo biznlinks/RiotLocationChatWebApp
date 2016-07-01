@@ -20,7 +20,7 @@
 
 </div>
 <div if={ joinedGroups.length > 0 }>
-	<hr>
+
 </div>
 <div class="title">
 	Nearby
@@ -85,9 +85,11 @@
 	}
 
 	.title {
-		font-size: 16px;
+		font-size: 18px;
 		font-weight: lighter;
-		padding-left: 20px;
+		padding: 10px 16px;
+		background-color: #E74C3C;
+		color: white;
 	}
 
 	.joined-title {
@@ -96,13 +98,8 @@
 	}
 
 	.nearby-title {
-		font-size: 15px;
+		font-size: 18px;
 		overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-	}
-
-	.desc {
-		overflow: hidden;
-		height: 74px;
 	}
 
 	.arrow {

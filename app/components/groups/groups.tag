@@ -93,10 +93,6 @@
 
 </script>
 <style scoped>
-	.groups-container {
-		margin-top: 20px;
-	}
-
 	.row > * {
 		padding: 0;
 	}
@@ -128,7 +124,7 @@
 	}
 
 	.nearby li:last-child{
-    	margin-bottom: 2rem;
+    	margin-bottom: 1rem;
 	}
 
 	.nearby ul {
@@ -176,12 +172,22 @@
 	}
 
 	.desc{
-		font-size: 12px;
+		font-size: 14px;
+		overflow: hidden;
+		height: 64px;
 	}
 
 	@media (max-width: 480px) {
 		.group-title > * {
 			font-size: 12px;
+		}
+	}
+
+	@media (min-width: 700px) {
+		.groups-container{
+			border: 2px solid #E74C3C;
+		    border-radius: 3px;
+		    margin-top: 1rem;
 		}
 	}
 
