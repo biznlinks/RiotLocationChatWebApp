@@ -11,6 +11,10 @@
 						<div class="time">{ this.getTime() }</div>
 					</div>
 
+					<div>
+						{ wannaknowCount } likes
+					</div>
+
 					<div class="options">
 						<div class="toggler fa fa-ellipsis-h dropdown-toggle" data-toggle="dropdown"></div>
 						<ul class="dropdown-menu dropdown-menu-right">
