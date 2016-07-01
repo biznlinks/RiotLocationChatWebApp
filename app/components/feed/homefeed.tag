@@ -49,19 +49,16 @@
 				else false
 			})
 			if (results.length > 0) {
-				self.newPost = true
 				self.updatedPosts = results
+				self.updateFeed()
 			}
-			self.update()
 		})
 	}
 
 	updateFeed() {
 		for (var i = 0; i < self.updatedPosts.length; i++) self.currentPosts.push(self.updatedPosts[i])
-		console.log(self.currentPosts)
 		self.postsTag.update({posts: self.currentPosts, loading: false})
 		self.latestUpdate = new Date()
-		self.newPost = false
 		self.update()
 	}
 

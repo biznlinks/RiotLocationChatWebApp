@@ -16,7 +16,7 @@
 				<div class="swiper-container">
 					<div class="swiper-wrapper">
 						<div class="swiper-slide" each={ image in searchResults }>
-							<img class="search-results" src={ image.Thumbnail.MediaUrl } />
+							<img class="search-results" src={ image.Thumbnail.MediaUrl } onclick={ this.selectImage(image) } />
 						</div>
 					</div>
 				</div>
