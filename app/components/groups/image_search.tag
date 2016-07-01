@@ -6,7 +6,7 @@
 		<loader if={ loading }></loader>
 
 		<div if={ !loading }>
-			<input type="text" placeholder="Search" name="imageQuery" oninput={ this.keyUp }>
+			<input class="image-search-text" type="text" placeholder="Search Web Images" name="imageQuery" oninput={ this.keyUp }>
 			<div class="image-grid" if={ !searching && searchResults && searchResults.length > 0 }>
 				<div class={ fa:true, fa-chevron-left:searchStart != 0, arrows:true } onclick={ this.shift(-1) }></div>
 				<!-- <div class="image-container" onload="fadeIn(e)" each={ image in searchResults.slice(searchStart, searchEnd) } onclick={ this.selectImage(image) } style="background-image: url('{ image.thumbnailUrl }')">
@@ -264,6 +264,10 @@
 
 	#outer-container{
 		margin-bottom: 1rem;
+	}
+
+	.image-search-text{
+		border-bottom: 1px solid #fafafa !important;
 	}
 
 	.image-edit-container{
