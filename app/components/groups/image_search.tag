@@ -15,15 +15,6 @@
 				<div class={ fa:true, fa-chevron-right:searchEnd < searchResults.length, arrows:true } onclick={ this.shift(1) }></div>
 			</div>
 
-			<div class="options" if={ !searchResults || searchResults.length == 0 || searching }>
-				<loader if={ searching }></loader>
-
-				<div if={ !searching }>
-					<div>Search for image</div>
-					or
-				</div>
-			</div>
-
 			<div class="upload-container">
 				<label for="imageFile"><span class="btn btn-primary">Upload your image</span></label>
 				<input name="imageFile" id="imageFile" type="file" style="visibility: hidden; position: absolute;"></input>
@@ -266,8 +257,21 @@
 		border: none;
 	}
 
+
 	#image-search-container input:focus {
 		outline: none;
+	}
+
+	#outer-container{
+		margin-bottom: 1rem;
+	}
+
+	.image-edit-container{
+		padding-bottom: 16px;
+	}
+
+	.cropper-container{
+		margin: 1rem 0;
 	}
 
 	.image-grid {
@@ -302,7 +306,6 @@
 	}
 
 	.options {
-		padding-top: 70px;
 		padding-bottom: 10px;
 		text-align: center;
 		font-size: 26px;
