@@ -23,12 +23,12 @@
 					</div>
 				</div>
 
-				<div if={ wannaknowCount > 0 }>
+				<div class="likes" if={ wannaknowCount > 0 }>
 					<!-- { wannaknowCount } like<span if={ wannaknowCount!=1 }>s</span> -->
 					+ { wannaknowCount }
 				</div>
-				
-				<p class="post-content" name="content" if={!edit}>{this.getContent()}</p>
+
+				<div class="post-content" name="content" if={!edit}>{this.getContent()}</div>
 				<div class="edit-box" if={edit}>
 					<textarea class="post-content edit-input" name="editcontent" rows="1"></textarea>
 					<div class="btn-container">
@@ -350,11 +350,20 @@
 		padding: 3px 10px;
 	}
 
+	.likes {
+		display: inline-block;
+		font-size: 16px;
+		margin-top: 8px;
+		padding-left: 5px;
+		color: #00C392;
+	}
+
 	.post-content{
 		font-size: 14px;
 		margin-top: 8px;
 		margin-bottom: 0px;
-		padding-left: 45px;
+		padding-left: 15px;
+		display: inline-block;
 	}
 	.post-content:focus {
 		outline: none;
