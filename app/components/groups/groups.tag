@@ -4,6 +4,11 @@
 <div if={!loading}>
 	<groupsmap name="groupsmap"></groupsmap>
 
+	<div class="filter-container">
+		<input type="text" placeholder="Filter by keywords" name="groupquery">
+		<button class="btn btn-primary" onclick={ searchGroup }>Filter</button>
+	</div>
+
 	<div class="outer-container" style="
 	    margin-right: auto;
 	    margin-left: auto;
@@ -92,6 +97,12 @@
 		$('#creategroupModal').modal('show')
 	}
 
+	searchGroup() {
+		if (self.groupquery.value == '') riot.route('')
+		else riot.route('/search/' + encodeURI(self.groupquery.value))
+		self.update()
+	}
+
 </script>
 <style scoped>
 	.row > * {
@@ -114,6 +125,15 @@
 		vertical-align: top;
 		text-align: center;
 		display: inline-block;
+	}
+
+	.filter-container {
+		margin-top: 20px;
+		text-align: center;
+	}
+
+	.filter-container input {
+		padding: 5px 16px;
 	}
 
 	.nearby li {

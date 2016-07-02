@@ -36,7 +36,14 @@
 	})
 
 	this.on('groupsUpdated', function() {
+		if (self.markers) {
+			for (var i = 0; i < self.markers.length; i++) {
+				self.markers[i].setMap(null);
+			}
+		}
 		self.markers = []
+
+
 		for (var i = 0; i < self.joinedGroups.length; i++) {
 			var groupLocation = {lat: self.joinedGroups[i].get('group').get('location').latitude,
 				lng: self.joinedGroups[i].get('group').get('location').longitude}
@@ -46,10 +53,11 @@
 				title: self.joinedGroups[i].get('group').get('name'),
 				group:self.joinedGroups[i].get('group')
 				//icon: '/images/marker-joined.png'
-			}).addListener('click', function() {
+			}))
+			self.markers[self.markers.length-1].addListener('click', function() {
 				self.selectedGroup = this.group
 				self.update()
-			}))
+			})
 		}
 		for (var i = 0; i < self.groups.length; i++) {
 			var groupLocation = {lat: self.groups[i].get('location').latitude,
@@ -60,10 +68,11 @@
 				title: self.groups[i].get('name'),
 				group: self.groups[i],
 				//icon: '/images/marker-nearby.png'
-			}).addListener('click', function() {
+			}))
+			self.markers[self.markers.length-1].addListener('click', function() {
 				self.selectedGroup = this.group
 				self.update()
-			}))
+			})
 		}
 	})
 
