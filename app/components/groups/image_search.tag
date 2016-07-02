@@ -6,7 +6,12 @@
 		<loader if={ loading }></loader>
 
 		<div if={ !loading }>
-			<input class="image-search-text" type="text" placeholder="Search Web Images" name="imageQuery" oninput={ this.keyUp }>
+			<input id="imageQuery" type="text" placeholder="Search Web Images" oninput={ this.keyUp }>
+
+			<div>
+			<loader style="display: block" if={ searching }> </loader>
+			</div>
+
 			<div class="image-grid" if={ !searching && searchResults && searchResults.length > 0 }>
 				<!-- <div class={ fa:true, fa-chevron-left:searchStart != 0, arrows:true } onclick={ this.shift(-1) }></div>
 				<div class="image-container" onload="fadeIn(e)" each={ image in searchResults.slice(searchStart, searchEnd) } onclick={ this.selectImage(image) } style="background-image: url('{ image.thumbnailUrl }')">
@@ -194,7 +199,11 @@
 	show() {
 		var promise = new Parse.Promise()
 		$('#outer-container').slideDown({duration: 0})
-		self.showSearch().then(function(result) { promise.resolve(true) })
+		self.showSearch().then(function(result) { 
+			promise.resolve(true)
+			$('#imageQuery').focus()
+
+		})
 
 		return promise
 	}
@@ -282,7 +291,7 @@
 		margin-bottom: 1rem;
 	}
 
-	.image-search-text{
+	#imageQuery{
 		border-bottom: 1px solid #fafafa !important;
 	}
 

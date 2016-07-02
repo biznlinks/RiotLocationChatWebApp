@@ -102,5 +102,11 @@
 		color: white;
 		font-size: large;
 	}
+
+	@media (max-width: 480px) {
+		.postfeed{
+			border-radius: 0px;
+		}
+	}
 </style>
 </feed>

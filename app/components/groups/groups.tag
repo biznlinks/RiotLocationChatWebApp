@@ -186,7 +186,7 @@
 
 	@media (min-width: 700px) {
 		.groups-container{
-			border: 2px solid #E74C3C;
+			border: 2px solid #334067;
 		    border-radius: 3px;
 		    margin-top: 1rem;
 		}

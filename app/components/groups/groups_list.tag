@@ -88,7 +88,7 @@
 		font-size: 18px;
 		font-weight: lighter;
 		padding: 10px 16px;
-		background-color: #E74C3C;
+		background-color: #334067;
 		color: white;
 	}
 

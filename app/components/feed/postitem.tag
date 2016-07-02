@@ -11,10 +11,6 @@
 						<div class="time">{ this.getTime() }</div>
 					</div>
 
-					<div if={ wannaknowCount > 0 }>
-						{ wannaknowCount } like<span if={ wannaknowCount!=1 }>s</span>
-					</div>
-
 					<div class="options">
 						<div class="toggler fa fa-ellipsis-h dropdown-toggle" data-toggle="dropdown"></div>
 						<ul class="dropdown-menu dropdown-menu-right">
@@ -27,6 +23,11 @@
 					</div>
 				</div>
 
+				<div if={ wannaknowCount > 0 }>
+					<!-- { wannaknowCount } like<span if={ wannaknowCount!=1 }>s</span> -->
+					+ { wannaknowCount }
+				</div>
+				
 				<p class="post-content" name="content" if={!edit}>{this.getContent()}</p>
 				<div class="edit-box" if={edit}>
 					<textarea class="post-content edit-input" name="editcontent" rows="1"></textarea>
