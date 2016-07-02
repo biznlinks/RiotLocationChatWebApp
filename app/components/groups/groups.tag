@@ -4,6 +4,10 @@
 <div if={!loading}>
 	<groupsmap name="groupsmap"></groupsmap>
 
+	<div class="filter-container">
+		<input type="text" placeholder="Filter by keywords" name="groupquery" oninput={ this.keyUp }>
+	</div>
+
 	<div class="outer-container" style="
 	    margin-right: auto;
 	    margin-left: auto;
@@ -59,8 +63,13 @@
 					return true
 				})
 
-				self.tags.groupsmap.update({joinedGroups: self.joinedGroups, groups: self.groups})
-				self.tags.groupslist.update({joinedGroups: self.joinedGroups, groups: self.groups})
+				if (self.filter) {
+					self.tags.groupsmap.update({joinedGroups: [], groups: self.groups})
+					self.tags.groupslist.update({joinedGroups: [], groups: self.groups})
+				} else {
+					self.tags.groupsmap.update({joinedGroups: self.joinedGroups, groups: self.groups})
+					self.tags.groupslist.update({joinedGroups: self.joinedGroups, groups: self.groups})
+				}
 
 				if (FIRST_TIME) {
 					setTimeout(function() {
@@ -92,6 +101,17 @@
 		$('#creategroupModal').modal('show')
 	}
 
+	keyUp() {
+		clearTimeout(self.searchTimer)
+		self.searchTimer = setTimeout(self.searchGroup, 700)
+	}
+
+	searchGroup() {
+		if (self.groupquery.value == '') riot.route('')
+		else riot.route('/search/' + encodeURI(self.groupquery.value))
+		self.update()
+	}
+
 </script>
 <style scoped>
 	.row > * {
@@ -114,6 +134,23 @@
 		vertical-align: top;
 		text-align: center;
 		display: inline-block;
+	}
+
+	.filter-container {
+		margin-top: 20px;
+		text-align: center;
+	}
+
+	.filter-container input {
+		padding: 5px 16px;
+		-webkit-border-radius: 18px;
+		-moz-border-radius: 18px;
+		border-radius: 18px;
+		border: 1px solid #ccc;
+	}
+
+	.filter-container input:focus {
+		outline: none;
 	}
 
 	.nearby li {
