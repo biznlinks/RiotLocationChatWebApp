@@ -5,8 +5,7 @@
 	<groupsmap name="groupsmap"></groupsmap>
 
 	<div class="filter-container">
-		<input type="text" placeholder="Filter by keywords" name="groupquery">
-		<button class="btn btn-primary" onclick={ searchGroup }>Filter</button>
+		<input type="text" placeholder="Filter by keywords" name="groupquery" oninput={ this.keyUp }>
 	</div>
 
 	<div class="outer-container" style="
@@ -64,8 +63,13 @@
 					return true
 				})
 
-				self.tags.groupsmap.update({joinedGroups: self.joinedGroups, groups: self.groups})
-				self.tags.groupslist.update({joinedGroups: self.joinedGroups, groups: self.groups})
+				if (self.filter) {
+					self.tags.groupsmap.update({joinedGroups: [], groups: self.groups})
+					self.tags.groupslist.update({joinedGroups: [], groups: self.groups})
+				} else {
+					self.tags.groupsmap.update({joinedGroups: self.joinedGroups, groups: self.groups})
+					self.tags.groupslist.update({joinedGroups: self.joinedGroups, groups: self.groups})
+				}
 
 				if (FIRST_TIME) {
 					setTimeout(function() {
@@ -95,6 +99,11 @@
 
 	showCreateModal() {
 		$('#creategroupModal').modal('show')
+	}
+
+	keyUp() {
+		clearTimeout(self.searchTimer)
+		self.searchTimer = setTimeout(self.searchGroup, 700)
 	}
 
 	searchGroup() {
@@ -134,6 +143,14 @@
 
 	.filter-container input {
 		padding: 5px 16px;
+		-webkit-border-radius: 18px;
+		-moz-border-radius: 18px;
+		border-radius: 18px;
+		border: 1px solid #ccc;
+	}
+
+	.filter-container input:focus {
+		outline: none;
 	}
 
 	.nearby li {
