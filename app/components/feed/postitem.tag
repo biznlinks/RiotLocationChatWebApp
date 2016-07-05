@@ -363,6 +363,7 @@
 		margin-top: 8px;
 		margin-bottom: 0px;
 		padding-left: 15px;
+		width: calc(100% - 35px);
 		display: inline-block;
 	}
 	.post-content:focus {
