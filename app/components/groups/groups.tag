@@ -215,6 +215,10 @@
 		height: 64px;
 	}
 
+	.groups-container{
+		margin-top: 1rem;
+	}
+
 	@media (max-width: 480px) {
 		.group-title > * {
 			font-size: 12px;
@@ -224,8 +228,6 @@
 	@media (min-width: 700px) {
 		.groups-container{
 			border: 2px solid #334067;
-		    border-radius: 3px;
-		    margin-top: 1rem;
 		}
 	}
 

@@ -4,7 +4,11 @@
     <i class="fa fa-spinner fa-spin fa-3x fa-fw margin-bottom"></i>
     <span class="sr-only">Loading...</span>
 
-  <style>
+  <style scoped>
+  :scope{
+    font-size: 40px;
+    color: gray;
+  }
   /*.loader {
     border: 16px solid #f3f3f3;
     border-top: 16px solid #3498db;
