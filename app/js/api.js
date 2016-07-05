@@ -404,5 +404,66 @@ createCORSRequest: function(method, url) {
     xhr = null;
   }
   return xhr;
+},
+FacebookLogin: function() {
+  var promise = new Parse.Promise();
+
+  var checkUser = function(authResponse) {
+    var User    = Parse.Object.extend('User');
+    var query   = new Parse.Query(User);
+    query.equalTo('facebookID', authResponse.userID);
+
+    query.first().then(function(response) {
+      if (response) login(response);
+      else populateUser();
+    });
+  };
+  var populateUser = function() {
+    var user = Parse.User.current();
+    FB.api('/me?fields=first_name, last_name, picture, email', function(response) {
+      user.set('firstName', response.first_name);
+      user.set('lastName', response.last_name);
+      user.set('email', response.email);
+      user.set('username', response.email);
+      user.set('profileImageURL', response.picture.data.url);
+      user.set('thumbnailUrl', response.picture.data.url);
+      //user.set('friends', response.friends.data);
+      user.set('facebookID', response.id);
+      user.setPassword(response.id);
+      user.set('type', 'actual');
+      user.save(null, {
+        success: function(user) {
+          promise.resolve(true);
+        },
+        error: function(user, error) {
+          promise.resolve(false);
+        }
+      })
+    })
+  };
+  var login = function(user) {
+    Parse.User.logOut().then(function() {
+      Parse.User.logIn(user.get('email'), user.get('facebookID'), {
+        success: function(user) { promise.resolve(true); },
+        error: function(user, error) { promise.resolve(false); }
+      })
+    });
+  }
+
+  FB.getLoginStatus(function(response) {
+    if (response.status == 'connected') {
+      checkUser(response.authResponse);
+    } else {
+      FB.login(function(response) {
+        if (response.status == 'connected') {
+          checkUser(response.authResponse);
+        } else {
+          promise.resolve(false);
+        }
+      }, {scope: 'public_profile,email'});
+    }
+  });
+
+  return promise;
 }
 };
