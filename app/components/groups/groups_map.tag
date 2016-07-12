@@ -68,7 +68,7 @@
 				position: groupLocation,
 				title: self.groups[i].get('name'),
 				group: self.groups[i],
-				opacity: getOpacityOfGroup(self.groups[i])
+				opacity: self.getOpacityOfGroup(self.groups[i])
 				//icon: '/images/marker-nearby.png'
 			}))
 			self.markers[self.markers.length-1].addListener('click', function() {
@@ -79,7 +79,28 @@
 	})
 
 	getOpacityOfGroup(group) {
-		
+		var createdAt =  group.get('updatedAt')
+		var t = Date.parse(new Date()) - Date.parse(createdAt)
+		var seconds = Math.floor( (t/1000) )
+		console.log(group.get('name') + seconds);
+		if (seconds < 60*60*2){ // in the last 2 hour
+			return 1
+		} else {
+			return 0.5
+		}
+
+	}
+
+	getTime(createdAt) {
+		var t = Date.parse(new Date()) - Date.parse(createdAt)
+		var days = Math.floor( t/(1000*60*60*24) )
+		if (days) return days == 1 ? days + ' day ago' : days + ' days ago'
+		var hours = Math.floor( (t/(1000*60*60)) % 24 )
+		if (hours) return hours == 1 ? hours + ' hour ago' : hours + ' hours ago'
+		var minutes = Math.floor( (t/1000/60) % 60 )
+		if (minutes) return minutes == 1 ? minutes + ' minute ago' : minutes + ' minutes ago'
+		var seconds = Math.floor( (t/1000) % 60 )
+		if (seconds) return seconds == 1 ? seconds + ' second ago' : seconds + ' seconds ago'
 	}
 
 	initMap() {

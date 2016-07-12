@@ -33,7 +33,7 @@
 					<div class="nearby-title">
 						{ group.get('name') }
 					</div>
-					<div class="time">{ this.getTime(group.get('createdAt')) }</div>
+					<div class="time">{ this.getTime(group.get('updatedAt')) }</div>
 					<div class="desc">{ group.get('description') }</div>
 				</div>
 			</div>
