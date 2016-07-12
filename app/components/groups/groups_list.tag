@@ -33,6 +33,7 @@
 					<div class="nearby-title">
 						{ group.get('name') }
 					</div>
+					<div class="time">{ this.getTime(group.get('createdAt')) }</div>
 					<div class="desc">{ group.get('description') }</div>
 				</div>
 			</div>
@@ -76,6 +77,18 @@
 		self.joinedEnd += self.joinedLength
 		self.update()
 	}
+
+	getTime(createdAt) {
+		var t = Date.parse(new Date()) - Date.parse(createdAt)
+		var days = Math.floor( t/(1000*60*60*24) )
+		if (days) return days == 1 ? days + ' day ago' : days + ' days ago'
+		var hours = Math.floor( (t/(1000*60*60)) % 24 )
+		if (hours) return hours == 1 ? hours + ' hour ago' : hours + ' hours ago'
+		var minutes = Math.floor( (t/1000/60) % 60 )
+		if (minutes) return minutes == 1 ? minutes + ' minute ago' : minutes + ' minutes ago'
+		var seconds = Math.floor( (t/1000) % 60 )
+		if (seconds) return seconds == 1 ? seconds + ' second ago' : seconds + ' seconds ago'
+	}
 </script>
 
 <style scoped>
@@ -89,6 +102,10 @@
 		padding: 10px 16px;
 		background-color: #334067;
 		color: white;
+	}
+
+	.time{
+		font-size: 12px;
 	}
 
 	.joined-title {
