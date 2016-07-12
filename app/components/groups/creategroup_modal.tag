@@ -22,7 +22,7 @@
 							</div>
 							<div><input type="text" name="groupname" id="groupname" placeholder="What did you find?" size="100" maxlength="140"></div>
 							<div if={false}><input type="text" name="keywords" id="keywords" placeholder="Keywords"></div>
-							<textarea id="desc" class="form-control" placeholder="Short description" rows="3"></textarea>
+							<textarea if={false} id="desc" class="form-control" placeholder="Short description" rows="3"></textarea>
 
 						</div>
 
