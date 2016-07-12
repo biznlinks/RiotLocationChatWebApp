@@ -1,11 +1,10 @@
 <groupslist>
 
-<div if={ joinedGroups.length > 0 }>
+<!-- <div if={ joinedGroups.length > 0 }>
 	<div class="title">
 		Joined
 	</div>
 
-	<!-- Swiper -->
 	<div class="swiper-container">
 	    <div class="swiper-wrapper">
 	        <div class="swiper-slide" each={ group in joinedGroups} onclick={ this.chooseGroup(group.get('group')) }>
@@ -18,7 +17,7 @@
 	    </div>
 	</div>
 
-</div>
+</div> -->
 <div if={ joinedGroups.length > 0 }>
 
 </div>
