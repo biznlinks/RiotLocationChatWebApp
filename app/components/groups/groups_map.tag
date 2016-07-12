@@ -51,7 +51,8 @@
 				map: self.gmap,
 				position: groupLocation,
 				title: self.joinedGroups[i].get('group').get('name'),
-				group:self.joinedGroups[i].get('group')
+				group:self.joinedGroups[i].get('group'),
+				opacity: 0.5
 				//icon: '/images/marker-joined.png'
 			}))
 			self.markers[self.markers.length-1].addListener('click', function() {
@@ -67,6 +68,7 @@
 				position: groupLocation,
 				title: self.groups[i].get('name'),
 				group: self.groups[i],
+				opacity: getOpacityOfGroup(self.groups[i])
 				//icon: '/images/marker-nearby.png'
 			}))
 			self.markers[self.markers.length-1].addListener('click', function() {
@@ -75,6 +77,10 @@
 			})
 		}
 	})
+
+	getOpacityOfGroup(group) {
+		
+	}
 
 	initMap() {
 		self.gmap = new google.maps.Map(document.getElementById('groups-map'), {
@@ -90,7 +96,8 @@
 			map: self.gmap,
 			position: {lat: USER_POSITION.latitude, lng: USER_POSITION.longitude},
 			icon: '/images/marker-user.png',
-			zIndex: 1000
+			zIndex: 1000,
+			opacity: 1
 		})
 
 		google.maps.event.addListenerOnce(self.gmap, 'idle', function(){

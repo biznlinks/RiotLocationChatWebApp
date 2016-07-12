@@ -59,7 +59,7 @@
 			API.getallgroups(null, self.filter).then(function(groups) {		//TODO Add another filter to get the groups in joinedGroups UserGroup object
 				self.groups = groups.filter(function(group) {
 					for (var i = 0; i < self.joinedGroups.length; i++)
-						if (group.id == self.joinedGroups[i].get('group').id) return false
+						if (group.id == self.joinedGroups[i].get('group').id) return true
 					return true
 				})
 

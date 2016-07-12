@@ -20,8 +20,8 @@
 								<div class="add-photo" if={ !selectedImage }>Add Image</div>
 								<img class="img-circle group-photo" if={ selectedImage } src={ selectedImage.thumbnailUrl }>
 							</div>
-							<div><input type="text" name="groupname" id="groupname" placeholder="Group name" size="100" maxlength="140"></div>
-							<div><input type="text" name="keywords" id="keywords" placeholder="Keywords"></div>
+							<div><input type="text" name="groupname" id="groupname" placeholder="What did you find?" size="100" maxlength="140"></div>
+							<div if={false}><input type="text" name="keywords" id="keywords" placeholder="Keywords"></div>
 							<textarea id="desc" class="form-control" placeholder="Short description" rows="3"></textarea>
 
 						</div>
@@ -227,7 +227,7 @@
 							}
 						})
 
-						var newPostContent = 'Welcome to ' + group.get('name')
+						var newPostContent = '' + group.get('name')
 						newPostContent += (group.get('description')) ? ', ' + group.get('description') : ''
 						var PostObject = Parse.Object.extend('Post')
 						var newPost = new PostObject()
