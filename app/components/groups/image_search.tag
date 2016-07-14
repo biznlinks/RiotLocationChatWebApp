@@ -128,7 +128,7 @@
 	}
 
 	window.fadeIn = function(obj) {
-		$(obj).fadeIn({duration: 1000})
+		$(obj).fadeIn({duration: 200})
 	}
 
 	selectImage(image) {
@@ -212,7 +212,7 @@
 		var promise  = new Parse.Promise()
 
 		$('#outer-container').slideUp({
-			duration: 500,
+			duration: 0,
 			complete: function() { promise.resolve(true) }
 		})
 
@@ -232,7 +232,7 @@
 	showSearch() {
 		var promise = new Parse.Promise()
 		$('#image-search-container').slideDown({
-			duration: 500,
+			duration: 0,
 			complete: function() { promise.resolve(true) }
 		})
 
@@ -242,7 +242,7 @@
 	hideSearch() {
 		var promise = new Parse.Promise()
 		$('#image-search-container').slideUp({
-			duration: 500,
+			duration: 0,
 			complete: function() { promise.resolve(true) }
 		})
 
@@ -252,7 +252,7 @@
 	showEdit() {
 		var promise = new Parse.Promise()
 		$('#image-edit-container').slideDown({
-			duration: 500,
+			duration: 0,
 			complete: function() { promise.resolve(true) }
 		})
 
@@ -262,7 +262,7 @@
 	hideEdit() {
 		var promise = new Parse.Promise()
 		$('#image-edit-container').slideUp({
-			duration: 500,
+			duration: 0,
 			complete: function() { promise.resolve(true) }
 		})
 

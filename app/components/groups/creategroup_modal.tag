@@ -302,13 +302,13 @@
 			if (self.chooseLocation) return null;
 
 			$('#info').slideUp({
-				duration: 500,
+				duration: 0,
 				complete: function() {
 					self.chooseLocation = true
 					self.update()
 
 					$('#map-container').slideDown({
-						duration: 500,
+						duration: 0,
 						complete: function() {
 							google.maps.event.trigger(self.gmap, 'resize')
 							self.gmap.panTo(self.marker.position)
@@ -320,12 +320,12 @@
 
 		closeMap() {
 			$('#map-container').slideUp({
-				duration: 500,
+				duration: 0,
 				complete: function() {
 					if (self.address == '') self.address = 'Change Location'
 						self.chooseLocation = false
 					self.update()
-					$('#info').slideDown({duration: 500})
+					$('#info').slideDown({duration: 0})
 				}
 			}).addClass('hide')
 		}
@@ -333,7 +333,7 @@
 		showImageSearch() {
 			self.tags.imagesearch.update({callback: self.returnImageSearch})
 			$('#info-form').slideUp({
-				duration: 500,
+				duration: 0,
 				complete: function() {
 					self.tags.imagesearch.show()
 					self.info = false
@@ -354,7 +354,7 @@
 
 		back() {
 			self.tags.imagesearch.hide().then(function() {
-				$('#info-form').slideDown({duration: 500})
+				$('#info-form').slideDown({duration: 0})
 				self.info = true
 				self.update()
 			})
