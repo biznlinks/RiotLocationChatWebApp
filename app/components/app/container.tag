@@ -7,6 +7,7 @@
     <signup name="signupModal"></signup>
     <login name="loginModal"></login>
     <forgot name="forgotModal"></forgot>
+
     <ask name="askModal"></ask>
     <share name="shareModal"></share>
     <deletepost name="deletepostModal"></deletepost>
@@ -29,6 +30,7 @@
     </div>
 
     <topicsfeed if={ route=="topicsfeed" }></topicsfeed>
+    <!-- <menu name="menuModal"></menu> -->
 
     <!-- /.row -->
   </div>

@@ -31,6 +31,25 @@
 		</div>
 	</div>
 
+	<div if={ joinedGroups.length > 0 }>
+	<div class="title">
+		Joined
+	</div>
+
+	<div class="swiper-container">
+	    <div class="swiper-wrapper">
+	        <div class="swiper-slide" each={ group in joinedGroups} onclick={ this.chooseGroup(group.get('group')) }>
+					<img src={ API.getGroupThumbnail(group.get('group')) } class="image-joined">
+					<div class="joined-title">
+						{ group.get('group').get('name').slice(0,20) }
+						<span if={ group.get('group').get('name').length > 20 }>...</span>
+					</div>
+				</div>
+	    </div>
+	</div>
+
+	</div> 
+
 	<div class="body">
 		<div class="navigation">
 			<ul class="nav nav-tabs" role="tablist">

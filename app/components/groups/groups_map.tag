@@ -68,7 +68,7 @@
 				var groupLocation = {lat: self.groups[i].get('location').latitude,
 				lng: self.groups[i].get('location').longitude}
 				var icon = {
-				    url: API.getGroupImage(self.groups[i]), // url
+				    url: API.getGroupThumbnail(self.groups[i]), // url
 				    scaledSize: new google.maps.Size(30, 30), // scaled size
 				    origin: new google.maps.Point(0,0), // origin
 				    anchor: new google.maps.Point(0, 0) // anchor
