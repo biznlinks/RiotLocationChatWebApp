@@ -54,6 +54,7 @@
 	self.loading   = false
 
 
+
 	this.on('mount', function() {
 		$('#outer-container').slideUp({duration: 0})
 		$('#image-search-container').slideUp({duration: 0})
@@ -86,14 +87,15 @@
 		}
 	}
 
-	searchImage(offset) {
+	searchImage(query) {
+
 		self.searchStart   = 0
 		self.searchEnd     = 3
 		self.searching     = true
 		self.update()
 		self.searchResults = []
 
-		var query = self.imageQuery.value
+		var query = query || self.imageQuery.value
 		API.searchImage(query).then(function(data) {
 			self.searchResults = data
 			self.searching     = false

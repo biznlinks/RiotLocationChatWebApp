@@ -331,7 +331,9 @@
 		}
 
 		showImageSearch() {
-			self.tags.imagesearch.update({callback: self.returnImageSearch})
+			self.tags.imagesearch.update({callback: self.returnImageSearch
+			})
+			self.tags.imagesearch.searchImage(self.groupname.value)
 			$('#info-form').slideUp({
 				duration: 0,
 				complete: function() {
