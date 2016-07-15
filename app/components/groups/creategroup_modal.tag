@@ -31,7 +31,7 @@
 							<div id="map"></div>
 							<input class={shown: showMapSearch, hidden: !showMapSearch} id="place-input" type="text" placeholder="Search for place"/>
 							<!-- <div>Discoverability Radius</div> -->
-							<input name="slider" type="range" value="10"></input>
+							<input class="hidden" name="slider" type="range" value="10"></input>
 						
 						</div>
 
@@ -522,7 +522,7 @@
 		}
 		@media screen and (max-height: 1000px) {
 			#map {
-				height: 300px;
+				height: 200px;
 			}
 		}
 
