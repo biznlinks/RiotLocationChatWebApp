@@ -99,6 +99,7 @@
 
 	showCreateModal() {
 		$('#creategroupModal').modal('show')
+		containerTag.trigger('showMap')
 	}
 
 	keyUp() {

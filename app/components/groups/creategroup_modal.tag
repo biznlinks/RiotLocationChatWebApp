@@ -23,20 +23,24 @@
 							<div><input type="text" name="groupname" id="groupname" placeholder="What did you find?" size="100" maxlength="140"></div>
 							<div if={false}><input type="text" name="keywords" id="keywords" placeholder="Keywords"></div>
 							<textarea if={false} id="desc" class="form-control" placeholder="Short description" rows="3"></textarea>
-
-						</div>
-
-						<div id="map-container" class="hide">
-							<input id="place-input" type="text" placeholder="Search for place"/>
+							<!-- <div id="map"></div> -->
+							<!-- <input if={showMapSearch} id="place-input" type="text" placeholder="Search for place"/> -->
+							
+						<!-- <input if={showMapSearch} id="place-input" type="text" placeholder="Search for place"/> -->
+							
 							<div id="map"></div>
-							<div>Discoverability Radius</div>
+							<input class={shown: showMapSearch, hidden: !showMapSearch} id="place-input" type="text" placeholder="Search for place"/>
+							<!-- <div>Discoverability Radius</div> -->
 							<input name="slider" type="range" value="10"></input>
+						
 						</div>
+
+
 
 						<div class="address" onclick={ this.showMap }>{ address }</div>
 
-						<div class="confirm-container" if={ !chooseLocation }><button class="btn btn-primary" onclick={ this.submitGroup }>Create</button></div>
-						<div class="confirm-container" if={ chooseLocation }><button class="btn btn-default" onclick={ this.closeMap }>OK</button></div>
+						<div class="confirm-container"><button class="btn btn-primary" onclick={ this.submitGroup }>Create</button></div>
+						<div class="confirm-container" if={ false }><button class="btn btn-default" onclick={ this.closeMap }>OK</button></div>
 					</div>
 
 					<imagesearch></imagesearch>
@@ -56,6 +60,16 @@
 		self.info    = true
 
 		creategroupTag = this
+
+		containerTag.on("showMap", function(){
+			console.log("triggered");
+			setTimeout(function(){
+				google.maps.event.trigger(self.gmap, 'resize')
+							self.gmap.panTo(self.marker.position)
+						}, 1000)
+			
+
+		})
 
 		this.on('mount', function() {
 			self.initMap()
@@ -146,7 +160,7 @@
 				self.update()
 			})
 
-			$('#map-container').slideUp({duration:0})
+			// $('#map-container').slideUp({duration:0})
 		}
 
 		resetMap() {
@@ -299,23 +313,32 @@
 		}
 
 		showMap() {
-			if (self.chooseLocation) return null;
+			self.showMapSearch = true
+			self.chooseLocation = true
+			self.update()
 
-			$('#info').slideUp({
-				duration: 0,
-				complete: function() {
-					self.chooseLocation = true
-					self.update()
-
-					$('#map-container').slideDown({
-						duration: 0,
-						complete: function() {
 							google.maps.event.trigger(self.gmap, 'resize')
 							self.gmap.panTo(self.marker.position)
-						}
-					}).removeClass('hide')
-				}
-			})
+
+
+			// if (self.chooseLocation) return null;
+
+
+			// $('#info').slideUp({
+			// 	duration: 0,
+			// 	complete: function() {
+			// 		self.chooseLocation = true
+			// 		self.update()
+
+			// 		$('#map-container').slideDown({
+			// 			duration: 0,
+			// 			complete: function() {
+			// 				google.maps.event.trigger(self.gmap, 'resize')
+			// 				self.gmap.panTo(self.marker.position)
+			// 			}
+			// 		}).removeClass('hide')
+			// 	}
+			// })
 		}
 
 		closeMap() {
@@ -397,8 +420,9 @@
 
 		.groupinfo-container input {
 			text-align: center;
-			margin-bottom: 15px;
+			/*margin-bottom: 15px;*/
 			border: none;
+			margin: 0 auto;
 		}
 
 		#groupname {
@@ -411,12 +435,12 @@
 		}
 
 		#map-container {
-			height: 400px;
+			height: 100%;
 		}
 
 		#map {
 			margin-top: 20px;
-			margin-bottom: 20px;
+			/*margin-bottom: 20px;*/
 		}
 
 		.hide #map {
@@ -424,7 +448,7 @@
 		}
 
 		.address {
-			margin-top: 20px;
+			/*margin-top: 20px;*/
 			color: #00BFFF;
 		}
 
@@ -500,6 +524,13 @@
 			#map {
 				height: 300px;
 			}
+		}
+
+		.shown {
+			display: block;
+		}
+		.hidden {
+			display: none;
 		}
 	</style>
 </creategroup>
