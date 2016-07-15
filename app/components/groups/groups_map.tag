@@ -47,13 +47,23 @@
 			for (var i = 0; i < self.joinedGroups.length; i++) {
 				var groupLocation = {lat: self.joinedGroups[i].get('group').get('location').latitude,
 				lng: self.joinedGroups[i].get('group').get('location').longitude}
+
+				var icon = {
+				    url: API.getGroupThumbnail(self.joinedGroups[i]), // url
+				    scaledSize: new google.maps.Size(30, 30), // scaled size
+				    origin: new google.maps.Point(0,0), // origin
+				    anchor: new google.maps.Point(0, 0) // anchor
+				    
+				}
+
+
 				self.markers.push(new google.maps.Marker({
 					map: self.gmap,
 					position: groupLocation,
 					title: self.joinedGroups[i].get('group').get('name'),
 					group:self.joinedGroups[i].get('group'),
-					opacity: self.getOpacityOfGroup(self.joinedGroups[i].get('group'))
-				//icon: '/images/marker-joined.png'
+					opacity: self.getOpacityOfGroup(self.joinedGroups[i].get('group')),
+				icon: icon
 			}))
 				self.markers[self.markers.length-1].addListener('click', function() {
 					self.selectedGroup = this.group
@@ -72,7 +82,7 @@
 				    scaledSize: new google.maps.Size(30, 30), // scaled size
 				    origin: new google.maps.Point(0,0), // origin
 				    anchor: new google.maps.Point(0, 0) // anchor
-				    
+
 				}
 				self.markers.push(new google.maps.Marker({
 					map: self.gmap,
