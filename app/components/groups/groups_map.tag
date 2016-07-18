@@ -127,7 +127,7 @@
 initMap() {
 	self.gmap = new google.maps.Map(document.getElementById('groups-map'), {
 		center: {lat: USER_POSITION.latitude, lng: USER_POSITION.longitude},
-		zoom: 12,
+		zoom: 13,
 		disableDefaultUI: true,
 		zoomControl: true,
 		styles: [{ featureType: "poi", elementType: "labels", stylers: [{ visibility: "off" }]},
@@ -155,7 +155,7 @@ triggerResize() {
 resetMap() {
 	if (self.gmap) {
 		self.gmap.setCenter({lat: USER_POSITION.latitude, lng: USER_POSITION.longitude})
-		self.gmap.setZoom(12)
+		self.gmap.setZoom(13)
 		self.userMarker.setPosition({lat: USER_POSITION.latitude, lng: USER_POSITION.longitude})
 	}
 }
@@ -258,11 +258,11 @@ gotoGroup() {
 
 
 	.map-container{
-		margin-top: 60px;
+		padding-top: 60px;
 	}
 
 	#groups-map{
-		height: 400px;
+		height: 70vh;
 	}
 
 	@media (max-width: 480px) {
