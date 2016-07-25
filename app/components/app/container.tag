@@ -125,7 +125,7 @@
     }
     function feed() {
       FIRST_TIME = false
-      self.track('feed')
+      self.track('feed', self.group.get('name'))
       self.update({
         title: "",
         body:  "This is the feed!",

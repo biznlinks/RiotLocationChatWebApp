@@ -5,7 +5,7 @@
 	<groupsmap name="groupsmap"></groupsmap>
 
 	<div class="filter-container">
-		<input type="text" placeholder="Pokemon Channels" name="groupquery" oninput={ this.keyUp }>
+		<input type="text" placeholder="Filter Topics" name="groupquery" oninput={ this.keyUp }>
 	</div>
 
 	<div class="outer-container" style="
